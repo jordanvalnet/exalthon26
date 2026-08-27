@@ -1,0 +1,20 @@
+{
+  "name": "atelier-agent-mcp-github-angular",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Base de départ Angular pour l'atelier Agent + MCP GitHub. Squelette minimal — voir README.md du dossier pour générer un projet Angular CLI complet si besoin.",
+  "scripts": {
+    "start": "ng serve",
+    "build": "ng build"
+  },
+  "dependencies": {
+    "@angular/core": "^18.0.0",
+    "@angular/common": "^18.0.0",
+    "@angular/platform-browser": "^18.0.0",
+    "rxjs": "^7.8.0",
+    "zone.js": "^0.14.0"
+  },
+  "devDependencies": {
+    "@angular/cli": "^18.0.0"
+  }
+}
