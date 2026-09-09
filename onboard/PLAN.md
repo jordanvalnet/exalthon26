@@ -13,7 +13,7 @@ Les skills Claude Code (`.claude/skills/`) ne font que pointer sur `agents/`, po
 | # | Morceau | Fichiers | Fini quand | Qui |
 |---|---|---|---|---|
 | M0 | Contrat et validations | `WORKFLOW.md`, `SCHEMA.md`, `src/facts.ts`, `src/validate.ts`, `src/merge.ts`, `cache/example/` | `validate facts` et `validate narrative` passent sur `cache/example` | Jordan |
-| M1 | Profils | `profiles/<profil>.json` (6 fichiers JSON : description, éléments priorisés avec leurs facts et sources, ton, deck) | les clés `facts` et `sources` existent dans `SCHEMA.md`, chaque question est une vraie question du public visé, l'ordre est l'ordre de priorité | Rado (radomd92) |
+| M1 | Profils | `profiles/<profil>.json` (6 fichiers JSON : description, éléments priorisés avec leurs facts et sources, ton, deck) | les clés `facts` et `sources` existent dans `SCHEMA.md`, chaque question est une vraie question du public visé, l'ordre est l'ordre de priorité | Rado (radomd92) et Sacane |
 | M2 | Collecte, 5 sous-agents parallèles | `agents/1-collect.md` (coordination), `1a-meta`, `1b-history`, `1c-docs`, `1d-code`, `1e-roadmap`, run réel sur le repo de démo | `bun run merge` passe pour dev, puis pour les autres profils, en moins de 3 min | Princy (PrAndrian) |
 | M3 | Rédacteur | `agents/2-write.md`, run réel | `validate narrative` passe, le texte est dans le ton du profil | à attribuer |
 | M4 | Rendu final | `src/render/`, `agents/3-render.md`, export PDF (impression du HTML) ou PPT | `bun run render onboard/cache/example dev` puis `validate deck` passent, le deck est beau à l'écran, et un PDF ou un PPT en sort | Liivasoa |
@@ -21,7 +21,7 @@ Les skills Claude Code (`.claude/skills/`) ne font que pointer sur `agents/`, po
 | M6 | Orchestrateur, CLI | `agents/0-onboard.md`, `src/cli.ts` | `bun onboard <owner/repo> dev` sort un deck sans intervention | Princy (PrAndrian) |
 | M7 | Démo | cache pré-calculé pour 3 profils, capture, `LIVRABLE.md` | le pitch tient en 1 min, le run live en 2 | Jordan + à attribuer |
 
-À attribuer : M3 (rédacteur), M5 (guide Q/A) et l'aide sur M7, parmi Sacane et Yacine-Alicherif.
+À attribuer : M3 (rédacteur), M5 (guide Q/A) et l'aide sur M7. Yacine-Alicherif est libre ; Rado et Sacane peuvent se partager profils et rédacteur, les deux vont ensemble.
 
 ## L'heure qui vient
 
