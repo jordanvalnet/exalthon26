@@ -6,7 +6,7 @@ import { z } from "zod";
 import { Facts } from "./facts.ts";
 import { readProfile, validateFacts } from "./validate.ts";
 
-const ORDER = ["meta", "history", "docs", "code", "roadmap"];
+const ORDER = ["meta", "issues", "history", "docs", "code", "roadmap"];
 const Part = Facts.omit({ schema: true, collected: true })
   .partial()
   .extend({ collected: z.object({ by: z.string().optional(), at: z.string().optional() }).optional() });
