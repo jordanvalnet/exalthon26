@@ -1,9 +1,8 @@
-# Contexte projet — Atelier Agent MCP
+# exalthon26 — contexte projet
 
-Ce projet est un point de départ pour l'atelier de l'eXaltemps.
+Hackathon « Agent + MCP GitHub » (eXaltemps, 2026-09-09). Consignes du jury : `HACKATHON.md`. Repos cibles : `CIBLES.md`.
 
 ## Objectif
-
 Communication instantanée entre les 6 devs de l'équipe via leurs IA : chaque assistant (Claude Code, Copilot, Codex)
 lit et écrit sur un canal commun hébergé par GitHub (une issue = le canal, un commentaire = un message).
 Client : `chat/chat.mjs`, zéro dépendance, tout OS.
@@ -18,61 +17,27 @@ un commentaire = un message, l'auteur est le compte GitHub du token. Client : `c
 - Sans terminal : outils `github:*` (`issue_read` method `get_comments`, `add_issue_comment`) sur cette issue.
 - Ne jamais fermer l'issue. Doc : `chat/README.md`.
 
+## Stack
+- **bun** (jamais npm), TypeScript strict. bun charge `.env` tout seul : `process.env.GITHUB_PAT` est disponible.
+- Outils GitHub : le serveur MCP `github` de `.mcp.json` (outils `github:*`) pour l'agent, `src/github.ts` pour le code.
 
-## Repos cibles
-
-Liste des repos cibles (dont le repo de test <https://github.com/n8n-io>) : `CIBLES.md`.
+## Commandes (racine du repo)
+| Commande | Effet |
+|---|---|
+| `bun install` | dépendances |
+| `bun run dev` | lance `src/index.ts`, relance à chaque modification |
+| `bun run check` | typecheck + tests. **À lancer avant de rendre la main.** |
+| `bun run chat read` | le chat d'équipe (voir `chat/README.md`) |
 
 ## Structure
-
 ```
-.mcp.json              # config du serveur MCP GitHub (scope projet)
-│
-├── python-starter/      # Starter pack Python
-│   ├── requirements.txt #   dépendances pip — ajoutez les vôtres au fur et à mesure
-│   └── main.py          #   point d'entrée — complétez ici la logique métier
-│
-├── node-starter/        # Starter pack Node.js (ES modules)
-│   ├── package.json     #   dépendances et scripts npm (npm start)
-│   └── src/
-│       └── index.js     #   point d'entrée — complétez ici la logique métier
-│
-├── react-starter/       # Starter pack React + Vite
-│   ├── package.json
-│   ├── index.html
-│   ├── vite.config.js
-│   └── src/             #   point d'entrée React
-│
-├── angular-starter/     # Starter pack Angular
-│   ├── package.json
-│   └── src/             #   point d'entrée Angular
-│
-├── java-starter/        # Starter pack Java (Maven)
-│   ├── pom.xml
-│   └── src/             #   point d'entrée Java
-│
-├── kotlin-starter/      # Starter pack Kotlin (Gradle)
-│   ├── build.gradle.kts
-│   ├── settings.gradle.kts
-│   └── src/             #   point d'entrée Kotlin
-│
-├── csharp-starter/      # Starter pack C# (.NET)
-│   ├── atelier-agent-mcp-github.csproj
-│   └── Program.cs       #   point d'entrée C#
-│
-└── cpp-starter/         # Starter pack C++
-    ├── CMakeLists.txt
-    └── main.cpp         #   point d'entrée C++
+src/index.ts      point d'entrée
+src/github.ts     appels à l'API GitHub
+test/             tests bun (bun:test)
+chat/chat.mjs     client du chat, fichier unique sans dépendance : le laisser en .mjs, node doit pouvoir le lancer
 ```
 
-
-### Pour démarrer rapidement
-
-- **Python** : `cd python-starter && pip install -r requirements.txt && python main.py`
-- **Node** : `cd node-starter && npm install && npm start`
-- **React** : `cd react-starter && npm install && npm run dev`
-- **Angular** : `cd angular-starter && npm install && npm start`
-- **Java** : `cd java-starter && mvn compile exec:java`
-- **Kotlin** : `cd kotlin-starter && ./gradlew run`
-- **C#** : `cd csharp-starter && dotnet run`
-- **C++** : `cd cpp-starter && cmake -B build && cmake --build build && ./build/main`
+## Règles
+- Code sobre : pas d'abstraction avant le deuxième usage, pas de commentaire qui répète le code.
+- Un nouveau module = un test dans `test/`. `bun run check` avant de rendre la main.
+- Recherche dans le code : `rg motif .` (ripgrep), pas `grep -r`. Toujours donner le chemin.

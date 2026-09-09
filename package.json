@@ -1,0 +1,19 @@
+{
+  "name": "exalthon26",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Communication instantanée entre devs via leurs IA (hackathon eXaltemps 2026)",
+  "scripts": {
+    "dev": "bun --watch src/index.ts",
+    "start": "bun src/index.ts",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit",
+    "check": "bun run typecheck && bun test",
+    "chat": "bun chat/chat.mjs"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5"
+  }
+}
