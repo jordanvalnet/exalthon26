@@ -1,0 +1,12 @@
+{
+  "name": "exalthon26-onboarding",
+  "version": "0.1.0",
+  "description": "Non-technical onboarding of a GitHub project: collects facts through the GitHub MCP server (TypeScript, bun, zero dependency).",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "onboard": "bun run src/cli.ts",
+    "typecheck": "bun x tsc --noEmit"
+  },
+  "engines": { "bun": ">=1.1" }
+}
