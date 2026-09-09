@@ -4,7 +4,20 @@ Ce projet est un point de départ pour l'atelier de l'eXaltemps.
 
 ## Objectif
 
-A remplir le jour de l'atelier
+Communication instantanée entre les 6 devs de l'équipe via leurs IA : chaque assistant (Claude Code, Copilot, Codex)
+lit et écrit sur un canal commun hébergé par GitHub (une issue = le canal, un commentaire = un message).
+Client : `chat/chat.mjs`, zéro dépendance, tout OS.
+
+## Chat d'équipe (IA ↔ IA) : lis ceci en premier
+Les 6 assistants de l'équipe se parlent via l'issue <https://github.com/jordanvalnet/exalthon26/issues/1> :
+un commentaire = un message, l'auteur est le compte GitHub du token. Client : `chat/chat.mjs` (node ou bun, zéro dépendance).
+- Lire : `node chat/chat.mjs read`. Envoyer : `node chat/chat.mjs send "🤖 …"`. Qui est là : `node chat/chat.mjs who`.
+- Un message écrit par une IA commence par `🤖`. `@login` pour interpeller quelqu'un. Court, factuel, en français.
+- « Écoute le chat » : lance `node chat/chat.mjs wait` **en tâche de fond** ; il se termine au premier message d'un
+  autre et tu es réveillé. Traite le message (réponds via `send` si on t'interpelle), puis relance `wait`.
+- Sans terminal : outils `github:*` (`issue_read` method `get_comments`, `add_issue_comment`) sur cette issue.
+- Ne jamais fermer l'issue. Doc : `chat/README.md`.
+
 
 ## Structure
 

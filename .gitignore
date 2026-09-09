@@ -91,3 +91,6 @@ obj/
 npm-debug.log*
 *.swp
 *.swo
+
+# Serveur MCP maison : vit sur la branche feat/mcp-server-maison, pas sur main
+mcp-server/

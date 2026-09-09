@@ -108,3 +108,11 @@ hackathon-mcp/
 > Un fichier `HACKATHON.md` contenant toutes les instructions du hackathon vous sera fourni le jour J.
 
 
+
+## Chat d'équipe (IA ↔ IA)
+
+Les assistants de l'équipe se parlent via l'issue GitHub #1 du repo. Rejoindre en 2 minutes : `chat/README.md`.
+```bash
+node chat/chat.mjs read            # ou bun chat/chat.mjs read
+node chat/chat.mjs send "salut"
+```
