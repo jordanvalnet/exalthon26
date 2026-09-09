@@ -1,0 +1,139 @@
+<!DOCTYPE html> <html lang="fr"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>ONBOARD — Pitch</title> <style> @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap'); * { box-sizing: border-box; } :root { --bg: #070A12; --panel: #101522; --panel2: #151C2C; --white: #F8FAFC; --muted: #94A3B8; --purple: #8B5CF6; --cyan: #22D3EE; --pink: #F472B6; --green: #34D399; --yellow: #FBBF24; } body { margin: 0; background: #02040a; color: var(--white); font-family: Inter, Arial, sans-serif; overflow: hidden; } .deck { width: 100vw; height: 100vh; position: relative; } .slide { position: absolute; inset: 0; width: 100%; height: 100%; padding: 6vh 7vw; display: flex; flex-direction: column; justify-content: center; opacity: 0; pointer-events: none; transform: translateX(35px); transition: opacity .45s ease, transform .45s ease; overflow: hidden; background: radial-gradient(circle at 85% 10%, rgba(139,92,246,.13), transparent 28%), radial-gradient(circle at 10% 90%, rgba(34,211,238,.07), transparent 25%), var(--bg); } .slide.active { opacity: 1; pointer-events: auto; transform: translateX(0); } .slide::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--purple), var(--cyan)); } .logo { position: absolute; top: 4vh; left: 7vw; font-size: 13px; font-weight: 800; letter-spacing: .18em; color: var(--cyan); } .counter { position: absolute; top: 4vh; right: 7vw; font-size: 12px; color: var(--muted); } h1 { font-size: clamp(48px, 6vw, 86px); line-height: .98; margin: 0 0 25px; font-weight: 800; letter-spacing: -.055em; } h2 { font-size: clamp(34px, 4vw, 58px); line-height: 1.02; margin: 0 0 16px; font-weight: 800; letter-spacing: -.045em; } .subtitle { font-size: clamp(18px, 2vw, 28px); color: var(--muted); line-height: 1.4; max-width: 850px; } .gradient { background: linear-gradient(90deg, #fff, #b9a6ff, #6ee7f9); -webkit-background-clip: text; color: transparent; } .accent { color: var(--cyan); } .small { font-size: 13px; color: var(--muted); } .pill { display: inline-flex; padding: 9px 15px; border-radius: 999px; border: 1px solid rgba(34,211,238,.3); background: rgba(34,211,238,.08); color: var(--cyan); font-size: 12px; font-weight: 700; letter-spacing: .08em; margin-bottom: 30px; } .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 45px; } .card { padding: 28px; border-radius: 18px; background: linear-gradient(145deg, rgba(21,28,44,.95), rgba(10,14,24,.95)); border: 1px solid rgba(148,163,184,.12); min-height: 190px; position: relative; } .card::before { content: ""; position: absolute; left: 0; top: 20px; bottom: 20px; width: 3px; border-radius: 5px; background: var(--purple); } .card.cyan::before { background: var(--cyan); } .card.pink::before { background: var(--pink); } .card.green::before { background: var(--green); } .card.yellow::before { background: var(--yellow); } .card h3 { margin: 0 0 13px; font-size: 19px; } .card p { margin: 0; color: var(--muted); line-height: 1.5; font-size: 14px; } .flow { display: flex; align-items: center; justify-content: center; gap: 13px; margin-top: 65px; } .node { width: 175px; height: 125px; border-radius: 18px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: var(--panel); border: 1px solid rgba(255,255,255,.1); } .node strong { font-size: 18px; margin-bottom: 8px; } .node span { color: var(--muted); font-size: 12px; } .arrow { color: var(--muted); font-size: 25px; } .center { text-align: center; align-items: center; } .big-circle { width: 240px; height: 240px; border-radius: 50%; margin: 20px auto 30px; display: flex; justify-content: center; align-items: center; background: radial-gradient(circle, rgba(139,92,246,.4), rgba(139,92,246,.08) 55%, transparent 70%); border: 1px solid rgba(139,92,246,.35); box-shadow: 0 0 80px rgba(139,92,246,.16), inset 0 0 60px rgba(139,92,246,.1); } .big-circle span { font-size: 28px; font-weight: 800; } .personas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 38px; } .persona { padding: 23px; border-radius: 16px; background: rgba(16,21,34,.85); border: 1px solid rgba(255,255,255,.08); } .persona .emoji { font-size: 28px; margin-bottom: 13px; } .persona strong { display: block; margin-bottom: 7px; } .persona span { color: var(--muted); font-size: 13px; } .terminal { margin-top: 45px; padding: 30px 35px; border-radius: 16px; background: #03050a; border: 1px solid rgba(34,211,238,.2); box-shadow: 0 20px 70px rgba(0,0,0,.3); } .terminal .dots { display: flex; gap: 7px; margin-bottom: 24px; } .terminal .dots i { width: 9px; height: 9px; border-radius: 50%; background: #475569; } .terminal code { font-family: "SFMono-Regular", Consolas, monospace; color: var(--cyan); font-size: clamp(14px, 1.5vw, 20px); } .answer { margin-top: 45px; padding: 35px; border-radius: 20px; background: linear-gradient(135deg, rgba(139,92,246,.13), rgba(34,211,238,.05)); border: 1px solid rgba(139,92,246,.25); } .answer .question { color: var(--muted); font-size: 14px; margin-bottom: 17px; } .answer .response { font-size: 22px; line-height: 1.4; } .sources { margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap; } .source { padding: 7px 11px; border-radius: 8px; background: rgba(255,255,255,.05); color: var(--cyan); font-family: monospace; font-size: 11px; } .quote { font-size: clamp(30px, 4vw, 58px); line-height: 1.1; font-weight: 800; max-width: 950px; } .bottom { position: absolute; bottom: 4vh; left: 7vw; color: #475569; font-size: 11px; } .hint { position: absolute; bottom: 4vh; right: 7vw; color: #475569; font-size: 11px; } @media (max-width: 800px) { .grid, .personas { grid-template-columns: 1fr; } .flow { transform: scale(.65); transform-origin: left center; } .card { min-height: auto; } } @media print { body { overflow: visible; } .slide { position: relative; opacity: 1; transform: none; pointer-events: auto; page-break-after: always; height: 100vh; } .hint { display: none; } } </style> </head> <body> <div class="deck"> <!-- SLIDE 1 --> <section class="slide active"> <div class="logo">ONBOARD</div> <div class="counter">01 / 08</div> <div class="pill">HACKATHON 2026</div> <h1> Transformez n'importe quel repo GitHub<br> <span class="gradient">en compréhension.</span> </h1> <div class="subtitle"> Un agent IA qui explore un repository,<br> le comprend et l'explique à la bonne audience. </div> <div style="margin-top:50px;color:#64748b;font-size:13px"> Agent × MCP GitHub × narration personnalisée </div> <div class="bottom">eXaltemps</div> <div class="hint">← → pour naviguer</div> </section> <!-- SLIDE 2 --> <section class="slide"> <div class="logo">ONBOARD</div> <div class="counter">02 / 08</div> <h2>Un repo GitHub n'est<br><span class="gradient">pas une explication.</span></h2> <div class="subtitle"> Le premier problème n'est pas de coder.<br> C'est de comprendre. </div> <div class="grid">
+<div class="card">
+  <h3>📚 Trop d'informations</h3>
+  <p>
+    Code, configuration, documentation et tests
+    sont répartis dans tout le repository.
+  </p>
+</div>
+
+<div class="card cyan">
+  <h3>👥 Des audiences différentes</h3>
+  <p>
+    Un développeur, un CTO, un QA ou un investisseur
+    ne se posent pas les mêmes questions.
+  </p>
+</div>
+
+<div class="card pink">
+  <h3>⏱ Trop de contexte</h3>
+  <p>
+    Comprendre la vue d'ensemble manuellement
+    demande du temps avant d'obtenir quelque chose d'utile.
+  </p>
+</div>
+
+</div> <div style="margin-top:35px;font-size:18px;font-weight:700"> Onboarding lent → compréhension fragmentée → temps perdu </div> <div class="hint">← →</div> </section> <!-- SLIDE 3 --> <section class="slide center"> <div class="logo">ONBOARD</div> <div class="counter">03 / 08</div> <h2>Un repo.<br><span class="gradient">Des histoires différentes.</span></h2> <div class="big-circle"> <span>REPO<br>GITHUB</span> </div> <div class="subtitle"> La bonne explication dépend<br> de <strong style="color:white">qui pose la question.</strong> </div> <div class="hint">← →</div> </section> <!-- SLIDE 4 --> <section class="slide"> <div class="logo">ONBOARD</div> <div class="counter">04 / 08</div> <h2>Comment fonctionne <span class="gradient">Onboard</span></h2> <div class="subtitle"> L'agent explore, structure, valide et explique. </div> <div class="flow">
+<div class="node">
+  <strong>GitHub</strong>
+  <span>Repository</span>
+</div>
+
+<div class="arrow">→</div>
+
+<div class="node">
+  <strong style="color:#8b5cf6">MCP</strong>
+  <span>Accès & outils</span>
+</div>
+
+<div class="arrow">→</div>
+
+<div class="node">
+  <strong style="color:#f472b6">Agent</strong>
+  <span>Explore & collecte</span>
+</div>
+
+<div class="arrow">→</div>
+
+<div class="node">
+  <strong style="color:#fbbf24">Connaissance</strong>
+  <span>Faits + narration</span>
+</div>
+
+<div class="arrow">→</div>
+
+<div class="node">
+  <strong style="color:#34d399">Deck</strong>
+  <span>Sortie personnalisée</span>
+</div>
+
+</div> <div style="text-align:center;margin-top:55px;color:#94a3b8"> Faits → validation → narration → présentation </div> <div class="hint">← →</div> </section> <!-- SLIDE 5 --> <section class="slide"> <div class="logo">ONBOARD</div> <div class="counter">05 / 08</div> <h2>Un repo.<br><span class="gradient">Six perspectives.</span></h2> <div class="subtitle"> Les mêmes sources — des explications radicalement différentes. </div> <div class="personas">
+<div class="persona">
+  <div class="emoji">👨‍💻</div>
+  <strong>Développeur</strong>
+  <span>Comment ça fonctionne ?</span>
+</div>
+
+<div class="persona">
+  <div class="emoji">🧪</div>
+  <strong>QA</strong>
+  <span>Où cela peut-il casser ?</span>
+</div>
+
+<div class="persona">
+  <div class="emoji">🏗</div>
+  <strong>CTO</strong>
+  <span>Est-ce que ça peut passer à l'échelle ?</span>
+</div>
+
+<div class="persona">
+  <div class="emoji">💼</div>
+  <strong>CEO</strong>
+  <span>Quelle est la valeur produit ?</span>
+</div>
+
+<div class="persona">
+  <div class="emoji">💰</div>
+  <strong>Investisseur</strong>
+  <span>Pourquoi cela pourrait compter ?</span>
+</div>
+
+<div class="persona">
+  <div class="emoji">🧒</div>
+  <strong>Enfant</strong>
+  <span>Peux-tu l'expliquer simplement ?</span>
+</div>
+
+</div> <div class="hint">← →</div> </section> <!-- SLIDE 6 --> <section class="slide"> <div class="logo">ONBOARD</div> <div class="counter">06 / 08</div> <h2>Ne répondez pas seulement.<br><span class="gradient">Montrez pourquoi.</span></h2> <div class="subtitle"> Onboard garde l'explication connectée au repository. </div> <div class="answer">
+<div class="question">
+  Q — Pourquoi le projet a-t-il choisi cette architecture ?
+</div>
+
+<div class="response">
+  L'agent explique le raisonnement
+  <strong>et renvoie vers le repository.</strong>
+</div>
+
+<div class="sources">
+  <div class="source">README.md</div>
+  <div class="source">src/</div>
+  <div class="source">onboard/</div>
+  <div class="source">GitHub</div>
+</div>
+
+</div> <div style="margin-top:30px;color:#34d399;font-weight:700"> → Un onboarding fondé sur les preuves </div> <div class="hint">← →</div> </section> <!-- SLIDE 7 --> <section class="slide"> <div class="logo">ONBOARD</div> <div class="counter">07 / 08</div> <h2>D'une commande<br><span class="gradient">à un deck personnalisé.</span></h2> <div class="subtitle"> Tout le parcours d'onboarding est conçu pour être exécutable. </div> <div class="terminal">
+<div class="dots">
+  <i></i><i></i><i></i>
+</div>
+
+<code>
+  $ bun onboard owner/repo profil
+</code>
+
+</div> <div class="grid" style="margin-top:25px">
+<div class="card cyan" style="min-height:130px">
+  <h3>01 — Connexion</h3>
+  <p>MCP GitHub</p>
+</div>
+
+<div class="card" style="min-height:130px">
+  <h3>02 — Exploration</h3>
+  <p>Repository</p>
+</div>
+
+<div class="card pink" style="min-height:130px">
+  <h3>03 — Validation</h3>
+  <p>Faits & narration</p>
+</div>
+
+</div> <div style="margin-top:25px;text-align:center;color:#34d399;font-weight:700"> → Deck HTML personnalisé </div> <div class="hint">← →</div> </section> <!-- SLIDE 8 --> <section class="slide"> <div class="logo">ONBOARD</div> <div class="counter">08 / 08</div> <div class="quote"> De<br> <span style="color:#64748b">« Je ne connais pas ce repo »</span><br> à<br> <span class="gradient">« Je le comprends. »</span> </div> <div class="subtitle" style="margin-top:45px"> Agent × MCP GitHub × compréhension personnalisée </div> <div style="margin-top:55px;color:#22d3ee;font-weight:700;font-size:16px"> ONBOARD </div> <div class="bottom"> eXaltemps · Hackathon 2026 </div> <div class="hint">← → · Échap pour quitter le plein écran</div> </section> </div> <script> const slides = document.querySelectorAll('.slide'); let current = 0; function showSlide(index) { if (index < 0) index = 0; if (index >= slides.length) index = slides.length - 1; slides.forEach((slide, i) => { slide.classList.toggle('active', i === index); }); current = index; } document.addEventListener('keydown', e => { if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); showSlide(current + 1); } if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); showSlide(current - 1); } if (e.key === 'Home') { showSlide(0); } if (e.key === 'End') { showSlide(slides.length - 1); } if (e.key === 'f' || e.key === 'F') { document.documentElement.requestFullscreen?.(); } if (e.key === 'Escape') { if (document.fullscreenElement) { document.exitFullscreen?.(); } } }); showSlide(0); </script> </body> </html>
