@@ -1,0 +1,72 @@
+{
+  "tree": [
+    { "path": ".agents", "type": "dir", "role": "config agents IA" },
+    { "path": ".claude-plugin", "type": "dir", "role": "manifeste plugin Claude Code" },
+    { "path": ".claude", "type": "dir", "role": "config locale Claude Code" },
+    { "path": ".codex-plugin", "type": "dir", "role": "manifeste plugin Codex" },
+    { "path": ".cursor-plugin", "type": "dir", "role": "manifeste plugin Cursor" },
+    { "path": ".gitattributes", "type": "file", "role": "attributs git" },
+    { "path": ".github", "type": "dir", "role": "5 workflows GitHub Actions" },
+    { "path": ".gitignore", "type": "file", "role": "exclusions git" },
+    { "path": ".mcp.json.codex.example", "type": "file", "role": "exemple config MCP Codex" },
+    { "path": ".mcp.json.example", "type": "file", "role": "exemple config MCP" },
+    { "path": ".npmignore", "type": "file", "role": "exclusions publication npm" },
+    { "path": ".openclaw-plugin", "type": "dir", "role": "manifeste plugin OpenClaw" },
+    { "path": ".pi", "type": "dir", "role": "extension pour Pi" },
+    { "path": "BENCHMARK.md", "type": "file", "role": "résultats de benchmark" },
+    { "path": "CLAUDE.md", "type": "file", "role": "instructions pour Claude Code" },
+    { "path": "CONTRIBUTING.md", "type": "file", "role": "guide de contribution" },
+    { "path": "LICENSE", "type": "file", "role": "licence Elastic 2.0" },
+    { "path": "README.md", "type": "file", "role": "documentation principale" },
+    { "path": "bin", "type": "dir", "role": "script statusline.mjs" },
+    { "path": "bun.lock", "type": "file", "role": "verrou dépendances bun" },
+    { "path": "cli.bundle.mjs", "type": "file", "role": "CLI bundlée par esbuild" },
+    { "path": "configs", "type": "dir", "role": "configs par plateforme" },
+    { "path": "docs", "type": "dir", "role": "documentation" },
+    { "path": "hooks", "type": "dir", "role": "hooks par plateforme, bundles session" },
+    { "path": "openclaw.plugin.json", "type": "file", "role": "manifeste plugin OpenClaw" },
+    { "path": "package.json", "type": "file", "role": "manifeste npm" },
+    { "path": "scripts", "type": "dir", "role": "scripts build, install, version" },
+    { "path": "server.bundle.mjs", "type": "file", "role": "serveur MCP bundlé par esbuild" },
+    { "path": "skills", "type": "dir", "role": "skills pour agents" },
+    { "path": "src", "type": "dir", "role": "TypeScript : serveur MCP, CLI, adaptateurs" },
+    { "path": "start.mjs", "type": "file", "role": "lanceur publié avec le paquet" },
+    { "path": "stats.json", "type": "file", "role": "statistiques publiées" },
+    { "path": "tests", "type": "dir", "role": "tests vitest" },
+    { "path": "tsconfig.json", "type": "file", "role": "config TypeScript" },
+    { "path": "vitest.config.ts", "type": "file", "role": "config vitest" },
+    { "path": "web", "type": "dir", "role": "partie web du projet" }
+  ],
+  "entrypoints": [
+    { "path": "src/server.ts", "why": "Serveur MCP : script dev = npx tsx src/server.ts, bundlé en server.bundle.mjs par esbuild (package.json)." },
+    { "path": "src/cli.ts", "why": "CLI context-mode : bin pointe sur cli.bundle.mjs bundlé depuis ce fichier ; scripts setup et doctor ; la CI lance npx tsx src/cli.ts doctor." },
+    { "path": "src/adapters/opencode/index.ts", "why": "Adaptateur plateforme OpenCode, cible de main (build/adapters/opencode/plugin.js). Confirmé par lecture : classe OpenCodeAdapter implémente HookAdapter en paradigme plugin TS." },
+    { "path": "src/adapters/openclaw/index.ts", "why": "Adaptateur plateforme OpenClaw, export ./openclaw de package.json (build/adapters/openclaw/plugin.js). Déduit du chemin, non lu." },
+    { "path": "start.mjs", "why": "Lanceur à la racine, listé dans files publiés du paquet npm. Déduit du nom, non lu." }
+  ],
+  "build": {
+    "ci": [
+      { "name": "CI", "path": ".github/workflows/ci.yml", "triggers": ["workflow_dispatch", "push", "pull_request"] }
+    ]
+  },
+  "tests": { "dir": "tests", "framework": "vitest", "files": 255 },
+  "deps": {
+    "manifest": "package.json",
+    "count": 15,
+    "runtime": [
+      { "name": "@clack/prompts", "version": "^1.0.1" },
+      { "name": "@mixmark-io/domino", "version": "^2.2.0" },
+      { "name": "@modelcontextprotocol/sdk", "version": "^1.26.0" },
+      { "name": "better-sqlite3", "version": "^12.6.2" },
+      { "name": "picocolors", "version": "^1.1.1" },
+      { "name": "turndown", "version": "^7.2.0" },
+      { "name": "turndown-plugin-gfm", "version": "^1.0.2" },
+      { "name": "zod", "version": "^3.25.0" }
+    ]
+  },
+  "risks": [
+    { "kind": "ci", "level": "low", "note": "5 workflows dans .github/workflows ; ci.yml (seul lu) : typecheck, build, bundle, vitest sur ubuntu, macos et windows, déclenché par workflow_dispatch, push et pull_request sur main et next." },
+    { "kind": "deps", "level": "low", "note": "15 dépendances déclarées dans package.json (8 runtime, 7 dev) ; better-sqlite3 est un module natif externalisé du bundle ; node >= 22.5.0 requis." }
+  ],
+  "collected": { "by": "1d-code", "at": "2026-09-09T14:57:29Z", "lenses": ["core", "dev"] }
+}

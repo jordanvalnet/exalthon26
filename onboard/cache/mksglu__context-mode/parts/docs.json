@@ -1,0 +1,15 @@
+{
+  "build": {
+    "install": "npm install",
+    "run": "claude mcp add context-mode -- npx -y context-mode",
+    "test": "npm test"
+  },
+  "collected": {
+    "by": "1c-docs",
+    "at": "2026-09-09T14:56:01Z",
+    "lenses": [
+      "core",
+      "dev"
+    ]
+  }
+}

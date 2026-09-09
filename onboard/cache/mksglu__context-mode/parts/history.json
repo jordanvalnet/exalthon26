@@ -1,0 +1,35 @@
+{
+  "issues": {
+    "open": 119,
+    "closed_30d": 4,
+    "by_label": {
+      "bug": 4,
+      "enhancement": 4,
+      "documentation": 6,
+      "question": 0,
+      "help wanted": 1
+    },
+    "good_first": [],
+    "hot": [
+      { "number": 45, "title": "Beta testers wanted — 15 platforms × 3 operating systems", "url": "https://github.com/mksglu/context-mode/issues/45", "comments": 154 },
+      { "number": 911, "title": "Injected session_continuity/priority_instructions framing trips Claude Code's auto-mode classifier (Auto-Mode Bypass)", "url": "https://github.com/mksglu/context-mode/issues/911", "comments": 6 },
+      { "number": 959, "title": "Pi adapter: hung ctx_execute cannot be aborted; Esc/Ctrl+C does nothing", "url": "https://github.com/mksglu/context-mode/issues/959", "comments": 5 },
+      { "number": 950, "title": "[Bug]: ctx_stats self-contradicts within one render — per-chat 'kept out' (2.7 MB) exceeds all-projects total (868 KB), and 100% savings reported for a session with zero ctx_execute calls", "url": "https://github.com/mksglu/context-mode/issues/950", "comments": 5 },
+      { "number": 947, "title": "[Bug]: ctx_batch_execute timeout does not bound indexing/search, so Claude Code agents can hang for hours", "url": "https://github.com/mksglu/context-mode/issues/947", "comments": 4 },
+      { "number": 946, "title": "Agent-prompt injection gets third-party plugins' subagent dispatches blocked by Claude Code's auto-mode classifier — needs an opt-out", "url": "https://github.com/mksglu/context-mode/issues/946", "comments": 3 },
+      { "number": 1050, "title": "Feature: zero-gap single-row collapsed rendering for Pi tools", "url": "https://github.com/mksglu/context-mode/issues/1050", "comments": 2 },
+      { "number": 1048, "title": "Claude Code plan mode blocks ctx_batch_execute: no read-only gather path since the #851 annotations", "url": "https://github.com/mksglu/context-mode/issues/1048", "comments": 2 },
+      { "number": 1024, "title": "[Bug]: Stale content DB cleanup deletes live-but-idle sessions (WAL mtime only, no liveness check)", "url": "https://github.com/mksglu/context-mode/issues/1024", "comments": 2 },
+      { "number": 1022, "title": "[Bug]: Resume snapshot ignores byte budget — advertises &lt;2KB, injects ~196KB", "url": "https://github.com/mksglu/context-mode/issues/1022", "comments": 2 }
+    ]
+  },
+  "pulls": {
+    "open": 107,
+    "merged_30d": []
+  },
+  "collected": {
+    "by": "1b-history",
+    "at": "2026-09-09T14:57:40Z",
+    "lenses": ["core", "dev"]
+  }
+}

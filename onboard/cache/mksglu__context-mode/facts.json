@@ -199,6 +199,16 @@
       "kind": "bus_factor",
       "level": "high",
       "note": "Un seul contributeur porte la moitié des commits sur 12 semaines."
+    },
+    {
+      "kind": "ci",
+      "level": "low",
+      "note": "5 workflows dans .github/workflows ; ci.yml (seul lu) : typecheck, build, bundle, vitest sur ubuntu, macos et windows, déclenché par workflow_dispatch, push et pull_request sur main et next."
+    },
+    {
+      "kind": "deps",
+      "level": "low",
+      "note": "15 dépendances déclarées dans package.json (8 runtime, 7 dev) ; better-sqlite3 est un module natif externalisé du bundle ; node >= 22.5.0 requis."
     }
   ],
   "business": {
@@ -206,12 +216,506 @@
     "security_policy": false,
     "codeowners": false
   },
+  "issues": {
+    "open": 119,
+    "closed_30d": 6,
+    "by_label": {
+      "enhancement": 6,
+      "bug": 4,
+      "help wanted": 1
+    },
+    "good_first": [],
+    "hot": [
+      {
+        "number": 45,
+        "title": "Beta testers wanted — 15 platforms × 3 operating systems",
+        "url": "https://github.com/mksglu/context-mode/issues/45",
+        "comments": 154
+      },
+      {
+        "number": 911,
+        "title": "Injected session_continuity/priority_instructions framing trips Claude Code's auto-mode classifier (Auto-Mode Bypass)",
+        "url": "https://github.com/mksglu/context-mode/issues/911",
+        "comments": 6
+      },
+      {
+        "number": 959,
+        "title": "Pi adapter: hung ctx_execute cannot be aborted; Esc/Ctrl+C does nothing",
+        "url": "https://github.com/mksglu/context-mode/issues/959",
+        "comments": 5
+      },
+      {
+        "number": 950,
+        "title": "[Bug]: ctx_stats self-contradicts within one render — per-chat 'kept out' (2.7 MB) exceeds all-projects total (868 KB), and 100% savings reported for a session with zero ctx_execute calls",
+        "url": "https://github.com/mksglu/context-mode/issues/950",
+        "comments": 5
+      },
+      {
+        "number": 947,
+        "title": "[Bug]: ctx_batch_execute timeout does not bound indexing/search, so Claude Code agents can hang for hours",
+        "url": "https://github.com/mksglu/context-mode/issues/947",
+        "comments": 4
+      },
+      {
+        "number": 946,
+        "title": "Agent-prompt injection gets third-party plugins' subagent dispatches blocked by Claude Code's auto-mode classifier — needs an opt-out",
+        "url": "https://github.com/mksglu/context-mode/issues/946",
+        "comments": 3
+      },
+      {
+        "number": 1050,
+        "title": "Feature: zero-gap single-row collapsed rendering for Pi tools",
+        "url": "https://github.com/mksglu/context-mode/issues/1050",
+        "comments": 2
+      },
+      {
+        "number": 1048,
+        "title": "Claude Code plan mode blocks ctx_batch_execute: no read-only gather path since the #851 annotations",
+        "url": "https://github.com/mksglu/context-mode/issues/1048",
+        "comments": 2
+      },
+      {
+        "number": 1024,
+        "title": "[Bug]: Stale content DB cleanup deletes live-but-idle sessions (WAL mtime only, no liveness check)",
+        "url": "https://github.com/mksglu/context-mode/issues/1024",
+        "comments": 2
+      },
+      {
+        "number": 1022,
+        "title": "[Bug]: Resume snapshot ignores byte budget — advertises &lt;2KB, injects ~196KB",
+        "url": "https://github.com/mksglu/context-mode/issues/1022",
+        "comments": 2
+      }
+    ]
+  },
+  "pulls": {
+    "open": 107,
+    "merged_30d": []
+  },
+  "build": {
+    "install": "npm install",
+    "run": "claude mcp add context-mode -- npx -y context-mode",
+    "test": "npm test",
+    "ci": [
+      {
+        "name": "CI",
+        "path": ".github/workflows/ci.yml",
+        "triggers": [
+          "workflow_dispatch",
+          "push",
+          "pull_request"
+        ]
+      }
+    ]
+  },
+  "tree": [
+    {
+      "path": ".agents",
+      "type": "dir",
+      "role": "config agents IA"
+    },
+    {
+      "path": ".claude-plugin",
+      "type": "dir",
+      "role": "manifeste plugin Claude Code"
+    },
+    {
+      "path": ".claude",
+      "type": "dir",
+      "role": "config locale Claude Code"
+    },
+    {
+      "path": ".codex-plugin",
+      "type": "dir",
+      "role": "manifeste plugin Codex"
+    },
+    {
+      "path": ".cursor-plugin",
+      "type": "dir",
+      "role": "manifeste plugin Cursor"
+    },
+    {
+      "path": ".gitattributes",
+      "type": "file",
+      "role": "attributs git"
+    },
+    {
+      "path": ".github",
+      "type": "dir",
+      "role": "5 workflows GitHub Actions"
+    },
+    {
+      "path": ".gitignore",
+      "type": "file",
+      "role": "exclusions git"
+    },
+    {
+      "path": ".mcp.json.codex.example",
+      "type": "file",
+      "role": "exemple config MCP Codex"
+    },
+    {
+      "path": ".mcp.json.example",
+      "type": "file",
+      "role": "exemple config MCP"
+    },
+    {
+      "path": ".npmignore",
+      "type": "file",
+      "role": "exclusions publication npm"
+    },
+    {
+      "path": ".openclaw-plugin",
+      "type": "dir",
+      "role": "manifeste plugin OpenClaw"
+    },
+    {
+      "path": ".pi",
+      "type": "dir",
+      "role": "extension pour Pi"
+    },
+    {
+      "path": "BENCHMARK.md",
+      "type": "file",
+      "role": "résultats de benchmark"
+    },
+    {
+      "path": "CLAUDE.md",
+      "type": "file",
+      "role": "instructions pour Claude Code"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "type": "file",
+      "role": "guide de contribution"
+    },
+    {
+      "path": "LICENSE",
+      "type": "file",
+      "role": "licence Elastic 2.0"
+    },
+    {
+      "path": "README.md",
+      "type": "file",
+      "role": "documentation principale"
+    },
+    {
+      "path": "bin",
+      "type": "dir",
+      "role": "script statusline.mjs"
+    },
+    {
+      "path": "bun.lock",
+      "type": "file",
+      "role": "verrou dépendances bun"
+    },
+    {
+      "path": "cli.bundle.mjs",
+      "type": "file",
+      "role": "CLI bundlée par esbuild"
+    },
+    {
+      "path": "configs",
+      "type": "dir",
+      "role": "configs par plateforme"
+    },
+    {
+      "path": "docs",
+      "type": "dir",
+      "role": "documentation"
+    },
+    {
+      "path": "hooks",
+      "type": "dir",
+      "role": "hooks par plateforme, bundles session"
+    },
+    {
+      "path": "openclaw.plugin.json",
+      "type": "file",
+      "role": "manifeste plugin OpenClaw"
+    },
+    {
+      "path": "package.json",
+      "type": "file",
+      "role": "manifeste npm"
+    },
+    {
+      "path": "scripts",
+      "type": "dir",
+      "role": "scripts build, install, version"
+    },
+    {
+      "path": "server.bundle.mjs",
+      "type": "file",
+      "role": "serveur MCP bundlé par esbuild"
+    },
+    {
+      "path": "skills",
+      "type": "dir",
+      "role": "skills pour agents"
+    },
+    {
+      "path": "src",
+      "type": "dir",
+      "role": "TypeScript : serveur MCP, CLI, adaptateurs"
+    },
+    {
+      "path": "start.mjs",
+      "type": "file",
+      "role": "lanceur publié avec le paquet"
+    },
+    {
+      "path": "stats.json",
+      "type": "file",
+      "role": "statistiques publiées"
+    },
+    {
+      "path": "tests",
+      "type": "dir",
+      "role": "tests vitest"
+    },
+    {
+      "path": "tsconfig.json",
+      "type": "file",
+      "role": "config TypeScript"
+    },
+    {
+      "path": "vitest.config.ts",
+      "type": "file",
+      "role": "config vitest"
+    },
+    {
+      "path": "web",
+      "type": "dir",
+      "role": "partie web du projet"
+    }
+  ],
+  "entrypoints": [
+    {
+      "path": "src/server.ts",
+      "why": "Serveur MCP : script dev = npx tsx src/server.ts, bundlé en server.bundle.mjs par esbuild (package.json)."
+    },
+    {
+      "path": "src/cli.ts",
+      "why": "CLI context-mode : bin pointe sur cli.bundle.mjs bundlé depuis ce fichier ; scripts setup et doctor ; la CI lance npx tsx src/cli.ts doctor."
+    },
+    {
+      "path": "src/adapters/opencode/index.ts",
+      "why": "Adaptateur plateforme OpenCode, cible de main (build/adapters/opencode/plugin.js). Confirmé par lecture : classe OpenCodeAdapter implémente HookAdapter en paradigme plugin TS."
+    },
+    {
+      "path": "src/adapters/openclaw/index.ts",
+      "why": "Adaptateur plateforme OpenClaw, export ./openclaw de package.json (build/adapters/openclaw/plugin.js). Déduit du chemin, non lu."
+    },
+    {
+      "path": "start.mjs",
+      "why": "Lanceur à la racine, listé dans files publiés du paquet npm. Déduit du nom, non lu."
+    }
+  ],
+  "tests": {
+    "dir": "tests",
+    "framework": "vitest",
+    "files": 255
+  },
+  "deps": {
+    "manifest": "package.json",
+    "count": 15,
+    "runtime": [
+      {
+        "name": "@clack/prompts",
+        "version": "^1.0.1"
+      },
+      {
+        "name": "@mixmark-io/domino",
+        "version": "^2.2.0"
+      },
+      {
+        "name": "@modelcontextprotocol/sdk",
+        "version": "^1.26.0"
+      },
+      {
+        "name": "better-sqlite3",
+        "version": "^12.6.2"
+      },
+      {
+        "name": "picocolors",
+        "version": "^1.1.1"
+      },
+      {
+        "name": "turndown",
+        "version": "^7.2.0"
+      },
+      {
+        "name": "turndown-plugin-gfm",
+        "version": "^1.0.2"
+      },
+      {
+        "name": "zod",
+        "version": "^3.25.0"
+      }
+    ]
+  },
+  "roadmap": {
+    "open_prs": [
+      {
+        "number": 1138,
+        "title": "fix(fetch): handle HTML tables without rows",
+        "url": "https://github.com/mksglu/context-mode/pull/1138",
+        "updated_at": "2026-09-09T08:10:06Z",
+        "draft": false
+      },
+      {
+        "number": 1137,
+        "title": "docs: align session continuity guidance",
+        "url": "https://github.com/mksglu/context-mode/pull/1137",
+        "updated_at": "2026-09-09T05:50:31Z",
+        "draft": false
+      },
+      {
+        "number": 1132,
+        "title": "docs: clarify Claude network routing guidance",
+        "url": "https://github.com/mksglu/context-mode/pull/1132",
+        "updated_at": "2026-09-08T14:33:22Z",
+        "draft": false
+      },
+      {
+        "number": 1129,
+        "title": "fix(hooks): pin ABI healing to the running Node",
+        "url": "https://github.com/mksglu/context-mode/pull/1129",
+        "updated_at": "2026-09-08T13:58:22Z",
+        "draft": false
+      },
+      {
+        "number": 1082,
+        "title": "mcp: name execution timeout in milliseconds",
+        "url": "https://github.com/mksglu/context-mode/pull/1082",
+        "updated_at": "2026-09-08T02:36:09Z",
+        "draft": false
+      },
+      {
+        "number": 1128,
+        "title": "Fix curl/wget pipe and multiline routing bounds",
+        "url": "https://github.com/mksglu/context-mode/pull/1128",
+        "updated_at": "2026-09-08T00:10:23Z",
+        "draft": false
+      },
+      {
+        "number": 1127,
+        "title": "feat(server): make echo budgets configurable per host",
+        "url": "https://github.com/mksglu/context-mode/pull/1127",
+        "updated_at": "2026-09-07T06:36:47Z",
+        "draft": false
+      },
+      {
+        "number": 1126,
+        "title": "fix(pi): remove unverified tool-availability routing anchor",
+        "url": "https://github.com/mksglu/context-mode/pull/1126",
+        "updated_at": "2026-09-06T16:09:39Z",
+        "draft": true
+      },
+      {
+        "number": 1084,
+        "title": "fix(codex): redirect broad home searches before ingestion",
+        "url": "https://github.com/mksglu/context-mode/pull/1084",
+        "updated_at": "2026-09-06T05:23:10Z",
+        "draft": false
+      },
+      {
+        "number": 1124,
+        "title": "adapters: Route network commands by transfer output",
+        "url": "https://github.com/mksglu/context-mode/pull/1124",
+        "updated_at": "2026-09-05T18:57:29Z",
+        "draft": false
+      }
+    ],
+    "requests": [
+      {
+        "number": 45,
+        "title": "Beta testers wanted — 15 platforms × 3 operating systems",
+        "url": "https://github.com/mksglu/context-mode/issues/45",
+        "comments": 154,
+        "labels": [
+          "help wanted"
+        ]
+      },
+      {
+        "number": 911,
+        "title": "Injected session_continuity/priority_instructions framing trips Claude Code's auto-mode classifier (Auto-Mode Bypass)",
+        "url": "https://github.com/mksglu/context-mode/issues/911",
+        "comments": 6,
+        "labels": []
+      },
+      {
+        "number": 959,
+        "title": "Pi adapter: hung ctx_execute cannot be aborted; Esc/Ctrl+C does nothing",
+        "url": "https://github.com/mksglu/context-mode/issues/959",
+        "comments": 5,
+        "labels": []
+      },
+      {
+        "number": 950,
+        "title": "[Bug]: ctx_stats self-contradicts within one render — per-chat 'kept out' (2.7 MB) exceeds all-projects total (868 KB), and 100% savings reported for a session with zero ctx_execute calls",
+        "url": "https://github.com/mksglu/context-mode/issues/950",
+        "comments": 5,
+        "labels": []
+      },
+      {
+        "number": 947,
+        "title": "[Bug]: ctx_batch_execute timeout does not bound indexing/search, so Claude Code agents can hang for hours",
+        "url": "https://github.com/mksglu/context-mode/issues/947",
+        "comments": 4,
+        "labels": []
+      },
+      {
+        "number": 946,
+        "title": "Agent-prompt injection gets third-party plugins' subagent dispatches blocked by Claude Code's auto-mode classifier — needs an opt-out",
+        "url": "https://github.com/mksglu/context-mode/issues/946",
+        "comments": 3,
+        "labels": []
+      },
+      {
+        "number": 1050,
+        "title": "Feature: zero-gap single-row collapsed rendering for Pi tools",
+        "url": "https://github.com/mksglu/context-mode/issues/1050",
+        "comments": 2,
+        "labels": []
+      },
+      {
+        "number": 1048,
+        "title": "Claude Code plan mode blocks ctx_batch_execute: no read-only gather path since the #851 annotations",
+        "url": "https://github.com/mksglu/context-mode/issues/1048",
+        "comments": 2,
+        "labels": []
+      },
+      {
+        "number": 1024,
+        "title": "[Bug]: Stale content DB cleanup deletes live-but-idle sessions (WAL mtime only, no liveness check)",
+        "url": "https://github.com/mksglu/context-mode/issues/1024",
+        "comments": 2,
+        "labels": []
+      },
+      {
+        "number": 1022,
+        "title": "[Bug]: Resume snapshot ignores byte budget — advertises &lt;2KB, injects ~196KB",
+        "url": "https://github.com/mksglu/context-mode/issues/1022",
+        "comments": 2,
+        "labels": []
+      }
+    ],
+    "themes": [
+      {
+        "label": "enhancement",
+        "count": 6
+      }
+    ]
+  },
   "collected": {
-    "at": "2026-09-09T14:52:51.703Z",
-    "by": "merge de 1a-meta",
+    "at": "2026-09-09T14:59:20.283Z",
+    "by": "merge de 1a-meta, 1b-history, 1c-docs, 1d-code, 1e-roadmap, 1b-issues",
     "lenses": [
       "core",
-      "dev"
+      "dev",
+      "ceo"
     ]
   }
 }

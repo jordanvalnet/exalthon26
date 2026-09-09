@@ -1,0 +1,94 @@
+{
+  "tree": [
+    { "path": ".cargo", "type": "dir", "role": "config Cargo locale" },
+    { "path": ".dockerignore", "type": "file", "role": "exclusions du build Docker" },
+    { "path": ".gemini", "type": "dir", "role": "config agent Gemini" },
+    { "path": ".gitattributes", "type": "file", "role": "attributs git" },
+    { "path": ".github", "type": "dir", "role": "20 workflows GitHub Actions" },
+    { "path": ".gitignore", "type": "file", "role": "exclusions git" },
+    { "path": ".gitmodules", "type": "file", "role": "sous-modules git" },
+    { "path": "CHANGELOG.md", "type": "file", "role": "journal des versions, 410 Ko" },
+    { "path": "CONTRIBUTING.md", "type": "file", "role": "guide de contribution" },
+    { "path": "Cargo.lock", "type": "file", "role": "verrou des dépendances Rust" },
+    { "path": "Cargo.toml", "type": "file", "role": "manifeste du workspace Rust" },
+    { "path": "LICENSE-APACHE", "type": "file", "role": "licence Apache 2.0" },
+    { "path": "LICENSE-MIT", "type": "file", "role": "licence MIT" },
+    { "path": "README.md", "type": "file", "role": "présentation du projet" },
+    { "path": "SECURITY.md", "type": "file", "role": "politique de sécurité" },
+    { "path": "changes", "type": "dir", "role": "notes de changement en attente" },
+    { "path": "clippy.toml", "type": "file", "role": "config lint clippy" },
+    { "path": "container", "type": "dir", "role": "définitions de conteneur" },
+    { "path": "crates", "type": "dir", "role": "code principal : 33 crates Rust, 32 membres du workspace" },
+    { "path": "docs", "type": "dir", "role": "documentation" },
+    { "path": "e2e", "type": "dir", "role": "scénarios TOML et fixtures bout en bout" },
+    { "path": "fuzz", "type": "dir", "role": "tests de fuzzing" },
+    { "path": "native", "type": "dir", "role": "code natif macOS" },
+    { "path": "release", "type": "dir", "role": "config de release (nightly.toml)" },
+    { "path": "rust-toolchain.toml", "type": "file", "role": "version Rust épinglée" },
+    { "path": "rustfmt.toml", "type": "file", "role": "config formatage rustfmt" },
+    { "path": "scripts", "type": "dir", "role": "scripts build, CI, release" },
+    { "path": "wit", "type": "file", "role": "interfaces WIT, entrée de 0 octet" }
+  ],
+  "entrypoints": [
+    {
+      "path": "crates/astrid-cli/src/main.rs",
+      "why": "binaire `astrid` : #[tokio::main] qui parse clap (cli::Cli) puis route vers dispatch ; client léger qui se connecte au kernel (auto-démarrage), crée ou reprend des sessions et rend les événements en streaming. Confirmé (en-tête du fichier)."
+    },
+    {
+      "path": "crates/astrid-daemon/src/main.rs",
+      "why": "binaire `astrid-daemon` : setsid puis runtime tokio multi-thread qui exécute astrid_daemon::run(). Confirmé (fichier de 26 lignes)."
+    },
+    {
+      "path": "crates/astrid-cli/src/cli.rs",
+      "why": "définitions clap des sous-commandes (astrid agent, capsule, quota, status, start, stop, ps, top) ; référencé comme `mod cli` par main.rs. Déduit."
+    },
+    {
+      "path": "crates/astrid-cli-mockup/src/main.rs",
+      "why": "binaire de maquette de la CLI, dans un crate hors workspace (absent de members dans Cargo.toml). Déduit du chemin."
+    }
+  ],
+  "build": {
+    "ci": [
+      { "name": "CI", "path": ".github/workflows/ci.yml", "triggers": ["push", "pull_request"] }
+    ]
+  },
+  "tests": {
+    "dir": "crates/astrid-integration-tests",
+    "framework": "cargo test, insta",
+    "files": 39
+  },
+  "deps": {
+    "manifest": "Cargo.toml",
+    "count": 117,
+    "runtime": [
+      { "name": "anyhow", "version": "1.0" },
+      { "name": "arboard", "version": "3" },
+      { "name": "arc-swap", "version": "1.7" },
+      { "name": "lz4_flex", "version": "0.14" },
+      { "name": "async-stream", "version": "0.3" },
+      { "name": "async-trait", "version": "0.1" },
+      { "name": "axum", "version": "0.8" },
+      { "name": "axum-server", "version": "0.8" },
+      { "name": "tokio-stream", "version": "0.1" },
+      { "name": "base64", "version": "0.23" },
+      { "name": "blake3", "version": "1.5" },
+      { "name": "caseless", "version": "=0.2.2" },
+      { "name": "chrono", "version": "0.4" },
+      { "name": "clap", "version": "4.5" },
+      { "name": "clap_complete", "version": "4.5" }
+    ]
+  },
+  "risks": [
+    {
+      "kind": "deps",
+      "level": "mid",
+      "note": "117 entrées dans [workspace.dependencies] de Cargo.toml : 27 crates internes (path) et 90 crates externes, dont 8 épinglées en version exacte (=). Cargo.lock versionné (217 Ko). Nombre de dépendances transitives non relevé."
+    },
+    {
+      "kind": "ci",
+      "level": "low",
+      "note": "20 workflows dans .github/workflows. ci.yml (push sur main et stream-*, pull_request) enchaîne cargo check, fmt, clippy -D warnings, cargo test --workspace (ubuntu et macos), MSRV 1.95, cargo-audit, builds release Linux gnu/musl, tests natifs Windows, portabilité wasm32."
+    }
+  ],
+  "collected": { "by": "1d-code", "at": "2026-09-09T14:58:45Z" }
+}

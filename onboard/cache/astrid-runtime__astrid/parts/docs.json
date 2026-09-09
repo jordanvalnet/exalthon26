@@ -1,0 +1,16 @@
+{
+  "build": {
+    "install": "git clone https://github.com/astrid-runtime/astrid\ncd astrid && cargo build --release   # binary at ./target/release/astrid",
+    "run": "astrid start",
+    "test": "cargo test --workspace -- --quiet"
+  },
+  "ai_docs": {
+    "files": [],
+    "score": 0,
+    "max": 7
+  },
+  "collected": {
+    "by": "1c-docs",
+    "at": "2026-09-09T14:59:55.742Z"
+  }
+}

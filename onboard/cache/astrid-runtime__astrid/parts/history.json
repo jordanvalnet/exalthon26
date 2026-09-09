@@ -1,0 +1,173 @@
+{
+  "issues": {
+    "open": 192,
+    "closed_30d": 149,
+    "by_label": {
+      "bug": 42,
+      "enhancement": 0,
+      "documentation": 0,
+      "question": 0,
+      "help wanted": 0,
+      "good first issue": 5
+    },
+    "good_first": [
+      {
+        "number": 497,
+        "title": "Remove dead AgentHandler stub from astrid-hooks",
+        "url": "https://github.com/astrid-runtime/astrid/issues/497"
+      },
+      {
+        "number": 476,
+        "title": "CapsuleRegistry duplicate capsule/uplink registration uses UnsupportedEntryPoint and docs cite nonexistent variants",
+        "url": "https://github.com/astrid-runtime/astrid/issues/476"
+      },
+      {
+        "number": 461,
+        "title": "is_known_tag coverage table is 18 vs 19 and omits ToolCancelRequest",
+        "url": "https://github.com/astrid-runtime/astrid/issues/461"
+      },
+      {
+        "number": 459,
+        "title": "Markdown parser in TUI fails on numbered lists >= 10",
+        "url": "https://github.com/astrid-runtime/astrid/issues/459"
+      },
+      {
+        "number": 276,
+        "title": "MCP interceptor: propagate tool_result.is_error instead of treating it as success",
+        "url": "https://github.com/astrid-runtime/astrid/issues/276"
+      }
+    ],
+    "hot": [
+      {
+        "number": 1708,
+        "title": "test(container): qualify the signed amd64 Linux-backed Astrid host profile",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1708",
+        "comments": 29
+      },
+      {
+        "number": 1682,
+        "title": "Complete the Capsule Station consumer lifecycle",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1682",
+        "comments": 14
+      },
+      {
+        "number": 1406,
+        "title": "feat(kernel): add principal-scoped dynamic capability namespaces",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1406",
+        "comments": 12
+      },
+      {
+        "number": 1766,
+        "title": "feat(native): retain authenticated generation identity through lifecycle publication",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1766",
+        "comments": 11
+      },
+      {
+        "number": 1719,
+        "title": "architecture: separate the minimal kernel from privileged package services",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1719",
+        "comments": 11
+      },
+      {
+        "number": 1392,
+        "title": "storage: make bulk content ingest read-bound and delta-proportional",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1392",
+        "comments": 11
+      },
+      {
+        "number": 1664,
+        "title": "decision: specify the first-owner enrollment ceremony",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1664",
+        "comments": 9
+      },
+      {
+        "number": 1564,
+        "title": "epic: build the Astrid universal application substrate",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1564",
+        "comments": 8
+      },
+      {
+        "number": 1692,
+        "title": "decision(kernel): choose the first real InitPlan lifecycle operation",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1692",
+        "comments": 7
+      },
+      {
+        "number": 1759,
+        "title": "feat(kernel): establish ordered native audit root and verifier handoff",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1759",
+        "comments": 5
+      }
+    ]
+  },
+  "pulls": {
+    "open": 24,
+    "awaiting_review": 24,
+    "merged_30d": [
+      {
+        "number": 1906,
+        "title": "fix(init): honor explicit grants after completed batch resume",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1906",
+        "merged_at": "2026-09-09T13:46:35Z"
+      },
+      {
+        "number": 1904,
+        "title": "fix(release): provision FSKit distribution signing on macOS",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1904",
+        "merged_at": "2026-09-08T23:24:08Z"
+      },
+      {
+        "number": 1902,
+        "title": "fix(release): specify PKCS12 format for macOS signing import",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1902",
+        "merged_at": "2026-09-08T21:57:55Z"
+      },
+      {
+        "number": 1900,
+        "title": "feat(docs): introduce Astrid and the 2026.9.0 release",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1900",
+        "merged_at": "2026-09-08T20:06:23Z"
+      },
+      {
+        "number": 1898,
+        "title": "fix(release): certify exact Darwin bytes through supervised approval",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1898",
+        "merged_at": "2026-09-08T18:46:05Z"
+      },
+      {
+        "number": 1892,
+        "title": "feat(release): prepare Astrid 2026.9.0",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1892",
+        "merged_at": "2026-09-08T18:05:27Z"
+      },
+      {
+        "number": 1896,
+        "title": "fix(mcp): retire gateways after the final host disconnects",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1896",
+        "merged_at": "2026-09-08T16:43:56Z"
+      },
+      {
+        "number": 1894,
+        "title": "fix(mcp): preserve connected sessions across quiet periods",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1894",
+        "merged_at": "2026-09-08T14:39:34Z"
+      },
+      {
+        "number": 1889,
+        "title": "fix(storage): bound hosted extent mutation scans",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1889",
+        "merged_at": "2026-09-08T14:29:05Z"
+      },
+      {
+        "number": 1891,
+        "title": "fix(ci): validate stacked PRs and restore GNU builds",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1891",
+        "merged_at": "2026-09-08T11:02:34Z"
+      }
+    ]
+  },
+  "collected": {
+    "by": "1b-history",
+    "at": "2026-09-09T14:58:43Z"
+  }
+}
