@@ -1,58 +1,56 @@
 ---
 repo: mksglu/context-mode
 profile: dev
-generated_at: 2026-09-09T15:30:00Z
+generated_at: 2026-09-09T15:01:56Z
 ---
-# Context Mode : un serveur MCP qui met les sorties d'outils en bac à sable pour économiser la fenêtre de contexte des agents de code
+# context-mode : un serveur MCP et des hooks qui gardent la sortie brute des outils hors du contexte de l'agent
 
 ## Que fait ce projet et pour qui ?
-Context Mode est un serveur MCP plus des hooks qui interceptent les sorties d'outils (snapshots Playwright, listes d'issues, logs), les indexent dans une base FTS5 et ne renvoient à l'agent qu'un résumé recherchable, au lieu du dump brut [src:readme.md]. Il persiste aussi la mémoire de session pour survivre à la compaction et impose des règles de routage sur 17 plateformes [facts:repo.description].
-
-Le public : les gens qui utilisent des agents de code (Claude Code, Codex CLI, Gemini CLI, VS Code Copilot, OpenCode, Cursor, Pi, OpenClaw…) et veulent garder leur contexte utile plus longtemps [src:manifest.md]. Le paquet npm s'appelle `context-mode`, version 1.0.169, sous licence Elastic 2.0, auteur Mert Koseoğlu [src:manifest.md] [facts:repo.license].
-
-Le repo a 21 624 étoiles, 1 555 forks et 226 issues ouvertes ; il est né le 2026-02-23 et son dernier push date du 2026-09-08 [facts:repo.stars] [facts:repo.forks] [facts:repo.open_issues] [facts:repo.created_at] [facts:repo.pushed_at].
+context-mode est un serveur MCP qui met la sortie brute des outils en sandbox hors de la fenêtre de contexte (réduction annoncée de 98 %), persiste une mémoire de session et impose le routage sur 17 plateformes via MCP + hooks [facts:repo.description].
+Quatre axes dans le README : sandbox des outils, continuité de session stockée en SQLite, indexée FTS5 et cherchée en BM25, « think in code » (l'agent écrit un script qui `console.log` seulement le résultat au lieu de lire les fichiers un par un), et aucune contrainte de style sur la réponse finale [src:readme.md].
+Public : les développeurs qui travaillent avec un agent de code ; les topics couvrent claude-code, codex-cli, copilot, cursor-plugin, kiro, opencode, openclaw, pi-agent, zed-extension [facts:repo.topics]. Le README détaille l'installation par plateforme : plugin marketplace pour Claude Code, `~/.gemini/settings.json` pour Gemini CLI, `.vscode/mcp.json` + `.github/hooks/context-mode.json` pour VS Code Copilot [src:readme.md].
+Chiffres : 21624 étoiles, 1555 forks, 226 issues ouvertes, dernier push le 2026-09-08 [facts:repo.stars] [facts:repo.forks] [facts:repo.open_issues] [facts:repo.pushed_at].
+Dépôt créé le 2026-02-23 sur un compte utilisateur (pas une organisation), non archivé, branche par défaut `main` [facts:repo.created_at] [facts:repo.owner_type] [facts:repo.archived] [facts:repo.default_branch].
+Licence Elastic License 2.0 (ELv2), non OSI : lire `LICENSE` avant tout usage en service managé ou redistribution [facts:repo.license] [facts:risks.0.note].
 
 ## Comment le code est-il organisé ?
 <!-- chart: tree -->
-Trois zones à retenir : `src/` (TypeScript : serveur MCP, CLI, adaptateurs), `hooks/` (hooks par plateforme en `.mjs`, sans build) et `configs/` (fichiers d'installation par plateforme) [facts:tree] [src:contributing.md]. `src/` est plat : `server.ts`, `store.ts` (FTS5), `executor.ts` (exécution polyglotte, 12 langages), `security.ts`, `runtime.ts`, `cli.ts`, plus `src/session/` (SessionDB, extracteurs, snapshot de reprise) et `src/adapters/` (un dossier par plateforme) [src:contributing.md] [src:tree.md].
-
-Les dossiers cachés `.claude-plugin`, `.codex-plugin`, `.cursor-plugin`, `.openclaw-plugin`, `.pi` sont les manifestes de plugin de chaque hôte [facts:tree]. `.github/` porte 5 workflows GitHub Actions [facts:tree] [src:ci.md]. Les tests sont dans `tests/`, en vitest, 255 fichiers [facts:tests.dir] [facts:tests.framework] [facts:tests.files].
-
-À la racine, `server.bundle.mjs` et `cli.bundle.mjs` sont les bundles esbuild publiés ; `start.mjs` charge le bundle s'il existe, sinon `build/server.js` [facts:tree] [src:contributing.md].
+`src/` : TypeScript du serveur MCP, de la CLI et des adaptateurs ; `tsc` compile vers `build/`, puis esbuild bundle `src/server.ts` en `server.bundle.mjs` et `src/cli.ts` en `cli.bundle.mjs` à la racine [facts:tree.29.role] [facts:tree.27.role] [facts:tree.20.role] [src:manifest.md].
+Fichiers clés de `src/` : `server.ts` (serveur MCP, handlers d'outils), `store.ts` (FTS5), `executor.ts` (exécuteur polyglotte), `security.ts` (règles deny/allow), `session/{db,extract,snapshot}.ts`, `adapters/<plateforme>/` (claude-code, gemini-cli, opencode, codex, vscode-copilot, omp, qwen-code) [src:contributing.md] [src:tree.md].
+`hooks/` : hooks en JS pur (`.mjs`), aucun build : `pretooluse.mjs` (routage), `posttooluse.mjs` (capture d'événements), `precompact.mjs` (snapshot de reprise), `sessionstart.mjs`, `stop.mjs`, un sous-dossier par plateforme et des bundles `session-*.bundle.mjs` produits par esbuild [facts:tree.23.role] [src:tree.md] [src:contributing.md].
+`configs/` : fichiers d'installation par plateforme, servis tels quels ; `tests/` : vitest ; `scripts/` : build, install, version ; `docs/` : `adr/`, `adapters/`, `platform-support.md` [facts:tree.21.role] [facts:tree.32.role] [facts:tree.26.role] [src:docs.md].
+Un manifeste de plugin par client à la racine : `.claude-plugin/`, `.codex-plugin/`, `.cursor-plugin/`, `.openclaw-plugin/`, `.pi/`, `openclaw.plugin.json` ; `.github/` porte 5 workflows [facts:tree.1.role] [facts:tree.3.role] [facts:tree.4.role] [facts:tree.11.role] [facts:tree.12.role] [facts:tree.6.role].
+`start.mjs` charge `server.bundle.mjs` s'il existe, sinon `build/server.js` : en dev local, `rm server.bundle.mjs`, sinon tes modifications de `src/` ne sont jamais chargées [facts:tree.30.role] [src:contributing.md].
 
 ## Par où commencer à lire ?
-1. `src/server.ts` : le serveur MCP, les handlers d'outils et l'auto-indexation ; c'est aussi le script `dev` (`npx tsx src/server.ts`) et la source de `server.bundle.mjs` [facts:entrypoints.0.path] [facts:entrypoints.0.why].
-2. `src/cli.ts` : la CLI `context-mode` (`setup`, `doctor`), bundlée en `cli.bundle.mjs` ; la CI lance `npx tsx src/cli.ts doctor` [facts:entrypoints.1.path] [facts:entrypoints.1.why].
-3. `src/adapters/opencode/index.ts` : l'adaptateur OpenCode, cible du `main` de package.json, classe `OpenCodeAdapter` qui implémente `HookAdapter` [facts:entrypoints.2.path] [facts:entrypoints.2.why]. Lire d'abord `src/adapters/types.ts` pour l'interface [src:contributing.md].
-4. `src/adapters/openclaw/index.ts` et `start.mjs` sont les deux autres entrées listées, déduites de leur chemin et non lues par le collecteur [facts:entrypoints.3.why] [facts:entrypoints.4.why].
-
-Le README explique le problème (un snapshot Playwright coûte 56 KB, vingt issues GitHub 59 KB) avant l'architecture : à lire en premier pour la motivation [src:readme.md]. CONTRIBUTING.md contient le schéma de `src/` et le flux de restauration de session : à lire en second [src:contributing.md].
+`src/server.ts` : le serveur MCP et ses handlers d'outils ; `npm run dev` = `npx tsx src/server.ts` ; bundlé en `server.bundle.mjs` [facts:entrypoints.0.path] [facts:entrypoints.0.why].
+`src/cli.ts` : la CLI `context-mode` (`bin` → `cli.bundle.mjs`), commandes `setup` et `doctor` ; la CI lance `npx tsx src/cli.ts doctor` [facts:entrypoints.1.path] [facts:entrypoints.1.why].
+`src/adapters/opencode/index.ts` : cible de `main` dans package.json, classe `OpenCodeAdapter` qui implémente `HookAdapter`, le modèle pour comprendre un adaptateur [facts:entrypoints.2.path] [facts:entrypoints.2.why] ; l'interface `HookAdapter` est dans `src/adapters/types.ts`, la détection de plateforme dans `src/adapters/detect.ts` [src:contributing.md].
+`start.mjs` (lanceur publié avec le paquet npm) et `src/adapters/openclaw/index.ts` (export `./openclaw`) sont déduits du nom par le collecteur, non lus [facts:entrypoints.4.why] [facts:entrypoints.3.why].
+Pour la continuité de session, lire dans l'ordre `hooks/sessionstart.mjs` → `src/session/db.ts` → `src/session/snapshot.ts` : SessionDB persistante dans `~/.claude/context-mode/sessions/<hash>.db`, ContentStore éphémère dans `/tmp/context-mode-<PID>.db`, les événements bruts ne sont jamais injectés dans le contexte, le modèle les retrouve via `ctx_search` [src:contributing.md].
+Pour la liste et la sémantique des outils `ctx_*` (sandbox : `ctx_batch_execute`, `ctx_execute`, `ctx_execute_file`, `ctx_index`, `ctx_search`, `ctx_fetch_and_index` ; méta : `ctx_stats`, `ctx_doctor`, `ctx_upgrade`, `ctx_purge`, `ctx_insight`), lire la section Install → Claude Code du README, puis leurs handlers dans `src/server.ts` [src:readme.md].
 
 ## Comment builder, tester et lancer ?
-```
-npm install                       # install
-npm run build                     # tsc + bundle esbuild + assertions sur les bundles
-npm test                          # vitest run (pretest = npm run build)
-npx tsx src/server.ts             # script dev
-claude mcp add context-mode -- npx -y context-mode   # lancer comme serveur MCP dans Claude Code
-```
-Commandes issues de `facts.build` et des scripts de package.json [facts:build.install] [facts:build.test] [facts:build.run] [src:manifest.md]. Node ≥ 22.5.0 est requis ; le `packageManager` déclaré est pnpm 10.23.0 alors que la CI fait `npm install` [src:manifest.md] [src:ci.md].
-
-Piège documenté : en local, supprimer `server.bundle.mjs` sinon `start.mjs` charge le bundle et ignore vos changements dans `build/server.js` [src:contributing.md].
-
-La CI (`.github/workflows/ci.yml`) tourne sur push, pull_request et workflow_dispatch, sur ubuntu, macos et windows, avec Node 22.5, Python 3.12, Go et Elixir installés pour l'exécuteur polyglotte ; elle enchaîne typecheck, build, bundle et assertions sur les bundles [facts:build.ci.0.path] [facts:build.ci.0.triggers] [src:ci.md]. Quatre autres workflows existent (bundle, openclaw-e2e, tier2-e2e-smoke, update-stats) mais n'ont pas été lus [src:ci.md].
+Prérequis : node >= 22.5.0 (`engines`), Bun accepté par le CONTRIBUTING ; `better-sqlite3` est un module natif externalisé du bundle ; `package.json` déclare `packageManager: pnpm` et le repo contient `bun.lock`, mais CONTRIBUTING et CI utilisent npm [facts:risks.4.note] [src:manifest.md] [src:contributing.md] [facts:tree.19.role].
+Installer puis builder, dans cet ordre : `npm install` puis `npm run build` (tsc → `build/`, puis `npm run bundle`, `assert-bundle`, `assert-asymmetric-drift`) [facts:build.install] [src:contributing.md] [src:manifest.md].
+Tester : `npm test` (= `vitest run`, `pretest` relance `npm run build`) ; `npm run typecheck` (`tsc --noEmit`) ; `npm run test:watch` ; 255 fichiers de test sous `tests/`, framework vitest [facts:build.test] [src:manifest.md] [facts:tests.files] [facts:tests.dir] [facts:tests.framework].
+Lancer : en dev `npm run dev` ; en usage `claude mcp add context-mode -- npx -y context-mode` (MCP seul, sans hooks) ou `/plugin marketplace add mksglu/context-mode` puis `/plugin install context-mode@context-mode` (plugin complet), vérification par `/context-mode:ctx-doctor` [facts:build.run] [src:readme.md].
+Dev local dans Claude Code : symlink de `~/.claude/plugins/cache/context-mode/context-mode/<version>` vers ton clone, override du seul hook PreToolUse dans `~/.claude/settings.json` (les autres sont déclarés dans `hooks/hooks.json`), `rm server.bundle.mjs`, `pkill -f "context-mode.*start.mjs"`, redémarrer Claude Code ; modifier `hooks/*.mjs` ou `configs/*` ne demande pas de rebuild, modifier `src/**/*.ts` oui [src:contributing.md].
+CI `.github/workflows/ci.yml` (nom « CI ») : déclenchée par workflow_dispatch, push et pull_request sur `main` et `next`, matrice ubuntu/macos/windows, Node 22.5 plus Python, Go et Elixir, étapes `npm install` → `npx tsc -b --noEmit` → `npm run build` → `npm run bundle` → `npm run assert-bundle` → vitest → `npx tsx src/cli.ts doctor` ; les autres workflows (bundle.yml, openclaw-e2e.yml, tier2-e2e-smoke.yml, update-stats.yml) ne sont pas dans le cache : à vérifier dans `.github/workflows/` [facts:build.ci.0.name] [facts:build.ci.0.path] [facts:build.ci.0.triggers.0] [facts:build.ci.0.triggers.1] [facts:build.ci.0.triggers.2] [src:ci.md].
 
 ## Comment le projet vit-il ?
 <!-- chart: commits_per_week -->
-Sur 12 semaines, le rythme est passé de 57 commits en semaine 26 à 9 en semaine 36 et 2 en semaine 37 (semaine en cours), avec un plateau autour de 11 à 13 commits par semaine entre les deux [facts:activity.commits_per_week]. Dernier commit le 2026-09-08 [facts:activity.last_commit].
-
-Le bus factor est de 1 : `mksglu` signe 60 commits sur la période, le deuxième contributeur `ken-jo` en a 6, les huit suivants 1 ou 2 [facts:activity.bus_factor] [facts:activity.contributors.0.commits] [facts:activity.contributors.1.commits]. CONTRIBUTING.md le confirme : « I'm a solo maintainer with limited time » [src:contributing.md].
-
-Les 10 dernières releases vont de v1.0.160 (2026-06-01) à v1.0.169 (2026-06-29) : dix versions en un mois, aucune release listée depuis fin juin [facts:releases.0.tag] [facts:releases.0.date] [facts:releases.9.date]. Le cache ne contient pas les releases postérieures au 2026-06-29 ; à vérifier dans https://github.com/mksglu/context-mode/releases.
+Sur les 12 dernières semaines : pic à 57 commits en 2026-W26, puis entre 9 et 14 par semaine de W27 à W36, et 2 en W37 (semaine en cours) ; dernier commit le 2026-09-08 [facts:activity.commits_per_week.0.count] [facts:activity.commits_per_week.1.count] [facts:activity.commits_per_week.10.count] [facts:activity.commits_per_week.11.count] [facts:activity.last_commit].
+Bus factor 1 : mksglu porte 60 commits, ken-jo 6, pg-adm1n 2, les autres contributeurs listés 1 chacun ; le mainteneur se décrit comme « solo maintainer with limited time » [facts:activity.bus_factor] [facts:activity.contributors.0.commits] [facts:activity.contributors.1.commits] [facts:activity.contributors.2.commits] [facts:activity.contributors.3.commits] [facts:risks.2.note] [src:contributing.md].
+Releases : 10 tags dans le cache, de v1.0.160 (2026-06-01) à v1.0.169 (2026-06-29) ; le collecteur ne garde que les 10 dernières, le cache ne dit donc pas si une version est sortie depuis juin alors que les commits continuent : à vérifier sur https://github.com/mksglu/context-mode/releases [facts:releases.9.tag] [facts:releases.9.date] [facts:releases.0.tag] [facts:releases.0.date].
+Flux entrant : 119 issues ouvertes, 6 fermées sur 30 jours, 107 PR ouvertes ; le cache ne liste aucune PR fusionnée sur 30 jours (liste vide), à vérifier sur https://github.com/mksglu/context-mode/pulls?q=is%3Amerged [facts:issues.open] [facts:issues.closed_30d] [facts:pulls.open] [facts:pulls.merged_30d].
+Les PR ouvertes les plus récentes datent d'aujourd'hui et d'hier (#1138 fix(fetch), #1137 docs, #1129 fix(hooks) ABI) : les contributions externes arrivent, à mettre en regard d'un mainteneur seul pour la revue [facts:roadmap.open_prs.0.updated_at] [facts:roadmap.open_prs.0.title] [facts:roadmap.open_prs.1.title] [facts:roadmap.open_prs.3.title] [src:contributing.md].
+Risques notés par le collecteur : CI low, deps low, licence mid, sécurité mid (pas de SECURITY.md), bus factor high ; pas de CODEOWNERS, un fichier de funding existe [facts:risks.3.level] [facts:risks.4.level] [facts:risks.0.level] [facts:risks.1.level] [facts:risks.2.level] [facts:business.codeowners] [facts:business.funding].
 
 ## Quelle première contribution ?
-Il n'y a aucune issue étiquetée good first issue [facts:issues.good_first]. 119 issues sont ouvertes, 6 fermées sur 30 jours, et seules 11 portent un label (6 enhancement, 4 bug, 1 help wanted) [facts:issues.open] [facts:issues.closed_30d] [facts:issues.by_label]. Côté PR : 107 ouvertes et aucune fusionnée sur 30 jours dans le cache [facts:pulls.open] [facts:pulls.merged_30d]. La file est longue, la revue est lente : une petite PR ciblée, avec test, a plus de chances qu'une grosse.
-
-Pistes concrètes tirées des issues les plus discutées : le bug de `ctx_stats` qui se contredit dans un même rendu (#950) et le timeout de `ctx_batch_execute` qui ne borne pas l'indexation (#947) sont bien délimités [facts:issues.hot.3.url] [facts:issues.hot.4.url]. L'issue #45 (154 commentaires) cherche des beta-testeurs sur 15 plateformes × 3 OS : tester une plateforme et rapporter est une contribution sans code [facts:issues.hot.0.url] [facts:issues.hot.0.comments].
-
-Avant d'envoyer : suivre les templates, lancer `bash scripts/ctx-debug.sh`, écrire des tests ; le mainteneur le demande explicitement [src:contributing.md].
+Aucune issue « good first issue » dans le cache (liste vide) ; labels présents : enhancement 6, bug 4, help wanted 1 ; l'entrée sans code est l'issue #45 « Beta testers wanted » (154 commentaires, label help wanted) [facts:issues.good_first] [facts:issues.by_label.enhancement] [facts:issues.by_label.bug] [facts:issues.hot.0.title] [facts:issues.hot.0.comments] [facts:roadmap.requests.0.labels.0].
+Règles du mainteneur : suivre les templates, joindre la sortie de `bash scripts/ctx-debug.sh` et le prompt exact, écrire des tests pour tout changement (TDD red-green-refactor), et ne PAS créer de nouveau fichier de test : compléter celui du domaine (`tests/adapters/<platform>.test.ts`, `tests/core/server.test.ts`, `tests/hooks/*.test.ts`, `tests/session/*.test.ts`) [src:contributing.md].
+Bugs ouverts les plus discutés, bons candidats : #947 (le timeout de `ctx_batch_execute` ne borne pas l'indexation, 4 commentaires), #950 (`ctx_stats` incohérent, 5), #1024 (nettoyage de la DB qui supprime des sessions vivantes, 2), #1022 (snapshot de reprise qui ignore le budget d'octets, 2) [facts:issues.hot.4.url] [facts:issues.hot.4.comments] [facts:issues.hot.3.url] [facts:issues.hot.3.comments] [facts:issues.hot.8.url] [facts:issues.hot.8.comments] [facts:issues.hot.9.url] [facts:issues.hot.9.comments].
+Si tu utilises Claude Code : #911 et #946 (6 et 3 commentaires) portent sur le classifieur auto-mode déclenché par le prompt injecté et demandent un opt-out, reproductibles sur ton poste [facts:issues.hot.1.url] [facts:issues.hot.1.comments] [facts:issues.hot.5.url] [facts:issues.hot.5.comments].
+Avant d'ouvrir une PR, cherche un doublon parmi les 107 ouvertes (ex. #1138 tables HTML sans lignes, #1127 budgets echo par hôte, #1082 timeout en millisecondes) [facts:pulls.open] [facts:roadmap.open_prs.0.title] [facts:roadmap.open_prs.6.title] [facts:roadmap.open_prs.4.title] ; la CI cible `main` et `next` [src:ci.md], mais le cache tronque CONTRIBUTING au début de « Submitting a Pull Request » : la branche de base des PR et la suite du processus sont à vérifier dans CONTRIBUTING.md [src:contributing.md].
+Interdit par la politique « prose-style » : aucune directive de brièveté dans `src/server.ts`, `hooks/routing-block.mjs` ou `configs/*/`, un test de régression dans `tests/core/server.test.ts` casse la CI sinon ; si ton changement touche la sortie d'un outil, joins un avant/après dans la PR [src:contributing.md].

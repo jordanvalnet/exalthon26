@@ -14,3 +14,14 @@
 - **Version (release)** : un paquet numéroté mis à disposition des utilisateurs, ici v1.0.160 à v1.0.169.
 - **Licence Elastic 2.0** : licence gratuite pour l'usage interne mais qui interdit de revendre le logiciel comme service hébergé ; ce n'est pas de l'open source classique.
 - **Intégration continue (CI)** : la chaîne de vérifications automatiques rejouée à chaque modification du code.
+- **FTS5** : moteur de recherche plein texte intégré à SQLite, utilisé par `src/store.ts` pour indexer les sorties d'outils et les événements de session.
+- **BM25** : fonction de classement par pertinence des résultats d'une recherche plein texte, celle que FTS5 applique aux requêtes `ctx_search`.
+- **Compaction** : résumé automatique de la conversation par l'agent quand la fenêtre de contexte est pleine ; le hook PreCompact de context-mode construit un snapshot de reprise juste avant.
+- **Snapshot de reprise** : résumé compact des événements de session (fichiers édités, tâches, erreurs) que le hook SessionStart réinjecte après une compaction, construit par `src/session/snapshot.ts`.
+- **SessionDB** : base SQLite persistante par projet (`~/.claude/context-mode/sessions/<hash>.db`) où le hook PostToolUse enregistre les événements de session.
+- **ContentStore** : base SQLite éphémère par processus (`/tmp/context-mode-<PID>.db`) qui porte l'index FTS5 des sorties d'outils et disparaît quand le serveur MCP s'arrête.
+- **Adaptateur (adapter)** : classe qui implémente l'interface `HookAdapter` pour une plateforme donnée dans `src/adapters/<plateforme>/`, traduisant ses événements et son format de hooks.
+- **Bundle esbuild** : fichier unique (`server.bundle.mjs`, `cli.bundle.mjs`, `hooks/*.bundle.mjs`) qui regroupe le code compilé et ses dépendances pour être lancé sans build ; `start.mjs` le préfère à `build/server.js`.
+- **Outils ctx_\*** : les outils MCP exposés par context-mode, de sandbox (`ctx_execute`, `ctx_batch_execute`, `ctx_execute_file`, `ctx_index`, `ctx_search`, `ctx_fetch_and_index`) ou méta (`ctx_stats`, `ctx_doctor`, `ctx_upgrade`, `ctx_purge`, `ctx_insight`).
+- **Think in code** : le paradigme du projet, l'agent écrit un script qui calcule et n'imprime que le résultat, au lieu de charger les données brutes dans son contexte.
+- **Routage (routing)** : les instructions injectées par le hook SessionStart et le filtre PreToolUse qui poussent le modèle à passer par les outils `ctx_*` plutôt que par Bash, Read ou WebFetch bruts.
