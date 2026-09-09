@@ -135,6 +135,17 @@ h2 { font-size: var(--h2); margin: 0 0 20px; padding-bottom: 12px; border-bottom
 .p-ceo h2, .p-investisseur h2, .p-enfant h2 { border-bottom-width: 3px; }
 .p-enfant section { border-width: 3px; border-color: var(--accent); }
 .p-enfant code { border-radius: 8px; }
+
+/* Les accents sombres (ceo, investisseur) disparaissent sur fond noir : chaque profil a sa version claire.
+   Ce bloc suit les définitions ci-dessus, donc il gagne à spécificité égale. */
+@media (prefers-color-scheme: dark) {
+  .p-dev { --accent: #8f97ee; --bar: #8f97ee; --bar-strong: #ef7f8e; }
+  .p-qa { --accent: #35c2a8; --bar: #35c2a8; --bar-strong: #ef7f8e; }
+  .p-cto { --accent: #79a6d8; --bar: #79a6d8; --bar-strong: #e5a05d; }
+  .p-ceo { --accent: #86aede; --bar: #86aede; --bar-strong: #e0b661; }
+  .p-investisseur { --accent: #4cbb8a; --bar: #4cbb8a; --bar-strong: #e0b661; }
+  .p-enfant { --accent: #ff9a5c; --bar: #ffab6b; --bar-strong: #b18bea; }
+}
 p { margin: 0 0 12px; }
 code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.88em; background: var(--bg); padding: 1px 5px; border-radius: 4px; }
 a { color: var(--accent); }
