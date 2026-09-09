@@ -1,7 +1,7 @@
 ---
 path: LICENSE
 url: https://github.com/mksglu/context-mode/blob/main/LICENSE
-fetched_at: 2026-09-09T14:49:36.042Z
+fetched_at: 2026-09-09T14:52:43.709Z
 ---
 Elastic License 2.0 (ELv2)
 

@@ -177,9 +177,9 @@ export async function collectMeta(full: string, profileName: string, dir: string
       ...(competitors ? { competitors } : {}),
     },
     risks,
-    collected: { by: "1a-meta", at, lenses: ["core", ...(competitors ? [profileName] : [])] },
+    collected: { by: "1a-meta", at },
   };
-  const parsed = Facts.partial().safeParse(part);
+  const parsed = Facts.omit({ schema: true, collected: true }).partial().safeParse(part);
   if (!parsed.success) throw new Error(parsed.error.issues.map((i) => `${i.path.join(".")} : ${i.message}`).join("\n"));
   writeFileSync(path.join(dir, "parts", "meta.json"), JSON.stringify(part, null, 2) + "\n");
 
