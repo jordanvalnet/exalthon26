@@ -34,7 +34,8 @@ owner/repo + profil
 4. Un agent n'écrit que dans ses OUT. Il ne modifie jamais les sorties d'une autre étape, même pour « aider ».
 5. Un agent n'invente rien. Donnée absente = champ absent + une ligne dans « Manques » du compte rendu.
 6. Un agent ne lit que ses IN. Le rédacteur ne va pas sur GitHub ; les collecteurs ne lisent pas le narratif.
-7. Collecte rapide même sur un gros repo : chaque sous-agent a un budget d'appels, personne ne lit un fichier de code au-delà de 60 lignes ni ne descend au-delà de 2 niveaux d'arborescence.
+7. **GitHub se lit par le serveur MCP uniquement** : outils `github:*` pour les agents, client MCP de `onboarding/src/` pour le code. Aucun appel REST, aucun `gh`, aucun `curl`, aucun clone. Ce que le MCP n'expose pas (langages, statistiques, jalons) est un manque déclaré avec son URL, jamais contourné.
+8. Collecte rapide même sur un gros repo : chaque sous-agent a un budget d'appels, personne ne lit un fichier de code au-delà de 60 lignes ni ne descend au-delà de 2 niveaux d'arborescence.
 
 ## Compte rendu d'étape (format exact, dernière chose qu'écrit chaque agent)
 ```

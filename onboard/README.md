@@ -51,6 +51,7 @@ Trois règles font tenir l'ensemble :
 1. **Chaque agent ne lit que ses IN et n'écrit que ses OUT.** Le rédacteur ne va jamais sur GitHub ; les collecteurs ne touchent pas au texte.
 2. **Une validation en code entre chaque étape.** Un agent ne peut pas se déclarer fini : la commande dit OK ou liste les erreurs, l'agent corrige, deux essais.
 3. **Rien d'inventé.** Une donnée absente reste absente et se dit dans « Manques ».
+4. **GitHub se lit par le serveur MCP uniquement.** Outils `github:*` pour les agents, client MCP de `onboarding/src/` pour le code. Aucun appel REST, aucun `gh`, aucun `curl`, aucun clone. Ce que le MCP n'expose pas est un manque déclaré avec son URL.
 
 ## Les étapes
 
