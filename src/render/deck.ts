@@ -15,7 +15,11 @@ export function buildDeck(facts: Facts, narrative: string, profile: Profile): st
     })
     .join("\n");
   // Les notes sont numérotées pendant le rendu du corps : la page Sources se construit après.
-  return shell(title || facts.repo.full_name, cover(facts, profile, title) + pages + finale(facts, profile) + sources(notes));
+  return shell(
+    title || facts.repo.full_name,
+    cover(facts, profile, title) + pages + finale(facts, profile) + sources(notes),
+    profile.name,
+  );
 }
 
 function page(heading: string, body: string): string {
@@ -68,7 +72,7 @@ function sources(notes: Notes): string {
   return `<section class="refs"><h2>Sources</h2><div class="body">${body}</div></section>`;
 }
 
-function shell(title: string, body: string): string {
+function shell(title: string, body: string, profile: string): string {
   return `<!doctype html>
 <html lang="fr">
 <head>
@@ -77,7 +81,7 @@ function shell(title: string, body: string): string {
 <title>${escapeHtml(title)}</title>
 <style>${CSS}</style>
 </head>
-<body>
+<body class="p-${escapeHtml(profile)}">
 ${body}
 </body>
 </html>
@@ -89,6 +93,8 @@ const CSS = `
   --bg: #f7f7f5; --card: #ffffff; --fg: #17181c; --muted: #5f6470;
   --line: #dcdde2; --bar: #4f5bd5; --bar-strong: #d1495b; --accent: #4f5bd5;
   --low: #2e9e6b; --mid: #d99a2b; --high: #d1495b;
+  --radius: 10px; --pad: 32px 36px; --width: 900px;
+  --h1: 2.1rem; --h2: 1.45rem; --text: 1rem;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -103,11 +109,32 @@ body {
   font: 16px/1.55 ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 section {
-  background: var(--card); border: 1px solid var(--line); border-radius: 10px;
-  max-width: 900px; margin: 24px auto; padding: 32px 36px; min-height: 460px;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  max-width: var(--width); margin: 24px auto; padding: var(--pad); min-height: 460px;
+  font-size: var(--text);
 }
-h1 { font-size: 2.1rem; line-height: 1.2; margin: 0 0 12px; }
-h2 { font-size: 1.45rem; margin: 0 0 20px; padding-bottom: 12px; border-bottom: 2px solid var(--accent); }
+h1 { font-size: var(--h1); line-height: 1.15; margin: 0 0 12px; }
+h2 { font-size: var(--h2); margin: 0 0 20px; padding-bottom: 12px; border-bottom: 2px solid var(--accent); }
+
+/* Un profil = un public. L'accent, la densité et l'échelle typographique changent, la palette de base ne bouge pas. */
+.p-dev { --accent: #4f5bd5; --bar: #4f5bd5; --bar-strong: #d1495b; }
+.p-qa { --accent: #0f8f7a; --bar: #0f8f7a; --bar-strong: #d1495b; }
+.p-cto { --accent: #3d6fa8; --bar: #3d6fa8; --bar-strong: #c9772e; }
+.p-ceo {
+  --accent: #1f3a5f; --bar: #1f3a5f; --bar-strong: #b8862b;
+  --h1: 2.7rem; --h2: 1.7rem; --text: 1.08rem; --pad: 44px 52px; --width: 860px;
+}
+.p-investisseur {
+  --accent: #1d6b4a; --bar: #1d6b4a; --bar-strong: #b8862b;
+  --h1: 2.6rem; --h2: 1.65rem; --text: 1.05rem; --pad: 40px 48px;
+}
+.p-enfant {
+  --accent: #d4572a; --bar: #f08a3c; --bar-strong: #7b4fc0;
+  --h1: 3rem; --h2: 2rem; --text: 1.25rem; --radius: 24px; --pad: 44px 52px; --width: 820px;
+}
+.p-ceo h2, .p-investisseur h2, .p-enfant h2 { border-bottom-width: 3px; }
+.p-enfant section { border-width: 3px; border-color: var(--accent); }
+.p-enfant code { border-radius: 8px; }
 p { margin: 0 0 12px; }
 code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.88em; background: var(--bg); padding: 1px 5px; border-radius: 4px; }
 a { color: var(--accent); }
