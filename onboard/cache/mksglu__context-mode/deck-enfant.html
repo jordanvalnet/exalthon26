@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Context Mode : un sac à dos qui aide les robots-programmeurs à ne pas oublier</title>
+<style>
+:root {
+  --bg: #f7f7f5; --card: #ffffff; --fg: #17181c; --muted: #5f6470;
+  --line: #dcdde2; --bar: #4f5bd5; --bar-strong: #d1495b; --accent: #4f5bd5;
+  --low: #2e9e6b; --mid: #d99a2b; --high: #d1495b;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14151a; --card: #1c1e25; --fg: #eceef3; --muted: #a0a6b4;
+    --line: #2f323c; --bar: #8f97ee; --bar-strong: #ef7f8e; --accent: #8f97ee;
+    --low: #4cc38a; --mid: #e5b25d; --high: #ef7f8e;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font: 16px/1.55 ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+section {
+  background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+  max-width: 900px; margin: 24px auto; padding: 32px 36px; min-height: 460px;
+}
+h1 { font-size: 2.1rem; line-height: 1.2; margin: 0 0 12px; }
+h2 { font-size: 1.45rem; margin: 0 0 20px; padding-bottom: 12px; border-bottom: 2px solid var(--accent); }
+p { margin: 0 0 12px; }
+code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.88em; background: var(--bg); padding: 1px 5px; border-radius: 4px; }
+a { color: var(--accent); }
+.cover { display: flex; flex-direction: column; justify-content: center; }
+.eyebrow { color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.78rem; margin-bottom: 18px; }
+.lede { font-size: 1.15rem; }
+.desc { color: var(--muted); }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.meta span { border: 1px solid var(--line); border-radius: 999px; padding: 3px 12px; font-size: 0.85rem; color: var(--muted); }
+.url { margin-top: 16px; }
+.note { font-size: 0.7em; }
+.note a { text-decoration: none; padding: 0 1px; }
+.chart { display: block; width: 100%; height: auto; max-width: 640px; margin: 0 0 20px; }
+.chart text { font-family: inherit; fill: var(--fg); }
+.chart .lbl { font-size: 12px; }
+.chart .val, .chart .tick { font-size: 11px; fill: var(--muted); }
+.chart .bar { fill: var(--bar); }
+.chart .bar.strong { fill: var(--bar-strong); }
+.chart .bar.off { fill: var(--line); }
+.chart .dot { fill: var(--accent); }
+.chart .axis { stroke: var(--line); stroke-width: 1; }
+.tree, .risks, .steps, .sources { margin: 0 0 18px; padding-left: 0; }
+.tree, .risks { list-style: none; }
+.tree li, .risks li { display: flex; gap: 10px; align-items: baseline; padding: 4px 0; border-bottom: 1px solid var(--line); }
+.role { color: var(--muted); font-size: 0.9rem; }
+.light { width: 10px; height: 10px; border-radius: 50%; flex: 0 0 auto; background: var(--muted); }
+.light.low { background: var(--low); }
+.light.mid { background: var(--mid); }
+.light.high { background: var(--high); }
+.steps, .sources { padding-left: 22px; }
+.steps li, .sources li { margin-bottom: 10px; }
+.sources { font-size: 0.9rem; }
+.kind { color: var(--muted); margin-right: 8px; }
+@media print {
+  @page { size: A4 landscape; margin: 12mm; }
+  /* Palette claire forcée : sinon une impression depuis un navigateur en thème sombre sort en texte clair sur blanc. */
+  :root {
+    --bg: #fff; --card: #fff; --fg: #17181c; --muted: #5f6470;
+    --line: #dcdde2; --bar: #4f5bd5; --bar-strong: #d1495b; --accent: #4f5bd5;
+    --low: #2e9e6b; --mid: #d99a2b; --high: #d1495b;
+  }
+  body { background: #fff; color: var(--fg); }
+  section {
+    border: 0; margin: 0; padding: 0; max-width: none; min-height: 0;
+    break-after: page; page-break-after: always;
+  }
+  section:last-child { break-after: auto; page-break-after: auto; }
+  .chart .bar, .chart .bar.strong, .light { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  a { color: #000; text-decoration: none; }
+}
+</style>
+</head>
+<body>
+<section class="cover">
+  <p class="eyebrow">Onboarding · profil enfant · 2026-09-09</p>
+  <h1>mksglu/context-mode</h1>
+  <p class="lede">Context Mode : un sac à dos qui aide les robots-programmeurs à ne pas oublier</p>
+  <p class="desc">Context window optimization for AI coding agents. Sandboxes tool output (98% reduction), persists session memory, and   enforces routing across 17 platforms via MCP + hooks.</p>
+  <p class="meta"><span>21624 ★</span><span>1555 forks</span><span>226 issues ouvertes</span><span>Elastic License 2.0 (ELv2)</span></p>
+  <p class="url"><code>https://github.com/mksglu/context-mode</code></p>
+</section><section><h2>C'est quoi, ce projet ?</h2><div class="body"><p>Tu connais les assistants qui écrivent du code tout seuls ? Ils ont une petite mémoire, comme un sac à dos. Chaque fois qu'ils regardent un fichier, ils mettent tout le fichier dans le sac. Vite, le sac est plein, et ils oublient ce qu'ils faisaient <sup class="note"><a href="#note-1">1</a></sup>.</p>
+<p>Context Mode, c'est un trieur. Il garde les gros papiers dans une armoire à côté, et ne met dans le sac qu'un petit résumé. Le robot peut aller chercher le détail dans l'armoire quand il en a besoin <sup class="note"><a href="#note-1">1</a></sup>. Les auteurs disent que le sac reste presque vide : 98 % de place gagnée <sup class="note"><a href="#note-2">2</a></sup>.</p></div></section>
+<section><h2>Qui s'en sert et pour quoi faire ?</h2><div class="body"><p>Des gens qui programment avec un assistant, sur 17 outils différents <sup class="note"><a href="#note-2">2</a></sup>. Sur GitHub, le site où on range les projets, 21 624 personnes ont mis une étoile à ce projet, comme un « j'aime » <sup class="note"><a href="#note-3">3</a></sup>. Et 1 555 personnes en ont fait une copie pour bricoler dessus <sup class="note"><a href="#note-4">4</a></sup>.</p>
+<p>Ils s'en servent pour que leur assistant travaille plus longtemps sans se perdre, un peu comme un cahier de brouillon qu'on ne remplit pas de gribouillis inutiles <sup class="note"><a href="#note-1">1</a></sup>.</p></div></section>
+<section><h2>Combien de personnes le fabriquent ?</h2><div class="body"><svg class="chart" viewBox="0 0 640 252" width="640" height="252" role="img" preserveAspectRatio="xMinYMin meet"><text class="lbl" x="168" y="21" text-anchor="end">mksglu</text><rect class="bar strong" x="178" y="10" width="398" height="14" rx="3"/><text class="val" x="582" y="21">60</text><text class="lbl" x="168" y="45" text-anchor="end">ken-jo</text><rect class="bar" x="178" y="34" width="40" height="14" rx="3"/><text class="val" x="224" y="45">6</text><text class="lbl" x="168" y="69" text-anchor="end">pg-adm1n</text><rect class="bar" x="178" y="58" width="13" height="14" rx="3"/><text class="val" x="197" y="69">2</text><text class="lbl" x="168" y="93" text-anchor="end">NgoQuocViet2001</text><rect class="bar" x="178" y="82" width="7" height="14" rx="3"/><text class="val" x="191" y="93">1</text><text class="lbl" x="168" y="117" text-anchor="end">ousamabenyounes</text><rect class="bar" x="178" y="106" width="7" height="14" rx="3"/><text class="val" x="191" y="117">1</text><text class="lbl" x="168" y="141" text-anchor="end">pradigmaz</text><rect class="bar" x="178" y="130" width="7" height="14" rx="3"/><text class="val" x="191" y="141">1</text><text class="lbl" x="168" y="165" text-anchor="end">eejd</text><rect class="bar" x="178" y="154" width="7" height="14" rx="3"/><text class="val" x="191" y="165">1</text><text class="lbl" x="168" y="189" text-anchor="end">xuli500177</text><rect class="bar" x="178" y="178" width="7" height="14" rx="3"/><text class="val" x="191" y="189">1</text><text class="lbl" x="168" y="213" text-anchor="end">Niche-alchemy</text><rect class="bar" x="178" y="202" width="7" height="14" rx="3"/><text class="val" x="191" y="213">1</text><text class="lbl" x="168" y="237" text-anchor="end">daniel-enqz</text><rect class="bar" x="178" y="226" width="7" height="14" rx="3"/><text class="val" x="191" y="237">1</text></svg><p>Surtout une seule ! Elle s'appelle Mert, son pseudo est <code>mksglu</code> <sup class="note"><a href="#note-5">5</a></sup> <sup class="note"><a href="#note-6">6</a></sup>. En 12 semaines, elle a fait 60 modifications <sup class="note"><a href="#note-7">7</a></sup>. La deuxième personne en a fait 6, et huit autres en ont fait 1 ou 2 chacune <sup class="note"><a href="#note-8">8</a></sup> <sup class="note"><a href="#note-9">9</a></sup>.</p>
+<p>C'est comme une cabane construite par une personne, avec des voisins qui passent poser une planche de temps en temps. Mert dit lui-même qu'il est tout seul et qu'il n'a pas beaucoup de temps <sup class="note"><a href="#note-10">10</a></sup>.</p></div></section>
+<section><h2>Comment on fabrique un logiciel à plusieurs ?</h2><div class="body"><p>On range tout dans des tiroirs. Ici, le tiroir <code>src</code> contient le cœur du programme, le tiroir <code>tests</code> contient les vérifications, et le tiroir <code>docs</code> les explications <sup class="note"><a href="#note-11">11</a></sup> <sup class="note"><a href="#note-12">12</a></sup>. Il y a même un tiroir <code>.github</code> avec 5 robots-vérificateurs qui testent le projet à chaque changement <sup class="note"><a href="#note-11">11</a></sup>.</p>
+<p>Chaque changement s'appelle un commit, comme une page ajoutée au cahier. Ces 12 dernières semaines, il y a eu jusqu'à 57 pages en une semaine, puis environ 11 par semaine <sup class="note"><a href="#note-13">13</a></sup>. Quand quelqu'un d'autre propose une page, ça s'appelle une pull request : il y en a 107 qui attendent d'être lues <sup class="note"><a href="#note-14">14</a></sup>.</p></div></section>
+<section><h2>Une chose étonnante sur ce projet ?</h2><div class="body"><p>Il est tout jeune : il est né le 2026-02-23, il y a à peine six mois, et il a déjà 21 624 étoiles <sup class="note"><a href="#note-15">15</a></sup> <sup class="note"><a href="#note-3">3</a></sup>. C'est comme un dessin fait au printemps et déjà accroché dans 20 000 maisons.</p>
+<p>Et le programme sait faire tourner du code dans 12 langages de programmation différents, comme un traducteur qui parle 12 langues <sup class="note"><a href="#note-10">10</a></sup>.</p></div></section><section class="finale"><h2>Et toi, tu ferais quoi avec ?</h2><div class="body"><ol class="steps"><li>Installer : <code>npm install</code></li><li>Lancer les tests : <code>npm test</code></li><li>Ouvrir <code>src/server.ts</code> — Serveur MCP : script dev = npx tsx src/server.ts, bundlé en server.bundle.mjs par esbuild (package.json).</li></ol></div></section><section class="refs"><h2>Sources</h2><div class="body"><ol class="sources"><li id="note-1"><span class="kind">source du repo</span><code>readme.md</code></li><li id="note-2"><span class="kind">donnée collectée</span><code>repo.description</code></li><li id="note-3"><span class="kind">donnée collectée</span><code>repo.stars</code></li><li id="note-4"><span class="kind">donnée collectée</span><code>repo.forks</code></li><li id="note-5"><span class="kind">donnée collectée</span><code>activity.contributors.0.login</code></li><li id="note-6"><span class="kind">source du repo</span><code>manifest.md</code></li><li id="note-7"><span class="kind">donnée collectée</span><code>activity.contributors.0.commits</code></li><li id="note-8"><span class="kind">donnée collectée</span><code>activity.contributors.1.commits</code></li><li id="note-9"><span class="kind">donnée collectée</span><code>activity.contributors.2.commits</code></li><li id="note-10"><span class="kind">source du repo</span><code>contributing.md</code></li><li id="note-11"><span class="kind">donnée collectée</span><code>tree</code></li><li id="note-12"><span class="kind">source du repo</span><code>tree.md</code></li><li id="note-13"><span class="kind">donnée collectée</span><code>activity.commits_per_week</code></li><li id="note-14"><span class="kind">donnée collectée</span><code>pulls.open</code></li><li id="note-15"><span class="kind">donnée collectée</span><code>repo.created_at</code></li></ol></div></section>
+</body>
+</html>

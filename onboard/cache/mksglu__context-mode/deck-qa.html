@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Context Mode : un serveur MCP et des hooks multi-plateformes, 255 fichiers de tests vitest, 119 issues ouvertes dont 4 bugs étiquetés</title>
+<style>
+:root {
+  --bg: #f7f7f5; --card: #ffffff; --fg: #17181c; --muted: #5f6470;
+  --line: #dcdde2; --bar: #4f5bd5; --bar-strong: #d1495b; --accent: #4f5bd5;
+  --low: #2e9e6b; --mid: #d99a2b; --high: #d1495b;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14151a; --card: #1c1e25; --fg: #eceef3; --muted: #a0a6b4;
+    --line: #2f323c; --bar: #8f97ee; --bar-strong: #ef7f8e; --accent: #8f97ee;
+    --low: #4cc38a; --mid: #e5b25d; --high: #ef7f8e;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font: 16px/1.55 ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+section {
+  background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+  max-width: 900px; margin: 24px auto; padding: 32px 36px; min-height: 460px;
+}
+h1 { font-size: 2.1rem; line-height: 1.2; margin: 0 0 12px; }
+h2 { font-size: 1.45rem; margin: 0 0 20px; padding-bottom: 12px; border-bottom: 2px solid var(--accent); }
+p { margin: 0 0 12px; }
+code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.88em; background: var(--bg); padding: 1px 5px; border-radius: 4px; }
+a { color: var(--accent); }
+.cover { display: flex; flex-direction: column; justify-content: center; }
+.eyebrow { color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.78rem; margin-bottom: 18px; }
+.lede { font-size: 1.15rem; }
+.desc { color: var(--muted); }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.meta span { border: 1px solid var(--line); border-radius: 999px; padding: 3px 12px; font-size: 0.85rem; color: var(--muted); }
+.url { margin-top: 16px; }
+.note { font-size: 0.7em; }
+.note a { text-decoration: none; padding: 0 1px; }
+.chart { display: block; width: 100%; height: auto; max-width: 640px; margin: 0 0 20px; }
+.chart text { font-family: inherit; fill: var(--fg); }
+.chart .lbl { font-size: 12px; }
+.chart .val, .chart .tick { font-size: 11px; fill: var(--muted); }
+.chart .bar { fill: var(--bar); }
+.chart .bar.strong { fill: var(--bar-strong); }
+.chart .bar.off { fill: var(--line); }
+.chart .dot { fill: var(--accent); }
+.chart .axis { stroke: var(--line); stroke-width: 1; }
+.tree, .risks, .steps, .sources { margin: 0 0 18px; padding-left: 0; }
+.tree, .risks { list-style: none; }
+.tree li, .risks li { display: flex; gap: 10px; align-items: baseline; padding: 4px 0; border-bottom: 1px solid var(--line); }
+.role { color: var(--muted); font-size: 0.9rem; }
+.light { width: 10px; height: 10px; border-radius: 50%; flex: 0 0 auto; background: var(--muted); }
+.light.low { background: var(--low); }
+.light.mid { background: var(--mid); }
+.light.high { background: var(--high); }
+.steps, .sources { padding-left: 22px; }
+.steps li, .sources li { margin-bottom: 10px; }
+.sources { font-size: 0.9rem; }
+.kind { color: var(--muted); margin-right: 8px; }
+@media print {
+  @page { size: A4 landscape; margin: 12mm; }
+  /* Palette claire forcée : sinon une impression depuis un navigateur en thème sombre sort en texte clair sur blanc. */
+  :root {
+    --bg: #fff; --card: #fff; --fg: #17181c; --muted: #5f6470;
+    --line: #dcdde2; --bar: #4f5bd5; --bar-strong: #d1495b; --accent: #4f5bd5;
+    --low: #2e9e6b; --mid: #d99a2b; --high: #d1495b;
+  }
+  body { background: #fff; color: var(--fg); }
+  section {
+    border: 0; margin: 0; padding: 0; max-width: none; min-height: 0;
+    break-after: page; page-break-after: always;
+  }
+  section:last-child { break-after: auto; page-break-after: auto; }
+  .chart .bar, .chart .bar.strong, .light { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  a { color: #000; text-decoration: none; }
+}
+</style>
+</head>
+<body>
+<section class="cover">
+  <p class="eyebrow">Onboarding · profil qa · 2026-09-09</p>
+  <h1>mksglu/context-mode</h1>
+  <p class="lede">Context Mode : un serveur MCP et des hooks multi-plateformes, 255 fichiers de tests vitest, 119 issues ouvertes dont 4 bugs étiquetés</p>
+  <p class="desc">Context window optimization for AI coding agents. Sandboxes tool output (98% reduction), persists session memory, and   enforces routing across 17 platforms via MCP + hooks.</p>
+  <p class="meta"><span>21624 ★</span><span>1555 forks</span><span>226 issues ouvertes</span><span>Elastic License 2.0 (ELv2)</span></p>
+  <p class="url"><code>https://github.com/mksglu/context-mode</code></p>
+</section><section><h2>Que fait ce projet et quels sont ses parcours critiques ?</h2><div class="body"><p>Context Mode est un serveur MCP plus des hooks qui interceptent les sorties d'outils des agents de code, les indexent dans SQLite FTS5, et n'exposent qu'un résumé recherchable ; il persiste aussi la session pour survivre à la compaction et impose un routage sur 17 plateformes <sup class="note"><a href="#note-1">1</a></sup> <sup class="note"><a href="#note-2">2</a></sup>.</p>
+<p>Parcours critiques déduits du README et de CONTRIBUTING.md : - Interception d'une sortie d'outil, indexation, recherche via <code>ctx_search</code> <sup class="note"><a href="#note-3">3</a></sup>. - Exécution de code en bac à sable dans 12 langages (<code>src/executor.ts</code>) et règles deny/allow (<code>src/security.ts</code>) <sup class="note"><a href="#note-3">3</a></sup>. - Compaction puis reprise : hooks PreCompact, SessionStart, snapshot injecté <sup class="note"><a href="#note-3">3</a></sup>. - Installation et diagnostic par la CLI (<code>setup</code>, <code>doctor</code>) sur chaque plateforme <sup class="note"><a href="#note-4">4</a></sup>. Le repo compte 226 issues ouvertes toutes catégories <sup class="note"><a href="#note-5">5</a></sup>.</p></div></section>
+<section><h2>Comment est-il testé aujourd'hui ?</h2><div class="body"><ul class="tree"><li><code>.agents/</code><span class="role">config agents IA</span></li><li><code>.claude-plugin/</code><span class="role">manifeste plugin Claude Code</span></li><li><code>.claude/</code><span class="role">config locale Claude Code</span></li><li><code>.codex-plugin/</code><span class="role">manifeste plugin Codex</span></li><li><code>.cursor-plugin/</code><span class="role">manifeste plugin Cursor</span></li><li><code>.gitattributes</code><span class="role">attributs git</span></li><li><code>.github/</code><span class="role">5 workflows GitHub Actions</span></li><li><code>.gitignore</code><span class="role">exclusions git</span></li><li><code>.mcp.json.codex.example</code><span class="role">exemple config MCP Codex</span></li><li><code>.mcp.json.example</code><span class="role">exemple config MCP</span></li><li><code>.npmignore</code><span class="role">exclusions publication npm</span></li><li><code>.openclaw-plugin/</code><span class="role">manifeste plugin OpenClaw</span></li><li><code>.pi/</code><span class="role">extension pour Pi</span></li><li><code>BENCHMARK.md</code><span class="role">résultats de benchmark</span></li><li><code>CLAUDE.md</code><span class="role">instructions pour Claude Code</span></li><li><code>CONTRIBUTING.md</code><span class="role">guide de contribution</span></li><li><code>LICENSE</code><span class="role">licence Elastic 2.0</span></li><li><code>README.md</code><span class="role">documentation principale</span></li><li><code>bin/</code><span class="role">script statusline.mjs</span></li><li><code>bun.lock</code><span class="role">verrou dépendances bun</span></li><li><code>cli.bundle.mjs</code><span class="role">CLI bundlée par esbuild</span></li><li><code>configs/</code><span class="role">configs par plateforme</span></li><li><code>docs/</code><span class="role">documentation</span></li><li><code>hooks/</code><span class="role">hooks par plateforme, bundles session</span></li><li><code>openclaw.plugin.json</code><span class="role">manifeste plugin OpenClaw</span></li><li><code>package.json</code><span class="role">manifeste npm</span></li><li><code>scripts/</code><span class="role">scripts build, install, version</span></li><li><code>server.bundle.mjs</code><span class="role">serveur MCP bundlé par esbuild</span></li><li><code>skills/</code><span class="role">skills pour agents</span></li><li><code>src/</code><span class="role">TypeScript : serveur MCP, CLI, adaptateurs</span></li><li><code>start.mjs</code><span class="role">lanceur publié avec le paquet</span></li><li><code>stats.json</code><span class="role">statistiques publiées</span></li><li><code>tests/</code><span class="role">tests vitest</span></li><li><code>tsconfig.json</code><span class="role">config TypeScript</span></li><li><code>vitest.config.ts</code><span class="role">config vitest</span></li><li><code>web/</code><span class="role">partie web du projet</span></li></ul><p>Framework vitest, dossier <code>tests/</code>, 255 fichiers trouvés par recherche de code <sup class="note"><a href="#note-6">6</a></sup> <sup class="note"><a href="#note-7">7</a></sup> <sup class="note"><a href="#note-8">8</a></sup>. <code>npm test</code> lance <code>vitest run</code>, précédé automatiquement d'un <code>npm run build</code> <sup class="note"><a href="#note-9">9</a></sup> <sup class="note"><a href="#note-4">4</a></sup>.</p>
+<p>Les 20 premiers chemins montrent des sous-dossiers <code>tests/executor/</code>, <code>tests/core/</code> (deny-policy, routing), <code>tests/session/</code>, <code>tests/adapters/</code> (kiro, memory-conventions) et <code>tests/util/</code>, plus un <code>tests/mcp-integration.ts</code> <sup class="note"><a href="#note-10">10</a></sup>. Un benchmark existe : <code>npx tsx tests/benchmark.ts</code> <sup class="note"><a href="#note-4">4</a></sup>.</p>
+<p>Le cache ne contient ni couverture de code ni liste complète des 255 fichiers ; à vérifier dans https://github.com/mksglu/context-mode/tree/main/tests.</p></div></section>
+<section><h2>Que dit la CI et quand tourne-t-elle ?</h2><div class="body"><p>Un workflow lu, <code>CI</code> (<code>.github/workflows/ci.yml</code>), déclenché par workflow_dispatch, push et pull_request, sur les branches main et next <sup class="note"><a href="#note-11">11</a></sup> <sup class="note"><a href="#note-12">12</a></sup> <sup class="note"><a href="#note-13">13</a></sup>.</p>
+<p>Matrice ubuntu, macos et windows, fail-fast désactivé ; Node 22.5, Python 3.12, Go stable, Elixir 1.17 installés pour l'exécuteur polyglotte <sup class="note"><a href="#note-13">13</a></sup>. Étapes : <code>npm install</code>, typecheck, build, bundle, assertions sur les bundles (garde-fou issue #511), puis vitest et enfin <code>npx tsx src/cli.ts doctor</code> en continue-on-error <sup class="note"><a href="#note-13">13</a></sup>.</p>
+<p>Quatre workflows non lus : bundle, openclaw-e2e, tier2-e2e-smoke, update-stats <sup class="note"><a href="#note-13">13</a></sup>. Les deux e2e sont à examiner pour connaître la couverture bout en bout réelle.</p></div></section>
+<section><h2>Où sont les bugs connus ?</h2><div class="body"><svg class="chart" viewBox="0 0 640 84" width="640" height="84" role="img" preserveAspectRatio="xMinYMin meet"><text class="lbl" x="168" y="21" text-anchor="end">enhancement</text><rect class="bar" x="178" y="10" width="398" height="14" rx="3"/><text class="val" x="582" y="21">6</text><text class="lbl" x="168" y="45" text-anchor="end">bug</text><rect class="bar" x="178" y="34" width="265" height="14" rx="3"/><text class="val" x="449" y="45">4</text><text class="lbl" x="168" y="69" text-anchor="end">help wanted</text><rect class="bar" x="178" y="58" width="66" height="14" rx="3"/><text class="val" x="250" y="69">1</text></svg><p>119 issues ouvertes, 6 fermées sur 30 jours ; seules 11 sont étiquetées : 6 enhancement, 4 bug, 1 help wanted <sup class="note"><a href="#note-14">14</a></sup> <sup class="note"><a href="#note-15">15</a></sup> <sup class="note"><a href="#note-16">16</a></sup>. Le tri par label est donc peu fiable, lire les titres.</p>
+<p>Bugs les plus discutés : - #950 : <code>ctx_stats</code> se contredit dans un même rendu et annonce 100 % d'économie sans aucun appel <sup class="note"><a href="#note-17">17</a></sup> <sup class="note"><a href="#note-18">18</a></sup>. - #947 : le timeout de <code>ctx_batch_execute</code> ne borne pas l'indexation, un agent peut pendre des heures <sup class="note"><a href="#note-19">19</a></sup>. - #959 : sur l'adaptateur Pi, un <code>ctx_execute</code> bloqué ne peut pas être interrompu <sup class="note"><a href="#note-20">20</a></sup>. - #1024 : le nettoyage des bases périmées supprime des sessions vivantes mais inactives <sup class="note"><a href="#note-21">21</a></sup>. - #1022 : le snapshot de reprise ignore son budget d'octets, ~196 KB injectés au lieu de 2 KB <sup class="note"><a href="#note-22">22</a></sup>. - #911 et #946 : l'injection de prompt déclenche le classificateur de Claude Code <sup class="note"><a href="#note-23">23</a></sup> <sup class="note"><a href="#note-24">24</a></sup>.</p></div></section>
+<section><h2>Comment reproduire et signaler un bug ici ?</h2><div class="body"><p>Le mainteneur demande trois choses : suivre les templates d'issue, lancer <code>bash scripts/ctx-debug.sh</code> et joindre sa sortie, écrire des tests pour tout correctif <sup class="note"><a href="#note-3">3</a></sup>. Pour tester localement dans une vraie session : <code>npm run build</code> puis supprimer <code>server.bundle.mjs</code>, sinon vos changements ne sont jamais chargés <sup class="note"><a href="#note-3">3</a></sup>.</p>
+<p>Côté PR : 107 ouvertes, aucune fusionnée sur 30 jours dans le cache <sup class="note"><a href="#note-25">25</a></sup> <sup class="note"><a href="#note-26">26</a></sup>. Attendez-vous à une revue lente ; un rapport de bug précis avec sortie de debug a plus de valeur qu'une PR non testée.</p></div></section>
+<section><h2>Quelles zones sont peu couvertes ?</h2><div class="body"><p>Le cache ne contient pas de mesure de couverture ; les zones ci-dessous sont déduites des issues et de la structure, à vérifier dans https://github.com/mksglu/context-mode/tree/main/tests. - Timeouts et annulation (#947, #959) : les tests vus portent sur l'exécuteur et le bac à sable Windows, pas sur l'interruption <sup class="note"><a href="#note-19">19</a></sup> <sup class="note"><a href="#note-10">10</a></sup>. - Budgets et statistiques (#950, #1022) : <code>tests/session/stats-output-format.test.ts</code> existe mais les bugs persistent <sup class="note"><a href="#note-10">10</a></sup> <sup class="note"><a href="#note-17">17</a></sup>. - Plateformes secondaires : issue #45 cherche encore des testeurs sur 15 plateformes × 3 OS <sup class="note"><a href="#note-27">27</a></sup>. Les adaptateurs kiro et memory-conventions ont des tests, les autres n'apparaissent pas dans les 20 chemins vus <sup class="note"><a href="#note-10">10</a></sup>. - Activité concentrée : 60 des commits sur 12 semaines viennent d'une seule personne, donc peu de relecture croisée <sup class="note"><a href="#note-28">28</a></sup> <sup class="note"><a href="#note-29">29</a></sup>.</p></div></section><section class="finale"><h2>Plan de test en 5 points</h2><div class="body"><ol class="steps"><li>Installer : <code>npm install</code></li><li>Lancer les tests : <code>npm test</code></li><li>Ouvrir <code>src/server.ts</code> — Serveur MCP : script dev = npx tsx src/server.ts, bundlé en server.bundle.mjs par esbuild (package.json).</li></ol></div></section><section class="refs"><h2>Sources</h2><div class="body"><ol class="sources"><li id="note-1"><span class="kind">donnée collectée</span><code>repo.description</code></li><li id="note-2"><span class="kind">source du repo</span><code>readme.md</code></li><li id="note-3"><span class="kind">source du repo</span><code>contributing.md</code></li><li id="note-4"><span class="kind">source du repo</span><code>manifest.md</code></li><li id="note-5"><span class="kind">donnée collectée</span><code>repo.open_issues</code></li><li id="note-6"><span class="kind">donnée collectée</span><code>tests.framework</code></li><li id="note-7"><span class="kind">donnée collectée</span><code>tests.dir</code></li><li id="note-8"><span class="kind">donnée collectée</span><code>tests.files</code></li><li id="note-9"><span class="kind">donnée collectée</span><code>build.test</code></li><li id="note-10"><span class="kind">source du repo</span><code>tests.md</code></li><li id="note-11"><span class="kind">donnée collectée</span><code>build.ci.0.name</code></li><li id="note-12"><span class="kind">donnée collectée</span><code>build.ci.0.triggers</code></li><li id="note-13"><span class="kind">source du repo</span><code>ci.md</code></li><li id="note-14"><span class="kind">donnée collectée</span><code>issues.open</code></li><li id="note-15"><span class="kind">donnée collectée</span><code>issues.closed_30d</code></li><li id="note-16"><span class="kind">donnée collectée</span><code>issues.by_label</code></li><li id="note-17"><span class="kind">donnée collectée</span><code>issues.hot.3.url</code></li><li id="note-18"><span class="kind">donnée collectée</span><code>issues.hot.3.comments</code></li><li id="note-19"><span class="kind">donnée collectée</span><code>issues.hot.4.url</code></li><li id="note-20"><span class="kind">donnée collectée</span><code>issues.hot.2.url</code></li><li id="note-21"><span class="kind">donnée collectée</span><code>issues.hot.8.url</code></li><li id="note-22"><span class="kind">donnée collectée</span><code>issues.hot.9.url</code></li><li id="note-23"><span class="kind">donnée collectée</span><code>issues.hot.1.url</code></li><li id="note-24"><span class="kind">donnée collectée</span><code>issues.hot.5.url</code></li><li id="note-25"><span class="kind">donnée collectée</span><code>pulls.open</code></li><li id="note-26"><span class="kind">donnée collectée</span><code>pulls.merged_30d</code></li><li id="note-27"><span class="kind">donnée collectée</span><code>issues.hot.0.title</code></li><li id="note-28"><span class="kind">donnée collectée</span><code>activity.contributors.0.commits</code></li><li id="note-29"><span class="kind">donnée collectée</span><code>activity.bus_factor</code></li></ol></div></section>
+</body>
+</html>

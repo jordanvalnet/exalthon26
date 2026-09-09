@@ -25,3 +25,13 @@
 - **Outils ctx_\*** : les outils MCP exposés par context-mode, de sandbox (`ctx_execute`, `ctx_batch_execute`, `ctx_execute_file`, `ctx_index`, `ctx_search`, `ctx_fetch_and_index`) ou méta (`ctx_stats`, `ctx_doctor`, `ctx_upgrade`, `ctx_purge`, `ctx_insight`).
 - **Think in code** : le paradigme du projet, l'agent écrit un script qui calcule et n'imprime que le résultat, au lieu de charger les données brutes dans son contexte.
 - **Routage (routing)** : les instructions injectées par le hook SessionStart et le filtre PreToolUse qui poussent le modèle à passer par les outils `ctx_*` plutôt que par Bash, Read ou WebFetch bruts.
+- **Commit** : une modification enregistrée dans l'historique du projet, avec son auteur et sa date.
+- **Pull request (PR)** : proposition de modification envoyée par quelqu'un, que le mainteneur peut accepter ou refuser.
+- **Fork** : copie complète d'un projet faite par une autre personne pour travailler dessus de son côté.
+- **Étoile GitHub** : le bouton « j'aime » de GitHub, un signal de popularité.
+- **CI** : intégration continue, les robots qui compilent et testent le projet à chaque changement.
+- **Release** : version numérotée publiée aux utilisateurs, ici sur npm.
+- **Agent de code** : assistant IA qui lit et modifie des fichiers de programme à la place d'une personne.
+- **Bac à sable** : espace isolé où l'on exécute du code sans risque pour le reste de la machine.
+- **Issue** : ticket ouvert sur GitHub pour signaler un bug ou demander une fonctionnalité.
+- **Backlog** : la file des demandes et propositions en attente de traitement.

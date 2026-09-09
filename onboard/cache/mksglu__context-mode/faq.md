@@ -35,3 +35,12 @@ Le CONTRIBUTING et la CI utilisent `npm install` puis `npm run build` : c'est le
 `package.json` déclare pourtant `packageManager: pnpm` et le repo contient un `bun.lock` ; le cache ne dit pas lequel le mainteneur utilise au quotidien, à vérifier dans les PR récentes du repo [src:manifest.md] [facts:tree.19.role] [gh:https://github.com/mksglu/context-mode/pulls].
 Contrainte commune : node >= 22.5.0 et `better-sqlite3`, module natif externalisé du bundle, à rebuild pour ton runtime [facts:risks.4.note].
 Le CONTRIBUTING cite Bun comme alternative recommandée à Node pour la vitesse [src:contributing.md].
+
+## Q : Peut-on utiliser Context Mode dans notre entreprise ? (ceo, 2026-09-09)
+Oui pour un usage interne : la licence Elastic 2.0 autorise à utiliser, copier et modifier le logiciel [facts:repo.license] [src:license.md]. Non pour le revendre ou l'offrir en service hébergé à des tiers, c'est l'interdiction centrale de cette licence [src:license.md]. Le risque principal n'est pas juridique mais humain : une seule personne porte le projet [facts:risks.2.note].
+
+## Q : Y a-t-il une entreprise derrière, un chiffre d'affaires ? (investisseur, 2026-09-09)
+Rien dans le cache : compte GitHub personnel, pas d'organisation, financement par GitHub Sponsors seulement [facts:repo.owner_type] [facts:business.funding] [src:funding.md]. Le paquet npm est publié au nom de Mert Koseoğlu [src:manifest.md]. Le cache ne contient ni société, ni prix, ni téléchargements ; à vérifier sur https://www.npmjs.com/package/context-mode.
+
+## Q : Quels tests lancer en premier pour valider une mise à jour ? (qa, 2026-09-09)
+`npm test` lance les 255 fichiers vitest après un build complet [facts:build.test] [facts:tests.files]. Pour reproduire la CI, il faut aussi Python 3.12, Go et Elixir, car l'exécuteur polyglotte est testé [src:ci.md]. Ensuite `npx tsx src/cli.ts doctor` vérifie l'installation sur la plateforme, comme le fait la CI en dernière étape [src:ci.md] [facts:entrypoints.1.why].
