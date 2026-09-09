@@ -25,7 +25,7 @@ export async function collectPullRequests(gh: GitHubMcp, meta: RepoMetadata): Pr
     facts: {
       rows, capped, counts,
       authors: [...byAuthor].map(([login, prs]) => ({ login, prs })).sort((a, b) => b.prs - a.prs).slice(0, 10),
-      medianDaysToMerge: days.length ? Math.round(days[Math.floor(days.length / 2)] * 10) / 10 : null,
+      medianDaysToMerge: days.length ? Math.round(days[Math.floor(days.length / 2)]! * 10) / 10 : null,
     },
     sources: [{ what: `${rows.length} pull requests (all states)`, via: "list_pull_requests" }],
     gaps: capped ? [{ what: "complete list of pull requests", reason: `capped at ${rows.length}`, url: `${meta.htmlUrl}/pulls?q=is%3Apr` }] : [],

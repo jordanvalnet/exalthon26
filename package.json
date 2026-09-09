@@ -17,6 +17,7 @@
     "gh": "bun src/gh.ts",
     "merge": "bun src/merge.ts",
     "meta": "bun src/collect/meta.ts",
+    "issues": "bun src/collect/issues.ts",
     "pdf": "bun src/render/pdf.ts",
     "screenshot": "bun src/render/screenshot.ts"
   },
