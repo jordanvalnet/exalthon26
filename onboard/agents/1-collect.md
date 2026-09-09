@@ -16,8 +16,8 @@ Objectif : moins de 3 minutes même sur un repo de 500 000 lignes. Personne ne l
 
 | Sous-agent | Prompt | Blocs de facts.json | Toujours ? |
 |---|---|---|---|
-| métadonnées | `agents/1a-meta.md` | repo, languages, releases, business, risks (licence) | oui |
-| historique | `agents/1b-history.md` | activity, issues, pulls, risks (bus factor, activité) | oui |
+| métadonnées | `agents/1a-meta.md`, en code : `bun run meta` | repo, releases, activity, business, risks (licence, sécurité, bus factor, activité) ; `languages` absent, pas d'outil MCP, noté en manques | oui |
+| historique | `agents/1b-history.md` | issues, pulls | oui |
 | documentation | `agents/1c-docs.md` | build (install, run, test), sources readme, contributing, changelog, docs | oui |
 | code et archi | `agents/1d-code.md` | tree, entrypoints, build.ci, tests, deps, risks (deps, ci) | oui ; mode léger (arbre racine seul) si le profil ne demande ni entrypoints, ni build, ni tests, ni deps |
 | roadmap | `agents/1e-roadmap.md` | roadmap (PR ouvertes, issues hors bug, thèmes, jalons) | si le profil demande `roadmap` |
