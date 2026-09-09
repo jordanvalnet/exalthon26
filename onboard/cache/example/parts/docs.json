@@ -1,0 +1,11 @@
+{
+  "build": {
+    "install": "bun install",
+    "run": "bun run dev",
+    "test": "bun test"
+  },
+  "collected": {
+    "by": "1c-docs",
+    "at": "2026-09-09T16:00:00Z"
+  }
+}

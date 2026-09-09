@@ -1,0 +1,55 @@
+{
+  "roadmap": {
+    "open_prs": [
+      {
+        "number": 840,
+        "title": "Planificateur de règles (cron)",
+        "url": "https://github.com/acme/rocket/pull/840",
+        "updated_at": "2026-09-07T09:00:00Z",
+        "draft": false
+      }
+    ],
+    "requests": [
+      {
+        "number": 802,
+        "title": "Support des webhooks entrants",
+        "url": "https://github.com/acme/rocket/issues/802",
+        "comments": 21,
+        "labels": [
+          "enhancement"
+        ]
+      },
+      {
+        "number": 776,
+        "title": "Mode hors ligne",
+        "url": "https://github.com/acme/rocket/issues/776",
+        "comments": 12,
+        "labels": [
+          "feature request"
+        ]
+      }
+    ],
+    "themes": [
+      {
+        "label": "enhancement",
+        "count": 28
+      },
+      {
+        "label": "feature request",
+        "count": 11
+      }
+    ],
+    "milestones": [
+      {
+        "title": "v3.0",
+        "open": 12,
+        "closed": 5,
+        "due": "2026-11-30"
+      }
+    ]
+  },
+  "collected": {
+    "by": "1e-roadmap",
+    "at": "2026-09-09T16:00:00Z"
+  }
+}

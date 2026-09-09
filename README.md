@@ -3,7 +3,7 @@
 Équipe eXaltemps, hackathon « Agent + MCP GitHub » du 2026-09-09. Consignes du jury : `HACKATHON.md`. Repos cibles : `CIBLES.md`.
 Le projet : **Onboard**, un agent qui parcourt n'importe quel repo GitHub avec le MCP GitHub, construit un cache documentaire
 et en tire un deck adapté au profil (dev, qa, cto, ceo, investisseur, enfant), puis répond aux questions en citant ses sources.
-Dans Claude Code : `/onboard owner/repo profil`. Plan et contrat : `onboard/`.
+Dans Claude Code : `/onboard owner/repo profil`. **Doc illustrée du flux : [onboard/README.md](onboard/README.md).**
 
 ## Démarrer
 1. bun : `curl -fsSL https://bun.sh/install | bash` (Windows : `powershell -c "irm bun.sh/install.ps1 | iex"`).
@@ -37,7 +37,7 @@ Le contexte pour les agents est dans `AGENTS.md`.
 onboard/          workflow, contrat, plan, prompts des agents, profils, caches produits
 src/validate.ts   validations dures entre étapes ; src/merge.ts fusion des collectes ; src/render/ deck HTML
 src/index.ts      point d'entrée
-src/github.ts     appels à l'API GitHub (token GITHUB_PAT)
+src/github.ts     accès GitHub via le serveur MCP (token GITHUB_PAT), jamais REST
 test/             tests bun
 chat/             client du chat d'équipe, fichier unique (node ou bun)
 .mcp.json         serveur MCP GitHub (outils github:*)

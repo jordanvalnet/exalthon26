@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "onboard": "bun run src/cli.ts",
-    "typecheck": "bun x tsc --noEmit"
+    "typecheck": "bun x tsc --noEmit -p ."
   },
   "engines": { "bun": ">=1.1" }
 }

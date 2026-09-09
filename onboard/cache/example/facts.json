@@ -19,62 +19,12 @@
     "owner_type": "org",
     "archived": false
   },
-  "collected": {
-    "at": "2026-09-09T16:00:00Z",
-    "by": "exemple écrit à la main, aucun chiffre réel",
-    "lenses": [
-      "core",
-      "dev",
-      "qa",
-      "cto",
-      "ceo",
-      "investisseur",
-      "enfant"
-    ]
-  },
   "languages": {
     "TypeScript": 812340,
     "JavaScript": 40210,
     "CSS": 12880,
     "Shell": 3100
   },
-  "tree": [
-    {
-      "path": "src",
-      "type": "dir",
-      "role": "code du moteur"
-    },
-    {
-      "path": "packages/cli",
-      "type": "dir",
-      "role": "ligne de commande"
-    },
-    {
-      "path": "packages/web",
-      "type": "dir",
-      "role": "interface web"
-    },
-    {
-      "path": "test",
-      "type": "dir",
-      "role": "tests unitaires et e2e"
-    },
-    {
-      "path": "docs",
-      "type": "dir",
-      "role": "site de documentation"
-    },
-    {
-      "path": ".github/workflows",
-      "type": "dir",
-      "role": "CI"
-    },
-    {
-      "path": "package.json",
-      "type": "file",
-      "role": "manifeste, workspaces"
-    }
-  ],
   "releases": [
     {
       "tag": "v2.4.0",
@@ -102,6 +52,45 @@
       "name": null
     }
   ],
+  "risks": [
+    {
+      "kind": "security",
+      "level": "mid",
+      "note": "pas de SECURITY.md, fuite mémoire #790 ouverte depuis 40 jours"
+    },
+    {
+      "kind": "license",
+      "level": "low",
+      "note": "MIT, compatible avec un usage commercial"
+    },
+    {
+      "kind": "bus_factor",
+      "level": "mid",
+      "note": "2 personnes font 76 % des commits des 12 dernières semaines"
+    },
+    {
+      "kind": "deps",
+      "level": "low",
+      "note": "23 dépendances, toutes publiées il y a moins de 6 mois"
+    }
+  ],
+  "business": {
+    "funding": true,
+    "security_policy": false,
+    "codeowners": true,
+    "competitors": [
+      {
+        "full_name": "orbit/flow",
+        "stars": 12400,
+        "description": "Automation à faible code"
+      },
+      {
+        "full_name": "kite/rules",
+        "stars": 2100,
+        "description": "Moteur de règles en Go"
+      }
+    ]
+  },
   "activity": {
     "commits_per_week": [
       {
@@ -178,47 +167,6 @@
     ],
     "bus_factor": 2
   },
-  "entrypoints": [
-    {
-      "path": "src/index.ts",
-      "why": "exporte l'API publique du moteur"
-    },
-    {
-      "path": "packages/cli/src/main.ts",
-      "why": "commande rocket"
-    },
-    {
-      "path": "packages/web/src/app.tsx",
-      "why": "racine de l'interface web"
-    }
-  ],
-  "build": {
-    "install": "bun install",
-    "run": "bun run dev",
-    "test": "bun test",
-    "ci": [
-      {
-        "name": "ci",
-        "path": ".github/workflows/ci.yml",
-        "triggers": [
-          "push",
-          "pull_request"
-        ]
-      },
-      {
-        "name": "release",
-        "path": ".github/workflows/release.yml",
-        "triggers": [
-          "tag"
-        ]
-      }
-    ]
-  },
-  "tests": {
-    "dir": "test",
-    "framework": "bun:test",
-    "files": 84
-  },
   "issues": {
     "open": 97,
     "closed_30d": 41,
@@ -262,6 +210,84 @@
       }
     ]
   },
+  "build": {
+    "install": "bun install",
+    "run": "bun run dev",
+    "test": "bun test",
+    "ci": [
+      {
+        "name": "ci",
+        "path": ".github/workflows/ci.yml",
+        "triggers": [
+          "push",
+          "pull_request"
+        ]
+      },
+      {
+        "name": "release",
+        "path": ".github/workflows/release.yml",
+        "triggers": [
+          "tag"
+        ]
+      }
+    ]
+  },
+  "tree": [
+    {
+      "path": "src",
+      "type": "dir",
+      "role": "code du moteur"
+    },
+    {
+      "path": "packages/cli",
+      "type": "dir",
+      "role": "ligne de commande"
+    },
+    {
+      "path": "packages/web",
+      "type": "dir",
+      "role": "interface web"
+    },
+    {
+      "path": "test",
+      "type": "dir",
+      "role": "tests unitaires et e2e"
+    },
+    {
+      "path": "docs",
+      "type": "dir",
+      "role": "site de documentation"
+    },
+    {
+      "path": ".github/workflows",
+      "type": "dir",
+      "role": "CI"
+    },
+    {
+      "path": "package.json",
+      "type": "file",
+      "role": "manifeste, workspaces"
+    }
+  ],
+  "entrypoints": [
+    {
+      "path": "src/index.ts",
+      "why": "exporte l'API publique du moteur"
+    },
+    {
+      "path": "packages/cli/src/main.ts",
+      "why": "commande rocket"
+    },
+    {
+      "path": "packages/web/src/app.tsx",
+      "why": "racine de l'interface web"
+    }
+  ],
+  "tests": {
+    "dir": "test",
+    "framework": "bun:test",
+    "files": 84
+  },
   "deps": {
     "manifest": "package.json",
     "count": 23,
@@ -277,45 +303,6 @@
       {
         "name": "react",
         "version": "^19.0.0"
-      }
-    ]
-  },
-  "risks": [
-    {
-      "kind": "bus_factor",
-      "level": "mid",
-      "note": "2 personnes font 76 % des commits des 12 dernières semaines"
-    },
-    {
-      "kind": "deps",
-      "level": "low",
-      "note": "23 dépendances, toutes publiées il y a moins de 6 mois"
-    },
-    {
-      "kind": "security",
-      "level": "mid",
-      "note": "pas de SECURITY.md, fuite mémoire #790 ouverte depuis 40 jours"
-    },
-    {
-      "kind": "license",
-      "level": "low",
-      "note": "MIT, compatible avec un usage commercial"
-    }
-  ],
-  "business": {
-    "funding": true,
-    "security_policy": false,
-    "codeowners": true,
-    "competitors": [
-      {
-        "full_name": "orbit/flow",
-        "stars": 12400,
-        "description": "Automation à faible code"
-      },
-      {
-        "full_name": "kite/rules",
-        "stars": 2100,
-        "description": "Moteur de règles en Go"
       }
     ]
   },
@@ -366,6 +353,19 @@
         "closed": 5,
         "due": "2026-11-30"
       }
+    ]
+  },
+  "collected": {
+    "at": "2026-09-09T16:00:00Z",
+    "by": "exemple écrit à la main, aucun chiffre réel",
+    "lenses": [
+      "core",
+      "dev",
+      "qa",
+      "cto",
+      "ceo",
+      "investisseur",
+      "enfant"
     ]
   }
 }

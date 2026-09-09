@@ -4,7 +4,7 @@ Entrée : un repo GitHub et un profil (dev, qa, cto, ceo, investisseur, enfant).
 Sortie : un dossier documentaire réutilisable (`onboard/cache/<owner>__<repo>/`), un deck de 6 à 9 pages adapté au profil,
 et un guide qui répond aux questions en citant ses sources.
 
-Lire dans l'ordre : `WORKFLOW.md` (la chaîne d'agents, IN, OUT, validations), `SCHEMA.md` (le contrat des fichiers),
+Lire dans l'ordre : `README.md` (schéma du flux), `WORKFLOW.md` (la chaîne d'agents, IN, OUT, validations), `SCHEMA.md` (le contrat des fichiers),
 `agents/` (le prompt de chaque étape), `profiles/` (ce que chaque public attend).
 Les skills Claude Code (`.claude/skills/`) ne font que pointer sur `agents/`, pour que Copilot et Codex lisent la même spec.
 

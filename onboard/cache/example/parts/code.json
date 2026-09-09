@@ -1,0 +1,106 @@
+{
+  "tree": [
+    {
+      "path": "src",
+      "type": "dir",
+      "role": "code du moteur"
+    },
+    {
+      "path": "packages/cli",
+      "type": "dir",
+      "role": "ligne de commande"
+    },
+    {
+      "path": "packages/web",
+      "type": "dir",
+      "role": "interface web"
+    },
+    {
+      "path": "test",
+      "type": "dir",
+      "role": "tests unitaires et e2e"
+    },
+    {
+      "path": "docs",
+      "type": "dir",
+      "role": "site de documentation"
+    },
+    {
+      "path": ".github/workflows",
+      "type": "dir",
+      "role": "CI"
+    },
+    {
+      "path": "package.json",
+      "type": "file",
+      "role": "manifeste, workspaces"
+    }
+  ],
+  "entrypoints": [
+    {
+      "path": "src/index.ts",
+      "why": "exporte l'API publique du moteur"
+    },
+    {
+      "path": "packages/cli/src/main.ts",
+      "why": "commande rocket"
+    },
+    {
+      "path": "packages/web/src/app.tsx",
+      "why": "racine de l'interface web"
+    }
+  ],
+  "build": {
+    "ci": [
+      {
+        "name": "ci",
+        "path": ".github/workflows/ci.yml",
+        "triggers": [
+          "push",
+          "pull_request"
+        ]
+      },
+      {
+        "name": "release",
+        "path": ".github/workflows/release.yml",
+        "triggers": [
+          "tag"
+        ]
+      }
+    ]
+  },
+  "tests": {
+    "dir": "test",
+    "framework": "bun:test",
+    "files": 84
+  },
+  "deps": {
+    "manifest": "package.json",
+    "count": 23,
+    "runtime": [
+      {
+        "name": "zod",
+        "version": "^4.0.0"
+      },
+      {
+        "name": "hono",
+        "version": "^4.6.0"
+      },
+      {
+        "name": "react",
+        "version": "^19.0.0"
+      }
+    ]
+  },
+  "risks": [
+    {
+      "kind": "deps",
+      "level": "low",
+      "note": "23 dépendances, toutes publiées il y a moins de 6 mois"
+    }
+  ],
+  "collected": {
+    "by": "1d-code",
+    "at": "2026-09-09T16:00:00Z"
+  }
+}
