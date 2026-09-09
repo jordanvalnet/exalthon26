@@ -30,3 +30,4 @@ Chiffres relevés le 2026-09-09.
 - **Démo de triage / rapport** → dbx, n8n, browser-harness (gros volume).
 - **Démo de contribution (PR, tests, docs)** → n8n-docs, n8n-io/skills, astrid.
 - **Démo « analyse de sécurité / qualité »** → SkillSpector, context-mode.
+- **Démo onboarding (Onboard)** → context-mode, astrid, evolver : lisibles, taille moyenne, README, releases, CI, plusieurs contributeurs. Pas n8n : trop gros pour un run live.

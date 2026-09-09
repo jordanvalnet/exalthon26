@@ -1,7 +1,9 @@
 # exalthon26
 
 Équipe eXaltemps, hackathon « Agent + MCP GitHub » du 2026-09-09. Consignes du jury : `HACKATHON.md`. Repos cibles : `CIBLES.md`.
-Le projet : **communication instantanée entre les devs de l'équipe via leurs IA**, et l'agent qui opère sur le repo cible avec les outils `github:*`.
+Le projet : **Onboard**, un agent qui parcourt n'importe quel repo GitHub avec le MCP GitHub, construit un cache documentaire
+et en tire un deck adapté au profil (dev, qa, cto, ceo, investisseur, enfant), puis répond aux questions en citant ses sources.
+Dans Claude Code : `/onboard owner/repo profil`. Plan et contrat : `onboard/`.
 
 ## Démarrer
 1. bun : `curl -fsSL https://bun.sh/install | bash` (Windows : `powershell -c "irm bun.sh/install.ps1 | iex"`).
@@ -26,10 +28,14 @@ Le contexte pour les agents est dans `AGENTS.md`.
 |---|---|
 | `bun run dev` | lance `src/index.ts`, relance à chaque modification |
 | `bun run check` | typecheck + tests, à lancer avant de pousser |
+| `bun onboard owner/repo profil` | onboarding complet, deck dans `onboard/cache/<owner>__<repo>/` |
+| `bun run validate facts\|narrative\|deck <cache> <profil>` | validation d'une étape du pipeline |
 | `bun run chat …` | le chat d'équipe |
 
 ## Structure
 ```
+onboard/          workflow, contrat, plan, prompts des agents, profils, caches produits
+src/validate.ts   validations dures entre étapes ; src/merge.ts fusion des collectes ; src/render/ deck HTML
 src/index.ts      point d'entrée
 src/github.ts     appels à l'API GitHub (token GITHUB_PAT)
 test/             tests bun
