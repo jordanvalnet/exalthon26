@@ -1,0 +1,132 @@
+{
+  "activity": {
+    "commits_per_week": [
+      {
+        "week": "2026-W25",
+        "count": 14
+      },
+      {
+        "week": "2026-W26",
+        "count": 9
+      },
+      {
+        "week": "2026-W27",
+        "count": 17
+      },
+      {
+        "week": "2026-W28",
+        "count": 6
+      },
+      {
+        "week": "2026-W29",
+        "count": 11
+      },
+      {
+        "week": "2026-W30",
+        "count": 4
+      },
+      {
+        "week": "2026-W31",
+        "count": 0
+      },
+      {
+        "week": "2026-W32",
+        "count": 8
+      },
+      {
+        "week": "2026-W33",
+        "count": 19
+      },
+      {
+        "week": "2026-W34",
+        "count": 22
+      },
+      {
+        "week": "2026-W35",
+        "count": 13
+      },
+      {
+        "week": "2026-W36",
+        "count": 7
+      }
+    ],
+    "last_commit": "2026-09-08T17:42:00Z",
+    "contributors": [
+      {
+        "login": "mara",
+        "commits": 61
+      },
+      {
+        "login": "jdoe",
+        "commits": 38
+      },
+      {
+        "login": "kenji",
+        "commits": 17
+      },
+      {
+        "login": "lou",
+        "commits": 9
+      },
+      {
+        "login": "sam",
+        "commits": 5
+      }
+    ],
+    "bus_factor": 2
+  },
+  "issues": {
+    "open": 97,
+    "closed_30d": 41,
+    "by_label": {
+      "bug": 31,
+      "enhancement": 28,
+      "documentation": 9,
+      "good first issue": 6,
+      "question": 5
+    },
+    "good_first": [
+      {
+        "number": 812,
+        "title": "Afficher la version dans la CLI",
+        "url": "https://github.com/acme/rocket/issues/812"
+      },
+      {
+        "number": 798,
+        "title": "Doc : exemple de règle planifiée",
+        "url": "https://github.com/acme/rocket/issues/798"
+      }
+    ],
+    "hot": [
+      {
+        "number": 790,
+        "title": "Fuite mémoire sur les règles récursives",
+        "url": "https://github.com/acme/rocket/issues/790",
+        "comments": 34
+      }
+    ]
+  },
+  "pulls": {
+    "open": 14,
+    "awaiting_review": 6,
+    "merged_30d": [
+      {
+        "number": 831,
+        "title": "Règles conditionnelles",
+        "url": "https://github.com/acme/rocket/pull/831",
+        "merged_at": "2026-08-29T15:00:00Z"
+      }
+    ]
+  },
+  "risks": [
+    {
+      "kind": "bus_factor",
+      "level": "mid",
+      "note": "2 personnes font 76 % des commits des 12 dernières semaines"
+    }
+  ],
+  "collected": {
+    "by": "1b-history",
+    "at": "2026-09-09T16:00:00Z"
+  }
+}

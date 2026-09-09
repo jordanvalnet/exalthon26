@@ -1,0 +1,87 @@
+{
+  "repo": {
+    "full_name": "acme/rocket",
+    "url": "https://github.com/acme/rocket",
+    "description": "Exemple fictif écrit à la main : moteur de règles pour automatiser des workflows",
+    "created_at": "2025-03-12T09:00:00Z",
+    "pushed_at": "2026-09-08T17:42:00Z",
+    "default_branch": "main",
+    "license": "MIT",
+    "stars": 4820,
+    "forks": 312,
+    "open_issues": 97,
+    "topics": [
+      "automation",
+      "rules-engine",
+      "typescript"
+    ],
+    "owner_type": "org",
+    "archived": false
+  },
+  "languages": {
+    "TypeScript": 812340,
+    "JavaScript": 40210,
+    "CSS": 12880,
+    "Shell": 3100
+  },
+  "releases": [
+    {
+      "tag": "v2.4.0",
+      "date": "2026-08-30T10:00:00Z",
+      "name": "Règles conditionnelles"
+    },
+    {
+      "tag": "v2.3.1",
+      "date": "2026-07-18T10:00:00Z",
+      "name": null
+    },
+    {
+      "tag": "v2.3.0",
+      "date": "2026-06-21T10:00:00Z",
+      "name": "Plugins"
+    },
+    {
+      "tag": "v2.2.0",
+      "date": "2026-05-02T10:00:00Z",
+      "name": "Interface web"
+    },
+    {
+      "tag": "v2.1.0",
+      "date": "2026-03-15T10:00:00Z",
+      "name": null
+    }
+  ],
+  "business": {
+    "funding": true,
+    "security_policy": false,
+    "codeowners": true,
+    "competitors": [
+      {
+        "full_name": "orbit/flow",
+        "stars": 12400,
+        "description": "Automation à faible code"
+      },
+      {
+        "full_name": "kite/rules",
+        "stars": 2100,
+        "description": "Moteur de règles en Go"
+      }
+    ]
+  },
+  "risks": [
+    {
+      "kind": "security",
+      "level": "mid",
+      "note": "pas de SECURITY.md, fuite mémoire #790 ouverte depuis 40 jours"
+    },
+    {
+      "kind": "license",
+      "level": "low",
+      "note": "MIT, compatible avec un usage commercial"
+    }
+  ],
+  "collected": {
+    "by": "1a-meta",
+    "at": "2026-09-09T16:00:00Z"
+  }
+}
