@@ -14,3 +14,30 @@
 - **fragment de changelog** : fichier `changes/{issue}.{kind}.md` (kind parmi added, changed, deprecated, removed, fixed, security) attendu avec chaque PR de code ; `CHANGELOG.md` est roulé à la release [src:contributing.md].
 - **insta** : crate de tests par snapshot utilisée avec `cargo test` dans `crates/astrid-integration-tests` [facts:tests.framework].
 - **FSKit / FUSE** : frontends de système de fichiers (macOS 26+ / Linux) qui montent le stockage d'un principal ; crates `astrid-storage-provider-fskit` et `astrid-storage-provider-fuse` [src:readme.md] [src:tree.md].
+- **étoiles GitHub (stars)** : marque d'intérêt laissée par un visiteur, l'équivalent d'un « j'aime » ; 10 277 pour ce projet [facts:repo.stars].
+- **fork** : copie du projet faite par un tiers pour le modifier ou le réutiliser ; 137 ici, un signe de réutilisation [facts:repo.forks].
+- **licence Apache-2.0** : licence ouverte et permissive : usage commercial, modification et redistribution autorisés, sans redevance [facts:repo.license].
+- **release (version)** : livraison numérotée du logiciel, comme une édition datée d'un produit ; la dernière est v2026.9.0 [facts:releases.0.tag].
+- **canal (stable, nightly, dev)** : trois flux de livraison, du produit fini au laboratoire, pour choisir son niveau de risque [facts:releases.5.name].
+- **issue (ticket)** : demande, bug ou question déposée publiquement sur le projet ; 192 ouvertes, 149 fermées en 30 jours [facts:issues.open] [facts:issues.closed_30d].
+- **pull request (PR)** : proposition de changement soumise à relecture avant d'être intégrée ; 10 en attente ici [facts:roadmap.open_prs].
+- **sandbox (bac à sable)** : espace clos où un composant s'exécute sans accès aux fichiers, au réseau ou à la mémoire de l'hôte, sauf permission explicite [src:readme.md].
+- **scénario e2e (TOML)** : cas de test bout en bout décrit dans un fichier `e2e/*-scenarios.toml` (capability, cli, http, runtime, waiter-surfaces), joué contre un daemon réel avec des capsules fixtures [facts:tree.20.role] [src:tests.md].
+- **fuzzing** : test qui bombarde une entrée de données aléatoires pour trouver des plantages ; dossier `fuzz/` à la racine, contenu non relevé [facts:tree.21.role].
+- **test de régression** : test ajouté avec chaque correctif pour qu'un bug corrigé ne revienne pas ; exigé par CONTRIBUTING.md pour tout bug fix [src:contributing.md].
+- **test `--ignored`** : test cargo exclu de `cargo test` par défaut et lancé explicitement, comme le montage FUSE natif du job `linux-fuse-e2e` [src:ci.md].
+- **fail-closed** : comportement par défaut de refuser l'accès quand une décision ne peut pas être prise (principal non résolu, allow-list vide) ; à tester en négatif sur chaque gate [src:readme.md].
+- **needs-design** : étiquette des issues dont le comportement n'est pas encore spécifié (91 ouvertes), à ne pas transformer en cas de test avant décision [facts:issues.by_label.needs-design].
+- **good first issue** : issue jugée abordable pour un premier contributeur ; plusieurs sont des bugs reproductibles (#459, #276, #461) [facts:issues.good_first.3.title] [facts:issues.good_first.4.title] [facts:issues.good_first.2.title].
+- **double licence (MIT OR Apache-2.0)** : l'utilisateur choisit l'une des deux licences permissives ; usage commercial et fermeture du code dérivé autorisés, aucune exclusivité pour l'auteur [src:readme.md] [facts:repo.license].
+- **RFC** : « request for comments », document de proposition discuté avant implémentation ; obligatoire chez Astrid pour tout changement de contrat (ABI, IPC, capacités, manifeste, SDK) [src:readme.md].
+- **CODEOWNERS** : fichier GitHub désignant les relecteurs obligatoires par zone du code ; présent ici [facts:business.codeowners].
+- **WebAssembly (WASM)** : format binaire portable exécuté dans un bac à sable ; les capsules Astrid sont compilées dans ce format et tournent sous Wasmtime [src:readme.md].
+- **ed25519** : algorithme de signature numérique ; chaque jeton de capacité et chaque entrée d'audit d'Astrid en porte une [src:readme.md].
+- **politique de sécurité (SECURITY.md)** : procédure de signalement privé des failles avec engagement de réponse sous 48 h et plan de correctif sous 7 jours [src:security.md] [facts:business.security_policy].
+- **Wasmtime** : moteur d'exécution WebAssembly (version 48.0.1 dans le workspace) qui isole chaque capsule sans syscall ni accès mémoire hôte ; la dépendance la plus structurante du projet [src:manifest.md] [src:readme.md].
+- **Sigstore (signature keyless)** : signature des binaires de release sans clé longue durée, vérifiée par `astrid update` avant toute extraction, en plus d'un manifeste BLAKE3 [src:readme.md].
+- **cargo-audit / RustSec** : job CI qui compare `Cargo.lock` à la base d'avis de sécurité RustSec (cargo-audit 0.22.2, rustsec/audit-check) [src:ci.md].
+- **cargo-semver-checks** : vérification de compatibilité d'API des crates publiques, exécutée sur PR mais en mode consultatif, donc sans blocage [src:ci.md].
+- **campagne (label campaign/*)** : regroupement d'issues par chantier long, par exemple `campaign/os-universal` (32 issues) et `campaign/station` [facts:issues.by_label.campaign/os-universal] [facts:roadmap.requests.1.labels.0].
+- **year.month.patch** : schéma de version adopté avec v2026.9.0, qui succède à la série 0.x (dernière v0.10.4) [src:readme.md] [facts:releases.0.tag] [facts:releases.1.tag].

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Astrid : un socle sécurisé pour faire tourner des agents IA sans leur donner les clés de la maison</title>
+<style>
+:root {
+  --bg: #f7f7f5; --card: #ffffff; --fg: #17181c; --muted: #5f6470;
+  --line: #dcdde2; --bar: #4f5bd5; --bar-strong: #d1495b; --accent: #4f5bd5;
+  --low: #2e9e6b; --mid: #d99a2b; --high: #d1495b;
+  --radius: 10px; --pad: 32px 36px; --width: 900px;
+  --h1: 2.1rem; --h2: 1.45rem; --text: 1rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14151a; --card: #1c1e25; --fg: #eceef3; --muted: #a0a6b4;
+    --line: #2f323c; --bar: #8f97ee; --bar-strong: #ef7f8e; --accent: #8f97ee;
+    --low: #4cc38a; --mid: #e5b25d; --high: #ef7f8e;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font: 16px/1.55 ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+section {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  max-width: var(--width); margin: 24px auto; padding: var(--pad); min-height: 460px;
+  font-size: var(--text);
+}
+h1 { font-size: var(--h1); line-height: 1.15; margin: 0 0 12px; }
+h2 { font-size: var(--h2); margin: 0 0 20px; padding-bottom: 12px; border-bottom: 2px solid var(--accent); }
+
+/* Un profil = un public. L'accent, la densité et l'échelle typographique changent, la palette de base ne bouge pas. */
+.p-dev { --accent: #4f5bd5; --bar: #4f5bd5; --bar-strong: #d1495b; }
+.p-qa { --accent: #0f8f7a; --bar: #0f8f7a; --bar-strong: #d1495b; }
+.p-cto { --accent: #3d6fa8; --bar: #3d6fa8; --bar-strong: #c9772e; }
+.p-ceo {
+  --accent: #1f3a5f; --bar: #1f3a5f; --bar-strong: #b8862b;
+  --h1: 2.7rem; --h2: 1.7rem; --text: 1.08rem; --pad: 44px 52px; --width: 860px;
+}
+.p-investisseur {
+  --accent: #1d6b4a; --bar: #1d6b4a; --bar-strong: #b8862b;
+  --h1: 2.6rem; --h2: 1.65rem; --text: 1.05rem; --pad: 40px 48px;
+}
+.p-enfant {
+  --accent: #d4572a; --bar: #f08a3c; --bar-strong: #7b4fc0;
+  --h1: 3rem; --h2: 2rem; --text: 1.25rem; --radius: 24px; --pad: 44px 52px; --width: 820px;
+}
+.p-ceo h2, .p-investisseur h2 { border-bottom-width: 3px; }
+
+/* Enfant : police ronde, gros texte, chaque page a sa couleur, pas une seule note de bas de page. */
+.p-enfant {
+  --bg: #fff6e5; --card: #fffdf7; --fg: #2b2118; --muted: #7a6a5a;
+  font-family: "Chalkboard SE", "Comic Sans MS", "Comic Neue", "Segoe Print", "Bradley Hand", cursive, sans-serif;
+  line-height: 1.6;
+}
+.p-enfant section { border: 4px dashed var(--accent); box-shadow: 8px 8px 0 var(--accent); margin: 32px auto; }
+.p-enfant section:nth-child(6n+2) { --accent: #d4572a; --bar: #f08a3c; }
+.p-enfant section:nth-child(6n+3) { --accent: #2a9d8f; --bar: #4cc3b5; }
+.p-enfant section:nth-child(6n+4) { --accent: #7b4fc0; --bar: #a98be0; }
+.p-enfant section:nth-child(6n+5) { --accent: #e0a800; --bar: #f5c842; }
+.p-enfant section:nth-child(6n) { --accent: #e63946; --bar: #ff7b86; }
+.p-enfant section:nth-child(6n+1) { --accent: #1d7fd6; --bar: #63aef0; }
+.p-enfant h1 { font-size: 3.4rem; color: var(--accent); }
+.p-enfant h2 { border: 0; padding: 0; margin-bottom: 24px; color: var(--accent); }
+.p-enfant h2::before { content: "🌟 "; }
+.p-enfant .cover { text-align: center; align-items: center; }
+.p-enfant .cover .eyebrow { font-size: 1.1rem; letter-spacing: 0; text-transform: none; color: var(--accent); }
+.p-enfant .cover .lede { font-size: 1.5rem; max-width: 620px; }
+.p-enfant .meta { justify-content: center; }
+.p-enfant .meta span { font-size: 1.1rem; color: var(--fg); border: 3px solid var(--accent); padding: 6px 18px; background: var(--card); }
+.p-enfant code { font-family: inherit; font-size: 1em; background: #ffe9c7; border-radius: 10px; padding: 1px 8px; }
+.p-enfant .big { font-size: 1.5rem; }
+.p-enfant .chart .lbl { font-size: 15px; }
+.p-enfant .chart .val, .p-enfant .chart .tick { font-size: 13px; }
+
+/* Les accents sombres (ceo, investisseur) disparaissent sur fond noir : chaque profil a sa version claire.
+   Ce bloc suit les définitions ci-dessus, donc il gagne à spécificité égale. */
+@media (prefers-color-scheme: dark) {
+  .p-dev { --accent: #8f97ee; --bar: #8f97ee; --bar-strong: #ef7f8e; }
+  .p-qa { --accent: #35c2a8; --bar: #35c2a8; --bar-strong: #ef7f8e; }
+  .p-cto { --accent: #79a6d8; --bar: #79a6d8; --bar-strong: #e5a05d; }
+  .p-ceo { --accent: #86aede; --bar: #86aede; --bar-strong: #e0b661; }
+  .p-investisseur { --accent: #4cbb8a; --bar: #4cbb8a; --bar-strong: #e0b661; }
+  .p-enfant { --bg: #241c14; --card: #2e2419; --fg: #fbf3e6; --muted: #cbb9a3; }
+  .p-enfant code { background: #4a3a26; }
+}
+p { margin: 0 0 12px; }
+code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.88em; background: var(--bg); padding: 1px 5px; border-radius: 4px; }
+a { color: var(--accent); }
+.cover { display: flex; flex-direction: column; justify-content: center; }
+.eyebrow { color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.78rem; margin-bottom: 18px; }
+.lede { font-size: 1.15rem; }
+.desc { color: var(--muted); }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.meta span { border: 1px solid var(--line); border-radius: 999px; padding: 3px 12px; font-size: 0.85rem; color: var(--muted); }
+.url { margin-top: 16px; }
+.note { font-size: 0.7em; }
+.note a { text-decoration: none; padding: 0 1px; }
+.chart { display: block; width: 100%; height: auto; max-width: 640px; margin: 0 0 20px; }
+.chart text { font-family: inherit; fill: var(--fg); }
+.chart .lbl { font-size: 12px; }
+.chart .val, .chart .tick { font-size: 11px; fill: var(--muted); }
+.chart .bar { fill: var(--bar); }
+.chart .bar.strong { fill: var(--bar-strong); }
+.chart .bar.off { fill: var(--line); }
+.chart .dot { fill: var(--accent); }
+.chart .axis { stroke: var(--line); stroke-width: 1; }
+.tree, .risks, .steps, .sources { margin: 0 0 18px; padding-left: 0; }
+.tree, .risks { list-style: none; }
+.tree li, .risks li { display: flex; gap: 10px; align-items: baseline; padding: 4px 0; border-bottom: 1px solid var(--line); }
+.role { color: var(--muted); font-size: 0.9rem; }
+.light { width: 10px; height: 10px; border-radius: 50%; flex: 0 0 auto; background: var(--muted); }
+.light.low { background: var(--low); }
+.light.mid { background: var(--mid); }
+.light.high { background: var(--high); }
+.steps, .sources { padding-left: 22px; }
+.steps li, .sources li { margin-bottom: 10px; }
+.sources { font-size: 0.9rem; }
+.kind { color: var(--muted); margin-right: 8px; }
+@media print {
+  @page { size: A4 landscape; margin: 12mm; }
+  /* Palette claire forcée : sinon une impression depuis un navigateur en thème sombre sort en texte clair sur blanc. */
+  :root {
+    --bg: #fff; --card: #fff; --fg: #17181c; --muted: #5f6470;
+    --line: #dcdde2; --bar: #4f5bd5; --bar-strong: #d1495b; --accent: #4f5bd5;
+    --low: #2e9e6b; --mid: #d99a2b; --high: #d1495b;
+  }
+  body { background: #fff; color: var(--fg); }
+  section {
+    border: 0; margin: 0; padding: 0; max-width: none; min-height: 0;
+    break-after: page; page-break-after: always;
+  }
+  section:last-child { break-after: auto; page-break-after: auto; }
+  .chart .bar, .chart .bar.strong, .light { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  /* Le deck enfant garde ses couleurs et son cadre à l'impression. */
+  .p-enfant { --bg: #fff6e5; --card: #fffdf7; --fg: #2b2118; --muted: #7a6a5a; background: var(--bg); }
+  .p-enfant section {
+    border: 4px dashed var(--accent); border-radius: 24px; padding: 32px 40px; margin: 0;
+    print-color-adjust: exact; -webkit-print-color-adjust: exact;
+  }
+  .p-enfant h1, .p-enfant h2 { color: var(--accent); }
+  .p-enfant a { color: var(--accent); }
+  a { color: #000; text-decoration: none; }
+}
+</style>
+</head>
+<body class="p-ceo">
+<section class="cover">
+  <p class="eyebrow">Onboarding · profil ceo · 2026-09-09</p>
+  <h1>astrid-runtime/astrid</h1>
+  <p class="lede">Astrid : un socle sécurisé pour faire tourner des agents IA sans leur donner les clés de la maison</p>
+  <p class="desc">Astrid is a portable, capability-secure operating system for composable software.</p>
+  <p class="meta"><span>10277 ★</span><span>137 forks</span><span>216 issues ouvertes</span><span>Apache-2.0</span></p>
+  <p class="url"><code>https://github.com/astrid-runtime/astrid</code></p>
+</section><section><h2>Que fait ce projet, en une phrase, et pour qui ?</h2><div class="body"><p>Astrid est un système d'exploitation portable et « sécurisé par capacités » pour des logiciels assemblés à partir de briques <sup class="note"><a href="#note-1">1</a></sup>. L'image métier: un immeuble de bureaux où chaque locataire (un agent IA, un outil) n'a que le badge de sa porte, jamais le passe général <sup class="note"><a href="#note-2">2</a></sup>. Le problème visé est très actuel: les frameworks d'agents font confiance au prompt; Astrid met la confiance dans le moteur d'exécution, comme un système d'exploitation le fait pour un ordinateur <sup class="note"><a href="#note-2">2</a></sup>. Il s'adresse à ceux qui construisent des systèmes d'agents, des outils, des services ou leur propre distribution; Astrid ne choisit ni le produit, ni le fournisseur de modèle, ni l'interface <sup class="note"><a href="#note-2">2</a></sup>. Aujourd'hui, c'est un moteur qui tourne sur macOS et Linux; le cap annoncé est un système d'exploitation autonome, pas encore livré <sup class="note"><a href="#note-2">2</a></sup>. Le projet est ouvert sous licence Apache-2.0, permissive pour un usage commercial <sup class="note"><a href="#note-3">3</a></sup>, porté par une organisation et non un particulier <sup class="note"><a href="#note-4">4</a></sup>.</p></div></section>
+<section><h2>Est-ce que ça marche et qui s'en sert ?</h2><div class="body"><p>Ça se livre: 10 versions récentes sont listées, la dernière, v2026.9.0, datée du 9 septembre 2026 <sup class="note"><a href="#note-5">5</a></sup> <sup class="note"><a href="#note-6">6</a></sup>, après une série 0.9 puis 0.10 en juillet <sup class="note"><a href="#note-7">7</a></sup> <sup class="note"><a href="#note-8">8</a></sup>. Trois « canaux » (stable, nightly, dev) existent, comme des rayons « produit fini », « bêta » et « labo » <sup class="note"><a href="#note-9">9</a></sup>. L'intérêt est réel: 10 277 étoiles GitHub, l'équivalent de « j'aime », et 137 copies du projet par des tiers <sup class="note"><a href="#note-10">10</a></sup> <sup class="note"><a href="#note-11">11</a></sup>. La demande est soutenue: 192 tickets ouverts et 149 fermés sur les 30 derniers jours <sup class="note"><a href="#note-12">12</a></sup> <sup class="note"><a href="#note-13">13</a></sup>, ce qui ressemble à un service client qui répond vite. Point d'attention: 42 tickets étiquetés « bug » et 46 étiquetés « sécurité » <sup class="note"><a href="#note-14">14</a></sup> <sup class="note"><a href="#note-15">15</a></sup>, pour un produit dont la promesse est justement la sécurité. Le cache ne contient pas de liste d'utilisateurs ou de clients nommés; à vérifier sur https://github.com/astrid-runtime/astrid et dans le Book cité par la documentation <sup class="note"><a href="#note-2">2</a></sup>.</p></div></section>
+<section><h2>Le projet est-il vivant ?</h2><div class="body"><svg class="chart" viewBox="0 0 640 172" width="640" height="172" role="img" preserveAspectRatio="xMinYMin meet"><line class="axis" x1="34" y1="138" x2="628" y2="138"/><text class="tick" x="28" y="22" text-anchor="end">41</text><text class="tick" x="28" y="138" text-anchor="end">0</text><rect class="bar" x="43.9" y="12" width="29.7" height="126" rx="2"><title>2026-W26 : 41</title></rect><text class="tick" x="58.75" y="154" text-anchor="middle">W26</text><rect class="bar" x="93.4" y="40" width="29.7" height="98" rx="2"><title>2026-W27 : 32</title></rect><rect class="bar" x="142.9" y="89" width="29.7" height="49" rx="2"><title>2026-W28 : 16</title></rect><text class="tick" x="157.75" y="154" text-anchor="middle">W28</text><rect class="bar" x="192.4" y="46" width="29.7" height="92" rx="2"><title>2026-W29 : 30</title></rect><rect class="bar" x="241.9" y="43" width="29.7" height="95" rx="2"><title>2026-W30 : 31</title></rect><text class="tick" x="256.75" y="154" text-anchor="middle">W30</text><rect class="bar" x="291.4" y="77" width="29.7" height="61" rx="2"><title>2026-W31 : 20</title></rect><rect class="bar" x="340.9" y="89" width="29.7" height="49" rx="2"><title>2026-W32 : 16</title></rect><text class="tick" x="355.75" y="154" text-anchor="middle">W32</text><rect class="bar" x="390.4" y="43" width="29.7" height="95" rx="2"><title>2026-W33 : 31</title></rect><rect class="bar" x="439.9" y="46" width="29.7" height="92" rx="2"><title>2026-W34 : 30</title></rect><text class="tick" x="454.75" y="154" text-anchor="middle">W34</text><rect class="bar" x="489.4" y="64" width="29.7" height="74" rx="2"><title>2026-W35 : 24</title></rect><rect class="bar" x="538.9" y="43" width="29.7" height="95" rx="2"><title>2026-W36 : 31</title></rect><text class="tick" x="553.75" y="154" text-anchor="middle">W36</text><rect class="bar" x="588.4" y="86" width="29.7" height="52" rx="2"><title>2026-W37 : 17</title></rect></svg><p>Oui, nettement. Sur les 12 dernières semaines, chaque semaine compte entre 16 et 41 modifications enregistrées <sup class="note"><a href="#note-16">16</a></sup> <sup class="note"><a href="#note-17">17</a></sup>, sans semaine creuse <sup class="note"><a href="#note-18">18</a></sup>. La dernière modification date du 9 septembre 2026, le jour même de cette analyse <sup class="note"><a href="#note-19">19</a></sup>. Le projet n'est pas archivé <sup class="note"><a href="#note-20">20</a></sup>. Le rythme des versions le confirme: quatre versions 0.10.x en quatre jours mi-juillet <sup class="note"><a href="#note-21">21</a></sup> <sup class="note"><a href="#note-22">22</a></sup>, puis une version majeure début septembre <sup class="note"><a href="#note-6">6</a></sup>. Le projet est jeune: créé le 15 février 2026 <sup class="note"><a href="#note-23">23</a></sup>, il a moins de sept mois.</p></div></section>
+<section><h2>Qui est derrière ?</h2><div class="body"><svg class="chart" viewBox="0 0 640 84" width="640" height="84" role="img" preserveAspectRatio="xMinYMin meet"><text class="lbl" x="168" y="21" text-anchor="end">joshuajbouw</text><rect class="bar strong" x="178" y="10" width="398" height="14" rx="3"/><text class="val" x="582" y="21">309</text><text class="lbl" x="168" y="45" text-anchor="end">jvsteiner</text><rect class="bar" x="178" y="34" width="9" height="14" rx="3"/><text class="val" x="193" y="45">7</text><text class="lbl" x="168" y="69" text-anchor="end">Copilot</text><rect class="bar" x="178" y="58" width="4" height="14" rx="3"/><text class="val" x="188" y="69">3</text></svg><p>Une organisation GitHub, astrid-runtime <sup class="note"><a href="#note-4">4</a></sup> <sup class="note"><a href="#note-24">24</a></sup>, mais dans les faits une seule personne: joshuajbouw signe 309 des modifications des 12 dernières semaines, le deuxième contributeur en signe 7 et un assistant automatique 3 <sup class="note"><a href="#note-25">25</a></sup> <sup class="note"><a href="#note-26">26</a></sup> <sup class="note"><a href="#note-27">27</a></sup>. Le « bus factor » est de 1: si cette personne s'arrête, le projet s'arrête <sup class="note"><a href="#note-28">28</a></sup>. C'est une entreprise à un seul salarié clé. Côté gouvernance, les bons réflexes sont là: une politique de sécurité publiée et des responsables de code désignés <sup class="note"><a href="#note-29">29</a></sup> <sup class="note"><a href="#note-30">30</a></sup>. Aucun financement déclaré (pas de sponsors, pas de page de dons) <sup class="note"><a href="#note-31">31</a></sup>. Le cache ne contient pas de liste de concurrents; à vérifier dans facts.json, bloc business.competitors.</p></div></section>
+<section><h2>Quels sont les trois risques ?</h2><div class="body"><ul class="risks"><li><span class="light low" aria-hidden="true"></span><b>license</b><span class="role">Apache-2.0 : licence permissive.</span></li><li><span class="light high" aria-hidden="true"></span><b>bus_factor</b><span class="role">Un seul contributeur porte la moitié des commits sur 12 semaines.</span></li><li><span class="light mid" aria-hidden="true"></span><b>deps</b><span class="role">117 entrées dans [workspace.dependencies] de Cargo.toml : 27 crates internes (path) et 90 crates externes, dont 8 épinglées en version exacte (=). Cargo.lock versionné (217 Ko). Nombre de dépendances transitives non relevé.</span></li><li><span class="light low" aria-hidden="true"></span><b>ci</b><span class="role">20 workflows dans .github/workflows. ci.yml (push sur main et stream-*, pull_request) enchaîne cargo check, fmt, clippy -D warnings, cargo test --workspace (ubuntu et macos), MSRV 1.95, cargo-audit, builds release Linux gnu/musl, tests natifs Windows, portabilité wasm32.</span></li></ul><p>Risque 1, élevé: la dépendance à une personne. Un seul contributeur porte la moitié des modifications sur 12 semaines <sup class="note"><a href="#note-32">32</a></sup> <sup class="note"><a href="#note-33">33</a></sup>. Un départ, une maladie, et il n'y a plus de pilote. Risque 2, moyen: les fournisseurs techniques. Le projet s'appuie sur 90 briques externes; le nombre de briques indirectes n'a pas été relevé <sup class="note"><a href="#note-34">34</a></sup> <sup class="note"><a href="#note-35">35</a></sup>. Comme une chaîne d'approvisionnement, chaque maillon peut casser. Risque 3, à surveiller: la maturité. 46 tickets portent l'étiquette sécurité et 91 « à concevoir » <sup class="note"><a href="#note-15">15</a></sup> <sup class="note"><a href="#note-36">36</a></sup>, signe d'un produit encore en construction. Ce qui rassure: licence permissive, risque faible <sup class="note"><a href="#note-37">37</a></sup>, et une chaîne de contrôle automatique très fournie, 20 procédures de vérification, risque faible <sup class="note"><a href="#note-38">38</a></sup> <sup class="note"><a href="#note-39">39</a></sup>.</p></div></section>
+<section><h2>Qu'en fait-on ?</h2><div class="body"><p>La direction est lisible dans les demandes: les chantiers les plus discutés visent un « système universel » (campagne os-universal) et une « Station » de distribution de briques <sup class="note"><a href="#note-40">40</a></sup> <sup class="note"><a href="#note-41">41</a></sup>, avec en tête un ticket de qualification Linux à 29 commentaires <sup class="note"><a href="#note-42">42</a></sup>. 10 propositions de changement sont en attente, dont 7 encore en brouillon <sup class="note"><a href="#note-43">43</a></sup> <sup class="note"><a href="#note-44">44</a></sup>; deux sont des mises à jour automatiques de fournisseurs <sup class="note"><a href="#note-45">45</a></sup> <sup class="note"><a href="#note-46">46</a></sup>. Une prépare Windows <sup class="note"><a href="#note-47">47</a></sup>. Le cache ne contient pas de jalons datés ni de synthèse par thème (roadmap.themes est vide, roadmap.milestones absent); à vérifier sur https://github.com/astrid-runtime/astrid/milestones. Décision proposée: ne pas miser dessus seul aujourd'hui, l'observer trois mois. À suivre: le bus factor <sup class="note"><a href="#note-28">28</a></sup>, l'arrivée d'un financement <sup class="note"><a href="#note-31">31</a></sup> et la fermeture des 46 tickets sécurité <sup class="note"><a href="#note-15">15</a></sup>.</p></div></section><section class="finale"><h2>Ce que je retiens</h2><div class="body"><ol class="steps"><li>Installer : <code>git clone https://github.com/astrid-runtime/astrid
+cd astrid &amp;&amp; cargo build --release   # binary at ./target/release/astrid</code></li><li>Lancer les tests : <code>cargo test --workspace -- --quiet</code></li><li>Ouvrir <code>crates/astrid-cli/src/main.rs</code> — binaire `astrid` : #[tokio::main] qui parse clap (cli::Cli) puis route vers dispatch ; client léger qui se connecte au kernel (auto-démarrage), crée ou reprend des sessions et rend les événements en streaming. Confirmé (en-tête du fichier).</li></ol></div></section><section class="refs"><h2>Sources</h2><div class="body"><ol class="sources"><li id="note-1"><span class="kind">donnée collectée</span><code>repo.description</code></li><li id="note-2"><span class="kind">source du repo</span><code>readme.md</code></li><li id="note-3"><span class="kind">donnée collectée</span><code>repo.license</code></li><li id="note-4"><span class="kind">donnée collectée</span><code>repo.owner_type</code></li><li id="note-5"><span class="kind">donnée collectée</span><code>releases.0.tag</code></li><li id="note-6"><span class="kind">donnée collectée</span><code>releases.0.date</code></li><li id="note-7"><span class="kind">donnée collectée</span><code>releases.4.tag</code></li><li id="note-8"><span class="kind">donnée collectée</span><code>releases.9.date</code></li><li id="note-9"><span class="kind">donnée collectée</span><code>releases.5.name</code></li><li id="note-10"><span class="kind">donnée collectée</span><code>repo.stars</code></li><li id="note-11"><span class="kind">donnée collectée</span><code>repo.forks</code></li><li id="note-12"><span class="kind">donnée collectée</span><code>issues.open</code></li><li id="note-13"><span class="kind">donnée collectée</span><code>issues.closed_30d</code></li><li id="note-14"><span class="kind">donnée collectée</span><code>issues.by_label.bug</code></li><li id="note-15"><span class="kind">donnée collectée</span><code>issues.by_label.security</code></li><li id="note-16"><span class="kind">donnée collectée</span><code>activity.commits_per_week.0.count</code></li><li id="note-17"><span class="kind">donnée collectée</span><code>activity.commits_per_week.2.count</code></li><li id="note-18"><span class="kind">donnée collectée</span><code>activity.commits_per_week</code></li><li id="note-19"><span class="kind">donnée collectée</span><code>activity.last_commit</code></li><li id="note-20"><span class="kind">donnée collectée</span><code>repo.archived</code></li><li id="note-21"><span class="kind">donnée collectée</span><code>releases.1.date</code></li><li id="note-22"><span class="kind">donnée collectée</span><code>releases.4.date</code></li><li id="note-23"><span class="kind">donnée collectée</span><code>repo.created_at</code></li><li id="note-24"><span class="kind">donnée collectée</span><code>repo.full_name</code></li><li id="note-25"><span class="kind">donnée collectée</span><code>activity.contributors.0.commits</code></li><li id="note-26"><span class="kind">donnée collectée</span><code>activity.contributors.1.commits</code></li><li id="note-27"><span class="kind">donnée collectée</span><code>activity.contributors.2.commits</code></li><li id="note-28"><span class="kind">donnée collectée</span><code>activity.bus_factor</code></li><li id="note-29"><span class="kind">donnée collectée</span><code>business.security_policy</code></li><li id="note-30"><span class="kind">donnée collectée</span><code>business.codeowners</code></li><li id="note-31"><span class="kind">donnée collectée</span><code>business.funding</code></li><li id="note-32"><span class="kind">donnée collectée</span><code>risks.1.level</code></li><li id="note-33"><span class="kind">donnée collectée</span><code>risks.1.note</code></li><li id="note-34"><span class="kind">donnée collectée</span><code>risks.2.level</code></li><li id="note-35"><span class="kind">donnée collectée</span><code>risks.2.note</code></li><li id="note-36"><span class="kind">donnée collectée</span><code>issues.by_label.needs-design</code></li><li id="note-37"><span class="kind">donnée collectée</span><code>risks.0.level</code></li><li id="note-38"><span class="kind">donnée collectée</span><code>risks.3.level</code></li><li id="note-39"><span class="kind">donnée collectée</span><code>risks.3.note</code></li><li id="note-40"><span class="kind">donnée collectée</span><code>roadmap.requests.0.labels.0</code></li><li id="note-41"><span class="kind">donnée collectée</span><code>roadmap.requests.1.labels.0</code></li><li id="note-42"><span class="kind">donnée collectée</span><code>roadmap.requests.0.comments</code></li><li id="note-43"><span class="kind">donnée collectée</span><code>roadmap.open_prs</code></li><li id="note-44"><span class="kind">donnée collectée</span><code>roadmap.open_prs.2.draft</code></li><li id="note-45"><span class="kind">donnée collectée</span><code>roadmap.open_prs.0.title</code></li><li id="note-46"><span class="kind">donnée collectée</span><code>roadmap.open_prs.1.title</code></li><li id="note-47"><span class="kind">donnée collectée</span><code>roadmap.open_prs.3.title</code></li></ol></div></section>
+</body>
+</html>

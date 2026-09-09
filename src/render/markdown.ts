@@ -45,7 +45,8 @@ export function parseNarrative(md: string): Narrative {
   return { title, sections };
 }
 
-export function renderBody(body: string, notes: Notes): string {
+// Sans `notes`, les citations disparaissent du texte (deck enfant : pas de notes de bas de page).
+export function renderBody(body: string, notes?: Notes): string {
   return body
     .split(/\r?\n\s*\r?\n/)
     .map((block) => block.trim())
@@ -54,7 +55,7 @@ export function renderBody(body: string, notes: Notes): string {
     .join("\n");
 }
 
-function renderList(block: string, notes: Notes): string {
+function renderList(block: string, notes?: Notes): string {
   const items = block
     .split(/\r?\n/)
     .map((line) => line.replace(/^[-*]\s*/, "").trim())
@@ -64,11 +65,13 @@ function renderList(block: string, notes: Notes): string {
 }
 
 // Échapper d'abord, décorer ensuite : un titre contenant « < » ne doit jamais casser la page.
-function renderInline(text: string, notes: Notes): string {
+function renderInline(text: string, notes?: Notes): string {
   const decorated = escapeHtml(text)
     .replace(/\r?\n/g, " ")
     .replace(/`([^`]+)`/g, "<code>$1</code>")
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+  // Sans notes, la citation part avec l'espace qui la précède : « gagnée [facts:x]. » devient « gagnée. »
+  if (!notes) return decorated.replace(new RegExp(`\\s*${CITATION.source}`, "g"), "");
   return decorated.replace(new RegExp(CITATION.source, "g"), (_match, kind: string, ref: string) => {
     const { n } = notes.add(kind as CiteKind, ref.trim());
     return `<sup class="note"><a href="#note-${n}">${n}</a></sup>`;

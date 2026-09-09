@@ -7,7 +7,9 @@ import { escapeHtml, Notes, parseNarrative, renderBody } from "./markdown.ts";
 
 export function buildDeck(facts: Facts, narrative: string, profile: Profile): string {
   const { title, sections } = parseNarrative(narrative);
-  const notes = new Notes();
+  // Un enfant ne lit pas de notes de bas de page : ni numéros dans le texte, ni page Sources.
+  const kid = profile.name === "enfant";
+  const notes = kid ? undefined : new Notes();
   const pages = sections
     .map((section) => {
       const chart = section.chart ? renderChart(section.chart, facts) : "";
@@ -17,7 +19,7 @@ export function buildDeck(facts: Facts, narrative: string, profile: Profile): st
   // Les notes sont numérotées pendant le rendu du corps : la page Sources se construit après.
   return shell(
     title || facts.repo.full_name,
-    cover(facts, profile, title) + pages + finale(facts, profile) + sources(notes),
+    cover(facts, profile, title) + pages + finale(facts, profile) + (notes ? sources(notes) : ""),
     profile.name,
   );
 }
@@ -28,6 +30,7 @@ function page(heading: string, body: string): string {
 
 function cover(facts: Facts, profile: Profile, title: string): string {
   const repo = facts.repo;
+  if (profile.name === "enfant") return kidCover(facts, title);
   const day = String(facts.collected.at).slice(0, 10);
   const meta = [
     `${repo.stars} ★`,
@@ -45,8 +48,25 @@ function cover(facts: Facts, profile: Profile, title: string): string {
 </section>`;
 }
 
+function kidCover(facts: Facts, title: string): string {
+  const repo = facts.repo;
+  const name = repo.full_name.split("/").pop() ?? repo.full_name;
+  const meta = [`⭐ ${repo.stars} étoiles`, `🍴 ${repo.forks} copies`];
+  return `<section class="cover">
+  <p class="eyebrow">🎒 Un projet expliqué aux curieux</p>
+  <h1>${escapeHtml(name)}</h1>
+  ${title ? `<p class="lede">${escapeHtml(title)}</p>` : ""}
+  <p class="meta">${meta.map((m) => `<span>${escapeHtml(m)}</span>`).join("")}</p>
+</section>`;
+}
+
 // Page de clôture : uniquement des faits déjà présents dans facts.json, jamais une action inventée.
 function finale(facts: Facts, profile: Profile): string {
+  if (profile.name === "enfant") {
+    const body = `<p class="big">🚀 Tout ça est gratuit et ouvert : n'importe qui peut aller voir, copier, et proposer ses idées.</p>
+<p>Le projet habite ici : <a href="${escapeHtml(facts.repo.url)}">${escapeHtml(facts.repo.url)}</a></p>`;
+    return `<section class="finale"><h2>${escapeHtml(profile.finale ?? "Et toi ?")}</h2><div class="body">${body}</div></section>`;
+  }
   const steps: string[] = [];
   if (facts.build?.install) steps.push(`Installer : <code>${escapeHtml(facts.build.install)}</code>`);
   if (facts.build?.test) steps.push(`Lancer les tests : <code>${escapeHtml(facts.build.test)}</code>`);
@@ -132,9 +152,33 @@ h2 { font-size: var(--h2); margin: 0 0 20px; padding-bottom: 12px; border-bottom
   --accent: #d4572a; --bar: #f08a3c; --bar-strong: #7b4fc0;
   --h1: 3rem; --h2: 2rem; --text: 1.25rem; --radius: 24px; --pad: 44px 52px; --width: 820px;
 }
-.p-ceo h2, .p-investisseur h2, .p-enfant h2 { border-bottom-width: 3px; }
-.p-enfant section { border-width: 3px; border-color: var(--accent); }
-.p-enfant code { border-radius: 8px; }
+.p-ceo h2, .p-investisseur h2 { border-bottom-width: 3px; }
+
+/* Enfant : police ronde, gros texte, chaque page a sa couleur, pas une seule note de bas de page. */
+.p-enfant {
+  --bg: #fff6e5; --card: #fffdf7; --fg: #2b2118; --muted: #7a6a5a;
+  font-family: "Chalkboard SE", "Comic Sans MS", "Comic Neue", "Segoe Print", "Bradley Hand", cursive, sans-serif;
+  line-height: 1.6;
+}
+.p-enfant section { border: 4px dashed var(--accent); box-shadow: 8px 8px 0 var(--accent); margin: 32px auto; }
+.p-enfant section:nth-child(6n+2) { --accent: #d4572a; --bar: #f08a3c; }
+.p-enfant section:nth-child(6n+3) { --accent: #2a9d8f; --bar: #4cc3b5; }
+.p-enfant section:nth-child(6n+4) { --accent: #7b4fc0; --bar: #a98be0; }
+.p-enfant section:nth-child(6n+5) { --accent: #e0a800; --bar: #f5c842; }
+.p-enfant section:nth-child(6n) { --accent: #e63946; --bar: #ff7b86; }
+.p-enfant section:nth-child(6n+1) { --accent: #1d7fd6; --bar: #63aef0; }
+.p-enfant h1 { font-size: 3.4rem; color: var(--accent); }
+.p-enfant h2 { border: 0; padding: 0; margin-bottom: 24px; color: var(--accent); }
+.p-enfant h2::before { content: "🌟 "; }
+.p-enfant .cover { text-align: center; align-items: center; }
+.p-enfant .cover .eyebrow { font-size: 1.1rem; letter-spacing: 0; text-transform: none; color: var(--accent); }
+.p-enfant .cover .lede { font-size: 1.5rem; max-width: 620px; }
+.p-enfant .meta { justify-content: center; }
+.p-enfant .meta span { font-size: 1.1rem; color: var(--fg); border: 3px solid var(--accent); padding: 6px 18px; background: var(--card); }
+.p-enfant code { font-family: inherit; font-size: 1em; background: #ffe9c7; border-radius: 10px; padding: 1px 8px; }
+.p-enfant .big { font-size: 1.5rem; }
+.p-enfant .chart .lbl { font-size: 15px; }
+.p-enfant .chart .val, .p-enfant .chart .tick { font-size: 13px; }
 
 /* Les accents sombres (ceo, investisseur) disparaissent sur fond noir : chaque profil a sa version claire.
    Ce bloc suit les définitions ci-dessus, donc il gagne à spécificité égale. */
@@ -144,7 +188,8 @@ h2 { font-size: var(--h2); margin: 0 0 20px; padding-bottom: 12px; border-bottom
   .p-cto { --accent: #79a6d8; --bar: #79a6d8; --bar-strong: #e5a05d; }
   .p-ceo { --accent: #86aede; --bar: #86aede; --bar-strong: #e0b661; }
   .p-investisseur { --accent: #4cbb8a; --bar: #4cbb8a; --bar-strong: #e0b661; }
-  .p-enfant { --accent: #ff9a5c; --bar: #ffab6b; --bar-strong: #b18bea; }
+  .p-enfant { --bg: #241c14; --card: #2e2419; --fg: #fbf3e6; --muted: #cbb9a3; }
+  .p-enfant code { background: #4a3a26; }
 }
 p { margin: 0 0 12px; }
 code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.88em; background: var(--bg); padding: 1px 5px; border-radius: 4px; }
@@ -194,6 +239,14 @@ a { color: var(--accent); }
   }
   section:last-child { break-after: auto; page-break-after: auto; }
   .chart .bar, .chart .bar.strong, .light { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  /* Le deck enfant garde ses couleurs et son cadre à l'impression. */
+  .p-enfant { --bg: #fff6e5; --card: #fffdf7; --fg: #2b2118; --muted: #7a6a5a; background: var(--bg); }
+  .p-enfant section {
+    border: 4px dashed var(--accent); border-radius: 24px; padding: 32px 40px; margin: 0;
+    print-color-adjust: exact; -webkit-print-color-adjust: exact;
+  }
+  .p-enfant h1, .p-enfant h2 { color: var(--accent); }
+  .p-enfant a { color: var(--accent); }
   a { color: #000; text-decoration: none; }
 }
 `;
