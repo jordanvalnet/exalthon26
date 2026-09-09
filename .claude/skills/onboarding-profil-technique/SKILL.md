@@ -1,106 +1,141 @@
 ---
 name: onboarding-profil-technique
 description: >-
-  Load this when the agent needs an output spec for an onboarding deliverable
-  (guide, ONBOARDING.md, summary, ramp-up plan) aimed at a TECHNICAL profile:
-  developer, architect, tech lead, DevOps/SRE, data engineer. Produces a JSON
-  object that tells the agent what information to prioritize and how to talk to
-  the target. Does not apply to non-technical profiles (PO, PM, design,
-  leadership).
+  Load this when authoring or refining a profile file for a TECHNICAL audience
+  (developer, architect, tech lead, DevOps/SRE, QA, data engineer) under
+  onboard/profiles/. Produces exactly one JSON object matching the profile
+  contract in onboard/SCHEMA.md (section "Profils"), validated by src/validate.ts.
+  Does not apply to non-technical audiences (ceo, investisseur, enfant).
 ---
 
-# Onboarding — output spec for a technical profile
+# Onboarding — technical-audience profile
 
-This skill collects nothing about the repo. It emits a **JSON spec** that a later
-step consumes to write the actual onboarding deliverable. The spec captures, for
-a technical newcomer, what matters and how to address them.
+A profile is the **input** of the Onboard pipeline: `onboard/profiles/<name>.json`.
+It names the audience, sets the tone, and lists the questions to answer **in
+priority order** — that order drives the narrative sections and the deck pages.
+Each question declares which `facts.json` blocks and which `sources/` files it
+needs (the collectors' shopping list).
+
+This skill emits one such JSON object, specialized for a technical reader.
 
 ## Specific profile
 
-> **Slot to be filled by the caller.** Provide the description of the exact
-> profile (precise role, mastered stack, seniority, mission on the project). If
-> left empty, treat the person as a seasoned generalist developer.
+> **Slot filled by the caller.** Provide the exact persona (role, stack,
+> seniority, mission on the project). If left empty, target a seasoned
+> generalist developer joining to contribute.
 
 ```
 {{PROFIL_SPECIFIQUE}}
 ```
 
-Adapt the spec to that profile: an architect wants module boundaries and
-structural decisions; a developer who writes code wants entry points and the
-build/test loop; an SRE wants deployment and runbooks. When the profile is
-specified, **drop** priorities outside their mission rather than listing
-everything.
+Tune the profile to that persona: an architect leads with module boundaries and
+structural decisions; a contributor leads with entry points and the build/test
+loop; an SRE leads with CI, releases and operational risk. Keep 5–8 priorities;
+drop questions outside the persona's mission rather than listing everything.
 
-## Reference: information a technical profile cares about
+## Output contract
 
-Descending priority order. Use this as the pool to build `elements_to_prioritize`
-— keep what fits the profile, in this order.
-
-1. **Get the machine running** — prerequisites (language/tool versions, external
-   services), install / build / run / test commands, for the person's OS.
-2. **Entry points & code map** — where execution starts, the main modules and
-   each one's responsibility, where the business logic lives vs the glue.
-3. **Architecture & boundaries** — split into components/services, data and
-   control flow, dependencies between modules, couplings, structural decisions
-   (ADRs, architecture docs).
-4. **Contribution conventions** — commit format, branch naming, PR process
-   (required reviewers, blocking checks), code style and linters, expected test
-   level.
-5. **Who knows what** — area owners, from CODEOWNERS and commit frequency per
-   directory.
-6. **Project state** — hot PRs/issues, hotspot files, latest releases, what is
-   being refactored, known technical debt.
-7. **First missions** — realistic bounded issues for this profile, ranked by fit.
-8. **Glossary** — acronyms and in-house terms from the docs and code.
-
-Excluded regardless of profile: Git/GitHub reminders, definitions of generic
-concepts, language history, tutorials for standard tools.
-
-## Reference: how to talk to a technical profile
-
-Use this as the pool to build `tone`.
-
-- Peer to peer, dense, no performative warmth. No "feel free to", no
-  congratulations, no decorative emojis.
-- Generic jargon assumed (API, CI, DI, ORM, coupling, feature flag) — not
-  defined. Every project-specific term spelled out on first use.
-- Assertive and sourced: every non-trivial claim points to a `file:line`, a CI
-  workflow name, a PR/issue number, a release tag. Missing info is stated
-  ("undocumented — confirm with the team"), never guessed.
-- Imperative, action-oriented: "Run `make test`", not "you can run the tests".
-- Short: lists and tables over paragraphs; code snippets under 15 lines.
-- English; technical terms stay in English.
-
-## Output
-
-Emit **only** a JSON object, no surrounding prose, with exactly these keys:
+Emit **only** a JSON object, no surrounding prose, with these keys:
 
 | Key | Type | Content |
 |---|---|---|
-| `profile_description` | string | The specific profile from the slot above, normalized to one sentence (role + stack + seniority + mission). If the slot was empty: `"Seasoned generalist developer, no stated mission"`. |
-| `elements_to_prioritize` | array of strings | The information items this profile needs, drawn from the reference list, ordered most-important first, phrased for this profile. Drop anything outside their mission. |
-| `tone` | array of strings | Concrete directives on vocabulary and register for addressing this profile — each item an actionable rule, not a vague adjective. |
+| `name` | string | Filename-safe slug, unique in `onboard/profiles/` (e.g. `architecte`, `tech-lead`, `sre`). Do not reuse `dev`, `qa`, `cto`. |
+| `description` | string | One sentence: who the reader is and what they want out of this. |
+| `tone` | string | One sentence of comma-separated, concrete directives (see below). |
+| `deck` | object | `{ "pages": <int 7–10>, "finale": "<closing page title>" }`. `pages` ≈ number of priorities + 3. |
+| `priorities` | array | Ordered, most important first. Each item: `{ "question", "chart"?, "facts": [...], "sources": [...] }`. |
 
-### Example
+Per priority item:
+- `question` — a real question in the reader's words. Used **verbatim** as the
+  narrative H2 and the deck page title. No trailing "(chart)" mention.
+- `chart` — optional, one value from the allowed list below.
+- `facts` — block names from the allowed list; the collectors will fill them.
+- `sources` — filenames from the allowed list.
+
+Language: `description`, `tone` and every `question` are written in the project's
+output language (**French**, matching the sibling profiles `dev.json` /
+`cto.json` / `qa.json`). Only this skill's own prose is English.
+
+## Allowed values (must match exactly)
+
+`facts` blocks — technical-relevant subset:
+`repo`, `languages`, `tree`, `releases`, `activity`, `entrypoints`, `build`,
+`tests`, `issues`, `pulls`, `deps`, `risks`, `roadmap`.
+(`business` exists but is for non-technical audiences.)
+
+`sources` files:
+`readme.md`, `tree.md`, `contributing.md`, `ci.md`, `manifest.md`, `license.md`,
+`tests.md`, `todo.md`, `security.md`, `funding.md`.
+
+`chart` values:
+`languages`, `commits_per_week`, `contributors`, `issues_by_label`, `releases`,
+`tree`, `risks`, `roadmap`.
+
+Hard rules enforced by `src/validate.ts`:
+- `readme.md` and `tree.md` are always collected — safe to cite anywhere.
+- Every `facts` / `sources` / `chart` value outside the lists above fails validation.
+- Section count in the narrative must equal `priorities.length`; keep the list tight.
+
+## Writing `tone` for a technical reader
+
+One sentence, comma-separated directives, each actionable. Draw from:
+- Peer to peer, dense, no performative warmth, no encouragement filler.
+- Exact file paths, copy-pasteable commands, real identifiers.
+- Generic jargon assumed (API, CI, DI, ORM, coupling); project-specific terms
+  spelled out on first use.
+- Every claim sourced (`file:line`, PR number, CI workflow, release tag);
+  missing info stated, never guessed.
+- Imperative phrasing for actions; short lists and code snippets over prose.
+
+Example: `"Direct, technique, chemins de fichiers exacts, commandes copiables, chaque affirmation sourcée, pas de marketing."`
+
+## Choosing `priorities` for a technical reader
+
+Menu of technical questions mapped to their data. Pick 5–8, order by what this
+persona needs first.
+
+| Intent | `facts` | `sources` | `chart` |
+|---|---|---|---|
+| What the project does, for whom | `repo`, `languages` | `readme.md` | `languages` (opt.) |
+| How the code is organized | `tree` | `tree.md` | `tree` |
+| Where to start reading | `entrypoints` | `readme.md` | — |
+| How to build, test, run | `build` | `manifest.md`, `ci.md`, `contributing.md` | — |
+| What the CI checks, when it runs | `build` | `ci.md` | — |
+| How it is tested today, coverage gaps | `tests`, `activity` | `tests.md` | — |
+| How the project lives (activity, releases) | `activity`, `releases` | — | `commits_per_week` |
+| Known bugs | `issues` | — | `issues_by_label` |
+| First contribution / open work | `issues`, `pulls` | `contributing.md` | — |
+| Dependencies and technical debt | `deps` | `manifest.md`, `todo.md` | — |
+| Risks and their mitigations | `risks` | `security.md`, `license.md` | `risks` |
+| Direction and roadmap | `roadmap` | — | `roadmap` |
+| Who owns what, bus factor | `activity` | — | `contributors` |
+
+Use at most one `chart` per priority.
+
+## Reference
+
+`onboard/profiles/dev.json`, `cto.json`, `qa.json` already ship. Match their
+shape and register. Only create a new profile for a persona these three do not
+cover (architect, tech lead, SRE, staff engineer); otherwise refine the existing
+file in place.
+
+## Example output
 
 ```json
 {
-  "profile_description": "Mid-level backend developer, Python/FastAPI, joining to own the ingestion service",
-  "elements_to_prioritize": [
-    "Get the machine running: Python version, Poetry install, how to run the ingestion service locally and its test suite",
-    "Entry points & code map: request lifecycle of the ingestion service, where handlers vs domain logic live",
-    "Contribution conventions: commit format, required reviewers on the ingestion package, lint/test gates that block merge",
-    "Architecture & boundaries: how ingestion talks to the queue and the storage layer, coupling to the shared schema package",
-    "Who knows what: current owners of the ingestion and schema directories",
-    "First missions: 2-3 bounded good-first-issue tickets touching the ingestion service"
-  ],
-  "tone": [
-    "Address as a peer who already writes production Python; no basics, no encouragement filler",
-    "Assume generic jargon (async, DI, ORM, backpressure); define only project-specific names on first use",
-    "Every claim carries a source: file:line, PR number, CI workflow, or release tag",
-    "Imperative phrasing for actions: 'Run poetry install', not 'you can install'",
-    "Prefer short lists and code snippets under 15 lines over prose",
-    "English; keep technical terms in English"
+  "name": "architecte",
+  "description": "Architecte qui évalue le projet avant de l'intégrer : veut les frontières de modules, les couplages et les décisions structurantes, pas le tutoriel de démarrage.",
+  "tone": "Synthétique et technique, frontières et dépendances explicites, chaque affirmation sourcée (fichier, PR, ADR), une lecture assumée à la fin, pas de marketing.",
+  "deck": { "pages": 9, "finale": "Intégrer, adapter ou éviter" },
+  "priorities": [
+    { "question": "Que fait ce projet et de quoi est-il fait ?", "facts": ["repo", "languages"], "sources": ["readme.md"] },
+    { "question": "Comment le code est-il découpé en modules ?", "chart": "tree", "facts": ["tree", "entrypoints"], "sources": ["tree.md", "readme.md"] },
+    { "question": "Quelles dépendances entre modules et vers l'extérieur ?", "facts": ["deps", "tree"], "sources": ["manifest.md"] },
+    { "question": "Quelles décisions d'architecture sont documentées ?", "facts": ["tree"], "sources": ["readme.md", "contributing.md"] },
+    { "question": "Comment build, CI et tests sont-ils organisés ?", "facts": ["build", "tests"], "sources": ["ci.md", "manifest.md", "tests.md"] },
+    { "question": "Quelle est la santé du projet et qui le porte ?", "chart": "commits_per_week", "facts": ["activity", "releases"], "sources": [] },
+    { "question": "Quels risques structurels et quelles parades ?", "chart": "risks", "facts": ["risks"], "sources": ["security.md", "license.md"] },
+    { "question": "Où va le projet ?", "chart": "roadmap", "facts": ["roadmap"], "sources": [] }
   ]
 }
 ```
