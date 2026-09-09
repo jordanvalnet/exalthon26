@@ -11,13 +11,17 @@ en code par 1a-meta (`bun run meta`) : tu ne les produis pas, sinon le merge éc
 `<cache>/parts/history.json` : `{ "issues": …, "pulls": …, "collected": { "by": "1b-history", "at": … } }`. Rien d'autre : ni `activity`, ni `risks`.
 
 ## Procédure
-2. `list_issues` `state: OPEN` `perPage: 10` `orderBy: COMMENTS` `direction: DESC` `fields: ["number","title","comments","labels"]` → `issues.hot`, `issues.open` (compteur de la fiche repo si besoin).
-3. `list_issues` `state: OPEN` `labels: ["good first issue"]` `perPage: 5` → `issues.good_first`.
-4. `search_issues` `repo:<owner>/<repo> is:issue is:closed closed:>=<date moins 30 j>` `perPage: 1` → `issues.closed_30d` = total_count.
-5. `issues.by_label` : un `search_issues` `repo:<owner>/<repo> is:issue is:open label:"<label>"` `perPage: 1` par label parmi bug, enhancement, documentation, question, help wanted → total_count.
-6. `list_pull_requests` `state: open` `perPage: 10` → `pulls.open`, `pulls.awaiting_review` (PR sans review demandée ni faite).
-7. `search_pull_requests` `repo:<owner>/<repo> is:merged merged:>=<date moins 30 j>` `perPage: 10` → `pulls.merged_30d`.
-8. Écris `parts/history.json`. Compte rendu.
+Budget : 8 appels. Aucun outil `search_*` : l'API de recherche GitHub est limitée à 30 requêtes par minute pour tout le poste.
+1. `list_issues` `state: OPEN` `perPage: 20` `orderBy: COMMENTS` `direction: DESC` `fields: ["number","title","comments","labels"]` → `issues.hot` (10 premières), `issues.open` = `open_issues` de la fiche repo si tu l'as, sinon omis.
+2. `list_issues` `state: OPEN` `labels: ["good first issue"]` `perPage: 5` → `issues.good_first`.
+3. `issues.by_label` : `list_issues` `state: OPEN` `labels: ["bug"]` `perPage: 100`, puis `labels: ["enhancement"]` `perPage: 100` → count = nombre renvoyé. À 100, note « plafonné à 100 » dans « Manques ». Pas d'autre label.
+4. `list_issues` `state: CLOSED` `since: <date moins 30 j>` `perPage: 100` → `issues.closed_30d` = nombre renvoyé (approximation sur la date de mise à jour, à noter dans « Manques »).
+5. `list_pull_requests` `state: open` `perPage: 10` → `pulls.open` ; `pulls.awaiting_review` omis si la réponse ne dit rien des reviews.
+6. `list_pull_requests` `state: closed` `sort: updated` `direction: desc` `perPage: 10` → `pulls.merged_30d` = celles dont `merged_at` est dans les 30 jours.
+7. Écris `parts/history.json`. Compte rendu.
+
+## Interdits
+Tout outil `search_*`. Écrire `activity` ou `risks`. Un chiffre qui ne vient pas d'une réponse.
 
 ## Compte rendu
 `1b-history : OK | ÉCHEC · <n> appels · manques : <liste ou aucun>`

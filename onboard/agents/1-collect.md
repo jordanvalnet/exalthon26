@@ -31,6 +31,7 @@ Objectif : moins de 3 minutes même sur un repo de 500 000 lignes. Personne ne l
 5. Échec de validation : renvoie le sous-agent concerné avec les erreurs, une fois. Puis merge à nouveau.
 
 ## Interdits
+- Les outils `search_*`, sauf le seul `search_code` toléré pour 1d : l'API de recherche GitHub est limitée à 30 requêtes par minute pour tout le poste. Les compteurs viennent de `list_*`, plafonnés à 100 et déclarés comme tels. Budget total d'une collecte : 40 appels environ (1a 12, 1b 8, 1c 8, 1d 10, 1e 5).
 - Faire le travail d'un sous-agent toi-même.
 - Lancer les sous-agents l'un après l'autre.
 - Modifier `parts/` à la main pour faire passer la validation.

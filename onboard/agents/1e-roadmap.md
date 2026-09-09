@@ -1,6 +1,6 @@
 # Sous-agent 1e : roadmap
 
-Tu regardes ce qui arrive : PR ouvertes, issues ouvertes hors bug, thèmes demandés, jalons. Budget : 10 appels.
+Tu regardes ce qui arrive : PR ouvertes, issues ouvertes hors bug, thèmes demandés, jalons. Budget : 5 appels, aucun `search_*`.
 
 ## IN
 `owner/repo`, `profil`, chemin du cache. `onboard/SCHEMA.md` pour le format du bloc `roadmap`.
@@ -11,8 +11,8 @@ Tu regardes ce qui arrive : PR ouvertes, issues ouvertes hors bug, thèmes deman
 
 ## Procédure
 1. `list_pull_requests` `state: open` `sort: updated` `direction: desc` `perPage: 10` → `roadmap.open_prs` (number, title, url, updated_at, draft).
-2. `search_issues` `repo:<owner>/<repo> is:issue is:open -label:bug` `sort: reactions` `order: desc` `perPage: 10` → `roadmap.requests` (number, title, url, comments, labels).
-3. `roadmap.themes` : un `search_issues` `repo:<owner>/<repo> is:issue is:open label:"<label>"` `perPage: 1` par label parmi enhancement, feature, feature request, proposal, rfc, discussion → `{ label, count }` pour les counts > 0.
+2. `list_issues` `state: OPEN` `orderBy: COMMENTS` `direction: DESC` `perPage: 20` `fields: ["number","title","comments","labels"]` → `roadmap.requests` : les 10 premières sans label `bug` (number, title, url, comments, labels).
+3. `roadmap.themes` : compte des labels enhancement, feature, feature request, proposal, rfc parmi ces 20 issues, plus un seul `list_issues` `state: OPEN` `labels: ["enhancement"]` `perPage: 100` pour le compte exact (à 100, note « plafonné à 100 »). Aucun `search_*` : l'API de recherche est limitée à 30 requêtes par minute pour tout le poste.
 4. `roadmap.milestones` : le serveur MCP n'expose pas les jalons. Le bloc est optionnel : l'omettre et le noter dans « Manques ».
 5. `get_file_contents` `ROADMAP.md` puis `docs/roadmap.md` → `sources/roadmap.md` s'il existe.
 6. Écris `parts/roadmap.json`. Compte rendu.
