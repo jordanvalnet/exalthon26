@@ -20,7 +20,7 @@ un commentaire = un message, l'auteur est le compte GitHub du token. Client : `c
 
 ## Stack
 - **bun** (jamais npm), TypeScript strict. bun charge `.env` tout seul : `process.env.GITHUB_PAT` est disponible.
-- Outils GitHub : le serveur MCP `github` de `.mcp.json` (outils `github:*`) pour l'agent, `src/github.ts` pour le code.
+- Outils GitHub : le serveur MCP `github` de `.mcp.json` (outils `github:*`) pour l'agent, `src/github.ts` pour le code, qui parle au **même serveur MCP** (client dans `onboarding/src/mcp/`). Jamais d'appel REST direct.
 
 ## Commandes (racine du repo)
 | Commande | Effet |
@@ -32,7 +32,7 @@ un commentaire = un message, l'auteur est le compte GitHub du token. Client : `c
 | `bun run merge <cache> <profil>` | assemble `parts/*.json` dans `facts.json` et valide |
 | `bun run validate facts\|narrative\|deck <cache> <profil>` | validation dure d'une étape |
 | `bun run render <cache> <profil>` | deck HTML à partir du cache |
-| `bun run gh /repos/o/r/languages` | appel REST brut, pour ce que `github:*` ne donne pas |
+| `bun run gh <outil> '<args JSON>'` | appel brut d'un outil du serveur MCP GitHub ; `bun run gh tools` les liste |
 | `bun run chat read` | le chat d'équipe (voir `chat/README.md`) |
 
 ## Structure
@@ -49,7 +49,8 @@ src/validate.ts       validations facts, narrative, deck
 src/merge.ts          fusion des parts des sous-agents de collecte
 src/render/           deck HTML (à implémenter, M4)
 src/cli.ts            bun onboard
-src/github.ts         client REST GitHub (token GITHUB_PAT), src/gh.ts l'expose en ligne de commande
+src/github.ts         accès GitHub via le serveur MCP (token GITHUB_PAT), src/gh.ts l'expose en ligne de commande
+onboarding/           collecteurs TypeScript (bun, zéro dépendance) qui parlent au serveur MCP GitHub : src/mcp/client.ts, src/github/GitHubMcp.ts
 test/                 tests bun (bun:test)
 chat/chat.mjs         client du chat, fichier unique sans dépendance : le laisser en .mjs, node doit pouvoir le lancer
 ```

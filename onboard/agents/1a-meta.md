@@ -11,7 +11,7 @@ Tu remplis la fiche du repo. Budget : 10 appels `github:*` au plus. Tu ne lis au
 
 ## Procédure
 1. `search_repositories` `repo:<owner>/<repo>`, `minimal_output: false` → `repo` (full_name, url, description, dates, licence, étoiles, forks, issues ouvertes, topics, owner_type = org si le propriétaire est une organisation, archived).
-2. `bun run gh /repos/<owner>/<repo>/languages` → `languages`.
+2. `languages` : le serveur MCP ne donne pas la répartition par langage en octets. Le bloc est optionnel : l'omettre et noter dans « Manques » le langage principal (`language` de l'étape 1).
 3. `list_releases` `perPage: 10` → `releases`.
 4. `get_file_contents` sur `LICENSE` puis `LICENSE.md` si absent → `sources/license.md`.
 5. `get_file_contents` sur `.github/FUNDING.yml`, `SECURITY.md`, `.github/CODEOWNERS` puis `CODEOWNERS` → `business.funding`, `business.security_policy`, `business.codeowners` (présence). Un 404 = false, pas une erreur.

@@ -13,7 +13,7 @@ Tu regardes ce qui arrive : PR ouvertes, issues ouvertes hors bug, thèmes deman
 1. `list_pull_requests` `state: open` `sort: updated` `direction: desc` `perPage: 10` → `roadmap.open_prs` (number, title, url, updated_at, draft).
 2. `search_issues` `repo:<owner>/<repo> is:issue is:open -label:bug` `sort: reactions` `order: desc` `perPage: 10` → `roadmap.requests` (number, title, url, comments, labels).
 3. `roadmap.themes` : un `search_issues` `repo:<owner>/<repo> is:issue is:open label:"<label>"` `perPage: 1` par label parmi enhancement, feature, feature request, proposal, rfc, discussion → `{ label, count }` pour les counts > 0.
-4. `bun run gh /repos/<owner>/<repo>/milestones?state=open` → `roadmap.milestones` (title, open = open_issues, closed = closed_issues, due = due_on).
+4. `roadmap.milestones` : le serveur MCP n'expose pas les jalons. Le bloc est optionnel : l'omettre et le noter dans « Manques ».
 5. `get_file_contents` `ROADMAP.md` puis `docs/roadmap.md` → `sources/roadmap.md` s'il existe.
 6. Écris `parts/roadmap.json`. Compte rendu.
 

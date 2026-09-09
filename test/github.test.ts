@@ -7,9 +7,14 @@ afterEach(() => {
 });
 
 describe("whoami", () => {
-  test("renvoie le login de l'utilisateur du token", async () => {
+  test("renvoie le login de l'utilisateur du token via le serveur MCP", async () => {
     process.env.GITHUB_PAT = "ghp_test";
-    globalThis.fetch = (async () => Response.json({ login: "alice" })) as unknown as typeof fetch;
+    globalThis.fetch = (async () =>
+      Response.json({
+        jsonrpc: "2.0",
+        id: 1,
+        result: { content: [{ type: "text", text: JSON.stringify({ login: "alice" }) }] },
+      })) as unknown as typeof fetch;
     expect(await whoami()).toBe("alice");
   });
 
