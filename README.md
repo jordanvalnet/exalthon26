@@ -32,7 +32,8 @@ cd hackathon-mcp
 cp .env.example .env
 # éditez .env et collez votre token dans GITHUB_PAT
 
-export GITHUB_PAT=$(grep GITHUB_PAT .env | cut -d '=' -f2)
+# charge toutes les variables du .env dans le shell courant
+set -a; source .env; set +a
 ```
 
 > Le fichier `.mcp.json` est déjà versionné avec la config du serveur MCP GitHub.
@@ -73,6 +74,18 @@ claude mcp add github -e GITHUB_PERSONAL_ACCESS_TOKEN=$GITHUB_PAT -- \
   docker run -i --rm -e GITHUB_PERSONAL_ACCESS_TOKEN ghcr.io/github/github-mcp-server
 ```
 
+## 6. Serveur MCP maison (bun + TypeScript)
+
+Le serveur de l'équipe vit dans `mcp-server/` et est déjà déclaré dans `.mcp.json` sous le nom `hackathon`.
+
+```bash
+curl -fsSL https://bun.sh/install | bash   # une fois, puis rouvrir le terminal
+make setup && make check
+```
+
+Au premier lancement de `claude`, accepter le serveur `hackathon` proposé.
+Doc du serveur : `mcp-server/README.md`. Contexte et règles pour les agents : `AGENTS.md`.
+
 ## Contenu du kit
 
 ```
@@ -81,6 +94,9 @@ hackathon-mcp/
 ├── .mcp.json                 # config du serveur MCP GitHub (scope projet)
 ├── .env.example              # modèle pour le token GitHub
 ├── .gitignore
+├── Makefile                  # raccourcis : make check / smoke / inspect / http
+├── AGENTS.md                 # contexte et règles pour les agents (Claude Code, Copilot, Codex)
+├── mcp-server/               # serveur MCP maison (bun + TypeScript)
 ├── python-starter/           # base minimale Python
 ├── node-starter/             # base minimale Node.js (ES modules)
 ├── react-starter/            # base minimale React + Vite

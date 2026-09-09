@@ -6,6 +6,14 @@
       "headers": {
         "Authorization": "Bearer ${GITHUB_PAT}"
       }
+    },
+    "hackathon": {
+      "type": "stdio",
+      "command": "bun",
+      "args": ["run", "mcp-server/src/index.ts"],
+      "env": {
+        "GITHUB_PAT": "${GITHUB_PAT:-}"
+      }
     }
   }
 }

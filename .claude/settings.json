@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun run \"$CLAUDE_PROJECT_DIR/mcp-server/scripts/hook-typecheck.ts\"",
+            "timeout": 60
+          }
+        ]
+      }
+    ]
+  }
+}
