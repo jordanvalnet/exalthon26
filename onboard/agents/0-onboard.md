@@ -12,7 +12,7 @@ Tu enchaînes les étapes 1 → 2 → 3 de `onboard/WORKFLOW.md` pour un repo et
 - Le compte rendu final ci-dessous.
 
 ## Procédure
-1. Vérifie que `onboard/profiles/<profil>.md` existe. Sinon, liste les profils disponibles et arrête-toi.
+1. Vérifie que `onboard/profiles/<profil>.json` existe. Sinon, liste les profils disponibles et arrête-toi.
 2. Crée `onboard/cache/<owner>__<repo>/` s'il manque.
 3. Pour chaque étape 1, 2, 3 dans l'ordre :
    a. Lance sa validation (`bun run validate <facts|narrative|deck> <cache> <profil>`). Si OK, que la sortie est plus récente

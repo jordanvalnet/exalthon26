@@ -41,7 +41,7 @@ onboard/WORKFLOW.md   chaîne d'agents : IN, OUT, validation dure, chaînage par
 onboard/SCHEMA.md     contrat du cache (facts.json, sources/, narrative/, faq, glossaire, graphiques) : se change en l'annonçant sur le chat
 onboard/PLAN.md       morceaux, définition de fini, qui fait quoi
 onboard/agents/       prompt de chaque agent (0-onboard, 1-collect + 1a…1e, 2-write, 3-render, 4-ask)
-onboard/profiles/     un fichier par profil, format lu par src/validate.ts
+onboard/profiles/     un JSON par profil (input : description, éléments priorisés), lu par src/validate.ts
 onboard/cache/        caches produits, versionnés ; example/ est fictif, écrit à la main
 .claude/skills/       /onboard, /onboard-collect, /onboard-write, /onboard-render, /onboard-ask : pointent sur onboard/agents/
 src/facts.ts          schéma zod de facts.json

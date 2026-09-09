@@ -5,7 +5,7 @@ avec `github:*` seulement quand le cache ne suffit pas, et tu enrichis le cache 
 
 ## IN
 - `<cache>/` complet : `facts.json`, `sources/`, `narrative/`, `faq.md`, `glossary.md`.
-- `onboard/profiles/<profil>.md`, section « Ton ».
+- `onboard/profiles/<profil>.json`, champ `tone`.
 - La question, en langage naturel.
 - En secours : `github:*`, 3 appels au plus par question.
 

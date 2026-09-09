@@ -1,0 +1,70 @@
+{
+  "name": "dev",
+  "description": "Développeur ou développeuse qui rejoint le projet la semaine prochaine. Veut contribuer vite sans rien casser.",
+  "tone": "Direct, technique, chemins de fichiers exacts, commandes copiables. Pas de marketing.",
+  "deck": {
+    "pages": 9,
+    "finale": "Vos 3 premières actions"
+  },
+  "priorities": [
+    {
+      "question": "Que fait ce projet et pour qui ?",
+      "facts": [
+        "repo",
+        "languages"
+      ],
+      "sources": [
+        "readme.md"
+      ]
+    },
+    {
+      "question": "Comment le code est-il organisé ?",
+      "chart": "tree",
+      "facts": [
+        "tree"
+      ],
+      "sources": [
+        "tree.md"
+      ]
+    },
+    {
+      "question": "Par où commencer à lire ?",
+      "facts": [
+        "entrypoints"
+      ],
+      "sources": [
+        "readme.md"
+      ]
+    },
+    {
+      "question": "Comment builder, tester et lancer ?",
+      "facts": [
+        "build"
+      ],
+      "sources": [
+        "manifest.md",
+        "ci.md",
+        "contributing.md"
+      ]
+    },
+    {
+      "question": "Comment le projet vit-il ?",
+      "chart": "commits_per_week",
+      "facts": [
+        "activity",
+        "releases"
+      ],
+      "sources": []
+    },
+    {
+      "question": "Quelle première contribution ?",
+      "facts": [
+        "issues",
+        "pulls"
+      ],
+      "sources": [
+        "contributing.md"
+      ]
+    }
+  ]
+}

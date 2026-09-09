@@ -1,0 +1,74 @@
+{
+  "name": "investisseur",
+  "description": "Investisseur ou analyste qui évalue le projet comme un actif : traction, équipe, défendabilité, risques légaux.",
+  "tone": "Chiffres, comparaisons, verdict assumé. Ni enthousiasme ni jargon technique.",
+  "deck": {
+    "pages": 10,
+    "finale": "Thèse en 3 lignes"
+  },
+  "priorities": [
+    {
+      "question": "Quel problème et quel marché ?",
+      "facts": [
+        "repo"
+      ],
+      "sources": [
+        "readme.md"
+      ]
+    },
+    {
+      "question": "Quelle traction ?",
+      "chart": "releases",
+      "facts": [
+        "repo",
+        "releases"
+      ],
+      "sources": []
+    },
+    {
+      "question": "Quelle dynamique ?",
+      "chart": "commits_per_week",
+      "facts": [
+        "activity",
+        "roadmap"
+      ],
+      "sources": []
+    },
+    {
+      "question": "Quelle équipe et quelle gouvernance ?",
+      "chart": "contributors",
+      "facts": [
+        "activity",
+        "business"
+      ],
+      "sources": []
+    },
+    {
+      "question": "Quelle concurrence ?",
+      "facts": [
+        "business"
+      ],
+      "sources": []
+    },
+    {
+      "question": "Licence, financement, risques ?",
+      "chart": "risks",
+      "facts": [
+        "risks",
+        "business"
+      ],
+      "sources": [
+        "license.md",
+        "funding.md",
+        "security.md"
+      ]
+    },
+    {
+      "question": "Pourquoi oui, pourquoi non ?",
+      "facts": [
+        "risks"
+      ],
+      "sources": []
+    }
+  ]
+}

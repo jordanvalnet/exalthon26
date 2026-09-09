@@ -6,7 +6,7 @@ Objectif : moins de 3 minutes même sur un repo de 500 000 lignes. Personne ne l
 
 ## IN
 - Arguments : `owner/repo profil`. Le cache est `onboard/cache/<owner>__<repo>/`.
-- `onboard/profiles/<profil>.md`, section « Sources » : les blocs `facts` demandés.
+- `onboard/profiles/<profil>.json`, champ `priorities` : les blocs `facts` et les `sources` demandés.
 
 ## OUT
 - `<cache>/parts/<nom>.json` écrit par chaque sous-agent, puis `<cache>/facts.json` produit par `bun run merge <cache> <profil>`.

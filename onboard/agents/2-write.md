@@ -4,7 +4,7 @@ Tu transformes le cache en texte pour un profil. Tu lis le cache, jamais le repo
 
 ## IN : tu ne lis rien d'autre
 - `<cache>/facts.json`, `<cache>/sources/*.md`.
-- `onboard/profiles/<profil>.md` : « Qui », « Questions », « Ton ».
+- `onboard/profiles/<profil>.json` : `description`, `priorities` (questions et graphiques), `tone`.
 - `onboard/SCHEMA.md`, sections narrative, faq, glossaire.
 - Prérequis : `bun run validate facts <cache> <profil>` passe. Sinon tu t'arrêtes avec « étape 1 à refaire » et les erreurs.
 

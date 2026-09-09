@@ -16,27 +16,19 @@ export type Profile = {
 };
 
 export function readProfile(name: string, root = "onboard/profiles"): Profile {
-  const file = path.join(root, `${name}.md`);
+  const file = path.join(root, `${name}.json`);
   if (!existsSync(file)) {
-    const known = readdirSync(root).filter((f) => f.endsWith(".md")).map((f) => f.slice(0, -3));
+    const known = readdirSync(root).filter((f) => f.endsWith(".json")).map((f) => f.slice(0, -5));
     throw new Error(`profil inconnu : ${name}. Profils : ${known.join(", ")}`);
   }
-  const md = readFileSync(file, "utf8");
-  const section = (title: string) => md.split(/^## /m).find((s) => s.startsWith(title))?.slice(title.length) ?? "";
-  const questions = [...section("Questions").matchAll(/^\d+\.\s+(.+?)(?:\s+\(chart\s*:\s*([a-z_]+)\))?\s*$/gm)].map((m) => ({
-    text: m[1]!.trim(),
-    ...(m[2] ? { chart: m[2] } : {}),
-  }));
-  const list = (key: string) =>
-    section("Sources")
-      .match(new RegExp(`^-\\s*${key}\\s*:\\s*(.+)$`, "m"))?.[1]
-      ?.split(",")
-      .map((s) => s.trim())
-      .filter(Boolean) ?? [];
-  const deck = section("Deck");
-  const pages = Number(deck.match(/^-\s*pages\s*:\s*(\d+)/m)?.[1]);
-  const finale = deck.match(/^-\s*finale\s*:\s*(.+)$/m)?.[1]?.trim();
-  return { name, questions, facts: list("facts"), sources: list("sources"), ...(pages ? { pages } : {}), ...(finale ? { finale } : {}) };
+  const p = JSON.parse(readFileSync(file, "utf8")) as {
+    priorities: { question: string; chart?: string; facts?: string[]; sources?: string[] }[];
+    deck?: { pages?: number; finale?: string };
+  };
+  const questions = p.priorities.map((e) => ({ text: e.question, ...(e.chart ? { chart: e.chart } : {}) }));
+  const facts = [...new Set(p.priorities.flatMap((e) => e.facts ?? []))];
+  const sources = [...new Set(p.priorities.flatMap((e) => e.sources ?? []))];
+  return { name, questions, facts, sources, ...(p.deck?.pages ? { pages: p.deck.pages } : {}), ...(p.deck?.finale ? { finale: p.deck.finale } : {}) };
 }
 
 export function validateFacts(dir: string, profile: Profile): string[] {

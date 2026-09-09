@@ -5,7 +5,7 @@ tu corriges le code du rendu si c'est lui qui a tort.
 
 ## IN : tu ne lis rien d'autre
 - `<cache>/facts.json`, `<cache>/narrative/<profil>.md`.
-- `onboard/profiles/<profil>.md`, section « Deck » (`- pages`, `- finale`).
+- `onboard/profiles/<profil>.json`, champ `deck` (`pages`, `finale`).
 - Prérequis : `bun run validate narrative <cache> <profil>` passe. Sinon : « étape 2 à refaire » et les erreurs.
 
 ## OUT : tu n'écris rien d'autre

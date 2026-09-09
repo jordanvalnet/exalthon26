@@ -1,0 +1,60 @@
+{
+  "name": "ceo",
+  "description": "Dirigeant ou dirigeante non technique. Veut savoir ce que ça fait, si c'est vivant, qui est derrière et ce que ça coûte ou rapporte.",
+  "tone": "Sans jargon, une idée par page, analogies métier, gros chiffres. Aucun chemin de fichier.",
+  "deck": {
+    "pages": 8,
+    "finale": "Ce que je retiens"
+  },
+  "priorities": [
+    {
+      "question": "Que fait ce projet, en une phrase, et pour qui ?",
+      "facts": [
+        "repo"
+      ],
+      "sources": [
+        "readme.md"
+      ]
+    },
+    {
+      "question": "Est-ce que ça marche et qui s'en sert ?",
+      "facts": [
+        "releases",
+        "issues"
+      ],
+      "sources": []
+    },
+    {
+      "question": "Le projet est-il vivant ?",
+      "chart": "commits_per_week",
+      "facts": [
+        "activity"
+      ],
+      "sources": []
+    },
+    {
+      "question": "Qui est derrière ?",
+      "chart": "contributors",
+      "facts": [
+        "activity",
+        "business"
+      ],
+      "sources": []
+    },
+    {
+      "question": "Quels sont les trois risques ?",
+      "chart": "risks",
+      "facts": [
+        "risks"
+      ],
+      "sources": []
+    },
+    {
+      "question": "Qu'en fait-on ?",
+      "facts": [
+        "roadmap"
+      ],
+      "sources": []
+    }
+  ]
+}

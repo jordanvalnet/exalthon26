@@ -13,7 +13,7 @@ Les skills Claude Code (`.claude/skills/`) ne font que pointer sur `agents/`, po
 | # | Morceau | Fichiers | Fini quand | Qui |
 |---|---|---|---|---|
 | M0 | Contrat et validations | `WORKFLOW.md`, `SCHEMA.md`, `src/facts.ts`, `src/validate.ts`, `src/merge.ts`, `cache/example/` | `validate facts` et `validate narrative` passent sur `cache/example` | Jordan |
-| M1 | Profils | `profiles/<profil>.md` (6 fichiers) | les 5 sections sont remplies, les clés de « Sources » existent dans `SCHEMA.md`, chaque question est une vraie question du public visé | Rado (radomd92) |
+| M1 | Profils | `profiles/<profil>.json` (6 fichiers JSON : description, éléments priorisés avec leurs facts et sources, ton, deck) | les clés `facts` et `sources` existent dans `SCHEMA.md`, chaque question est une vraie question du public visé, l'ordre est l'ordre de priorité | Princy (PrAndrian) ; Rado : morceau à confirmer |
 | M2 | Collecte, 5 sous-agents parallèles | `agents/1-collect.md` (coordination), `1a-meta`, `1b-history`, `1c-docs`, `1d-code`, `1e-roadmap`, run réel sur le repo de démo | `bun run merge` passe pour dev, puis pour les autres profils, en moins de 3 min | Sacane (1b, 1d), P3 (1a, 1c, 1e) |
 | M3 | Rédacteur | `agents/2-write.md`, run réel | `validate narrative` passe, le texte est dans le ton du profil | P4 |
 | M4 | Metteur en page | `src/render/`, `agents/3-render.md` | `bun run render onboard/cache/example dev` puis `validate deck` passent, le deck est beau à l'écran et à l'impression | P5 |

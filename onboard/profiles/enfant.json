@@ -1,0 +1,53 @@
+{
+  "name": "enfant",
+  "description": "Enfant de 10 ans, curieux. Veut comprendre à quoi ça sert et pourquoi des gens y travaillent.",
+  "tone": "Phrases courtes, mots simples, une analogie avec un objet du quotidien par page, tutoiement. Aucun terme technique sans image.",
+  "deck": {
+    "pages": 7,
+    "finale": "Et toi, tu ferais quoi avec ?"
+  },
+  "priorities": [
+    {
+      "question": "C'est quoi, ce projet ?",
+      "facts": [
+        "repo"
+      ],
+      "sources": [
+        "readme.md"
+      ]
+    },
+    {
+      "question": "Qui s'en sert et pour quoi faire ?",
+      "facts": [
+        "repo"
+      ],
+      "sources": [
+        "readme.md"
+      ]
+    },
+    {
+      "question": "Combien de personnes le fabriquent ?",
+      "chart": "contributors",
+      "facts": [
+        "activity"
+      ],
+      "sources": []
+    },
+    {
+      "question": "Comment on fabrique un logiciel à plusieurs ?",
+      "facts": [
+        "languages"
+      ],
+      "sources": [
+        "tree.md"
+      ]
+    },
+    {
+      "question": "Une chose étonnante sur ce projet ?",
+      "facts": [
+        "repo"
+      ],
+      "sources": []
+    }
+  ]
+}

@@ -91,19 +91,22 @@ Ajout en fin de fichier, jamais de réécriture.
 
 ## Profils
 
-`onboard/profiles/<profil>.md`, cinq sections obligatoires : `## Qui`, `## Questions`, `## Sources`, `## Ton`, `## Deck`.
-Dans « Questions », une question peut porter `(chart: nom)` : le rédacteur pose la directive correspondante sous la H2.
-« Sources » cite des clés de facts.json et des fichiers de sources/ : c'est la liste de courses du cartographe.
+`onboard/profiles/<profil>.json`, l'input du pipeline. Une description du public, puis la liste des éléments à traiter,
+**dans l'ordre de priorité** : cet ordre est celui des sections du narratif et des pages du deck.
+Chaque élément dit quels blocs de `facts.json` et quels fichiers de `sources/` il lui faut : c'est la liste de courses des collecteurs.
 
-Format lu par `src/validate.ts`, à respecter à la lettre :
+```json
+{
+  "name": "dev",
+  "description": "Développeur ou développeuse qui rejoint le projet la semaine prochaine.",
+  "tone": "Direct, technique, chemins de fichiers exacts, commandes copiables.",
+  "deck": { "pages": 9, "finale": "Vos 3 premières actions" },
+  "priorities": [
+    { "question": "Que fait ce projet et pour qui ?", "facts": ["repo", "languages"], "sources": ["readme.md"] },
+    { "question": "Comment le code est-il organisé ?", "chart": "tree", "facts": ["tree"], "sources": ["tree.md"] }
+  ]
+}
 ```
-## Questions
-1. Texte de la question ?
-2. Autre question ? (chart: commits_per_week)
-## Sources
-- facts : repo, languages, tree, activity
-- sources : readme.md, tree.md, contributing.md
-## Deck
-- pages : 8
-- finale : Vos 3 premières actions
-```
+
+`question` devient le titre H2 du narratif, à l'identique. `chart` est optionnel, pris dans la liste des graphiques.
+`facts` : noms de blocs du tableau ci-dessus. `sources` : noms de fichiers de `sources/`.

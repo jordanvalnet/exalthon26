@@ -1,0 +1,67 @@
+{
+  "name": "qa",
+  "description": "Testeur ou testeuse qui doit valider le projet et écrire des cas de test. Veut savoir ce qui est couvert et ce qui casse.",
+  "tone": "Factuel, orienté risque, listes de vérification, numéros d'issues.",
+  "deck": {
+    "pages": 9,
+    "finale": "Plan de test en 5 points"
+  },
+  "priorities": [
+    {
+      "question": "Que fait ce projet et quels sont ses parcours critiques ?",
+      "facts": [
+        "repo"
+      ],
+      "sources": [
+        "readme.md"
+      ]
+    },
+    {
+      "question": "Comment est-il testé aujourd'hui ?",
+      "chart": "tree",
+      "facts": [
+        "tree",
+        "tests"
+      ],
+      "sources": [
+        "tree.md",
+        "tests.md"
+      ]
+    },
+    {
+      "question": "Que dit la CI et quand tourne-t-elle ?",
+      "facts": [
+        "build"
+      ],
+      "sources": [
+        "ci.md"
+      ]
+    },
+    {
+      "question": "Où sont les bugs connus ?",
+      "chart": "issues_by_label",
+      "facts": [
+        "issues"
+      ],
+      "sources": []
+    },
+    {
+      "question": "Comment reproduire et signaler un bug ici ?",
+      "facts": [
+        "pulls"
+      ],
+      "sources": [
+        "contributing.md"
+      ]
+    },
+    {
+      "question": "Quelles zones sont peu couvertes ?",
+      "facts": [
+        "activity"
+      ],
+      "sources": [
+        "tests.md"
+      ]
+    }
+  ]
+}
