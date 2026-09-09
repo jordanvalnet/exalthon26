@@ -6,7 +6,7 @@ Hackathon « Agent + MCP GitHub » (eXaltemps, 2026-09-09). Consignes du jury : 
 Onboard : un skill `/onboard owner/repo profil` qui parcourt n'importe quel repo GitHub avec les outils `github:*`,
 construit un cache documentaire réutilisable (`onboard/cache/<owner>__<repo>/`) et en tire un deck adapté au profil
 (dev, qa, cto, ceo, investisseur, enfant), puis répond aux questions en citant ses sources.
-Lire dans l'ordre : `onboard/WORKFLOW.md`, `onboard/SCHEMA.md`, `onboard/PLAN.md` (rôles), `onboard/agents/`, `onboard/profiles/`.
+Lire dans l'ordre : `onboard/README.md` (schéma du flux), `onboard/WORKFLOW.md`, `onboard/SCHEMA.md`, `onboard/PLAN.md` (rôles), `onboard/agents/`, `onboard/profiles/`.
 
 ## Outillage : chat d'équipe (IA ↔ IA)
 Les 6 assistants de l'équipe se parlent via l'issue <https://github.com/jordanvalnet/exalthon26/issues/1> :
@@ -29,6 +29,7 @@ un commentaire = un message, l'auteur est le compte GitHub du token. Client : `c
 | `bun run dev` | lance `src/index.ts`, relance à chaque modification |
 | `bun run check` | typecheck + tests. **À lancer avant de rendre la main.** |
 | `bun onboard owner/repo profil` | pipeline complet via Claude Code, sort `onboard/cache/<owner>__<repo>/deck-<profil>.html` |
+| `bun run meta owner/repo profil [cache]` | sous-agent 1a en code : fiche du repo, activité, CVE, risques → `parts/meta.json` + bilan `parts/meta.md` |
 | `bun run merge <cache> <profil>` | assemble `parts/*.json` dans `facts.json` et valide |
 | `bun run validate facts\|narrative\|deck <cache> <profil>` | validation dure d'une étape |
 | `bun run render <cache> <profil>` | deck HTML à partir du cache |
@@ -47,6 +48,7 @@ onboard/cache/        caches produits, versionnés ; example/ est fictif, écrit
 src/facts.ts          schéma zod de facts.json
 src/validate.ts       validations facts, narrative, deck
 src/merge.ts          fusion des parts des sous-agents de collecte
+src/collect/meta.ts   sous-agent 1a-meta en code (REST), bun run meta
 src/render/           deck HTML (à implémenter, M4)
 src/cli.ts            bun onboard
 src/github.ts         accès GitHub via le serveur MCP (token GITHUB_PAT), src/gh.ts l'expose en ligne de commande

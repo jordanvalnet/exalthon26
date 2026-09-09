@@ -15,7 +15,8 @@
     "validate": "bun src/validate.ts",
     "render": "bun src/render/index.ts",
     "gh": "bun src/gh.ts",
-    "merge": "bun src/merge.ts"
+    "merge": "bun src/merge.ts",
+    "meta": "bun src/collect/meta.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",

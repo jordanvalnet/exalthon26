@@ -3,6 +3,7 @@
 import { McpClient } from "../onboarding/src/mcp/client.ts";
 import { GitHubMcp, GITHUB_MCP_URL } from "../onboarding/src/github/GitHubMcp.ts";
 
+<<<<<<< Updated upstream
 export { GitHubMcp, GITHUB_MCP_URL };
 
 function token(): string {
@@ -17,6 +18,27 @@ export function mcp(): McpClient {
 
 export function github(): GitHubMcp {
   return new GitHubMcp(mcp());
+=======
+export async function ghRes(path: string, init: RequestInit = {}): Promise<Response> {
+  const token = process.env.GITHUB_PAT;
+  if (!token) throw new Error("GITHUB_PAT manquant : copier .env.example en .env et y coller le token");
+  return fetch(API + path, {
+    ...init,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28",
+      "User-Agent": "exalthon26",
+      ...(init.headers ?? {}),
+    },
+  });
+}
+
+export async function gh<T>(path: string, init: RequestInit = {}): Promise<T> {
+  const res = await ghRes(path, init);
+  if (!res.ok) throw new Error(`GitHub HTTP ${res.status} sur ${path}`);
+  return res.json() as Promise<T>;
+>>>>>>> Stashed changes
 }
 
 export async function whoami(): Promise<string> {

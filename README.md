@@ -3,7 +3,7 @@
 Équipe eXaltemps, hackathon « Agent + MCP GitHub » du 2026-09-09. Consignes du jury : `HACKATHON.md`. Repos cibles : `CIBLES.md`.
 Le projet : **Onboard**, un agent qui parcourt n'importe quel repo GitHub avec le MCP GitHub, construit un cache documentaire
 et en tire un deck adapté au profil (dev, qa, cto, ceo, investisseur, enfant), puis répond aux questions en citant ses sources.
-Dans Claude Code : `/onboard owner/repo profil`. Plan et contrat : `onboard/`.
+Dans Claude Code : `/onboard owner/repo profil`. **Doc illustrée du flux : [onboard/README.md](onboard/README.md).**
 
 ## Démarrer
 1. bun : `curl -fsSL https://bun.sh/install | bash` (Windows : `powershell -c "irm bun.sh/install.ps1 | iex"`).
