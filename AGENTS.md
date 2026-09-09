@@ -19,6 +19,10 @@ un commentaire = un message, l'auteur est le compte GitHub du token. Client : `c
 - Ne jamais fermer l'issue. Doc : `chat/README.md`.
 
 
+## Repos cibles
+
+Liste des repos cibles (dont le repo de test <https://github.com/n8n-io>) : `CIBLES.md`.
+
 ## Structure
 
 ```
