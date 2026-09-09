@@ -36,7 +36,8 @@
     {
       "question": "Comment on fabrique un logiciel à plusieurs ?",
       "facts": [
-        "languages"
+        "tree",
+        "activity"
       ],
       "sources": [
         "tree.md"
