@@ -105,7 +105,7 @@ Chaque élément dit ce qu'il lui faut : c'est la liste de courses des collecteu
 | `src/facts.ts` | Schéma zod de `facts.json`. Tout optionnel sauf `repo` et `collected`. | importé par validate et merge |
 | `src/validate.ts` | Lit le profil JSON. `facts` : schéma, loupes, blocs demandés, readme et tree présents. `narrative` : en-tête, une H2 par question au libellé identique, directive chart attendue, une citation par section, chaque `[facts:x.y]` résolu dans le JSON, chaque `[src:f]` existant, 5 termes de glossaire. `deck` : aucune ressource externe, assez de sections, pas de citation brute, règle print. | `bun run validate facts\|narrative\|deck <cache> <profil>` |
 | `src/merge.ts` | Fusionne `parts/*.json` et le `facts.json` existant (objets en profondeur, tableaux sans doublon), valide chaque part, unit les loupes, écrit `facts.json`, lance `validate facts`. | `bun run merge <cache> <profil>` |
-| `src/gh.ts` | Appel REST brut avec le token, pour ce que le MCP ne donne pas (langages, jalons). | `bun run gh /repos/o/r/languages` |
+| `src/gh.ts` | Appel brut d'un outil du serveur MCP GitHub depuis le code, même serveur que `.mcp.json`. Jamais d'API REST directe. | `bun run gh <outil> '<args JSON>'`, `bun run gh tools` |
 | `src/cli.ts` | Lance Claude Code en non interactif avec `/onboard`. | `bun onboard owner/repo profil` |
 | `src/render/index.ts` | Le deck HTML à partir du cache. À implémenter. | `bun run render <cache> <profil>` |
 
