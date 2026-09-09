@@ -21,7 +21,7 @@ tu corriges le code du rendu si c'est lui qui a tort.
 3. Ouvre le fichier et vérifie à l'œil : toutes les sections, tous les graphiques, aucun `[facts:…]` brut,
    impression sur le nombre de pages du profil.
 4. Si le narratif est en cause (section manquante, titre différent) : tu le signales dans « Manques », tu ne le réécris pas.
-5. Si le code de rendu est en cause : tu corriges `src/render/`, tu adaptes le test, `bun run check`, et tu relances au 1.
+5. Si le code de rendu est en cause : tu corriges `src/render/`, `bun run check`, et tu relances au 1.
 
 ## Interdits
 - Écrire du HTML à la main dans le cache : tout passe par `src/render/`.

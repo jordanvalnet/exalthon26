@@ -56,7 +56,7 @@ chat/chat.mjs         client du chat, fichier unique sans dépendance : le laiss
 
 ## Règles
 - Code sobre : pas d'abstraction avant le deuxième usage, pas de commentaire qui répète le code.
-- Un nouveau module = un test dans `test/`. `bun run check` avant de rendre la main.
+- Tests au minimum : un test de fumée par module, pas plus. `bun run check` avant de rendre la main.
 - Recherche dans le code : `rg motif .` (ripgrep), pas `grep -r`. Toujours donner le chemin.
 - Tout le monde sur `main`, pas de PR. Commits petits et fréquents, `git pull --rebase` avant de pousser, chacun ne touche qu'à ses fichiers (`onboard/PLAN.md`).
 - Un agent du pipeline n'écrit que dans ses OUT et ne lit que ses IN (`onboard/WORKFLOW.md`). Il n'invente jamais un chiffre.
