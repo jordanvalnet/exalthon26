@@ -151,7 +151,9 @@ function roadmap(facts: Facts): string {
   return bars + list;
 }
 
-const AI_DOC_LABELS: Record<string, string> = {
+type AiDocKind = NonNullable<Facts["ai_docs"]>["files"][number]["kind"];
+
+const AI_DOC_LABELS: Record<AiDocKind, string> = {
   agents_md: "AGENTS.md",
   claude_md: "CLAUDE.md",
   cursorrules: ".cursorrules",
@@ -166,7 +168,7 @@ function aiReadiness(facts: Facts): string {
   const ai = facts.ai_docs;
   if (!ai) return "";
   const found = new Set(ai.files.map((f) => f.kind));
-  const kinds = Object.keys(AI_DOC_LABELS);
+  const kinds = Object.keys(AI_DOC_LABELS) as AiDocKind[];
   const boxW = (WIDTH - 20) / kinds.length;
   const height = 96;
   const pills = kinds
@@ -174,7 +176,7 @@ function aiReadiness(facts: Facts): string {
       const x = 10 + i * boxW;
       const on = found.has(kind);
       return `<rect class="bar${on ? " strong" : " off"}" x="${x + 3}" y="34" width="${boxW - 6}" height="22" rx="4"/>` +
-        `<text class="tick" x="${x + boxW / 2}" y="72" text-anchor="middle">${escapeHtml(clip(AI_DOC_LABELS[kind] ?? kind, 13))}</text>`;
+        `<text class="tick" x="${x + boxW / 2}" y="72" text-anchor="middle">${escapeHtml(clip(AI_DOC_LABELS[kind], 13))}</text>`;
     })
     .join("");
   const score = `<text class="lbl" x="10" y="22">${ai.score} repère${ai.score > 1 ? "s" : ""} sur ${ai.max} pour les agents IA</text>`;

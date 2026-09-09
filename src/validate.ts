@@ -63,7 +63,7 @@ export function validateNarrative(dir: string, profile: Profile): string[] {
   if (!existsSync(file)) return [`${file} manquant`];
   const md = readFileSync(file, "utf8");
   const errors: string[] = [];
-  const head = md.match(/^---\n([\s\S]*?)\n---/);
+  const head = md.match(/^---\r?\n([\s\S]*?)\r?\n---/);
   if (!head) errors.push("en-tête YAML manquant");
   else for (const k of ["repo", "profile", "generated_at"]) if (!new RegExp(`^${k}:`, "m").test(head[1]!)) errors.push(`en-tête : champ ${k} manquant`);
   if (!/^# .+/m.test(md)) errors.push("titre H1 manquant");
