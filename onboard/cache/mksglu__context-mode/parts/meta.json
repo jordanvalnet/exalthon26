@@ -1,0 +1,215 @@
+{
+  "repo": {
+    "full_name": "mksglu/context-mode",
+    "url": "https://github.com/mksglu/context-mode",
+    "description": "Context window optimization for AI coding agents. Sandboxes tool output (98% reduction), persists session memory, and   enforces routing across 17 platforms via MCP + hooks.",
+    "created_at": "2026-02-23T05:56:28Z",
+    "pushed_at": "2026-09-08T12:07:27Z",
+    "default_branch": "main",
+    "license": "Elastic License 2.0 (ELv2)",
+    "stars": 21624,
+    "forks": 1555,
+    "open_issues": 226,
+    "topics": [
+      "antigravity",
+      "claude",
+      "claude-code",
+      "claude-code-hooks",
+      "claude-code-plugins",
+      "claude-code-skill",
+      "codex",
+      "codex-cli",
+      "context-mode",
+      "copilot",
+      "cursor-plugin",
+      "kiro",
+      "mcp",
+      "mcp-server",
+      "mcp-tools",
+      "openclaw",
+      "opencode",
+      "pi-agent",
+      "skills",
+      "zed-extension"
+    ],
+    "owner_type": "user",
+    "archived": false
+  },
+  "releases": [
+    {
+      "tag": "v1.0.169",
+      "date": "2026-06-29T18:18:53Z",
+      "name": "v1.0.169"
+    },
+    {
+      "tag": "v1.0.168",
+      "date": "2026-06-26T15:49:46Z",
+      "name": "v1.0.168"
+    },
+    {
+      "tag": "v1.0.167",
+      "date": "2026-06-26T09:40:34Z",
+      "name": "v1.0.167"
+    },
+    {
+      "tag": "v1.0.166",
+      "date": "2026-06-23T06:43:53Z",
+      "name": "v1.0.166"
+    },
+    {
+      "tag": "v1.0.165",
+      "date": "2026-06-22T14:05:24Z",
+      "name": "v1.0.165"
+    },
+    {
+      "tag": "v1.0.164",
+      "date": "2026-06-22T12:53:42Z",
+      "name": "v1.0.164"
+    },
+    {
+      "tag": "v1.0.163",
+      "date": "2026-06-21T16:33:31Z",
+      "name": "v1.0.163"
+    },
+    {
+      "tag": "v1.0.162",
+      "date": "2026-06-02T17:05:54Z",
+      "name": "v1.0.162"
+    },
+    {
+      "tag": "v1.0.161",
+      "date": "2026-06-01T11:56:03Z",
+      "name": "v1.0.161"
+    },
+    {
+      "tag": "v1.0.160",
+      "date": "2026-06-01T07:51:55Z",
+      "name": "v1.0.160"
+    }
+  ],
+  "activity": {
+    "commits_per_week": [
+      {
+        "week": "2026-W26",
+        "count": 57
+      },
+      {
+        "week": "2026-W27",
+        "count": 14
+      },
+      {
+        "week": "2026-W28",
+        "count": 11
+      },
+      {
+        "week": "2026-W29",
+        "count": 12
+      },
+      {
+        "week": "2026-W30",
+        "count": 12
+      },
+      {
+        "week": "2026-W31",
+        "count": 12
+      },
+      {
+        "week": "2026-W32",
+        "count": 11
+      },
+      {
+        "week": "2026-W33",
+        "count": 13
+      },
+      {
+        "week": "2026-W34",
+        "count": 11
+      },
+      {
+        "week": "2026-W35",
+        "count": 11
+      },
+      {
+        "week": "2026-W36",
+        "count": 9
+      },
+      {
+        "week": "2026-W37",
+        "count": 2
+      }
+    ],
+    "last_commit": "2026-09-08T12:07:26Z",
+    "contributors": [
+      {
+        "login": "mksglu",
+        "commits": 60
+      },
+      {
+        "login": "ken-jo",
+        "commits": 6
+      },
+      {
+        "login": "pg-adm1n",
+        "commits": 2
+      },
+      {
+        "login": "NgoQuocViet2001",
+        "commits": 1
+      },
+      {
+        "login": "ousamabenyounes",
+        "commits": 1
+      },
+      {
+        "login": "pradigmaz",
+        "commits": 1
+      },
+      {
+        "login": "eejd",
+        "commits": 1
+      },
+      {
+        "login": "xuli500177",
+        "commits": 1
+      },
+      {
+        "login": "Niche-alchemy",
+        "commits": 1
+      },
+      {
+        "login": "daniel-enqz",
+        "commits": 1
+      }
+    ],
+    "bus_factor": 1
+  },
+  "business": {
+    "funding": true,
+    "security_policy": false,
+    "codeowners": false
+  },
+  "risks": [
+    {
+      "kind": "license",
+      "level": "mid",
+      "note": "Licence non standard « Elastic License 2.0 (ELv2) » : lire sources/license.md avant tout usage."
+    },
+    {
+      "kind": "security",
+      "level": "mid",
+      "note": "Pas de SECURITY.md : aucun canal déclaré pour signaler une faille."
+    },
+    {
+      "kind": "bus_factor",
+      "level": "high",
+      "note": "Un seul contributeur porte la moitié des commits sur 12 semaines."
+    }
+  ],
+  "collected": {
+    "by": "1a-meta",
+    "at": "2026-09-09T14:49:36.042Z",
+    "lenses": [
+      "core"
+    ]
+  }
+}

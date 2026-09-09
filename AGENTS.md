@@ -29,7 +29,7 @@ un commentaire = un message, l'auteur est le compte GitHub du token. Client : `c
 | `bun run dev` | lance `src/index.ts`, relance à chaque modification |
 | `bun run check` | typecheck + tests. **À lancer avant de rendre la main.** |
 | `bun onboard owner/repo profil` | pipeline complet via Claude Code, sort `onboard/cache/<owner>__<repo>/deck-<profil>.html` |
-| `bun run meta owner/repo profil [cache]` | sous-agent 1a en code : fiche du repo, activité, CVE, risques → `parts/meta.json` + bilan `parts/meta.md` |
+| `bun run meta owner/repo profil [cache]` | sous-agent 1a en code, via MCP : fiche du repo, activité, risques → `parts/meta.json` + bilan `parts/meta.md` |
 | `bun run merge <cache> <profil>` | assemble `parts/*.json` dans `facts.json` et valide |
 | `bun run validate facts\|narrative\|deck <cache> <profil>` | validation dure d'une étape |
 | `bun run render <cache> <profil>` | deck HTML à partir du cache |
@@ -48,7 +48,7 @@ onboard/cache/        caches produits, versionnés ; example/ est fictif, écrit
 src/facts.ts          schéma zod de facts.json
 src/validate.ts       validations facts, narrative, deck
 src/merge.ts          fusion des parts des sous-agents de collecte
-src/collect/meta.ts   sous-agent 1a-meta en code (REST), bun run meta
+src/collect/meta.ts   sous-agent 1a-meta en code (MCP), bun run meta
 src/render/           deck HTML (à implémenter, M4)
 src/cli.ts            bun onboard
 src/github.ts         accès GitHub via le serveur MCP (token GITHUB_PAT), src/gh.ts l'expose en ligne de commande
