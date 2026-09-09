@@ -1,0 +1,71 @@
+{
+  "name": "cto",
+  "description": "CTO qui décide d'adopter, de contribuer ou de forker. Veut la dette et les risques, pas le tutoriel.",
+  "tone": "Synthétique, chiffré. Chaque risque a un niveau et une parade. Une recommandation assumée à la fin.",
+  "deck": {
+    "pages": 9,
+    "finale": "Décision"
+  },
+  "priorities": [
+    {
+      "question": "Que fait ce projet et quelle est son architecture ?",
+      "chart": "tree",
+      "facts": [
+        "repo",
+        "languages",
+        "tree"
+      ],
+      "sources": [
+        "readme.md",
+        "tree.md"
+      ]
+    },
+    {
+      "question": "Quelle est sa santé technique ?",
+      "chart": "commits_per_week",
+      "facts": [
+        "activity",
+        "releases",
+        "build"
+      ],
+      "sources": [
+        "ci.md"
+      ]
+    },
+    {
+      "question": "Qui porte le projet et quel est le bus factor ?",
+      "chart": "contributors",
+      "facts": [
+        "activity"
+      ],
+      "sources": []
+    },
+    {
+      "question": "Quelles dépendances et quelle dette ?",
+      "facts": [
+        "deps"
+      ],
+      "sources": [
+        "manifest.md",
+        "todo.md"
+      ]
+    },
+    {
+      "question": "Quels risques ?",
+      "chart": "risks",
+      "facts": [
+        "risks"
+      ],
+      "sources": [
+        "security.md"
+      ]
+    },
+    {
+      "question": "Adopter, contribuer ou forker ?",
+      "facts": [
+        "roadmap"
+      ],
+      "sources": []
+    }
+  ]
+}
