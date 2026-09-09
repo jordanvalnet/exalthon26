@@ -1,0 +1,781 @@
+{
+  "schema": 1,
+  "repo": {
+    "full_name": "astrid-runtime/astrid",
+    "url": "https://github.com/astrid-runtime/astrid",
+    "description": "Astrid is a portable, capability-secure operating system for composable software.",
+    "created_at": "2026-02-15T23:27:31Z",
+    "pushed_at": "2026-09-09T13:46:35Z",
+    "default_branch": "main",
+    "license": "Apache-2.0",
+    "stars": 10277,
+    "forks": 137,
+    "open_issues": 216,
+    "topics": [
+      "agent-runtime",
+      "ai-agents",
+      "capability-security",
+      "llm",
+      "mcp",
+      "microkernel",
+      "rust",
+      "sandbox",
+      "wasm",
+      "webassembly"
+    ],
+    "owner_type": "org",
+    "archived": false
+  },
+  "releases": [
+    {
+      "tag": "v2026.9.0",
+      "date": "2026-09-09T00:44:46Z",
+      "name": "v2026.9.0"
+    },
+    {
+      "tag": "v0.10.4",
+      "date": "2026-07-20T12:18:00Z",
+      "name": "v0.10.4"
+    },
+    {
+      "tag": "v0.10.2",
+      "date": "2026-07-19T17:21:45Z",
+      "name": "v0.10.2"
+    },
+    {
+      "tag": "v0.10.1",
+      "date": "2026-07-17T15:51:29Z",
+      "name": "v0.10.1"
+    },
+    {
+      "tag": "v0.10.0",
+      "date": "2026-07-17T07:19:53Z",
+      "name": "v0.10.0"
+    },
+    {
+      "tag": "channel-stable",
+      "date": "2026-07-17T06:22:28Z",
+      "name": "Astrid stable channel"
+    },
+    {
+      "tag": "channel-nightly",
+      "date": "2026-07-17T06:22:30Z",
+      "name": "Astrid nightly channel"
+    },
+    {
+      "tag": "channel-dev",
+      "date": "2026-07-17T06:22:29Z",
+      "name": "Astrid dev channel"
+    },
+    {
+      "tag": "v0.9.4",
+      "date": "2026-07-09T20:24:45Z",
+      "name": "v0.9.4"
+    },
+    {
+      "tag": "v0.9.3",
+      "date": "2026-07-06T04:46:29Z",
+      "name": "v0.9.3"
+    }
+  ],
+  "activity": {
+    "commits_per_week": [
+      {
+        "week": "2026-W26",
+        "count": 41
+      },
+      {
+        "week": "2026-W27",
+        "count": 32
+      },
+      {
+        "week": "2026-W28",
+        "count": 16
+      },
+      {
+        "week": "2026-W29",
+        "count": 30
+      },
+      {
+        "week": "2026-W30",
+        "count": 31
+      },
+      {
+        "week": "2026-W31",
+        "count": 20
+      },
+      {
+        "week": "2026-W32",
+        "count": 16
+      },
+      {
+        "week": "2026-W33",
+        "count": 31
+      },
+      {
+        "week": "2026-W34",
+        "count": 30
+      },
+      {
+        "week": "2026-W35",
+        "count": 24
+      },
+      {
+        "week": "2026-W36",
+        "count": 31
+      },
+      {
+        "week": "2026-W37",
+        "count": 17
+      }
+    ],
+    "last_commit": "2026-09-09T13:46:34Z",
+    "contributors": [
+      {
+        "login": "joshuajbouw",
+        "commits": 309
+      },
+      {
+        "login": "jvsteiner",
+        "commits": 7
+      },
+      {
+        "login": "Copilot",
+        "commits": 3
+      }
+    ],
+    "bus_factor": 1
+  },
+  "risks": [
+    {
+      "kind": "license",
+      "level": "low",
+      "note": "Apache-2.0 : licence permissive."
+    },
+    {
+      "kind": "bus_factor",
+      "level": "high",
+      "note": "Un seul contributeur porte la moitié des commits sur 12 semaines."
+    },
+    {
+      "kind": "deps",
+      "level": "mid",
+      "note": "117 entrées dans [workspace.dependencies] de Cargo.toml : 27 crates internes (path) et 90 crates externes, dont 8 épinglées en version exacte (=). Cargo.lock versionné (217 Ko). Nombre de dépendances transitives non relevé."
+    },
+    {
+      "kind": "ci",
+      "level": "low",
+      "note": "20 workflows dans .github/workflows. ci.yml (push sur main et stream-*, pull_request) enchaîne cargo check, fmt, clippy -D warnings, cargo test --workspace (ubuntu et macos), MSRV 1.95, cargo-audit, builds release Linux gnu/musl, tests natifs Windows, portabilité wasm32."
+    }
+  ],
+  "business": {
+    "funding": false,
+    "security_policy": true,
+    "codeowners": true
+  },
+  "issues": {
+    "open": 192,
+    "closed_30d": 149,
+    "by_label": {
+      "bug": 42,
+      "enhancement": 0,
+      "documentation": 0,
+      "question": 0,
+      "help wanted": 0,
+      "good first issue": 5
+    },
+    "good_first": [
+      {
+        "number": 497,
+        "title": "Remove dead AgentHandler stub from astrid-hooks",
+        "url": "https://github.com/astrid-runtime/astrid/issues/497"
+      },
+      {
+        "number": 476,
+        "title": "CapsuleRegistry duplicate capsule/uplink registration uses UnsupportedEntryPoint and docs cite nonexistent variants",
+        "url": "https://github.com/astrid-runtime/astrid/issues/476"
+      },
+      {
+        "number": 461,
+        "title": "is_known_tag coverage table is 18 vs 19 and omits ToolCancelRequest",
+        "url": "https://github.com/astrid-runtime/astrid/issues/461"
+      },
+      {
+        "number": 459,
+        "title": "Markdown parser in TUI fails on numbered lists >= 10",
+        "url": "https://github.com/astrid-runtime/astrid/issues/459"
+      },
+      {
+        "number": 276,
+        "title": "MCP interceptor: propagate tool_result.is_error instead of treating it as success",
+        "url": "https://github.com/astrid-runtime/astrid/issues/276"
+      }
+    ],
+    "hot": [
+      {
+        "number": 1708,
+        "title": "test(container): qualify the signed amd64 Linux-backed Astrid host profile",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1708",
+        "comments": 29
+      },
+      {
+        "number": 1682,
+        "title": "Complete the Capsule Station consumer lifecycle",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1682",
+        "comments": 14
+      },
+      {
+        "number": 1406,
+        "title": "feat(kernel): add principal-scoped dynamic capability namespaces",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1406",
+        "comments": 12
+      },
+      {
+        "number": 1766,
+        "title": "feat(native): retain authenticated generation identity through lifecycle publication",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1766",
+        "comments": 11
+      },
+      {
+        "number": 1719,
+        "title": "architecture: separate the minimal kernel from privileged package services",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1719",
+        "comments": 11
+      },
+      {
+        "number": 1392,
+        "title": "storage: make bulk content ingest read-bound and delta-proportional",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1392",
+        "comments": 11
+      },
+      {
+        "number": 1664,
+        "title": "decision: specify the first-owner enrollment ceremony",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1664",
+        "comments": 9
+      },
+      {
+        "number": 1564,
+        "title": "epic: build the Astrid universal application substrate",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1564",
+        "comments": 8
+      },
+      {
+        "number": 1692,
+        "title": "decision(kernel): choose the first real InitPlan lifecycle operation",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1692",
+        "comments": 7
+      },
+      {
+        "number": 1759,
+        "title": "feat(kernel): establish ordered native audit root and verifier handoff",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1759",
+        "comments": 5
+      }
+    ]
+  },
+  "pulls": {
+    "open": 24,
+    "awaiting_review": 24,
+    "merged_30d": [
+      {
+        "number": 1906,
+        "title": "fix(init): honor explicit grants after completed batch resume",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1906",
+        "merged_at": "2026-09-09T13:46:35Z"
+      },
+      {
+        "number": 1904,
+        "title": "fix(release): provision FSKit distribution signing on macOS",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1904",
+        "merged_at": "2026-09-08T23:24:08Z"
+      },
+      {
+        "number": 1902,
+        "title": "fix(release): specify PKCS12 format for macOS signing import",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1902",
+        "merged_at": "2026-09-08T21:57:55Z"
+      },
+      {
+        "number": 1900,
+        "title": "feat(docs): introduce Astrid and the 2026.9.0 release",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1900",
+        "merged_at": "2026-09-08T20:06:23Z"
+      },
+      {
+        "number": 1898,
+        "title": "fix(release): certify exact Darwin bytes through supervised approval",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1898",
+        "merged_at": "2026-09-08T18:46:05Z"
+      },
+      {
+        "number": 1892,
+        "title": "feat(release): prepare Astrid 2026.9.0",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1892",
+        "merged_at": "2026-09-08T18:05:27Z"
+      },
+      {
+        "number": 1896,
+        "title": "fix(mcp): retire gateways after the final host disconnects",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1896",
+        "merged_at": "2026-09-08T16:43:56Z"
+      },
+      {
+        "number": 1894,
+        "title": "fix(mcp): preserve connected sessions across quiet periods",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1894",
+        "merged_at": "2026-09-08T14:39:34Z"
+      },
+      {
+        "number": 1889,
+        "title": "fix(storage): bound hosted extent mutation scans",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1889",
+        "merged_at": "2026-09-08T14:29:05Z"
+      },
+      {
+        "number": 1891,
+        "title": "fix(ci): validate stacked PRs and restore GNU builds",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1891",
+        "merged_at": "2026-09-08T11:02:34Z"
+      }
+    ]
+  },
+  "build": {
+    "install": "git clone https://github.com/astrid-runtime/astrid\ncd astrid && cargo build --release   # binary at ./target/release/astrid",
+    "run": "astrid start",
+    "test": "cargo test --workspace -- --quiet",
+    "ci": [
+      {
+        "name": "CI",
+        "path": ".github/workflows/ci.yml",
+        "triggers": [
+          "push",
+          "pull_request"
+        ]
+      }
+    ]
+  },
+  "ai_docs": {
+    "files": [],
+    "score": 0,
+    "max": 7
+  },
+  "tree": [
+    {
+      "path": ".cargo",
+      "type": "dir",
+      "role": "config Cargo locale"
+    },
+    {
+      "path": ".dockerignore",
+      "type": "file",
+      "role": "exclusions du build Docker"
+    },
+    {
+      "path": ".gemini",
+      "type": "dir",
+      "role": "config agent Gemini"
+    },
+    {
+      "path": ".gitattributes",
+      "type": "file",
+      "role": "attributs git"
+    },
+    {
+      "path": ".github",
+      "type": "dir",
+      "role": "20 workflows GitHub Actions"
+    },
+    {
+      "path": ".gitignore",
+      "type": "file",
+      "role": "exclusions git"
+    },
+    {
+      "path": ".gitmodules",
+      "type": "file",
+      "role": "sous-modules git"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "type": "file",
+      "role": "journal des versions, 410 Ko"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "type": "file",
+      "role": "guide de contribution"
+    },
+    {
+      "path": "Cargo.lock",
+      "type": "file",
+      "role": "verrou des dépendances Rust"
+    },
+    {
+      "path": "Cargo.toml",
+      "type": "file",
+      "role": "manifeste du workspace Rust"
+    },
+    {
+      "path": "LICENSE-APACHE",
+      "type": "file",
+      "role": "licence Apache 2.0"
+    },
+    {
+      "path": "LICENSE-MIT",
+      "type": "file",
+      "role": "licence MIT"
+    },
+    {
+      "path": "README.md",
+      "type": "file",
+      "role": "présentation du projet"
+    },
+    {
+      "path": "SECURITY.md",
+      "type": "file",
+      "role": "politique de sécurité"
+    },
+    {
+      "path": "changes",
+      "type": "dir",
+      "role": "notes de changement en attente"
+    },
+    {
+      "path": "clippy.toml",
+      "type": "file",
+      "role": "config lint clippy"
+    },
+    {
+      "path": "container",
+      "type": "dir",
+      "role": "définitions de conteneur"
+    },
+    {
+      "path": "crates",
+      "type": "dir",
+      "role": "code principal : 33 crates Rust, 32 membres du workspace"
+    },
+    {
+      "path": "docs",
+      "type": "dir",
+      "role": "documentation"
+    },
+    {
+      "path": "e2e",
+      "type": "dir",
+      "role": "scénarios TOML et fixtures bout en bout"
+    },
+    {
+      "path": "fuzz",
+      "type": "dir",
+      "role": "tests de fuzzing"
+    },
+    {
+      "path": "native",
+      "type": "dir",
+      "role": "code natif macOS"
+    },
+    {
+      "path": "release",
+      "type": "dir",
+      "role": "config de release (nightly.toml)"
+    },
+    {
+      "path": "rust-toolchain.toml",
+      "type": "file",
+      "role": "version Rust épinglée"
+    },
+    {
+      "path": "rustfmt.toml",
+      "type": "file",
+      "role": "config formatage rustfmt"
+    },
+    {
+      "path": "scripts",
+      "type": "dir",
+      "role": "scripts build, CI, release"
+    },
+    {
+      "path": "wit",
+      "type": "file",
+      "role": "interfaces WIT, entrée de 0 octet"
+    }
+  ],
+  "entrypoints": [
+    {
+      "path": "crates/astrid-cli/src/main.rs",
+      "why": "binaire `astrid` : #[tokio::main] qui parse clap (cli::Cli) puis route vers dispatch ; client léger qui se connecte au kernel (auto-démarrage), crée ou reprend des sessions et rend les événements en streaming. Confirmé (en-tête du fichier)."
+    },
+    {
+      "path": "crates/astrid-daemon/src/main.rs",
+      "why": "binaire `astrid-daemon` : setsid puis runtime tokio multi-thread qui exécute astrid_daemon::run(). Confirmé (fichier de 26 lignes)."
+    },
+    {
+      "path": "crates/astrid-cli/src/cli.rs",
+      "why": "définitions clap des sous-commandes (astrid agent, capsule, quota, status, start, stop, ps, top) ; référencé comme `mod cli` par main.rs. Déduit."
+    },
+    {
+      "path": "crates/astrid-cli-mockup/src/main.rs",
+      "why": "binaire de maquette de la CLI, dans un crate hors workspace (absent de members dans Cargo.toml). Déduit du chemin."
+    }
+  ],
+  "tests": {
+    "dir": "crates/astrid-integration-tests",
+    "framework": "cargo test, insta",
+    "files": 39
+  },
+  "deps": {
+    "manifest": "Cargo.toml",
+    "count": 117,
+    "runtime": [
+      {
+        "name": "anyhow",
+        "version": "1.0"
+      },
+      {
+        "name": "arboard",
+        "version": "3"
+      },
+      {
+        "name": "arc-swap",
+        "version": "1.7"
+      },
+      {
+        "name": "lz4_flex",
+        "version": "0.14"
+      },
+      {
+        "name": "async-stream",
+        "version": "0.3"
+      },
+      {
+        "name": "async-trait",
+        "version": "0.1"
+      },
+      {
+        "name": "axum",
+        "version": "0.8"
+      },
+      {
+        "name": "axum-server",
+        "version": "0.8"
+      },
+      {
+        "name": "tokio-stream",
+        "version": "0.1"
+      },
+      {
+        "name": "base64",
+        "version": "0.23"
+      },
+      {
+        "name": "blake3",
+        "version": "1.5"
+      },
+      {
+        "name": "caseless",
+        "version": "=0.2.2"
+      },
+      {
+        "name": "chrono",
+        "version": "0.4"
+      },
+      {
+        "name": "clap",
+        "version": "4.5"
+      },
+      {
+        "name": "clap_complete",
+        "version": "4.5"
+      }
+    ]
+  },
+  "roadmap": {
+    "open_prs": [
+      {
+        "number": 1834,
+        "title": "build(deps): bump the github-actions group across 1 directory with 7 updates",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1834",
+        "updated_at": "2026-09-08T18:55:43Z",
+        "draft": false
+      },
+      {
+        "number": 1877,
+        "title": "build(deps): bump the rust-dependencies group across 1 directory with 14 updates",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1877",
+        "updated_at": "2026-09-07T23:18:23Z",
+        "draft": false
+      },
+      {
+        "number": 1801,
+        "title": "feat(storage): add inode-stable ASTVOL volume-root publication",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1801",
+        "updated_at": "2026-09-02T00:42:28Z",
+        "draft": true
+      },
+      {
+        "number": 1814,
+        "title": "Add Windows x86_64 release archive certification",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1814",
+        "updated_at": "2026-09-01T23:21:33Z",
+        "draft": true
+      },
+      {
+        "number": 1793,
+        "title": "fix(storage): prove exact cache cleanup evidence",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1793",
+        "updated_at": "2026-09-01T23:21:31Z",
+        "draft": true
+      },
+      {
+        "number": 1791,
+        "title": "ci(windows): certify storage tests with Job Object ownership",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1791",
+        "updated_at": "2026-09-01T23:21:30Z",
+        "draft": true
+      },
+      {
+        "number": 1763,
+        "title": "fix(kernel): fence process storage projection leases",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1763",
+        "updated_at": "2026-09-01T23:21:27Z",
+        "draft": true
+      },
+      {
+        "number": 1820,
+        "title": "Private hosted principal package discovery",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1820",
+        "updated_at": "2026-09-01T23:20:53Z",
+        "draft": true
+      },
+      {
+        "number": 1810,
+        "title": "fix(build): resolve capsule artifacts from Cargo target dir",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1810",
+        "updated_at": "2026-09-01T23:20:44Z",
+        "draft": true
+      },
+      {
+        "number": 1808,
+        "title": "docs: separate native kernel work from Linux Realm",
+        "url": "https://github.com/astrid-runtime/astrid/pull/1808",
+        "updated_at": "2026-09-01T23:20:40Z",
+        "draft": false
+      }
+    ],
+    "requests": [
+      {
+        "number": 1058,
+        "title": "Add an optional HVTracker trust badge to the README",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1058",
+        "comments": 1,
+        "labels": [
+          "docs",
+          "p3"
+        ]
+      },
+      {
+        "number": 1542,
+        "title": "Audit log grows without bound (77GB observed) and degrades the whole daemon: no retention, no rotation, no operator tooling",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1542",
+        "comments": 3,
+        "labels": []
+      },
+      {
+        "number": 1821,
+        "title": "Prove every merge to main with a disposable-home executable smoke",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1821",
+        "comments": 0,
+        "labels": [
+          "test",
+          "area/runtime",
+          "area/cli",
+          "area/config",
+          "blocked"
+        ]
+      },
+      {
+        "number": 1776,
+        "title": "Make native kernel checks honor the shared Cargo target cache",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1776",
+        "comments": 0,
+        "labels": []
+      },
+      {
+        "number": 1308,
+        "title": "Sketch the v0 native kernel ABI (Milestone 0 exit gate)",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1308",
+        "comments": 0,
+        "labels": []
+      },
+      {
+        "number": 1310,
+        "title": "feat(runtime): make capsule stream capacity host-wide and readiness-driven",
+        "url": "https://github.com/astrid-runtime/astrid/issues/1310",
+        "comments": 0,
+        "labels": []
+      },
+      {
+        "number": 860,
+        "title": "Build: drop wasm32-wasip2, make wasm32-unknown-unknown the only capsule target",
+        "url": "https://github.com/astrid-runtime/astrid/issues/860",
+        "comments": 1,
+        "labels": [
+          "refactor",
+          "p3",
+          "breaking-change",
+          "area/sdk"
+        ]
+      },
+      {
+        "number": 887,
+        "title": "core: token-free agent.v1.lifecycle.* emit verb (publish-only, topic-restricted) for cooperative plugin governance",
+        "url": "https://github.com/astrid-runtime/astrid/issues/887",
+        "comments": 1,
+        "labels": [
+          "feat",
+          "area/runtime",
+          "area/cli",
+          "p2",
+          "needs-design"
+        ]
+      },
+      {
+        "number": 901,
+        "title": "feat: govern Claude Code via its native policy engine (managed settings + astrid-gate + policyHelper)",
+        "url": "https://github.com/astrid-runtime/astrid/issues/901",
+        "comments": 2,
+        "labels": [
+          "feat",
+          "security",
+          "area/cli",
+          "p2",
+          "needs-design"
+        ]
+      },
+      {
+        "number": 935,
+        "title": "[Epic] Local multi-tenant security floor: per-connection principal auth + sandbox isolation",
+        "url": "https://github.com/astrid-runtime/astrid/issues/935",
+        "comments": 1,
+        "labels": [
+          "security",
+          "area/runtime",
+          "p1",
+          "needs-design",
+          "area/sys"
+        ]
+      }
+    ],
+    "themes": []
+  },
+  "collected": {
+    "at": "2026-09-09T15:01:58.872Z",
+    "by": "merge de 1a-meta, 1b-history, 1c-docs, 1d-code, 1e-roadmap",
+    "lenses": [
+      "core",
+      "dev"
+    ]
+  }
+}
