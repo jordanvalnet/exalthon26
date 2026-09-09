@@ -16,7 +16,8 @@
     "render": "bun src/render/index.ts",
     "gh": "bun src/gh.ts",
     "merge": "bun src/merge.ts",
-    "meta": "bun src/collect/meta.ts"
+    "meta": "bun src/collect/meta.ts",
+    "pdf": "bun src/render/pdf.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",

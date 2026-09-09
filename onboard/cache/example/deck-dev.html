@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rocket : un moteur de règles « quand X alors Y », en TypeScript, vivant et bien testé</title>
+<style>
+:root {
+  --bg: #f7f7f5; --card: #ffffff; --fg: #17181c; --muted: #5f6470;
+  --line: #dcdde2; --bar: #4f5bd5; --bar-strong: #d1495b; --accent: #4f5bd5;
+  --low: #2e9e6b; --mid: #d99a2b; --high: #d1495b;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14151a; --card: #1c1e25; --fg: #eceef3; --muted: #a0a6b4;
+    --line: #2f323c; --bar: #8f97ee; --bar-strong: #ef7f8e; --accent: #8f97ee;
+    --low: #4cc38a; --mid: #e5b25d; --high: #ef7f8e;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font: 16px/1.55 ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+section {
+  background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+  max-width: 900px; margin: 24px auto; padding: 32px 36px; min-height: 460px;
+}
+h1 { font-size: 2.1rem; line-height: 1.2; margin: 0 0 12px; }
+h2 { font-size: 1.45rem; margin: 0 0 20px; padding-bottom: 12px; border-bottom: 2px solid var(--accent); }
+p { margin: 0 0 12px; }
+code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.88em; background: var(--bg); padding: 1px 5px; border-radius: 4px; }
+a { color: var(--accent); }
+.cover { display: flex; flex-direction: column; justify-content: center; }
+.eyebrow { color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.78rem; margin-bottom: 18px; }
+.lede { font-size: 1.15rem; }
+.desc { color: var(--muted); }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.meta span { border: 1px solid var(--line); border-radius: 999px; padding: 3px 12px; font-size: 0.85rem; color: var(--muted); }
+.url { margin-top: 16px; }
+.note { font-size: 0.7em; }
+.note a { text-decoration: none; padding: 0 1px; }
+.chart { display: block; width: 100%; height: auto; max-width: 640px; margin: 0 0 20px; }
+.chart text { font-family: inherit; fill: var(--fg); }
+.chart .lbl { font-size: 12px; }
+.chart .val, .chart .tick { font-size: 11px; fill: var(--muted); }
+.chart .bar { fill: var(--bar); }
+.chart .bar.strong { fill: var(--bar-strong); }
+.chart .bar.off { fill: var(--line); }
+.chart .dot { fill: var(--accent); }
+.chart .axis { stroke: var(--line); stroke-width: 1; }
+.tree, .risks, .steps, .sources { margin: 0 0 18px; padding-left: 0; }
+.tree, .risks { list-style: none; }
+.tree li, .risks li { display: flex; gap: 10px; align-items: baseline; padding: 4px 0; border-bottom: 1px solid var(--line); }
+.role { color: var(--muted); font-size: 0.9rem; }
+.light { width: 10px; height: 10px; border-radius: 50%; flex: 0 0 auto; background: var(--muted); }
+.light.low { background: var(--low); }
+.light.mid { background: var(--mid); }
+.light.high { background: var(--high); }
+.steps, .sources { padding-left: 22px; }
+.steps li, .sources li { margin-bottom: 10px; }
+.sources { font-size: 0.9rem; }
+.kind { color: var(--muted); margin-right: 8px; }
+@media print {
+  @page { size: A4 landscape; margin: 12mm; }
+  /* Palette claire forcée : sinon une impression depuis un navigateur en thème sombre sort en texte clair sur blanc. */
+  :root {
+    --bg: #fff; --card: #fff; --fg: #17181c; --muted: #5f6470;
+    --line: #dcdde2; --bar: #4f5bd5; --bar-strong: #d1495b; --accent: #4f5bd5;
+    --low: #2e9e6b; --mid: #d99a2b; --high: #d1495b;
+  }
+  body { background: #fff; color: var(--fg); }
+  section {
+    border: 0; margin: 0; padding: 0; max-width: none; min-height: 0;
+    break-after: page; page-break-after: always;
+  }
+  section:last-child { break-after: auto; page-break-after: auto; }
+  .chart .bar, .chart .bar.strong, .light { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  a { color: #000; text-decoration: none; }
+}
+</style>
+</head>
+<body>
+<section class="cover">
+  <p class="eyebrow">Onboarding · profil dev · 2026-09-09</p>
+  <h1>acme/rocket</h1>
+  <p class="lede">Rocket : un moteur de règles « quand X alors Y », en TypeScript, vivant et bien testé</p>
+  <p class="desc">Exemple fictif écrit à la main : moteur de règles pour automatiser des workflows</p>
+  <p class="meta"><span>4820 ★</span><span>312 forks</span><span>97 issues ouvertes</span><span>MIT</span></p>
+  <p class="url"><code>https://github.com/acme/rocket</code></p>
+</section><section><h2>Que fait ce projet et pour qui ?</h2><div class="body"><p>Rocket exécute des règles « quand X alors Y » sur des événements <sup class="note"><a href="#note-1">1</a></sup>. Il vise les équipes qui automatisent des workflows sans écrire de code métier à chaque fois <sup class="note"><a href="#note-2">2</a></sup>. 4 820 étoiles et 312 forks <sup class="note"><a href="#note-3">3</a></sup> <sup class="note"><a href="#note-4">4</a></sup>.</p></div></section>
+<section><h2>Comment le code est-il organisé ?</h2><div class="body"><ul class="tree"><li><code>src/</code><span class="role">code du moteur</span></li><li><code>packages/cli/</code><span class="role">ligne de commande</span></li><li><code>packages/web/</code><span class="role">interface web</span></li><li><code>test/</code><span class="role">tests unitaires et e2e</span></li><li><code>docs/</code><span class="role">site de documentation</span></li><li><code>.github/workflows/</code><span class="role">CI</span></li><li><code>package.json</code><span class="role">manifeste, workspaces</span></li></ul><p>Le moteur est dans <code>src</code>, la ligne de commande et l'interface web dans <code>packages/</code> <sup class="note"><a href="#note-5">5</a></sup>. Les tests sont dans <code>test</code>, 84 fichiers en bun:test <sup class="note"><a href="#note-6">6</a></sup>. TypeScript représente l'essentiel du code <sup class="note"><a href="#note-7">7</a></sup>.</p></div></section>
+<section><h2>Par où commencer à lire ?</h2><div class="body"><p><code>src/index.ts</code> exporte l'API publique du moteur <sup class="note"><a href="#note-8">8</a></sup>. Ensuite <code>packages/cli/src/main.ts</code> montre comment l'API est consommée <sup class="note"><a href="#note-9">9</a></sup>. Le README tient en une page <sup class="note"><a href="#note-1">1</a></sup>.</p></div></section>
+<section><h2>Comment builder, tester et lancer ?</h2><div class="body"><p><code>bun install</code>, puis <code>bun run dev</code> pour lancer et <code>bun test</code> pour tester <sup class="note"><a href="#note-10">10</a></sup> <sup class="note"><a href="#note-11">11</a></sup> <sup class="note"><a href="#note-12">12</a></sup>. La CI tourne sur chaque push et chaque PR <sup class="note"><a href="#note-13">13</a></sup>, une release part sur tag <sup class="note"><a href="#note-14">14</a></sup>.</p></div></section>
+<section><h2>Comment le projet vit-il ?</h2><div class="body"><svg class="chart" viewBox="0 0 640 172" width="640" height="172" role="img" preserveAspectRatio="xMinYMin meet"><line class="axis" x1="34" y1="138" x2="628" y2="138"/><text class="tick" x="28" y="22" text-anchor="end">22</text><text class="tick" x="28" y="138" text-anchor="end">0</text><rect class="bar" x="43.9" y="58" width="29.7" height="80" rx="2"><title>2026-W25 : 14</title></rect><text class="tick" x="58.75" y="154" text-anchor="middle">W25</text><rect class="bar" x="93.4" y="86" width="29.7" height="52" rx="2"><title>2026-W26 : 9</title></rect><rect class="bar" x="142.9" y="41" width="29.7" height="97" rx="2"><title>2026-W27 : 17</title></rect><text class="tick" x="157.75" y="154" text-anchor="middle">W27</text><rect class="bar" x="192.4" y="104" width="29.7" height="34" rx="2"><title>2026-W28 : 6</title></rect><rect class="bar" x="241.9" y="75" width="29.7" height="63" rx="2"><title>2026-W29 : 11</title></rect><text class="tick" x="256.75" y="154" text-anchor="middle">W29</text><rect class="bar" x="291.4" y="115" width="29.7" height="23" rx="2"><title>2026-W30 : 4</title></rect><rect class="bar" x="340.9" y="138" width="29.7" height="1" rx="2"><title>2026-W31 : 0</title></rect><text class="tick" x="355.75" y="154" text-anchor="middle">W31</text><rect class="bar" x="390.4" y="92" width="29.7" height="46" rx="2"><title>2026-W32 : 8</title></rect><rect class="bar" x="439.9" y="29" width="29.7" height="109" rx="2"><title>2026-W33 : 19</title></rect><text class="tick" x="454.75" y="154" text-anchor="middle">W33</text><rect class="bar" x="489.4" y="12" width="29.7" height="126" rx="2"><title>2026-W34 : 22</title></rect><rect class="bar" x="538.9" y="64" width="29.7" height="74" rx="2"><title>2026-W35 : 13</title></rect><text class="tick" x="553.75" y="154" text-anchor="middle">W35</text><rect class="bar" x="588.4" y="98" width="29.7" height="40" rx="2"><title>2026-W36 : 7</title></rect></svg><p>Entre 0 et 22 commits par semaine sur les 12 dernières semaines, avec un creux fin juillet <sup class="note"><a href="#note-15">15</a></sup>. Deux personnes portent les trois quarts des commits <sup class="note"><a href="#note-16">16</a></sup>. 41 issues fermées en 30 jours <sup class="note"><a href="#note-17">17</a></sup>.</p></div></section>
+<section><h2>Quelle première contribution ?</h2><div class="body"><p>Six issues « good first issue » sont ouvertes <sup class="note"><a href="#note-18">18</a></sup>. La plus simple : afficher la version dans la CLI <sup class="note"><a href="#note-19">19</a></sup> <sup class="note"><a href="#note-20">20</a></sup>. Règle de la maison : une PR = un sujet, issue d'abord au-delà de 200 lignes <sup class="note"><a href="#note-21">21</a></sup>.</p></div></section><section class="finale"><h2>Vos 3 premières actions</h2><div class="body"><ol class="steps"><li>Installer : <code>bun install</code></li><li>Lancer les tests : <code>bun test</code></li><li>Ouvrir <code>src/index.ts</code> — exporte l'API publique du moteur</li></ol></div></section><section class="refs"><h2>Sources</h2><div class="body"><ol class="sources"><li id="note-1"><span class="kind">source du repo</span><code>readme.md</code></li><li id="note-2"><span class="kind">donnée collectée</span><code>repo.description</code></li><li id="note-3"><span class="kind">donnée collectée</span><code>repo.stars</code></li><li id="note-4"><span class="kind">donnée collectée</span><code>repo.forks</code></li><li id="note-5"><span class="kind">donnée collectée</span><code>tree</code></li><li id="note-6"><span class="kind">donnée collectée</span><code>tests.files</code></li><li id="note-7"><span class="kind">donnée collectée</span><code>languages.TypeScript</code></li><li id="note-8"><span class="kind">donnée collectée</span><code>entrypoints.0.path</code></li><li id="note-9"><span class="kind">donnée collectée</span><code>entrypoints.1.path</code></li><li id="note-10"><span class="kind">donnée collectée</span><code>build.install</code></li><li id="note-11"><span class="kind">donnée collectée</span><code>build.run</code></li><li id="note-12"><span class="kind">donnée collectée</span><code>build.test</code></li><li id="note-13"><span class="kind">donnée collectée</span><code>build.ci.0.triggers</code></li><li id="note-14"><span class="kind">donnée collectée</span><code>build.ci.1.triggers</code></li><li id="note-15"><span class="kind">donnée collectée</span><code>activity.commits_per_week</code></li><li id="note-16"><span class="kind">donnée collectée</span><code>activity.bus_factor</code></li><li id="note-17"><span class="kind">donnée collectée</span><code>issues.closed_30d</code></li><li id="note-18"><span class="kind">donnée collectée</span><code>issues.by_label</code></li><li id="note-19"><span class="kind">donnée collectée</span><code>issues.good_first.0.title</code></li><li id="note-20"><span class="kind">GitHub</span><a href="https://github.com/acme/rocket/issues/812">https://github.com/acme/rocket/issues/812</a></li><li id="note-21"><span class="kind">source du repo</span><code>contributing.md</code></li></ol></div></section>
+</body>
+</html>
