@@ -1,0 +1,6 @@
+- **règle** : couple « condition, action » que Rocket évalue à chaque événement.
+- **moteur** : le code de `src/` qui évalue les règles.
+- **bus factor** : nombre de personnes dont le départ bloquerait le projet.
+- **CI** : les vérifications automatiques lancées par GitHub à chaque push.
+- **good first issue** : étiquette des tâches faciles réservées aux nouveaux venus.
+- **release** : version numérotée publiée sur GitHub.

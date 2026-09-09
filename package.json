@@ -3,17 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Communication instantanée entre devs via leurs IA (hackathon eXaltemps 2026)",
+  "description": "Onboard : agent d’onboarding multi-profils sur n’importe quel repo GitHub (hackathon eXaltemps 2026)",
   "scripts": {
     "dev": "bun --watch src/index.ts",
     "start": "bun src/index.ts",
     "test": "bun test",
     "typecheck": "tsc --noEmit",
     "check": "bun run typecheck && bun test",
-    "chat": "bun chat/chat.mjs"
+    "chat": "bun chat/chat.mjs",
+    "onboard": "bun src/cli.ts",
+    "validate": "bun src/validate.ts",
+    "render": "bun src/render/index.ts",
+    "gh": "bun src/gh.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
     "typescript": "^5"
+  },
+  "dependencies": {
+    "zod": "^4.5.4"
   }
 }
