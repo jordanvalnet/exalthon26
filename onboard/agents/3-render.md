@@ -13,7 +13,8 @@ tu corriges le code du rendu si c'est lui qui a tort.
   `@media print` avec une page par `<section>`.
 - Structure : une `<section>` titre (repo, profil, date, description), une `<section>` par H2 du narratif avec son graphique
   s'il y a une directive, une `<section>` finale (la « finale » du profil), une `<section>` Sources qui liste les citations en notes.
-- Si tu as dû corriger `src/render/` : le code corrigé et son test.
+- En plus, si l'export est implémenté : `<cache>/deck-<profil>.pdf` ou `.pptx`, mêmes pages que le HTML. Le HTML reste la sortie validée.
+- Si tu as dû corriger `src/render/` : le code corrigé.
 
 ## Procédure
 1. `bun run render <cache> <profil>`.
