@@ -43,6 +43,18 @@ export const Facts = z.object({
     })
     .optional(),
   tests: z.object({ dir: z.string().nullable(), framework: z.string().nullable(), files: z.number().int() }).optional(),
+  ai_docs: z
+    .object({
+      files: z.array(
+        z.object({
+          path: z.string(),
+          kind: z.enum(["agents_md", "claude_md", "cursorrules", "copilot_instructions", "llms_txt", "mcp_json", "skills_dir"]),
+        }),
+      ),
+      score: z.number().int(),
+      max: z.number().int(),
+    })
+    .optional(),
   issues: z
     .object({
       open: z.number().int(),

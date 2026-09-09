@@ -29,6 +29,7 @@ Chaque sous-agent de collecte écrit sa part dans `parts/`, `merge` les assemble
 | `entrypoints` | dev | `{ path, why }` |
 | `build` | dev, qa | install, run, test (commandes), ci `{ name, path, triggers[] }` |
 | `tests` | qa | dir, framework, files |
+| `ai_docs` | docs | `files` : `{ path, kind }` parmi agents_md, claude_md, cursorrules, copilot_instructions, llms_txt, mcp_json, skills_dir ; `score` et `max` : combien de ces repères existent. Aucun trouvé = `files: []`, `score: 0` |
 | `issues` | dev, qa, ceo | open, closed_30d, by_label `{ label: count }`, good_first `{ number, title, url }`, hot `{ number, title, url, comments }` |
 | `pulls` | dev, qa | open, awaiting_review, merged_30d `{ number, title, url, merged_at }` |
 | `deps` | cto | manifest, count, runtime `{ name, version }` |
@@ -79,6 +80,7 @@ en notes de bas de page.
 | `tree` | tree | liste annotée, pas un graphique |
 | `risks` | risks | feux tricolores |
 | `roadmap` | roadmap.themes, roadmap.milestones | barres des thèmes demandés, jalons en frise |
+| `ai_readiness` | ai_docs | jauge : un pavé par repère, plein si présent |
 
 ## faq.md
 
