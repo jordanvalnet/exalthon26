@@ -81,6 +81,13 @@ export const Facts = z.object({
       security_policy: z.boolean().optional(),
       codeowners: z.boolean().optional(),
       competitors: z.array(z.object({ full_name: z.string(), stars: z.number().int(), description: z.string().nullable() })).optional(),
+    })
+    .optional(),
+  roadmap: z
+    .object({
+      open_prs: z.array(z.object({ ...link, updated_at: date, draft: z.boolean().optional() })).optional(),
+      requests: z.array(z.object({ ...link, comments: z.number().int(), labels: z.array(z.string()) })).optional(),
+      themes: z.array(z.object({ label: z.string(), count: z.number().int() })).optional(),
       milestones: z.array(z.object({ title: z.string(), open: z.number().int(), closed: z.number().int(), due: date.nullable() })).optional(),
     })
     .optional(),

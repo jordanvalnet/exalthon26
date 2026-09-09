@@ -7,7 +7,7 @@ L'agent suivant ne lit que les sorties du précédent. Rien d'autre.
 | # | Étape | Prompt | IN (lecture seule) | OUT (écriture seule) | Validation dure |
 |---|---|---|---|---|---|
 | 0 | orchestrer | `agents/0-onboard.md` | `owner/repo profil [--force]` | enchaîne 1 → 2 → 3 | chacune des validations ci-dessous |
-| 1 | collecter | `agents/1-collect.md` | le repo via `github:*`, `profiles/<profil>.md`, `SCHEMA.md` | `facts.json`, `sources/*.md` | `bun run validate facts <cache> <profil>` |
+| 1 | collecter | `agents/1-collect.md` lance en parallèle `1a-meta`, `1b-history`, `1c-docs`, `1d-code`, `1e-roadmap` | le repo via `github:*`, `profiles/<profil>.md`, `SCHEMA.md` | `parts/*.json`, `sources/*.md`, puis `facts.json` par `bun run merge` | `bun run merge <cache> <profil>` (fusion + `validate facts`) |
 | 2 | rédiger | `agents/2-write.md` | `facts.json`, `sources/`, `profiles/<profil>.md` | `narrative/<profil>.md`, `glossary.md`, `faq.md` | `bun run validate narrative <cache> <profil>` |
 | 3 | mettre en page | `agents/3-render.md` | `facts.json`, `narrative/<profil>.md`, `profiles/<profil>.md` | `deck-<profil>.html` | `bun run validate deck <cache> <profil>` |
 | 4 | guider (à la demande) | `agents/4-ask.md` | le cache entier, une question, `github:*` en secours | la réponse, `faq.md` (ajout), `sources/` (ajout) | `faq.md` a une entrée de plus, chaque affirmation est citée |
@@ -18,7 +18,7 @@ L'agent suivant ne lit que les sorties du précédent. Rien d'autre.
 owner/repo + profil
       │
       ▼
- [1] collecter ───► facts.json + sources/*.md ──► validate facts ──┐
+ [1] collecter : 5 sous-agents en parallèle ──► parts/*.json + sources/*.md ──► merge ──► facts.json ──► validate facts ──┐
                                                                     ▼
  [2] rédiger ─────► narrative/<profil>.md + glossary.md + faq.md ──► validate narrative ──┐
                                                                                            ▼
@@ -33,7 +33,8 @@ owner/repo + profil
 3. Chaque agent termine par sa commande de validation et colle la dernière ligne dans son compte rendu. Une validation qui échoue = l'agent corrige et relance, deux essais au plus. Au deuxième échec il s'arrête et rend la main avec les erreurs.
 4. Un agent n'écrit que dans ses OUT. Il ne modifie jamais les sorties d'une autre étape, même pour « aider ».
 5. Un agent n'invente rien. Donnée absente = champ absent + une ligne dans « Manques » du compte rendu.
-6. Un agent ne lit que ses IN. Le rédacteur ne va pas sur GitHub ; le cartographe ne lit pas le narratif.
+6. Un agent ne lit que ses IN. Le rédacteur ne va pas sur GitHub ; les collecteurs ne lisent pas le narratif.
+7. Collecte rapide même sur un gros repo : chaque sous-agent a un budget d'appels, personne ne lit un fichier de code au-delà de 60 lignes ni ne descend au-delà de 2 niveaux d'arborescence.
 
 ## Compte rendu d'étape (format exact, dernière chose qu'écrit chaque agent)
 ```

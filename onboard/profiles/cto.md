@@ -12,7 +12,7 @@ CTO qui décide d'adopter, de contribuer ou de forker. Veut la dette et les risq
 6. Adopter, contribuer ou forker ?
 
 ## Sources
-- facts : repo, languages, tree, releases, activity, build, deps, risks
+- facts : repo, languages, tree, releases, activity, build, deps, risks, roadmap
 - sources : readme.md, tree.md, manifest.md, ci.md, security.md, todo.md
 
 ## Ton

@@ -11,101 +11,361 @@
     "stars": 4820,
     "forks": 312,
     "open_issues": 97,
-    "topics": ["automation", "rules-engine", "typescript"],
+    "topics": [
+      "automation",
+      "rules-engine",
+      "typescript"
+    ],
     "owner_type": "org",
     "archived": false
   },
   "collected": {
     "at": "2026-09-09T16:00:00Z",
     "by": "exemple écrit à la main, aucun chiffre réel",
-    "lenses": ["core", "dev", "qa", "cto", "ceo", "investisseur", "enfant"]
+    "lenses": [
+      "core",
+      "dev",
+      "qa",
+      "cto",
+      "ceo",
+      "investisseur",
+      "enfant"
+    ]
   },
-  "languages": { "TypeScript": 812340, "JavaScript": 40210, "CSS": 12880, "Shell": 3100 },
+  "languages": {
+    "TypeScript": 812340,
+    "JavaScript": 40210,
+    "CSS": 12880,
+    "Shell": 3100
+  },
   "tree": [
-    { "path": "src", "type": "dir", "role": "code du moteur" },
-    { "path": "packages/cli", "type": "dir", "role": "ligne de commande" },
-    { "path": "packages/web", "type": "dir", "role": "interface web" },
-    { "path": "test", "type": "dir", "role": "tests unitaires et e2e" },
-    { "path": "docs", "type": "dir", "role": "site de documentation" },
-    { "path": ".github/workflows", "type": "dir", "role": "CI" },
-    { "path": "package.json", "type": "file", "role": "manifeste, workspaces" }
+    {
+      "path": "src",
+      "type": "dir",
+      "role": "code du moteur"
+    },
+    {
+      "path": "packages/cli",
+      "type": "dir",
+      "role": "ligne de commande"
+    },
+    {
+      "path": "packages/web",
+      "type": "dir",
+      "role": "interface web"
+    },
+    {
+      "path": "test",
+      "type": "dir",
+      "role": "tests unitaires et e2e"
+    },
+    {
+      "path": "docs",
+      "type": "dir",
+      "role": "site de documentation"
+    },
+    {
+      "path": ".github/workflows",
+      "type": "dir",
+      "role": "CI"
+    },
+    {
+      "path": "package.json",
+      "type": "file",
+      "role": "manifeste, workspaces"
+    }
   ],
   "releases": [
-    { "tag": "v2.4.0", "date": "2026-08-30T10:00:00Z", "name": "Règles conditionnelles" },
-    { "tag": "v2.3.1", "date": "2026-07-18T10:00:00Z", "name": null },
-    { "tag": "v2.3.0", "date": "2026-06-21T10:00:00Z", "name": "Plugins" },
-    { "tag": "v2.2.0", "date": "2026-05-02T10:00:00Z", "name": "Interface web" },
-    { "tag": "v2.1.0", "date": "2026-03-15T10:00:00Z", "name": null }
+    {
+      "tag": "v2.4.0",
+      "date": "2026-08-30T10:00:00Z",
+      "name": "Règles conditionnelles"
+    },
+    {
+      "tag": "v2.3.1",
+      "date": "2026-07-18T10:00:00Z",
+      "name": null
+    },
+    {
+      "tag": "v2.3.0",
+      "date": "2026-06-21T10:00:00Z",
+      "name": "Plugins"
+    },
+    {
+      "tag": "v2.2.0",
+      "date": "2026-05-02T10:00:00Z",
+      "name": "Interface web"
+    },
+    {
+      "tag": "v2.1.0",
+      "date": "2026-03-15T10:00:00Z",
+      "name": null
+    }
   ],
   "activity": {
     "commits_per_week": [
-      { "week": "2026-W25", "count": 14 }, { "week": "2026-W26", "count": 9 }, { "week": "2026-W27", "count": 17 },
-      { "week": "2026-W28", "count": 6 }, { "week": "2026-W29", "count": 11 }, { "week": "2026-W30", "count": 4 },
-      { "week": "2026-W31", "count": 0 }, { "week": "2026-W32", "count": 8 }, { "week": "2026-W33", "count": 19 },
-      { "week": "2026-W34", "count": 22 }, { "week": "2026-W35", "count": 13 }, { "week": "2026-W36", "count": 7 }
+      {
+        "week": "2026-W25",
+        "count": 14
+      },
+      {
+        "week": "2026-W26",
+        "count": 9
+      },
+      {
+        "week": "2026-W27",
+        "count": 17
+      },
+      {
+        "week": "2026-W28",
+        "count": 6
+      },
+      {
+        "week": "2026-W29",
+        "count": 11
+      },
+      {
+        "week": "2026-W30",
+        "count": 4
+      },
+      {
+        "week": "2026-W31",
+        "count": 0
+      },
+      {
+        "week": "2026-W32",
+        "count": 8
+      },
+      {
+        "week": "2026-W33",
+        "count": 19
+      },
+      {
+        "week": "2026-W34",
+        "count": 22
+      },
+      {
+        "week": "2026-W35",
+        "count": 13
+      },
+      {
+        "week": "2026-W36",
+        "count": 7
+      }
     ],
     "last_commit": "2026-09-08T17:42:00Z",
     "contributors": [
-      { "login": "mara", "commits": 61 }, { "login": "jdoe", "commits": 38 }, { "login": "kenji", "commits": 17 },
-      { "login": "lou", "commits": 9 }, { "login": "sam", "commits": 5 }
+      {
+        "login": "mara",
+        "commits": 61
+      },
+      {
+        "login": "jdoe",
+        "commits": 38
+      },
+      {
+        "login": "kenji",
+        "commits": 17
+      },
+      {
+        "login": "lou",
+        "commits": 9
+      },
+      {
+        "login": "sam",
+        "commits": 5
+      }
     ],
     "bus_factor": 2
   },
   "entrypoints": [
-    { "path": "src/index.ts", "why": "exporte l'API publique du moteur" },
-    { "path": "packages/cli/src/main.ts", "why": "commande rocket" },
-    { "path": "packages/web/src/app.tsx", "why": "racine de l'interface web" }
+    {
+      "path": "src/index.ts",
+      "why": "exporte l'API publique du moteur"
+    },
+    {
+      "path": "packages/cli/src/main.ts",
+      "why": "commande rocket"
+    },
+    {
+      "path": "packages/web/src/app.tsx",
+      "why": "racine de l'interface web"
+    }
   ],
   "build": {
     "install": "bun install",
     "run": "bun run dev",
     "test": "bun test",
     "ci": [
-      { "name": "ci", "path": ".github/workflows/ci.yml", "triggers": ["push", "pull_request"] },
-      { "name": "release", "path": ".github/workflows/release.yml", "triggers": ["tag"] }
+      {
+        "name": "ci",
+        "path": ".github/workflows/ci.yml",
+        "triggers": [
+          "push",
+          "pull_request"
+        ]
+      },
+      {
+        "name": "release",
+        "path": ".github/workflows/release.yml",
+        "triggers": [
+          "tag"
+        ]
+      }
     ]
   },
-  "tests": { "dir": "test", "framework": "bun:test", "files": 84 },
+  "tests": {
+    "dir": "test",
+    "framework": "bun:test",
+    "files": 84
+  },
   "issues": {
     "open": 97,
     "closed_30d": 41,
-    "by_label": { "bug": 31, "enhancement": 28, "documentation": 9, "good first issue": 6, "question": 5 },
+    "by_label": {
+      "bug": 31,
+      "enhancement": 28,
+      "documentation": 9,
+      "good first issue": 6,
+      "question": 5
+    },
     "good_first": [
-      { "number": 812, "title": "Afficher la version dans la CLI", "url": "https://github.com/acme/rocket/issues/812" },
-      { "number": 798, "title": "Doc : exemple de règle planifiée", "url": "https://github.com/acme/rocket/issues/798" }
+      {
+        "number": 812,
+        "title": "Afficher la version dans la CLI",
+        "url": "https://github.com/acme/rocket/issues/812"
+      },
+      {
+        "number": 798,
+        "title": "Doc : exemple de règle planifiée",
+        "url": "https://github.com/acme/rocket/issues/798"
+      }
     ],
     "hot": [
-      { "number": 790, "title": "Fuite mémoire sur les règles récursives", "url": "https://github.com/acme/rocket/issues/790", "comments": 34 }
+      {
+        "number": 790,
+        "title": "Fuite mémoire sur les règles récursives",
+        "url": "https://github.com/acme/rocket/issues/790",
+        "comments": 34
+      }
     ]
   },
   "pulls": {
     "open": 14,
     "awaiting_review": 6,
     "merged_30d": [
-      { "number": 831, "title": "Règles conditionnelles", "url": "https://github.com/acme/rocket/pull/831", "merged_at": "2026-08-29T15:00:00Z" }
+      {
+        "number": 831,
+        "title": "Règles conditionnelles",
+        "url": "https://github.com/acme/rocket/pull/831",
+        "merged_at": "2026-08-29T15:00:00Z"
+      }
     ]
   },
   "deps": {
     "manifest": "package.json",
     "count": 23,
     "runtime": [
-      { "name": "zod", "version": "^4.0.0" }, { "name": "hono", "version": "^4.6.0" }, { "name": "react", "version": "^19.0.0" }
+      {
+        "name": "zod",
+        "version": "^4.0.0"
+      },
+      {
+        "name": "hono",
+        "version": "^4.6.0"
+      },
+      {
+        "name": "react",
+        "version": "^19.0.0"
+      }
     ]
   },
   "risks": [
-    { "kind": "bus_factor", "level": "mid", "note": "2 personnes font 76 % des commits des 12 dernières semaines" },
-    { "kind": "deps", "level": "low", "note": "23 dépendances, toutes publiées il y a moins de 6 mois" },
-    { "kind": "security", "level": "mid", "note": "pas de SECURITY.md, fuite mémoire #790 ouverte depuis 40 jours" },
-    { "kind": "license", "level": "low", "note": "MIT, compatible avec un usage commercial" }
+    {
+      "kind": "bus_factor",
+      "level": "mid",
+      "note": "2 personnes font 76 % des commits des 12 dernières semaines"
+    },
+    {
+      "kind": "deps",
+      "level": "low",
+      "note": "23 dépendances, toutes publiées il y a moins de 6 mois"
+    },
+    {
+      "kind": "security",
+      "level": "mid",
+      "note": "pas de SECURITY.md, fuite mémoire #790 ouverte depuis 40 jours"
+    },
+    {
+      "kind": "license",
+      "level": "low",
+      "note": "MIT, compatible avec un usage commercial"
+    }
   ],
   "business": {
     "funding": true,
     "security_policy": false,
     "codeowners": true,
     "competitors": [
-      { "full_name": "orbit/flow", "stars": 12400, "description": "Automation à faible code" },
-      { "full_name": "kite/rules", "stars": 2100, "description": "Moteur de règles en Go" }
+      {
+        "full_name": "orbit/flow",
+        "stars": 12400,
+        "description": "Automation à faible code"
+      },
+      {
+        "full_name": "kite/rules",
+        "stars": 2100,
+        "description": "Moteur de règles en Go"
+      }
+    ]
+  },
+  "roadmap": {
+    "open_prs": [
+      {
+        "number": 840,
+        "title": "Planificateur de règles (cron)",
+        "url": "https://github.com/acme/rocket/pull/840",
+        "updated_at": "2026-09-07T09:00:00Z",
+        "draft": false
+      }
     ],
-    "milestones": [{ "title": "v3.0", "open": 12, "closed": 5, "due": "2026-11-30" }]
+    "requests": [
+      {
+        "number": 802,
+        "title": "Support des webhooks entrants",
+        "url": "https://github.com/acme/rocket/issues/802",
+        "comments": 21,
+        "labels": [
+          "enhancement"
+        ]
+      },
+      {
+        "number": 776,
+        "title": "Mode hors ligne",
+        "url": "https://github.com/acme/rocket/issues/776",
+        "comments": 12,
+        "labels": [
+          "feature request"
+        ]
+      }
+    ],
+    "themes": [
+      {
+        "label": "enhancement",
+        "count": 28
+      },
+      {
+        "label": "feature request",
+        "count": 11
+      }
+    ],
+    "milestones": [
+      {
+        "title": "v3.0",
+        "open": 12,
+        "closed": 5,
+        "due": "2026-11-30"
+      }
+    ]
   }
 }

@@ -12,7 +12,7 @@ Dirigeant ou dirigeante non technique. Veut savoir ce que ça fait, si c'est viv
 6. Qu'en fait-on ?
 
 ## Sources
-- facts : repo, releases, activity, issues, risks, business
+- facts : repo, releases, activity, issues, risks, business, roadmap
 - sources : readme.md, tree.md
 
 ## Ton

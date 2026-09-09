@@ -4,6 +4,7 @@ Un dossier par repo : `onboard/cache/<owner>__<repo>/`. Tout est du texte versio
 
 ```
 facts.json               chiffres et faits structurés, validés par `bun run validate facts <cache> <profil>`
+parts/<sous-agent>.json  ce que chaque sous-agent de collecte a produit ; `bun run merge <cache> <profil>` les assemble dans facts.json
 sources/                 extraits bruts du repo, un fichier par source, tels que lus
   readme.md  tree.md  contributing.md  ci.md  manifest.md  license.md  tests.md  todo.md  funding.md  security.md
 narrative/<profil>.md    texte rédigé pour un profil, une section H2 par question du profil
@@ -15,7 +16,7 @@ deck-<profil>.html       présentation autonome, imprimable en PDF
 ## facts.json
 
 Schéma zod de référence : `src/facts.ts`. Tout est optionnel sauf `schema`, `repo`, `collected`.
-Chaque loupe remplit ses blocs ; `collected.lenses` dit quelles loupes ont tourné.
+Chaque sous-agent de collecte écrit sa part dans `parts/`, `merge` les assemble ; `collected.lenses` dit quels profils ont été collectés.
 
 | Bloc | Rempli par | Contenu |
 |---|---|---|
@@ -32,7 +33,8 @@ Chaque loupe remplit ses blocs ; `collected.lenses` dit quelles loupes ont tourn
 | `pulls` | dev, qa | open, awaiting_review, merged_30d `{ number, title, url, merged_at }` |
 | `deps` | cto | manifest, count, runtime `{ name, version }` |
 | `risks` | cto, investisseur | `{ kind: license, bus_factor, ci, deps, security ou activity ; level: low, mid ou high ; note }` |
-| `business` | investisseur, ceo | funding, security_policy, codeowners, competitors `{ full_name, stars, description }`, milestones `{ title, open, closed, due }` |
+| `business` | investisseur, ceo | funding, security_policy, codeowners, competitors `{ full_name, stars, description }` |
+| `roadmap` | ceo, cto, investisseur | open_prs `{ number, title, url, updated_at, draft }`, requests `{ number, title, url, comments, labels[] }` (issues ouvertes hors bug), themes `{ label, count }`, milestones `{ title, open, closed, due }` |
 
 Dates en ISO 8601. Chiffres bruts, jamais de pourcentage calculé : le rendu s'en charge.
 Le bus factor est le nombre minimal de contributeurs qui totalisent la moitié des commits des 12 semaines.
@@ -76,6 +78,7 @@ en notes de bas de page.
 | `releases` | releases | frise chronologique |
 | `tree` | tree | liste annotée, pas un graphique |
 | `risks` | risks | feux tricolores |
+| `roadmap` | roadmap.themes, roadmap.milestones | barres des thèmes demandés, jalons en frise |
 
 ## faq.md
 

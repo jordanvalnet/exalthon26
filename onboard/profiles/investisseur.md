@@ -13,7 +13,7 @@ Investisseur ou analyste qui évalue le projet comme un actif : traction, équip
 7. Pourquoi oui, pourquoi non ?
 
 ## Sources
-- facts : repo, releases, activity, risks, business
+- facts : repo, releases, activity, risks, business, roadmap
 - sources : readme.md, tree.md, license.md, funding.md, security.md
 
 ## Ton

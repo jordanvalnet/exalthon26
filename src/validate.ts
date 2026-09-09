@@ -3,7 +3,7 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { Facts } from "./facts.ts";
 
-export const CHARTS = ["languages", "commits_per_week", "contributors", "issues_by_label", "releases", "tree", "risks"];
+export const CHARTS = ["languages", "commits_per_week", "contributors", "issues_by_label", "releases", "tree", "risks", "roadmap"];
 const CITATION = /\[(facts|src|gh):([^\]]+)\]/g;
 
 export type Profile = {

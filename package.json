@@ -14,7 +14,8 @@
     "onboard": "bun src/cli.ts",
     "validate": "bun src/validate.ts",
     "render": "bun src/render/index.ts",
-    "gh": "bun src/gh.ts"
+    "gh": "bun src/gh.ts",
+    "merge": "bun src/merge.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
