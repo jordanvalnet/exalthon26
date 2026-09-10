@@ -33,5 +33,6 @@ ONBOARD <owner/repo> <profil> : OK | ÉCHEC à l'étape <n>
 Étape 3 render  : OK | sautée | ÉCHEC
 Deck : onboard/cache/<owner>__<repo>/deck-<profil>.html
 Manques : <fusion des « Manques » des étapes, ou « aucun »>
+Quota : <ligne Quota de l'étape 1, ou « 0 appels » si sautée>
 Durée : <minutes>
 ```
