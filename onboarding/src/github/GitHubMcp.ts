@@ -6,7 +6,7 @@ import { findGitHubToken } from "../env.ts";
 export const GITHUB_MCP_URL = "https://api.githubcopilot.com/mcp/";
 
 export class GitHubMcp {
-  constructor(private readonly client: McpClient = new McpClient(GITHUB_MCP_URL, `Bearer ${findGitHubToken()}`)) {}
+  constructor(private readonly client: Pick<McpClient, "callTool"> = new McpClient(GITHUB_MCP_URL, `Bearer ${findGitHubToken()}`)) {}
 
   static fromEnv(): GitHubMcp { return new GitHubMcp(); }
 

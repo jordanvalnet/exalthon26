@@ -25,7 +25,8 @@ function mergeBlock(a: unknown, b: unknown): unknown {
 export function mergeParts(dir: string, profile: string): { facts: Facts; parts: string[]; errors: string[] } {
   const errors: string[] = [];
   const partsDir = path.join(dir, "parts");
-  const files = existsSync(partsDir) ? readdirSync(partsDir).filter((f) => f.endsWith(".json")) : [];
+  // parts/quota.json est l'état du quota GitHub (src/quota.ts), pas une part.
+  const files = existsSync(partsDir) ? readdirSync(partsDir).filter((f) => f.endsWith(".json") && f !== "quota.json") : [];
   const rank = (f: string) => {
     const i = ORDER.indexOf(f.slice(0, -5));
     return i === -1 ? ORDER.length : i;

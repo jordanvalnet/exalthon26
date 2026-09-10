@@ -18,6 +18,7 @@
     "merge": "bun src/merge.ts",
     "meta": "bun src/collect/meta.ts",
     "issues": "bun src/collect/issues.ts",
+    "quota": "bun src/quota.ts",
     "pdf": "bun src/render/pdf.ts",
     "screenshot": "bun src/render/screenshot.ts"
   },
