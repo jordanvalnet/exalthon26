@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>code-dev-intel : un sommaire du code qui fait consommer jusqu'à 34 % de moins aux IA de développement, porté aujourd'hui par une seule personne</title>
+<style>
+:root {
+  --bg: #f5f5f3; --card: #ffffff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2;
+  --accent: #4f5bd5; --accent-2: #d1495b; --accent-ink: #ffffff;
+  --cover-bg: #17181c; --cover-fg: #ffffff; --cover-muted: #b7bccb;
+  --low: #2e9e6b; --mid: #d99a2b; --high: #d1495b;
+  --font: ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --display: var(--font); --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --radius: 12px; --pad: 40px 48px; --width: 1040px; --min-h: 600px;
+  --h1: 2.8rem; --h2: 1.7rem; --text: 1.02rem; --kpi: 2.6rem;
+}
+* { box-sizing: border-box; }
+html { font-size: 16px; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 1rem/1.55 var(--font); }
+section {
+  position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  max-width: var(--width); margin: 28px auto; padding: var(--pad); min-height: var(--min-h); font-size: var(--text);
+  display: flex; flex-direction: column;
+}
+section > .body { flex: 1; }
+h1 { font: 700 var(--h1)/1.1 var(--display); letter-spacing: -0.01em; margin: 0 0 16px; }
+h2 { font: 700 var(--h2)/1.2 var(--display); margin: 0 0 10px; }
+p { margin: 0 0 10px; }
+ul, ol { margin: 0 0 12px; padding-left: 22px; }
+li { margin: 0 0 6px; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code { font: 0.88em var(--mono); background: var(--bg); padding: 1px 6px; border-radius: 5px; }
+pre { background: #14151a; color: #e8eaf1; padding: 14px 18px; border-radius: 10px; overflow-x: auto; margin: 0 0 14px; font-size: 0.9em; line-height: 1.5; }
+pre code { background: none; padding: 0; color: inherit; font-size: 1em; }
+strong { font-weight: 700; }
+table { border-collapse: collapse; width: 100%; margin: 0 0 14px; font-size: 0.94em; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); border-bottom: 2px solid var(--accent); }
+.level { display: inline-block; padding: 1px 10px; border-radius: 999px; font-size: 0.8em; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.04em; }
+.level.low { background: var(--low); } .level.mid { background: var(--mid); } .level.high { background: var(--high); }
+
+/* Couverture */
+.cover { justify-content: center; background: var(--cover-bg); color: var(--cover-fg); border: 0; }
+.cover h1 code { background: rgba(255,255,255,0.14); color: inherit; padding: 0 0.25em; font-size: 0.85em; }
+.cover a { color: inherit; }
+.cover-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 40px; }
+.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.8rem; font-weight: 700; }
+.date, .repo, .cover-foot { color: var(--cover-muted); font-size: 0.9rem; }
+.repo { font-family: var(--mono); font-size: 1rem; margin: 0 0 12px; }
+.cover .desc { color: var(--cover-muted); font-size: 1.1rem; max-width: 46em; margin-bottom: 32px; }
+.kpis { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; padding: 0; margin: 0 0 32px; }
+.kpis li { border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; padding: 14px 18px; background: rgba(255,255,255,0.05); }
+.kpis b { display: block; font: 700 var(--kpi)/1 var(--display); letter-spacing: -0.02em; margin-bottom: 6px; }
+.kpis span { display: block; font-size: 0.82rem; color: var(--cover-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.kpis b.long { font-size: calc(var(--kpi) * 0.62); padding: 0.25em 0; }
+.kpis small { display: block; font-size: 0.78rem; color: var(--cover-muted); margin-top: 3px; text-transform: none; letter-spacing: 0; }
+.cover-foot { margin: 0; display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* Pages */
+.page header, .finale header { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+.kicker { font: 700 0.78rem/1 var(--mono); color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; }
+.takeaway { margin: 0 0 22px; padding: 14px 20px; border-left: 5px solid var(--accent); background: var(--bg); font-size: 1.12em; font-weight: 600; line-height: 1.45; border-radius: 0 10px 10px 0; }
+.body.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; align-items: start; align-content: start; }
+.body.split .chart-wrap { min-width: 0; }
+.body.stack .chart-wrap { margin-bottom: 20px; }
+footer { display: flex; justify-content: space-between; gap: 12px; margin-top: 26px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.78rem; }
+footer .n { font-family: var(--mono); }
+
+/* Graphiques SVG et listes annotées (charts.ts) */
+.chart { display: block; width: 100%; height: auto; max-width: 640px; margin: 0 0 12px; }
+.chart text { font-family: var(--font); fill: var(--fg); }
+.chart .lbl { font-size: 12px; }
+.chart .val, .chart .tick { font-size: 11px; fill: var(--muted); }
+.chart .bar { fill: var(--accent); }
+.chart .bar.strong { fill: var(--accent-2); }
+.chart .bar.off { fill: var(--line); }
+.chart .dot { fill: var(--accent); }
+.chart .axis { stroke: var(--line); stroke-width: 1; }
+.tree, .risks { list-style: none; margin: 0 0 14px; padding: 0; font-size: 0.92em; }
+.tree li, .risks li { display: flex; gap: 10px; align-items: baseline; padding: 4px 0; border-bottom: 1px solid var(--line); }
+.tree code { flex: 0 0 auto; }
+.tree .more { color: var(--muted); border: 0; font-style: italic; }
+.role { color: var(--muted); font-size: 0.9em; }
+.light { width: 11px; height: 11px; border-radius: 50%; flex: 0 0 auto; background: var(--muted); }
+.light.low { background: var(--low); } .light.mid { background: var(--mid); } .light.high { background: var(--high); }
+
+/* Finale et sources */
+.finale { border: 2px solid var(--accent); }
+.finale .body { font-size: 1.08em; }
+.finale ol, .finale ul { padding-left: 26px; }
+.finale li { margin-bottom: 10px; }
+.refs { min-height: 0; }
+.refs ol { padding-left: 22px; font-size: 0.86rem; column-count: 2; column-gap: 32px; }
+.refs li { margin-bottom: 6px; break-inside: avoid; }
+.note { font-size: 0.68em; }
+.note a { text-decoration: none; padding: 0 1px; }
+
+.p-ceo { --accent: #14213d; --accent-2: #c9a227; --cover-bg: #14213d; --cover-fg: #fdfbf5; --cover-muted: #c8cfe0; --bg: #f7f5ef; --card: #fffdf8; --line: #e6e1d3;
+  --display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif; --h1: 3.2rem; --h2: 2.3rem; --text: 1.12rem; --kpi: 3.2rem; --pad: 56px 64px; --min-h: 640px; }
+.p-ceo h1, .p-ceo h2 { font-weight: 600; letter-spacing: 0; }
+.p-ceo .cover { background: radial-gradient(ellipse at 20% 10%, #22345e 0%, #14213d 55%, #0e1730 100%); }
+.p-ceo .cover .eyebrow { color: var(--accent-2); }
+.p-ceo .cover h1 { max-width: 16em; }
+.p-ceo .kpis { grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid rgba(255,255,255,0.2); }
+.p-ceo .kpis li { border: 0; border-right: 1px solid rgba(255,255,255,0.2); border-radius: 0; background: none; padding: 22px 20px 8px 0; }
+.p-ceo .kpis li:last-child { border-right: 0; }
+.p-ceo .kpis li + li { padding-left: 20px; }
+.p-ceo .kpis b { color: var(--accent-2); }
+.p-ceo .kicker { color: var(--accent-2); font-family: var(--font); }
+.p-ceo h2 { color: var(--accent); }
+.p-ceo .takeaway { border: 0; background: none; padding: 6px 0 6px 36px; font: italic 500 1.55rem/1.35 var(--display); color: var(--accent); position: relative; margin-bottom: 28px; }
+.p-ceo .takeaway .note { opacity: 0.55; }
+.p-ceo .takeaway::before { content: "“"; position: absolute; left: 0; top: -6px; font-size: 3.2rem; color: var(--accent-2); line-height: 1; }
+.p-ceo .body p { max-width: 42em; }
+.p-ceo .body.split { grid-template-columns: 1fr; }
+.p-ceo .chart .bar { fill: var(--accent-2); }
+.p-ceo .chart .bar.strong { fill: var(--accent); }
+.p-ceo .finale { background: var(--accent); color: #fdfbf5; border: 0; }
+.p-ceo .finale .kicker, .p-ceo .finale h2 { color: var(--accent-2); }
+.p-ceo .finale .body { font-size: 1.25em; }
+.p-ceo .finale a, .p-ceo .finale .note a { color: var(--accent-2); }
+.p-ceo .finale footer { border-top-color: rgba(255,255,255,0.25); color: #c8cfe0; }
+.p-ceo footer { font-family: var(--font); }
+
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #14151a; --card: #1c1e25; --fg: #eceef3; --muted: #a0a6b4; --line: #2f323c; --low: #4cc38a; --mid: #e5b25d; --high: #ef7f8e; }
+  code { background: #262932; }
+  .p-dev { --accent: #8f97ee; --accent-2: #ef7f8e; }
+  .p-qa { --accent: #35c2a8; --accent-2: #ef7f8e; --bg: #14181a; --cover-bg: #1c2422; --cover-fg: #eef5f2; --cover-muted: #9fb8b0; }
+  .p-qa .kpis li { background: #213230; border-color: #2e4a45; }
+  .p-qa .takeaway, .p-qa .finale { background: #1f2b28; }
+  .p-qa tbody tr:nth-child(odd) { background: #1f2624; }
+  .p-cto { --accent: #7fa6d9; --accent-2: #f0b97a; --bg: #141821; }
+  .p-cto .takeaway { background: #2a2620; }
+  .p-cto .finale { background: #1f3a5f; }
+  .p-ceo { --accent: #dcc27a; --bg: #15171c; --card: #1c1e25; --line: #2f323c; }
+  .p-ceo .finale { background: #14213d; }
+  .p-investisseur { --accent: #5cc493; --accent-2: #dcb25f; --bg: #141816; --card: #1b201d; --line: #2c342f; --cover-bg: #1b201d; --cover-fg: #eef3ef; --cover-muted: #9fb0a6; }
+  .p-investisseur .kpis li { background: #16201b; }
+  .p-investisseur .finale { background: #1d6b4a; }
+}
+
+@media print {
+  @page { size: A4 landscape; margin: 10mm; }
+  html { font-size: 12px; }
+  .p-dev, .p-qa, .p-cto { --text: 0.9rem; }
+  .p-dev .tree, .p-qa .tree, .p-cto .tree { font-size: 0.82em; }
+  .p-ceo { --text: 1rem; }
+  .p-ceo .takeaway { font-size: 1.3rem; margin-bottom: 16px; }
+  .p-ceo .risks li { padding: 2px 0; }
+  .body.split { gap: 22px; }
+  .p-ceo .chart { max-height: 52mm; }
+  .p-enfant .chart { max-height: 60mm; }
+  .takeaway { font-size: 1.05em; padding: 10px 16px; margin-bottom: 14px; }
+  th, td { padding: 5px 10px; }
+  footer { margin-top: 14px; padding-top: 8px; }
+  .refs ol { column-count: 3; font-size: 0.82rem; }
+  .refs li { margin-bottom: 3px; }
+  body { background: #fff; }
+  :root, .p-dev, .p-qa, .p-cto, .p-ceo, .p-investisseur, .p-enfant { --bg: #f5f5f3; --card: #fff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2; }
+  .p-qa { --bg: #f2f7f5; } .p-cto { --bg: #f4f6f9; } .p-ceo { --bg: #f7f5ef; --card: #fffdf8; } .p-investisseur { --bg: #f6f6f2; } .p-enfant { --bg: #fff6e5; --card: #fffdf7; --fg: #2b2118; --muted: #7a6a5a; }
+  .p-ceo { --accent: #14213d; } .p-cto { --accent: #1f3a5f; } .p-dev { --accent: #4f5bd5; } .p-qa { --accent: #0f8f7a; } .p-investisseur { --accent: #1d6b4a; }
+  section { max-width: none; margin: 0; min-height: 178mm; break-after: page; page-break-after: always; box-shadow: none; --pad: 26px 36px; }
+  section:last-child { break-after: auto; page-break-after: auto; }
+  .p-enfant section { box-shadow: none; margin: 0; }
+  .cover { min-height: 178mm; }
+  .refs { min-height: 0; }
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  a { text-decoration: none; }
+}
+</style>
+</head>
+<body class="p-ceo">
+<section class="cover">
+<div class="cover-top"><span class="eyebrow">Synthèse pour la direction</span><span class="date">Données GitHub relevées le 10 sept. 2026</span></div>
+<p class="repo">jordanvalnet/code-dev-intel.ts</p>
+<h1>code-dev-intel : un sommaire du code qui fait consommer jusqu'à 34 % de moins aux IA de développement, porté aujourd'hui par une seule personne</h1>
+<p class="desc">Self-hosted AI code intelligence for TypeScript — symbol resolution, structural search, duplicate detection, and dependency graphs via MCP server.</p>
+<ul class="kpis"><li><b>0</b><span>étoiles GitHub</span></li><li><b>0</b><span>forks</span></li><li><b>1</b><span>contributeurs actifs</span><small>sur 12 semaines</small></li><li><b class="long">20 mars 2026</b><span>créé le</span></li></ul>
+<p class="cover-foot"><span><a href="https://github.com/jordanvalnet/code-dev-intel.ts">https://github.com/jordanvalnet/code-dev-intel.ts</a></span><span>Licence AGPL-3.0</span><span>Onboard · profil ceo</span></p>
+</section><section class="page">
+<header><span class="kicker">02</span><h2>Que fait ce projet, en une phrase, et pour qui ?</h2></header>
+<p class="takeaway">Un sommaire du code, installé chez vous, pour que les assistants IA arrêtent de tout relire à chaque question.</p>
+<div class="body"><div class="text"><p>Le projet installe chez vous un service qui répond aux questions des assistants IA sur votre code : où se trouve telle fonction, qui l'utilise, qu'est-ce qui casse si on la change.</p>
+<p>Sans lui, l'assistant relit le dossier complet à chaque question, comme un nouvel arrivant qui feuillette tous les classeurs pour retrouver une clause ; avec lui, il consulte un sommaire et va droit à la page.</p>
+<p>Pour qui : les équipes qui font travailler des assistants IA sur une base de code d'entreprise de taille moyenne ou grande.</p>
+<p>Argument différenciant : tout reste sur vos machines, rien n'est envoyé à un service d'indexation extérieur.</p></div></div>
+<footer><span class="repo-name">jordanvalnet/code-dev-intel.ts · relevé le 10 sept. 2026</span><span class="n">ceo · 2 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">03</span><h2>Est-ce que ça marche et qui s'en sert ?</h2></header>
+<p class="takeaway">Ça marche en démonstration — 11 agents sur 11, jusqu'à 34 % de consommation en moins — mais aucun utilisateur extérieur à ce jour.</p>
+<div class="body"><div class="text"><p>La démonstration est solide : sur une base de code de production, 11 agents sur 11 ont choisi l'outil d'eux-mêmes, sans consigne, et ont consommé 13 à 34 % de ressources en moins sur les tâches difficiles — 27 % en moyenne<sup class="note"><a href="#note-1">1</a></sup>.</p>
+<p>Le marché, lui, n'a pas encore répondu : 0 étoile, 0 copie, 1 seule demande ouverte et aucune discussion autour.</p>
+<p>Une seule version a été mise à la disposition du public, la 0.1.6 du 26 mars 2026, alors que le journal interne du projet en est déjà à la 0.5.0 du 4 septembre.</p>
+<p>Autrement dit : le produit a cinq mois d'avance sur ce que le public peut installer<sup class="note"><a href="#note-2">2</a></sup>.</p></div></div>
+<footer><span class="repo-name">jordanvalnet/code-dev-intel.ts · relevé le 10 sept. 2026</span><span class="n">ceo · 3 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">04</span><h2>Le projet est-il vivant ?</h2></header>
+<p class="takeaway">Onze modifications concentrées sur une seule semaine, onze semaines vides avant : un projet qui avance par sessions, pas en continu.</p>
+<div class="body split"><div class="chart-wrap"><svg class="chart" viewBox="0 0 640 172" width="640" height="172" role="img" preserveAspectRatio="xMinYMin meet"><line class="axis" x1="34" y1="138" x2="628" y2="138"/><text class="tick" x="28" y="22" text-anchor="end">11</text><text class="tick" x="28" y="138" text-anchor="end">0</text><rect class="bar" x="43.9" y="138" width="29.7" height="1" rx="2"><title>2026-W26 : 0</title></rect><text class="tick" x="58.75" y="154" text-anchor="middle">W26</text><rect class="bar" x="93.4" y="138" width="29.7" height="1" rx="2"><title>2026-W27 : 0</title></rect><rect class="bar" x="142.9" y="138" width="29.7" height="1" rx="2"><title>2026-W28 : 0</title></rect><text class="tick" x="157.75" y="154" text-anchor="middle">W28</text><rect class="bar" x="192.4" y="138" width="29.7" height="1" rx="2"><title>2026-W29 : 0</title></rect><rect class="bar" x="241.9" y="138" width="29.7" height="1" rx="2"><title>2026-W30 : 0</title></rect><text class="tick" x="256.75" y="154" text-anchor="middle">W30</text><rect class="bar" x="291.4" y="138" width="29.7" height="1" rx="2"><title>2026-W31 : 0</title></rect><rect class="bar" x="340.9" y="138" width="29.7" height="1" rx="2"><title>2026-W32 : 0</title></rect><text class="tick" x="355.75" y="154" text-anchor="middle">W32</text><rect class="bar" x="390.4" y="138" width="29.7" height="1" rx="2"><title>2026-W33 : 0</title></rect><rect class="bar" x="439.9" y="138" width="29.7" height="1" rx="2"><title>2026-W34 : 0</title></rect><text class="tick" x="454.75" y="154" text-anchor="middle">W34</text><rect class="bar" x="489.4" y="138" width="29.7" height="1" rx="2"><title>2026-W35 : 0</title></rect><rect class="bar" x="538.9" y="12" width="29.7" height="126" rx="2"><title>2026-W36 : 11</title></rect><text class="tick" x="553.75" y="154" text-anchor="middle">W36</text><rect class="bar" x="588.4" y="138" width="29.7" height="1" rx="2"><title>2026-W37 : 0</title></rect></svg></div><div class="text"><p>Oui, mais par à-coups : sur les douze dernières semaines, onze des modifications relevées tiennent dans la seule semaine du 1er septembre, les onze semaines précédentes sont vides.</p>
+<p>La dernière modification date du 6 septembre 2026, il y a quatre jours.</p>
+<p>Ce qui est sorti cette semaine-là n'est pas cosmétique : la vérification automatique du produit tourne désormais sur les trois systèmes du marché, un travail de mise en qualité qui précède une diffusion.</p>
+<p>Rien n'attend en file : aucune proposition de changement en suspens.</p>
+<p>Image : un atelier qui n'ouvre pas toutes les semaines, mais qui sort un vrai lot quand il ouvre.</p></div></div>
+<footer><span class="repo-name">jordanvalnet/code-dev-intel.ts · relevé le 10 sept. 2026</span><span class="n">ceo · 4 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">05</span><h2>Qui est derrière ?</h2></header>
+<p class="takeaway">Une seule paire de mains : un contributeur, un compte personnel, aucun financement déclaré.</p>
+<div class="body split"><div class="chart-wrap"><svg class="chart" viewBox="0 0 640 36" width="640" height="36" role="img" preserveAspectRatio="xMinYMin meet"><text class="lbl" x="168" y="21" text-anchor="end">jordanvalnet</text><rect class="bar strong" x="178" y="10" width="398" height="14" rx="3"/><text class="val" x="582" y="21">12</text></svg></div><div class="text"><p>Une personne, et une seule : le compte jordanvalnet, auteur des 12 modifications relevées sur douze semaines.</p>
+<p>Le projet vit sur un compte personnel, pas sur celui d'une entreprise ni d'une fondation.</p>
+<p>Aucun financement déclaré, aucun responsable désigné, aucune politique de sécurité publiée.</p>
+<p>Les contributions extérieures sont documentées et bienvenues, mais personne n'est encore venu.</p>
+<p>Traduit en risque d'entreprise : si cette personne s'arrête, il n'y a pas de relais.</p></div></div>
+<footer><span class="repo-name">jordanvalnet/code-dev-intel.ts · relevé le 10 sept. 2026</span><span class="n">ceo · 5 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">06</span><h2>Quels sont les trois risques ?</h2></header>
+<p class="takeaway">Le risque numéro un n'est pas technique mais humain, et la licence interdit d'en faire un produit vendu sans ouvrir son propre code.</p>
+<div class="body split"><div class="chart-wrap"><ul class="risks"><li><span class="light high" aria-hidden="true"></span><b>license</b><span class="role">AGPL-3.0 : copyleft, contraignant pour un usage commercial.</span></li><li><span class="light mid" aria-hidden="true"></span><b>security</b><span class="role">Pas de SECURITY.md : aucun canal déclaré pour signaler une faille.</span></li><li><span class="light high" aria-hidden="true"></span><b>bus_factor</b><span class="role">Un seul contributeur porte la moitié des commits sur 12 semaines.</span></li><li><span class="light low" aria-hidden="true"></span><b>ci</b><span class="role">Quatre workflows dans .github/workflows ; ci.yml enchaîne lint, type-check et tests sur ubuntu, windows et macos (node 20, 22, 24), puis release-smoke, indexer-smoke et scan sécurité, à cha…</span></li><li><span class="light low" aria-hidden="true"></span><b>deps</b><span class="role">5 dépendances d'exécution et 9 de développement dans package.json, verrou pnpm-lock.yaml, versions vulnérables épinglées via pnpm.overrides ; engines annonce node &gt;=18 mais ci.yml précise q…</span></li></ul></div><div class="text"><ol><li><strong>Dépendance à une personne — élevé.</strong> Un seul contributeur porte tout le travail relevé sur douze semaines : indisponibilité, et le projet s'arrête.</li><li><strong>Licence contraignante — élevé.</strong> Sous AGPL-3.0, intégrer l'outil à un produit que vous vendez ou que vous exposez sur Internet oblige à publier votre propre code ; en usage interne, aucune conséquence.</li><li><strong>Sécurité — moyen.</strong> Aucun canal déclaré pour signaler une faille : un chercheur qui en trouverait une ne saurait pas à qui écrire.</li></ol>
+<p>Rassurant en face : la chaîne de fabrication automatique et les composants extérieurs utilisés sont l'une et les autres au vert.</p></div></div>
+<footer><span class="repo-name">jordanvalnet/code-dev-intel.ts · relevé le 10 sept. 2026</span><span class="n">ceo · 6 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">07</span><h2>Qu'en fait-on ?</h2></header>
+<p class="takeaway">À essayer en interne et à mesurer sur la facture d'IA, à ne pas intégrer à un produit vendu sans avis juridique.</p>
+<div class="body"><div class="text"><p>La feuille de route publique tient en une ligne : une seule demande ouverte, « Anti-Amnesia &amp; Workflow Hardening », sans commentaire ni thème dégagé<sup class="note"><a href="#note-3">3</a></sup>.</p>
+<p>Donnée non relevée : les jalons de planification, illisibles avec les moyens d'accès utilisés ici, à vérifier sur la page des jalons du projet<sup class="note"><a href="#note-4">4</a></sup>.</p>
+<p>Trois décisions raisonnables, dans cet ordre : essayer l'outil un mois sur une équipe volontaire et comparer la facture d'IA avant et après ; ne rien construire de vendable dessus avant un avis juridique sur la licence ; exiger une version publiée à jour, la dernière datant de mars quand le travail interne est de septembre.</p></div></div>
+<footer><span class="repo-name">jordanvalnet/code-dev-intel.ts · relevé le 10 sept. 2026</span><span class="n">ceo · 7 / 9</span></footer>
+</section><section class="finale">
+<header><span class="kicker">ceo</span><h2>Ce que je retiens</h2></header>
+
+<div class="body"><div class="text"><ul><li>Le problème est réel et le gain chiffré : 13 à 34 % de consommation en moins sur les tâches difficiles, et 11 agents sur 11 qui adoptent l'outil sans qu'on le leur demande.</li><li>L'adoption extérieure est nulle à ce jour : 0 étoile, 0 copie, 1 demande ouverte, près de six mois après la création du projet.</li><li>Tout repose sur une personne, sur un compte personnel, sans financement déclaré ni relais désigné.</li><li>La licence AGPL-3.0 autorise l'usage interne et bloque l'intégration dans un produit vendu sans ouverture de votre code.</li><li>Décision : essai interne d'un mois avec mesure de la consommation d'IA, avis juridique sur la licence, version publiée à jour comme condition avant tout usage plus large.</li></ul></div></div>
+<footer><span class="repo-name">jordanvalnet/code-dev-intel.ts · relevé le 10 sept. 2026</span><span class="n">ceo · 8 / 9</span></footer>
+</section><section class="refs"><header><span class="kicker">références publiques</span><h2>Sources</h2></header><div class="body"><ol class="sources"><li id="note-1"><a href="https://github.com/jordanvalnet/code-dev-intel.ts/blob/main/docs/benchmarks/2026-06-07-agent-token-economy.md">https://github.com/jordanvalnet/code-dev-intel.ts/blob/main/docs/benchmarks/2026-06-07-agent-token-economy.md</a></li><li id="note-2"><a href="https://github.com/jordanvalnet/code-dev-intel.ts/releases">https://github.com/jordanvalnet/code-dev-intel.ts/releases</a></li><li id="note-3"><a href="https://github.com/jordanvalnet/code-dev-intel.ts/issues/1">https://github.com/jordanvalnet/code-dev-intel.ts/issues/1</a></li><li id="note-4"><a href="https://github.com/jordanvalnet/code-dev-intel.ts/milestones">https://github.com/jordanvalnet/code-dev-intel.ts/milestones</a></li></ol></div><footer><span class="repo-name">jordanvalnet/code-dev-intel.ts · relevé le 10 sept. 2026</span><span class="n">ceo · 9 / 9</span></footer></section>
+</body>
+</html>

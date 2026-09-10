@@ -7,3 +7,5 @@ node_modules/
 # Serveur MCP maison abandonné (tag mcp-server-maison) : jamais sur main
 mcp-server/
 .claude/worktrees/
+# Dépôt privé : son cache reste local
+onboard/cache/jordanvalnet__orbase/

@@ -1,0 +1,135 @@
+{
+  "schema": 1,
+  "resets": {},
+  "collectors": {
+    "1b-issues": {
+      "at": "2026-09-10T14:21:42.423Z",
+      "budget": 12,
+      "deadline_s": 60,
+      "calls": 6,
+      "remaining": 6,
+      "ms": 3095,
+      "waited_ms": 0,
+      "made": [
+        {
+          "label": "repo",
+          "tool": "search_repositories",
+          "priority": "P0",
+          "ms": 909,
+          "ok": true
+        },
+        {
+          "label": "issues",
+          "tool": "list_issues",
+          "priority": "P1",
+          "ms": 359,
+          "ok": true
+        },
+        {
+          "label": "pulls",
+          "tool": "list_pull_requests",
+          "priority": "P1",
+          "ms": 381,
+          "ok": true
+        },
+        {
+          "label": "open_prs",
+          "tool": "list_pull_requests",
+          "priority": "P1",
+          "ms": 463,
+          "ok": true
+        },
+        {
+          "label": "open_pr_count",
+          "tool": "search_pull_requests",
+          "priority": "P1",
+          "ms": 502,
+          "ok": true
+        },
+        {
+          "label": "closed_30d",
+          "tool": "list_issues",
+          "priority": "P2",
+          "ms": 471,
+          "ok": true
+        }
+      ],
+      "skipped": []
+    },
+    "1a-meta": {
+      "at": "2026-09-10T14:21:35.096Z",
+      "budget": 12,
+      "deadline_s": 60,
+      "calls": 9,
+      "remaining": 3,
+      "ms": 7028,
+      "waited_ms": 0,
+      "made": [
+        {
+          "label": "repo",
+          "tool": "search_repositories",
+          "priority": "P0",
+          "ms": 938,
+          "ok": true
+        },
+        {
+          "label": "commits",
+          "tool": "list_commits",
+          "priority": "P1",
+          "ms": 736,
+          "ok": true
+        },
+        {
+          "label": "releases",
+          "tool": "list_releases",
+          "priority": "P1",
+          "ms": 553,
+          "ok": true
+        },
+        {
+          "label": "license",
+          "tool": "get_file_contents",
+          "priority": "P1",
+          "ms": 795,
+          "ok": true
+        },
+        {
+          "label": "security",
+          "tool": "get_file_contents",
+          "priority": "P1",
+          "ms": 754,
+          "ok": false
+        },
+        {
+          "label": "security",
+          "tool": "get_file_contents",
+          "priority": "P1",
+          "ms": 750,
+          "ok": false
+        },
+        {
+          "label": "funding",
+          "tool": "get_file_contents",
+          "priority": "P2",
+          "ms": 793,
+          "ok": false
+        },
+        {
+          "label": "codeowners",
+          "tool": "get_file_contents",
+          "priority": "P2",
+          "ms": 891,
+          "ok": false
+        },
+        {
+          "label": "codeowners",
+          "tool": "get_file_contents",
+          "priority": "P2",
+          "ms": 807,
+          "ok": false
+        }
+      ],
+      "skipped": []
+    }
+  }
+}

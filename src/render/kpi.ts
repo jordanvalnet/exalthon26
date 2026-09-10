@@ -33,7 +33,8 @@ const KPIS: Record<string, (f: Facts) => Kpi | undefined> = {
   "issues.by_label.bug": (f) => f.issues?.by_label?.bug !== undefined ? { label: "bugs étiquetés", value: formatNumber(f.issues.by_label.bug) } : undefined,
   "pulls.open": (f) => f.pulls && { label: "PR ouvertes", value: formatNumber(f.pulls.open) },
   "tests.files": (f) => f.tests && { label: "fichiers de test", value: formatNumber(f.tests.files), ...(f.tests.framework ? { hint: f.tests.framework } : {}) },
-  "build.ci": (f) => f.build?.ci?.length ? { label: "workflows CI", value: String(f.build.ci.length) } : undefined,
+  "build.ci": (f) =>
+    f.build?.ci && (f.build.ci.length ? { label: "workflows CI", value: String(f.build.ci.length) } : { label: "intégration continue", value: "aucune" }),
   "deps.count": (f) => f.deps && { label: "dépendances", value: formatNumber(f.deps.count), hint: `${f.deps.runtime.length} en production` },
   "ai_docs.score": (f) => f.ai_docs && { label: "repères pour agents IA", value: `${f.ai_docs.score} / ${f.ai_docs.max}` },
 };

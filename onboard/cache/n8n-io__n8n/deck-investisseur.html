@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>n8n : leader d'audience de l'automatisation, défendu par sa licence et son catalogue plus que par son code</title>
+<style>
+:root {
+  --bg: #f5f5f3; --card: #ffffff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2;
+  --accent: #4f5bd5; --accent-2: #d1495b; --accent-ink: #ffffff;
+  --cover-bg: #17181c; --cover-fg: #ffffff; --cover-muted: #b7bccb;
+  --low: #2e9e6b; --mid: #d99a2b; --high: #d1495b;
+  --font: ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --display: var(--font); --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --radius: 12px; --pad: 40px 48px; --width: 1040px; --min-h: 600px;
+  --h1: 2.8rem; --h2: 1.7rem; --text: 1.02rem; --kpi: 2.6rem;
+}
+* { box-sizing: border-box; }
+html { font-size: 16px; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 1rem/1.55 var(--font); }
+section {
+  position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  max-width: var(--width); margin: 28px auto; padding: var(--pad); min-height: var(--min-h); font-size: var(--text);
+  display: flex; flex-direction: column;
+}
+section > .body { flex: 1; }
+h1 { font: 700 var(--h1)/1.1 var(--display); letter-spacing: -0.01em; margin: 0 0 16px; }
+h2 { font: 700 var(--h2)/1.2 var(--display); margin: 0 0 10px; }
+p { margin: 0 0 10px; }
+ul, ol { margin: 0 0 12px; padding-left: 22px; }
+li { margin: 0 0 6px; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code { font: 0.88em var(--mono); background: var(--bg); padding: 1px 6px; border-radius: 5px; }
+pre { background: #14151a; color: #e8eaf1; padding: 14px 18px; border-radius: 10px; overflow-x: auto; margin: 0 0 14px; font-size: 0.9em; line-height: 1.5; }
+pre code { background: none; padding: 0; color: inherit; font-size: 1em; }
+strong { font-weight: 700; }
+table { border-collapse: collapse; width: 100%; margin: 0 0 14px; font-size: 0.94em; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); border-bottom: 2px solid var(--accent); }
+.level { display: inline-block; padding: 1px 10px; border-radius: 999px; font-size: 0.8em; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.04em; }
+.level.low { background: var(--low); } .level.mid { background: var(--mid); } .level.high { background: var(--high); }
+
+/* Couverture */
+.cover { justify-content: center; background: var(--cover-bg); color: var(--cover-fg); border: 0; }
+.cover h1 code { background: rgba(255,255,255,0.14); color: inherit; padding: 0 0.25em; font-size: 0.85em; }
+.cover a { color: inherit; }
+.cover-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 40px; }
+.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.8rem; font-weight: 700; }
+.date, .repo, .cover-foot { color: var(--cover-muted); font-size: 0.9rem; }
+.repo { font-family: var(--mono); font-size: 1rem; margin: 0 0 12px; }
+.cover .desc { color: var(--cover-muted); font-size: 1.1rem; max-width: 46em; margin-bottom: 32px; }
+.kpis { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; padding: 0; margin: 0 0 32px; }
+.kpis li { border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; padding: 14px 18px; background: rgba(255,255,255,0.05); }
+.kpis b { display: block; font: 700 var(--kpi)/1 var(--display); letter-spacing: -0.02em; margin-bottom: 6px; }
+.kpis span { display: block; font-size: 0.82rem; color: var(--cover-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.kpis b.long { font-size: calc(var(--kpi) * 0.62); padding: 0.25em 0; }
+.kpis small { display: block; font-size: 0.78rem; color: var(--cover-muted); margin-top: 3px; text-transform: none; letter-spacing: 0; }
+.cover-foot { margin: 0; display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* Pages */
+.page header, .finale header { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+.kicker { font: 700 0.78rem/1 var(--mono); color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; }
+.takeaway { margin: 0 0 22px; padding: 14px 20px; border-left: 5px solid var(--accent); background: var(--bg); font-size: 1.12em; font-weight: 600; line-height: 1.45; border-radius: 0 10px 10px 0; }
+.body.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; align-items: start; align-content: start; }
+.body.split .chart-wrap { min-width: 0; }
+.body.stack .chart-wrap { margin-bottom: 20px; }
+footer { display: flex; justify-content: space-between; gap: 12px; margin-top: 26px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.78rem; }
+footer .n { font-family: var(--mono); }
+
+/* Graphiques SVG et listes annotées (charts.ts) */
+.chart { display: block; width: 100%; height: auto; max-width: 640px; margin: 0 0 12px; }
+.chart text { font-family: var(--font); fill: var(--fg); }
+.chart .lbl { font-size: 12px; }
+.chart .val, .chart .tick { font-size: 11px; fill: var(--muted); }
+.chart .bar { fill: var(--accent); }
+.chart .bar.strong { fill: var(--accent-2); }
+.chart .bar.off { fill: var(--line); }
+.chart .dot { fill: var(--accent); }
+.chart .axis { stroke: var(--line); stroke-width: 1; }
+.tree, .risks { list-style: none; margin: 0 0 14px; padding: 0; font-size: 0.92em; }
+.tree li, .risks li { display: flex; gap: 10px; align-items: baseline; padding: 4px 0; border-bottom: 1px solid var(--line); }
+.tree code { flex: 0 0 auto; }
+.tree .more { color: var(--muted); border: 0; font-style: italic; }
+.role { color: var(--muted); font-size: 0.9em; }
+.light { width: 11px; height: 11px; border-radius: 50%; flex: 0 0 auto; background: var(--muted); }
+.light.low { background: var(--low); } .light.mid { background: var(--mid); } .light.high { background: var(--high); }
+
+/* Finale et sources */
+.finale { border: 2px solid var(--accent); }
+.finale .body { font-size: 1.08em; }
+.finale ol, .finale ul { padding-left: 26px; }
+.finale li { margin-bottom: 10px; }
+.refs { min-height: 0; }
+.refs ol { padding-left: 22px; font-size: 0.86rem; column-count: 2; column-gap: 32px; }
+.refs li { margin-bottom: 6px; break-inside: avoid; }
+.note { font-size: 0.68em; }
+.note a { text-decoration: none; padding: 0 1px; }
+
+.p-investisseur { --accent: #1d6b4a; --accent-2: #b8862b; --cover-bg: #ffffff; --cover-fg: #16201b; --cover-muted: #5f6b64; --bg: #f6f6f2; --card: #ffffff; --line: #d9dbd2;
+  --font: Georgia, "Iowan Old Style", "Times New Roman", serif; --display: ui-sans-serif, system-ui, "Segoe UI", Helvetica, Arial, sans-serif; --h1: 2.6rem; --h2: 1.5rem; --text: 1.04rem; --kpi: 2.4rem; --pad: 48px 56px; }
+.p-investisseur .cover { border: 1px solid var(--line); border-top: 18px solid var(--accent); }
+.p-investisseur .cover .eyebrow { color: var(--accent); }
+.p-investisseur .cover h1 { font-weight: 800; letter-spacing: -0.02em; max-width: 18em; }
+.p-investisseur .cover .desc { color: var(--cover-muted); }
+.p-investisseur .kpis { grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--line); border-radius: 0; }
+.p-investisseur .kpis li { border: 0; border-right: 1px solid var(--line); border-radius: 0; background: #f6f6f2; padding: 18px 20px; }
+.p-investisseur .kpis li:last-child { border-right: 0; }
+.p-investisseur .kpis b { color: var(--accent); font-family: var(--display); }
+.p-investisseur .kpis span, .p-investisseur .kpis small { color: var(--cover-muted); }
+.p-investisseur .kicker { font-family: var(--display); color: var(--accent-2); }
+.p-investisseur h2 { border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+.p-investisseur .takeaway { background: none; border: 1px solid var(--line); border-left: 5px solid var(--accent); font-family: var(--display); font-size: 1.02em; }
+.p-investisseur .takeaway::before { content: "Point clé"; display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent); margin-bottom: 4px; font-weight: 700; }
+.p-investisseur table, .p-investisseur .tree, .p-investisseur .risks, .p-investisseur .chart text { font-family: var(--display); }
+.p-investisseur th { border-bottom-color: var(--accent); }
+.p-investisseur .chart .bar.strong { fill: var(--accent-2); }
+.p-investisseur .finale { background: var(--accent); color: #fff; border: 0; }
+.p-investisseur .finale .kicker { color: #e8d59a; }
+.p-investisseur .finale h2 { color: #fff; border-bottom-color: rgba(255,255,255,0.3); }
+.p-investisseur .finale .body { font-size: 1.22em; }
+.p-investisseur .finale .body p { padding-left: 18px; border-left: 3px solid #e8d59a; }
+.p-investisseur .finale a, .p-investisseur .finale .note a { color: #e8d59a; }
+.p-investisseur .finale footer { border-top-color: rgba(255,255,255,0.3); color: #d6e5dc; }
+
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #14151a; --card: #1c1e25; --fg: #eceef3; --muted: #a0a6b4; --line: #2f323c; --low: #4cc38a; --mid: #e5b25d; --high: #ef7f8e; }
+  code { background: #262932; }
+  .p-dev { --accent: #8f97ee; --accent-2: #ef7f8e; }
+  .p-qa { --accent: #35c2a8; --accent-2: #ef7f8e; --bg: #14181a; --cover-bg: #1c2422; --cover-fg: #eef5f2; --cover-muted: #9fb8b0; }
+  .p-qa .kpis li { background: #213230; border-color: #2e4a45; }
+  .p-qa .takeaway, .p-qa .finale { background: #1f2b28; }
+  .p-qa tbody tr:nth-child(odd) { background: #1f2624; }
+  .p-cto { --accent: #7fa6d9; --accent-2: #f0b97a; --bg: #141821; }
+  .p-cto .takeaway { background: #2a2620; }
+  .p-cto .finale { background: #1f3a5f; }
+  .p-ceo { --accent: #dcc27a; --bg: #15171c; --card: #1c1e25; --line: #2f323c; }
+  .p-ceo .finale { background: #14213d; }
+  .p-investisseur { --accent: #5cc493; --accent-2: #dcb25f; --bg: #141816; --card: #1b201d; --line: #2c342f; --cover-bg: #1b201d; --cover-fg: #eef3ef; --cover-muted: #9fb0a6; }
+  .p-investisseur .kpis li { background: #16201b; }
+  .p-investisseur .finale { background: #1d6b4a; }
+}
+
+@media print {
+  @page { size: A4 landscape; margin: 10mm; }
+  html { font-size: 12px; }
+  .p-dev, .p-qa, .p-cto { --text: 0.9rem; }
+  .p-dev .tree, .p-qa .tree, .p-cto .tree { font-size: 0.82em; }
+  .p-ceo { --text: 1rem; }
+  .p-ceo .takeaway { font-size: 1.3rem; margin-bottom: 16px; }
+  .p-ceo .risks li { padding: 2px 0; }
+  .body.split { gap: 22px; }
+  .p-ceo .chart { max-height: 52mm; }
+  .p-enfant .chart { max-height: 60mm; }
+  .takeaway { font-size: 1.05em; padding: 10px 16px; margin-bottom: 14px; }
+  th, td { padding: 5px 10px; }
+  footer { margin-top: 14px; padding-top: 8px; }
+  .refs ol { column-count: 3; font-size: 0.82rem; }
+  .refs li { margin-bottom: 3px; }
+  body { background: #fff; }
+  :root, .p-dev, .p-qa, .p-cto, .p-ceo, .p-investisseur, .p-enfant { --bg: #f5f5f3; --card: #fff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2; }
+  .p-qa { --bg: #f2f7f5; } .p-cto { --bg: #f4f6f9; } .p-ceo { --bg: #f7f5ef; --card: #fffdf8; } .p-investisseur { --bg: #f6f6f2; } .p-enfant { --bg: #fff6e5; --card: #fffdf7; --fg: #2b2118; --muted: #7a6a5a; }
+  .p-ceo { --accent: #14213d; } .p-cto { --accent: #1f3a5f; } .p-dev { --accent: #4f5bd5; } .p-qa { --accent: #0f8f7a; } .p-investisseur { --accent: #1d6b4a; }
+  section { max-width: none; margin: 0; min-height: 178mm; break-after: page; page-break-after: always; box-shadow: none; --pad: 26px 36px; }
+  section:last-child { break-after: auto; page-break-after: auto; }
+  .p-enfant section { box-shadow: none; margin: 0; }
+  .cover { min-height: 178mm; }
+  .refs { min-height: 0; }
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  a { text-decoration: none; }
+}
+</style>
+</head>
+<body class="p-investisseur">
+<section class="cover">
+<div class="cover-top"><span class="eyebrow">Mémo d'investissement</span><span class="date">Données GitHub relevées le 10 sept. 2026</span></div>
+<p class="repo">n8n-io/n8n</p>
+<h1>n8n : leader d'audience de l'automatisation, défendu par sa licence et son catalogue plus que par son code</h1>
+<p class="desc">Fair-code workflow automation platform with native AI capabilities. Combine visual building with custom code, self-host or cloud, 400+ integrations.</p>
+<ul class="kpis"><li><b>203 922</b><span>étoiles GitHub</span></li><li><b>60 629</b><span>forks</span></li><li><b>16</b><span>bus factor</span><small>sur 12 semaines</small></li><li><b>Sustainable Use</b><span>licence</span></li></ul>
+<p class="cover-foot"><span><a href="https://github.com/n8n-io/n8n">https://github.com/n8n-io/n8n</a></span><span>Licence Sustainable Use License</span><span>Onboard · profil investisseur</span></p>
+</section><section class="page">
+<header><span class="kicker">02</span><h2>Quel problème et quel marché ?</h2></header>
+<p class="takeaway">Sept ans d'avance sur un marché — automatisation d'entreprise plus agents IA — dont la barrière à l'entrée est le catalogue de connecteurs, pas la technologie.</p>
+<div class="body"><div class="text"><p>n8n vend l'automatisation des tâches d'entreprise et, désormais, les agents IA : on relie des blocs sur un canevas visuel, on ajoute du code là où il faut, on héberge chez soi ou on prend le service en ligne de l'éditeur.</p>
+<p>Le marché visé se lit dans les mots-clés du dépôt : iPaaS, low-code, no-code, auto-hébergement, MCP.</p>
+<p>L'argument de vente n'est pas le moteur, c'est l'existant : plus de 1 500 intégrations et plus de 9 000 modèles de flux déjà écrits, que tout entrant doit reconstruire.</p>
+<p>Le projet est public depuis le 22 juin 2019 et porté par une organisation, pas par un particulier.</p></div></div>
+<footer><span class="repo-name">n8n-io/n8n · relevé le 10 sept. 2026</span><span class="n">investisseur · 2 / 10</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">03</span><h2>Quelle traction ?</h2></header>
+<p class="takeaway">La traction technique est démontrée et mesurable ; la traction commerciale ne l'est pas ici et reste entièrement à instruire.</p>
+<div class="body split"><div class="chart-wrap"><svg class="chart" viewBox="0 0 640 118" width="640" height="118" role="img" preserveAspectRatio="xMinYMin meet"><line class="axis" x1="40" y1="58" x2="600" y2="58"/><circle class="dot" cx="40" cy="58" r="5"/><text class="lbl" x="40" y="42" text-anchor="middle">n8n@2.37.11</text><text class="tick" x="40" y="28" text-anchor="middle">2026-09-07</text><circle class="dot" cx="102.22222222222223" cy="58" r="5"/><text class="lbl" x="102.22222222222223" y="84" text-anchor="middle">n8n@2.38.4</text><text class="tick" x="102.22222222222223" y="98" text-anchor="middle">2026-09-07</text><circle class="dot" cx="164.44444444444446" cy="58" r="5"/><text class="lbl" x="164.44444444444446" y="42" text-anchor="middle">n8n@2.39.0</text><text class="tick" x="164.44444444444446" y="28" text-anchor="middle">2026-09-08</text><circle class="dot" cx="226.66666666666666" cy="58" r="5"/><text class="lbl" x="226.66666666666666" y="84" text-anchor="middle">n8n@2.39.1</text><text class="tick" x="226.66666666666666" y="98" text-anchor="middle">2026-09-09</text><circle class="dot" cx="288.8888888888889" cy="58" r="5"/><text class="lbl" x="288.8888888888889" y="42" text-anchor="middle">n8n@2.38.5</text><text class="tick" x="288.8888888888889" y="28" text-anchor="middle">2026-09-09</text><circle class="dot" cx="351.1111111111111" cy="58" r="5"/><text class="lbl" x="351.1111111111111" y="84" text-anchor="middle">beta</text><text class="tick" x="351.1111111111111" y="98" text-anchor="middle">2026-09-10</text><circle class="dot" cx="413.3333333333333" cy="58" r="5"/><text class="lbl" x="413.3333333333333" y="42" text-anchor="middle">n8n@2.39.2</text><text class="tick" x="413.3333333333333" y="28" text-anchor="middle">2026-09-10</text><circle class="dot" cx="475.55555555555554" cy="58" r="5"/><text class="lbl" x="475.55555555555554" y="84" text-anchor="middle">n8n@1.123.79</text><text class="tick" x="475.55555555555554" y="98" text-anchor="middle">2026-09-10</text><circle class="dot" cx="537.7777777777778" cy="58" r="5"/><text class="lbl" x="537.7777777777778" y="42" text-anchor="middle">n8n@2.38.6</text><text class="tick" x="537.7777777777778" y="28" text-anchor="middle">2026-09-10</text><circle class="dot" cx="600" cy="58" r="5"/><text class="lbl" x="600" y="84" text-anchor="middle">stable</text><text class="tick" x="600" y="98" text-anchor="middle">2026-09-10</text></svg></div><div class="text"><p>203 922 marque-pages et 60 629 copies du dépôt : à cette échelle, la notoriété n'est plus la question, et la part de gens qui prennent le code plutôt que de simplement le noter est élevée.</p>
+<p>La machine de livraison suit le même régime : dix versions publiées entre le 7 et le 10 septembre 2026, jour du relevé.</p>
+<p>Trois lignes sont maintenues en parallèle — <code>n8n@2.39.2</code>, <code>n8n@2.38.6</code> et <code>n8n@1.123.79</code> le même jour — ce qui est le signe d'une base installée qu'on ne peut plus bousculer.</p>
+<p>Donnée non relevée : chiffre d'affaires, nombre de clients payants, levées de fonds — rien de tout cela ne figure dans le dépôt ; à demander à l'éditeur ou à vérifier sur <a href="https://n8n.io">https://n8n.io</a>.</p></div></div>
+<footer><span class="repo-name">n8n-io/n8n · relevé le 10 sept. 2026</span><span class="n">investisseur · 3 / 10</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">04</span><h2>Quelle dynamique ?</h2></header>
+<p class="takeaway">Rythme élevé et roadmap assumée, y compris ses ruptures ; la courbe ne montre que les deux dernières semaines, pas une décélération.</p>
+<div class="body split"><div class="chart-wrap"><svg class="chart" viewBox="0 0 640 172" width="640" height="172" role="img" preserveAspectRatio="xMinYMin meet"><line class="axis" x1="34" y1="138" x2="628" y2="138"/><text class="tick" x="28" y="22" text-anchor="end">254</text><text class="tick" x="28" y="138" text-anchor="end">0</text><rect class="bar" x="43.9" y="138" width="29.7" height="1" rx="2"><title>2026-W26 : 0</title></rect><text class="tick" x="58.75" y="154" text-anchor="middle">W26</text><rect class="bar" x="93.4" y="138" width="29.7" height="1" rx="2"><title>2026-W27 : 0</title></rect><rect class="bar" x="142.9" y="138" width="29.7" height="1" rx="2"><title>2026-W28 : 0</title></rect><text class="tick" x="157.75" y="154" text-anchor="middle">W28</text><rect class="bar" x="192.4" y="138" width="29.7" height="1" rx="2"><title>2026-W29 : 0</title></rect><rect class="bar" x="241.9" y="138" width="29.7" height="1" rx="2"><title>2026-W30 : 0</title></rect><text class="tick" x="256.75" y="154" text-anchor="middle">W30</text><rect class="bar" x="291.4" y="138" width="29.7" height="1" rx="2"><title>2026-W31 : 0</title></rect><rect class="bar" x="340.9" y="138" width="29.7" height="1" rx="2"><title>2026-W32 : 0</title></rect><text class="tick" x="355.75" y="154" text-anchor="middle">W32</text><rect class="bar" x="390.4" y="138" width="29.7" height="1" rx="2"><title>2026-W33 : 0</title></rect><rect class="bar" x="439.9" y="138" width="29.7" height="1" rx="2"><title>2026-W34 : 0</title></rect><text class="tick" x="454.75" y="154" text-anchor="middle">W34</text><rect class="bar" x="489.4" y="138" width="29.7" height="1" rx="2"><title>2026-W35 : 0</title></rect><rect class="bar" x="538.9" y="16" width="29.7" height="122" rx="2"><title>2026-W36 : 246</title></rect><text class="tick" x="553.75" y="154" text-anchor="middle">W36</text><rect class="bar" x="588.4" y="12" width="29.7" height="126" rx="2"><title>2026-W37 : 254</title></rect></svg></div><div class="text"><p>246 puis 254 changements sur les deux dernières semaines relevées, et un dernier changement le jour même du relevé : le projet tourne à plein régime.</p>
+<p>Le flux de contributions est industriel : 756 propositions de modification ouvertes, 375 tickets ouverts et 300 fermés sur trente jours — on traite autant qu'on reçoit.</p>
+<p>La direction est lisible dans les travaux en cours : une comparaison « 3.x » déjà ouverte et la suppression assumée d'un nœud existant, donc des ruptures programmées pour les clients.</p>
+<p>Limite du relevé, à lire avec le graphique : seuls les 500 derniers changements ont été relevés, ce qui couvre deux semaines ; les dix semaines antérieures apparaissent à zéro faute de données, elles ne sont pas vides.</p></div></div>
+<footer><span class="repo-name">n8n-io/n8n · relevé le 10 sept. 2026</span><span class="n">investisseur · 4 / 10</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">05</span><h2>Quelle équipe et quelle gouvernance ?</h2></header>
+<p class="takeaway">Éditeur structuré, risque d'homme-clé faible et propriété intellectuelle consolidée par l'accord contributeur : la gouvernance ne s'oppose pas à une opération.</p>
+<div class="body split"><div class="chart-wrap"><svg class="chart" viewBox="0 0 640 252" width="640" height="252" role="img" preserveAspectRatio="xMinYMin meet"><text class="lbl" x="168" y="21" text-anchor="end">bjorger</text><rect class="bar strong" x="178" y="10" width="398" height="14" rx="3"/><text class="val" x="582" y="21">24</text><text class="lbl" x="168" y="45" text-anchor="end">shortstacked</text><rect class="bar strong" x="178" y="34" width="365" height="14" rx="3"/><text class="val" x="549" y="45">22</text><text class="lbl" x="168" y="69" text-anchor="end">guillaumejacquart</text><rect class="bar strong" x="178" y="58" width="348" height="14" rx="3"/><text class="val" x="532" y="69">21</text><text class="lbl" x="168" y="93" text-anchor="end">looorent</text><rect class="bar strong" x="178" y="82" width="282" height="14" rx="3"/><text class="val" x="466" y="93">17</text><text class="lbl" x="168" y="117" text-anchor="end">Matsuuu</text><rect class="bar strong" x="178" y="106" width="265" height="14" rx="3"/><text class="val" x="449" y="117">16</text><text class="lbl" x="168" y="141" text-anchor="end">r00gm</text><rect class="bar strong" x="178" y="130" width="249" height="14" rx="3"/><text class="val" x="433" y="141">15</text><text class="lbl" x="168" y="165" text-anchor="end">heymynameisrob</text><rect class="bar strong" x="178" y="154" width="232" height="14" rx="3"/><text class="val" x="416" y="165">14</text><text class="lbl" x="168" y="189" text-anchor="end">Flexicon</text><rect class="bar strong" x="178" y="178" width="216" height="14" rx="3"/><text class="val" x="400" y="189">13</text><text class="lbl" x="168" y="213" text-anchor="end">uddish</text><rect class="bar strong" x="178" y="202" width="182" height="14" rx="3"/><text class="val" x="366" y="213">11</text><text class="lbl" x="168" y="237" text-anchor="end">Cadiac</text><rect class="bar strong" x="178" y="226" width="182" height="14" rx="3"/><text class="val" x="366" y="237">11</text></svg></div><div class="text"><p>Le bus factor est de 16 : il faudrait perdre seize personnes pour perdre la moitié du travail récent — c'est le contraire d'une dépendance à un homme-clé.</p>
+<p>Le premier contributeur ne pèse que 24 changements sur la période, et les dix premiers sont serrés entre 24 et 11 : la charge est répartie, y compris au sommet.</p>
+<p>La gouvernance est celle d'un éditeur, pas d'une communauté : propriétaires de code déclarés, politique de sécurité publiée, et un accord de licence contributeur à signer qui garde la propriété intellectuelle chez l'éditeur.</p>
+<p>Le fondateur et dirigeant, Jan Oberhauser, est identifié publiquement dans la présentation du projet.</p></div></div>
+<footer><span class="repo-name">n8n-io/n8n · relevé le 10 sept. 2026</span><span class="n">investisseur · 5 / 10</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">06</span><h2>Quelle concurrence ?</h2></header>
+<p class="takeaway">Le dossier concurrentiel est à monter hors du dépôt ; la barrière observable est le catalogue et la base installée, pas la propriété du code.</p>
+<div class="body"><div class="text"><p>Donnée non relevée : la liste des projets comparables et leurs chiffres n'a pas été prise lors de ce relevé ; à instruire à partir de <a href="https://github.com/topics/ai">https://github.com/topics/ai</a> et des catégories iPaaS du marché<sup class="note"><a href="#note-1">1</a></sup>.</p>
+<p>Ce qui est relevé, c'est le positionnement revendiqué : le projet se range lui-même dans l'iPaaS, le low-code et l'auto-hébergement, et se déclare à la fois client et serveur MCP — donc au centre du raccordement des agents IA aux outils d'entreprise.</p>
+<p>L'argument anti-concurrence est explicite : liberté de modèle — OpenAI, Anthropic, Google ou modèles ouverts — et changement de fournisseur sans refonte, ce qui déplace l'enfermement du modèle vers la plateforme.</p>
+<p>La défendabilité réelle tient donc à trois actifs non copiables rapidement : le catalogue d'intégrations, la base installée et la marque ; le moteur, lui, est visible par tous.</p></div></div>
+<footer><span class="repo-name">n8n-io/n8n · relevé le 10 sept. 2026</span><span class="n">investisseur · 6 / 10</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">07</span><h2>Licence, financement, risques ?</h2></header>
+<p class="takeaway">Le risque principal n'est ni technique ni humain : il est juridique, et il est aussi la principale protection du modèle économique.</p>
+<div class="body split"><div class="chart-wrap"><ul class="risks"><li><span class="light mid" aria-hidden="true"></span><b>license</b><span class="role">Licence non standard « Sustainable Use License » : lire LICENSE.md avant tout usage.</span></li><li><span class="light low" aria-hidden="true"></span><b>deps</b><span class="role">package.json racine : 28 devDependencies, aucun bloc dependencies ; les dépendances runtime sont déclarées dans chaque package du monorepo (pnpm-workspace.yaml, pnpm-lock.yaml)</span></li><li><span class="light low" aria-hidden="true"></span><b>ci</b><span class="role">ci-pull-requests.yml tourne sur pull_request et merge_group : build, tests unitaires, typecheck, lint, packaging, e2e ; nombreux autres workflows (release, sécurité, nightly) dans .github/w…</span></li></ul></div><div class="text"><p>La licence est le point dur du dossier : « Sustainable Use License », non standard, qui limite l'usage au périmètre interne ou non commercial et n'autorise la redistribution qu'à titre gratuit.</p>
+<p>Elle protège l'éditeur — aucun hébergeur ne peut revendre le produit tel quel — mais elle est aussi ce qui écarte le projet des usages « open source » standards, et elle réserve les fichiers d'édition entreprise à une licence payante distincte.</p>
+<p>Aucun fichier de financement ne figure dans le dépôt : le modèle économique affiché est la licence entreprise et le service en ligne, pas le don.</p>
+<p>Côté sécurité, la politique existe et renvoie vers un programme de divulgation de vulnérabilités ; en revanche les vulnérabilités publiées n'ont pas été relevées ici, à vérifier sur <a href="https://github.com/n8n-io/n8n/security/advisories">https://github.com/n8n-io/n8n/security/advisories</a><sup class="note"><a href="#note-2">2</a></sup>.</p>
+<p>Trois risques ont été relevés, un seul de niveau moyen — la licence ; l'industrialisation (intégration continue, dépendances) ne présente rien d'alarmant.</p></div></div>
+<footer><span class="repo-name">n8n-io/n8n · relevé le 10 sept. 2026</span><span class="n">investisseur · 7 / 10</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">08</span><h2>Pourquoi oui, pourquoi non ?</h2></header>
+<p class="takeaway">Le dossier se joue sur deux vérifications hors dépôt : les comptes de l'éditeur et l'avis d'un juriste sur la licence.</p>
+<div class="body"><div class="text"><table><thead><tr><th>Pourquoi oui</th><th>Pourquoi non</th></tr></thead><tbody><tr><td>Position d'audience dominante : 203 922 marque-pages, 60 629 copies</td><td>Aucun chiffre financier vérifiable dans le dépôt : traction commerciale non démontrée ici</td></tr><tr><td>Exécution soutenue : dix versions en quatre jours, trois lignes maintenues en parallèle</td><td>Dette de compatibilité : trois lignes à maintenir, ruptures « 3.x » déjà engagées</td></tr><tr><td>Risque d'homme-clé faible : bus factor de 16, charge répartie</td><td>Licence non standard : diligence juridique obligatoire avant tout usage ou revente</td></tr><tr><td>Modèle économique clair : licence entreprise et service en ligne, pas de dépendance aux dons</td><td>Charge de support visible : 375 tickets ouverts, 756 modifications en attente</td></tr><tr><td>Placé au centre des agents IA : client et serveur MCP revendiqués</td><td>Concurrence non instruite lors de ce relevé, à documenter avant décision<sup class="note"><a href="#note-1">1</a></sup></td></tr></tbody></table></div></div>
+<footer><span class="repo-name">n8n-io/n8n · relevé le 10 sept. 2026</span><span class="n">investisseur · 8 / 10</span></footer>
+</section><section class="finale">
+<header><span class="kicker">investisseur</span><h2>Thèse en 3 lignes</h2></header>
+
+<div class="body"><div class="text"><ol><li>Actif de premier plan sur un marché porteur : 203 922 marque-pages, 60 629 copies, une organisation qui livre dix versions en quatre jours et ne dépend d'aucun homme-clé — bus factor de 16.</li><li>La défendabilité est commerciale et juridique — catalogue de plus de 1 500 intégrations, base installée, licence qui interdit la revente par un tiers — et non technique, le code étant lisible par tous.</li><li>Verdict : avis favorable sous deux conditions suspensives — obtenir les chiffres financiers, absents du dépôt, et faire valider la « Sustainable Use License » par un juriste avant tout engagement.</li></ol></div></div>
+<footer><span class="repo-name">n8n-io/n8n · relevé le 10 sept. 2026</span><span class="n">investisseur · 9 / 10</span></footer>
+</section><section class="refs"><header><span class="kicker">références publiques</span><h2>Sources</h2></header><div class="body"><ol class="sources"><li id="note-1"><a href="https://github.com/topics/ai">https://github.com/topics/ai</a></li><li id="note-2"><a href="https://github.com/n8n-io/n8n/security/advisories">https://github.com/n8n-io/n8n/security/advisories</a></li></ol></div><footer><span class="repo-name">n8n-io/n8n · relevé le 10 sept. 2026</span><span class="n">investisseur · 10 / 10</span></footer></section>
+</body>
+</html>

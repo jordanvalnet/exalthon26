@@ -1,0 +1,96 @@
+{
+  "tree": [
+    { "path": ".actrc", "type": "file", "role": "config act, Actions en local" },
+    { "path": ".agents", "type": "dir", "role": "règles de revue pour agents IA" },
+    { "path": ".aikido", "type": "file", "role": "config scanner sécurité Aikido" },
+    { "path": ".boundaries-baseline.json", "type": "file", "role": "base des frontières entre packages" },
+    { "path": ".claude", "type": "dir", "role": "config Claude Code" },
+    { "path": ".code-health-baseline.json", "type": "file", "role": "base de santé du code" },
+    { "path": ".devcontainer", "type": "dir", "role": "environnement de dev conteneurisé" },
+    { "path": ".dockerignore", "type": "file", "role": "exclusions du build Docker" },
+    { "path": ".editorconfig", "type": "file", "role": "réglages d'éditeur partagés" },
+    { "path": ".env.eval.example", "type": "file", "role": "exemple d'env pour les évals" },
+    { "path": ".env.local.example", "type": "file", "role": "exemple d'env local" },
+    { "path": ".git-blame-ignore-revs", "type": "file", "role": "commits ignorés par git blame" },
+    { "path": ".gitattributes", "type": "file", "role": "attributs git" },
+    { "path": ".githooks", "type": "dir", "role": "hooks git" },
+    { "path": ".github", "type": "dir", "role": "workflows CI, actions, scripts" },
+    { "path": ".gitignore", "type": "file", "role": "exclusions git" },
+    { "path": ".npmignore", "type": "file", "role": "exclusions de publication npm" },
+    { "path": ".opencode", "type": "dir", "role": "config agent OpenCode" },
+    { "path": ".poutine.yml", "type": "file", "role": "config sécurité CI Poutine" },
+    { "path": ".prettierignore", "type": "file", "role": "exclusions Prettier" },
+    { "path": ".prettierrc.js", "type": "file", "role": "config Prettier" },
+    { "path": ".tbls.postgres.yml", "type": "file", "role": "doc du schéma BDD Postgres" },
+    { "path": ".tbls.sqlite.yml", "type": "file", "role": "doc du schéma BDD SQLite" },
+    { "path": ".vscode", "type": "dir", "role": "réglages VS Code" },
+    { "path": "AGENTS.md", "type": "file", "role": "consignes pour agents IA" },
+    { "path": "CHANGELOG.md", "type": "file", "role": "journal des versions" },
+    { "path": "CLAUDE.md", "type": "file", "role": "consignes Claude Code" },
+    { "path": "CODE_OF_CONDUCT.md", "type": "file", "role": "code de conduite" },
+    { "path": "CONTRIBUTING.md", "type": "file", "role": "guide de contribution" },
+    { "path": "CONTRIBUTOR_LICENSE_AGREEMENT.md", "type": "file", "role": "accord de licence contributeur" },
+    { "path": "LICENSE.md", "type": "file", "role": "licence du projet" },
+    { "path": "LICENSE_EE.md", "type": "file", "role": "licence édition entreprise" },
+    { "path": "OWNERS", "type": "file", "role": "propriétaires du code par zone" },
+    { "path": "README.md", "type": "file", "role": "présentation du projet" },
+    { "path": "SECURITY.md", "type": "file", "role": "politique de sécurité" },
+    { "path": "assets", "type": "dir", "role": "images et ressources" },
+    { "path": "biome.jsonc", "type": "file", "role": "config du linter Biome" },
+    { "path": "codecov.yml", "type": "file", "role": "config couverture Codecov" },
+    { "path": "cubic.yaml", "type": "file", "role": "config de revue Cubic" },
+    { "path": "docker", "type": "dir", "role": "images Docker" },
+    { "path": "docs", "type": "dir", "role": "documentation et schémas générés" },
+    { "path": "lefthook.yml", "type": "file", "role": "hooks git via Lefthook" },
+    { "path": "package.json", "type": "file", "role": "manifeste racine, scripts pnpm" },
+    { "path": "packages", "type": "dir", "role": "code source, monorepo pnpm" },
+    { "path": "patches", "type": "dir", "role": "patches de dépendances pnpm" },
+    { "path": "pnpm-lock.yaml", "type": "file", "role": "verrou des dépendances" },
+    { "path": "pnpm-workspace.yaml", "type": "file", "role": "workspaces et catalogue pnpm" },
+    { "path": "scripts", "type": "dir", "role": "scripts de build et de dev" },
+    { "path": "security", "type": "dir", "role": "outillage sécurité" },
+    { "path": "tsconfig.configs.json", "type": "file", "role": "config TypeScript des configs" },
+    { "path": "tsconfig.json", "type": "file", "role": "config TypeScript racine" },
+    { "path": "turbo.json", "type": "file", "role": "pipeline de tâches Turborepo" },
+    { "path": "vitest.workspace.ts", "type": "file", "role": "workspace de tests Vitest" }
+  ],
+  "entrypoints": [
+    { "path": "packages/cli/bin/n8n", "why": "Binaire n8n visé par les scripts start, webhook et worker du package.json : vérifie la version de Node, charge dist/config puis CommandRegistry" },
+    { "path": "packages/cli/src", "why": "Backend n8n, cible de pnpm dev:be (filtre n8n)" },
+    { "path": "packages/frontend", "why": "Éditeur web editor-ui, cible de pnpm dev:fe:editor (filtre n8n-editor-ui)" },
+    { "path": "packages/core", "why": "Moteur d'exécution des workflows, package n8n-core" },
+    { "path": "packages/nodes-base", "why": "Nœuds intégrés fournis avec n8n" }
+  ],
+  "build": {
+    "ci": [
+      {
+        "name": "CI: Pull Requests (Build, Test, Lint)",
+        "path": ".github/workflows/ci-pull-requests.yml",
+        "triggers": ["pull_request", "merge_group"]
+      }
+    ]
+  },
+  "tests": {
+    "dir": "packages/cli/test",
+    "framework": "Vitest (unit, integration, migration) et Playwright pour l'e2e",
+    "files": 10
+  },
+  "deps": {
+    "manifest": "package.json",
+    "count": 28,
+    "runtime": []
+  },
+  "risks": [
+    {
+      "kind": "deps",
+      "level": "low",
+      "note": "package.json racine : 28 devDependencies, aucun bloc dependencies ; les dépendances runtime sont déclarées dans chaque package du monorepo (pnpm-workspace.yaml, pnpm-lock.yaml)"
+    },
+    {
+      "kind": "ci",
+      "level": "low",
+      "note": "ci-pull-requests.yml tourne sur pull_request et merge_group : build, tests unitaires, typecheck, lint, packaging, e2e ; nombreux autres workflows (release, sécurité, nightly) dans .github/workflows"
+    }
+  ],
+  "collected": { "by": "1d-code", "at": "2026-09-10T14:09:20Z" }
+}

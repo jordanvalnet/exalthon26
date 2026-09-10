@@ -1,0 +1,49 @@
+# Glossaire n8n-io/n8n
+
+- **fair-code** : modèle de distribution où le code est visible et auto-hébergeable mais sous une licence qui restreint l'usage commercial ; c'est celui que le README de n8n revendique [src:readme.md].
+- **Sustainable Use License** : la licence principale de n8n selon le README, à lire dans `LICENSE.md` avant tout usage commercial ; `LICENSE_EE.md` couvre l'édition entreprise [src:readme.md].
+- **workflow** : enchaînement de nœuds que n8n exécute, dessiné sur le canevas visuel ou complété par du code [src:readme.md].
+- **nœud (node)** : brique d'un workflow (déclencheur, intégration, code) ; les nœuds intégrés vivent dans `packages/nodes-base`, `packages/node-dev` aide à en créer [src:contributing.md].
+- **trigger (déclencheur)** : nœud qui démarre un workflow, par webhook, planification, chat ou e-mail ; plusieurs issues chaudes portent sur les triggers [facts:issues.hot.1.title].
+- **monorepo pnpm workspaces** : un seul dépôt, plusieurs packages liés entre eux par pnpm ; `pnpm-workspace.yaml` les déclare [src:contributing.md] [src:tree.md].
+- **Turborepo (turbo)** : orchestrateur de tâches du monorepo ; `pnpm build`, `pnpm test` et `pnpm lint` sont des `turbo run …` [src:manifest.md].
+- **Vitest** : lanceur des tests unitaires et d'intégration, une config par package (`packages/cli/vitest.config.*.ts`) [src:tests.md].
+- **Playwright** : outil des tests end-to-end, dans `packages/testing`, lancé en CI par le job e2e [src:tests.md] [src:ci.md].
+- **Testcontainers** : lance des instances n8n en conteneurs (SQLite, Postgres, queue, multi-main) pour tester une configuration [src:contributing.md].
+- **queue mode / worker** : mode où l'exécution des workflows est déléguée à des processus `n8n worker` ; script `worker` du `package.json` racine [src:manifest.md].
+- **task runner** : processus séparé qui exécute le code des nœuds, lancé par `task-runner-launcher`, mis à jour régulièrement [facts:pulls.merged_30d.1.title].
+- **Linear** : outil de tickets interne de n8n ; le label `status:in-linear` dit qu'une issue GitHub y est suivie [src:ai-docs.md] [facts:issues.by_label].
+- **CLA (Contributor License Agreement)** : accord à signer avant qu'une contribution soit acceptée ; `CONTRIBUTOR_LICENSE_AGREEMENT.md` à la racine, vérifié par `ci-cla-check.yml` [src:tree.md] [src:ci.md].
+- **stacked PR** : découpage d'un gros changement en PR empilées, via `gh stack`, décrit dans le guide de contribution [src:contributing.md].
+- **backport** : report d'un correctif de `master` vers une branche de release (`release-candidate/2.38.x`, `2.39.x`, `1.x`) [facts:pulls.merged_30d.3.title].
+- **bus factor** : nombre minimal de contributeurs qui totalisent la moitié des commits récents ; 16 pour n8n sur les semaines relevées [facts:activity.bus_factor].
+- **MCP (Model Context Protocol)** : protocole d'outils pour les agents IA ; n8n est à la fois client et serveur MCP, sujet de plusieurs issues chaudes [facts:repo.topics] [facts:issues.hot.3.title].
+- **agent IA** : programme qui reçoit un objectif, choisit lui-même les outils à appeler et enchaîne les étapes ; c'est ce que n8n revendique construire et mettre en production [facts:repo.description] [src:readme.md].
+- **connecteur (intégration)** : raccordement prêt à l'emploi vers un logiciel du marché ; le README en annonce plus de 1 500 [src:readme.md].
+- **auto-hébergement (self-hosted)** : installer le produit sur ses propres serveurs plutôt que d'utiliser le service en ligne de l'éditeur, pour garder les données chez soi [src:readme.md] [facts:repo.topics].
+- **licence entreprise** : contrat payant vendu à côté de la version ouverte, qui débloque des fonctions et du support ; c'est le modèle économique affiché par n8n [src:readme.md] [facts:repo.license].
+- **étoile (star)** : marque-page public qu'un utilisateur pose sur un projet ; indicateur de notoriété, pas de chiffre d'affaires — n8n en compte 203 921 [facts:repo.stars].
+- **copie du projet (fork)** : duplication du projet sur le compte de quelqu'un d'autre, pour l'adapter ou y contribuer ; n8n en compte 60 629 [facts:repo.forks].
+- **automatisation** : faire faire à une machine une tâche répétitive qu'on ferait sinon à la main, chaque fois de la même façon [facts:repo.description].
+- **nodemation** : le nom complet dont vient « n8n », fabriqué avec « node » (le bloc qu'on relie) et « automation » (automatisation) [src:readme.md].
+- **changement (commit)** : une modification enregistrée dans le projet, avec son auteur et sa date ; 251 sur une semaine relevée, puis 249 sur la suivante [facts:activity.commits_per_week].
+- **circuit tout prêt (template)** : un enchaînement de blocs déjà construit par quelqu'un d'autre, à copier au lieu de repartir de zéro ; le README en annonce plus de 9 000 [src:readme.md].
+- **merge queue (`merge_group`)** : file d'attente qui rejoue la CI sur la fusion réelle avant d'intégrer une PR ; `ci-pull-requests.yml` se déclenche dessus autant que sur `pull_request` [facts:build.ci.0.path] [src:ci.md].
+- **required checks** : job final qui bloque le merge tant que tous les contrôles de la CI ne sont pas verts ; présent dans `ci-pull-requests.yml` [src:ci.md].
+- **baseline gelée** : instantané de la dette existante que la CI interdit d'aggraver ; `.boundaries-baseline.json` pour les frontières entre packages, `.code-health-baseline.json` pour la santé du code [src:tree.md].
+- **SBOM (Software Bill of Materials)** : inventaire machine de tous les composants tiers d'une livraison, généré ici en CI (`sbom-generation-callable.yml`) ; c'est là que se lit l'inventaire runtime, pas dans le manifeste racine [src:ci.md] [facts:deps.runtime].
+- **patch pnpm** : correctif local appliqué à une dépendance tierce au moment de l'installation, stocké dans `patches/` ; pratique mais à rejouer à chaque montée de version [src:tree.md].
+- **fichier `.ee.`** : fichier dont le nom contient `.ee.` ou le dossier `.ee`, exclu de la Sustainable Use License et réservé aux détenteurs d'une licence entreprise [src:license.md].
+- **canal de version (`stable`, `beta`)** : tag mobile qui pointe vers la dernière version d'une ligne, à distinguer d'une version épinglée comme `n8n@2.39.2` [facts:releases] [facts:releases.0.tag].
+- **`ci-filter`** : étape qui compare les fichiers modifiés à des filtres et décide quels étages de la CI tournent (`unit`, `e2e`, `db`, `db-migrations`…) ; c'est elle qui rend un « tout vert » partiel [src:ci.md].
+- **test de migration** : test qui rejoue les migrations de base de données sur une base réelle ; `packages/cli/test/migration` et les configurations `vitest.config.migration*.ts` lui sont dédiés [src:tests.md].
+- **test de mutation** : technique qui injecte des fautes dans le code pour vérifier que les tests les détectent ; `@stryker-mutator/vitest-runner` est déclaré à la racine [src:tests.md].
+- **Codecov** : service qui mesure la part de code exécutée par les tests ; `codecov.yml` est à la racine mais aucun taux n'est publié dans le dépôt [src:tests.md] [src:tree.md].
+- **`Needs Feedback`** : label des issues bloquées faute de reproduction — 41 ouvertes ; avec `triage:needs-info`, la meilleure cible pour un testeur qui arrive [facts:issues.by_label].
+- **multi-main** : configuration où plusieurs instances principales tournent en parallèle derrière la même base ; testable en local par `pnpm --filter n8n-containers stack:multi-main` [src:contributing.md].
+- **e2e impact map** : table qui relie une zone du code aux tests end-to-end à rejouer ; elle est mise à jour par des pull requests régulières [facts:pulls.merged_30d].
+- **iPaaS** : catégorie de logiciels dont le métier est de raccorder entre eux les outils d'une entreprise ; n8n s'y range lui-même dans ses mots-clés [facts:repo.topics].
+- **low-code / no-code** : manière de construire un programme en assemblant des blocs au lieu d'écrire du code, en gardant la possibilité d'en ajouter [facts:repo.topics] [src:readme.md].
+- **CODEOWNERS** : fichier qui désigne, zone du code par zone, qui doit relire un changement avant qu'il soit accepté ; il existe dans ce dépôt [facts:business.codeowners].
+- **programme de divulgation de vulnérabilités** : canal officiel par lequel un tiers signale une faille à l'éditeur au lieu de la publier ; `SECURITY.md` y renvoie [src:security.md].
+- **bus factor de 16** : il faudrait perdre seize personnes pour perdre la moitié du travail récent ; plus le nombre est élevé, moins le projet dépend d'un individu [facts:activity.bus_factor].

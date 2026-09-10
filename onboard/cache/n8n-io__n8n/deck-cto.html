@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>n8n : ingénierie solide, cadence industrielle, une seule vraie contrainte — la licence. Adopter en auto-hébergé, ne pas forker.</title>
+<style>
+:root {
+  --bg: #f5f5f3; --card: #ffffff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2;
+  --accent: #4f5bd5; --accent-2: #d1495b; --accent-ink: #ffffff;
+  --cover-bg: #17181c; --cover-fg: #ffffff; --cover-muted: #b7bccb;
+  --low: #2e9e6b; --mid: #d99a2b; --high: #d1495b;
+  --font: ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --display: var(--font); --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --radius: 12px; --pad: 40px 48px; --width: 1040px; --min-h: 600px;
+  --h1: 2.8rem; --h2: 1.7rem; --text: 1.02rem; --kpi: 2.6rem;
+}
+* { box-sizing: border-box; }
+html { font-size: 16px; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 1rem/1.55 var(--font); }
+section {
+  position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  max-width: var(--width); margin: 28px auto; padding: var(--pad); min-height: var(--min-h); font-size: var(--text);
+  display: flex; flex-direction: column;
+}
+section > .body { flex: 1; }
+h1 { font: 700 var(--h1)/1.1 var(--display); letter-spacing: -0.01em; margin: 0 0 16px; }
+h2 { font: 700 var(--h2)/1.2 var(--display); margin: 0 0 10px; }
+p { margin: 0 0 10px; }
+ul, ol { margin: 0 0 12px; padding-left: 22px; }
+li { margin: 0 0 6px; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code { font: 0.88em var(--mono); background: var(--bg); padding: 1px 6px; border-radius: 5px; }
+pre { background: #14151a; color: #e8eaf1; padding: 14px 18px; border-radius: 10px; overflow-x: auto; margin: 0 0 14px; font-size: 0.9em; line-height: 1.5; }
+pre code { background: none; padding: 0; color: inherit; font-size: 1em; }
+strong { font-weight: 700; }
+table { border-collapse: collapse; width: 100%; margin: 0 0 14px; font-size: 0.94em; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); border-bottom: 2px solid var(--accent); }
+.level { display: inline-block; padding: 1px 10px; border-radius: 999px; font-size: 0.8em; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.04em; }
+.level.low { background: var(--low); } .level.mid { background: var(--mid); } .level.high { background: var(--high); }
+
+/* Couverture */
+.cover { justify-content: center; background: var(--cover-bg); color: var(--cover-fg); border: 0; }
+.cover h1 code { background: rgba(255,255,255,0.14); color: inherit; padding: 0 0.25em; font-size: 0.85em; }
+.cover a { color: inherit; }
+.cover-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 40px; }
+.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.8rem; font-weight: 700; }
+.date, .repo, .cover-foot { color: var(--cover-muted); font-size: 0.9rem; }
+.repo { font-family: var(--mono); font-size: 1rem; margin: 0 0 12px; }
+.cover .desc { color: var(--cover-muted); font-size: 1.1rem; max-width: 46em; margin-bottom: 32px; }
+.kpis { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; padding: 0; margin: 0 0 32px; }
+.kpis li { border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; padding: 14px 18px; background: rgba(255,255,255,0.05); }
+.kpis b { display: block; font: 700 var(--kpi)/1 var(--display); letter-spacing: -0.02em; margin-bottom: 6px; }
+.kpis span { display: block; font-size: 0.82rem; color: var(--cover-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.kpis b.long { font-size: calc(var(--kpi) * 0.62); padding: 0.25em 0; }
+.kpis small { display: block; font-size: 0.78rem; color: var(--cover-muted); margin-top: 3px; text-transform: none; letter-spacing: 0; }
+.cover-foot { margin: 0; display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* Pages */
+.page header, .finale header { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+.kicker { font: 700 0.78rem/1 var(--mono); color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; }
+.takeaway { margin: 0 0 22px; padding: 14px 20px; border-left: 5px solid var(--accent); background: var(--bg); font-size: 1.12em; font-weight: 600; line-height: 1.45; border-radius: 0 10px 10px 0; }
+.body.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; align-items: start; align-content: start; }
+.body.split .chart-wrap { min-width: 0; }
+.body.stack .chart-wrap { margin-bottom: 20px; }
+footer { display: flex; justify-content: space-between; gap: 12px; margin-top: 26px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.78rem; }
+footer .n { font-family: var(--mono); }
+
+/* Graphiques SVG et listes annotées (charts.ts) */
+.chart { display: block; width: 100%; height: auto; max-width: 640px; margin: 0 0 12px; }
+.chart text { font-family: var(--font); fill: var(--fg); }
+.chart .lbl { font-size: 12px; }
+.chart .val, .chart .tick { font-size: 11px; fill: var(--muted); }
+.chart .bar { fill: var(--accent); }
+.chart .bar.strong { fill: var(--accent-2); }
+.chart .bar.off { fill: var(--line); }
+.chart .dot { fill: var(--accent); }
+.chart .axis { stroke: var(--line); stroke-width: 1; }
+.tree, .risks { list-style: none; margin: 0 0 14px; padding: 0; font-size: 0.92em; }
+.tree li, .risks li { display: flex; gap: 10px; align-items: baseline; padding: 4px 0; border-bottom: 1px solid var(--line); }
+.tree code { flex: 0 0 auto; }
+.tree .more { color: var(--muted); border: 0; font-style: italic; }
+.role { color: var(--muted); font-size: 0.9em; }
+.light { width: 11px; height: 11px; border-radius: 50%; flex: 0 0 auto; background: var(--muted); }
+.light.low { background: var(--low); } .light.mid { background: var(--mid); } .light.high { background: var(--high); }
+
+/* Finale et sources */
+.finale { border: 2px solid var(--accent); }
+.finale .body { font-size: 1.08em; }
+.finale ol, .finale ul { padding-left: 26px; }
+.finale li { margin-bottom: 10px; }
+.refs { min-height: 0; }
+.refs ol { padding-left: 22px; font-size: 0.86rem; column-count: 2; column-gap: 32px; }
+.refs li { margin-bottom: 6px; break-inside: avoid; }
+.note { font-size: 0.68em; }
+.note a { text-decoration: none; padding: 0 1px; }
+
+.p-cto { --accent: #1f3a5f; --accent-2: #c9772e; --cover-bg: #1f3a5f; --cover-fg: #ffffff; --cover-muted: #b9c7dc; --bg: #f4f6f9; --h1: 2.5rem; --h2: 1.5rem; --text: 0.98rem; }
+.p-cto .cover { background: linear-gradient(135deg, #1f3a5f 0%, #17304f 60%, #24466f 100%); }
+.p-cto .cover .eyebrow { color: #f0b97a; }
+.p-cto .cover h1 { border-left: 6px solid var(--accent-2); padding-left: 20px; }
+.p-cto .kpis { grid-template-columns: repeat(4, 1fr); }
+.p-cto .kpis li { border: 0; border-top: 3px solid var(--accent-2); border-radius: 0; background: rgba(255,255,255,0.06); }
+.p-cto section:not(.cover) { border-top: 4px solid var(--accent); border-radius: 0 0 var(--radius) var(--radius); }
+.p-cto .kicker { color: var(--accent-2); }
+.p-cto .takeaway { border-left-color: var(--accent-2); background: #fbf3ea; }
+.p-cto th { border-bottom-color: var(--accent); }
+.p-cto .finale { border: 0; background: var(--accent); color: #fff; }
+.p-cto .finale .kicker, .p-cto .finale h2 { color: #fff; }
+.p-cto .finale h2 { border-left: 6px solid var(--accent-2); padding-left: 16px; }
+.p-cto .finale code { background: rgba(255,255,255,0.14); color: #fff; }
+.p-cto .finale a, .p-cto .finale .note a { color: #f0b97a; }
+.p-cto .finale footer { border-top-color: rgba(255,255,255,0.25); color: #b9c7dc; }
+
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #14151a; --card: #1c1e25; --fg: #eceef3; --muted: #a0a6b4; --line: #2f323c; --low: #4cc38a; --mid: #e5b25d; --high: #ef7f8e; }
+  code { background: #262932; }
+  .p-dev { --accent: #8f97ee; --accent-2: #ef7f8e; }
+  .p-qa { --accent: #35c2a8; --accent-2: #ef7f8e; --bg: #14181a; --cover-bg: #1c2422; --cover-fg: #eef5f2; --cover-muted: #9fb8b0; }
+  .p-qa .kpis li { background: #213230; border-color: #2e4a45; }
+  .p-qa .takeaway, .p-qa .finale { background: #1f2b28; }
+  .p-qa tbody tr:nth-child(odd) { background: #1f2624; }
+  .p-cto { --accent: #7fa6d9; --accent-2: #f0b97a; --bg: #141821; }
+  .p-cto .takeaway { background: #2a2620; }
+  .p-cto .finale { background: #1f3a5f; }
+  .p-ceo { --accent: #dcc27a; --bg: #15171c; --card: #1c1e25; --line: #2f323c; }
+  .p-ceo .finale { background: #14213d; }
+  .p-investisseur { --accent: #5cc493; --accent-2: #dcb25f; --bg: #141816; --card: #1b201d; --line: #2c342f; --cover-bg: #1b201d; --cover-fg: #eef3ef; --cover-muted: #9fb0a6; }
+  .p-investisseur .kpis li { background: #16201b; }
+  .p-investisseur .finale { background: #1d6b4a; }
+}
+
+@media print {
+  @page { size: A4 landscape; margin: 10mm; }
+  html { font-size: 12px; }
+  .p-dev, .p-qa, .p-cto { --text: 0.9rem; }
+  .p-dev .tree, .p-qa .tree, .p-cto .tree { font-size: 0.82em; }
+  .p-ceo { --text: 1rem; }
+  .p-ceo .takeaway { font-size: 1.3rem; margin-bottom: 16px; }
+  .p-ceo .risks li { padding: 2px 0; }
+  .body.split { gap: 22px; }
+  .p-ceo .chart { max-height: 52mm; }
+  .p-enfant .chart { max-height: 60mm; }
+  .takeaway { font-size: 1.05em; padding: 10px 16px; margin-bottom: 14px; }
+  th, td { padding: 5px 10px; }
+  footer { margin-top: 14px; padding-top: 8px; }
+  .refs ol { column-count: 3; font-size: 0.82rem; }
+  .refs li { margin-bottom: 3px; }
+  body { background: #fff; }
+  :root, .p-dev, .p-qa, .p-cto, .p-ceo, .p-investisseur, .p-enfant { --bg: #f5f5f3; --card: #fff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2; }
+  .p-qa { --bg: #f2f7f5; } .p-cto { --bg: #f4f6f9; } .p-ceo { --bg: #f7f5ef; --card: #fffdf8; } .p-investisseur { --bg: #f6f6f2; } .p-enfant { --bg: #fff6e5; --card: #fffdf7; --fg: #2b2118; --muted: #7a6a5a; }
+  .p-ceo { --accent: #14213d; } .p-cto { --accent: #1f3a5f; } .p-dev { --accent: #4f5bd5; } .p-qa { --accent: #0f8f7a; } .p-investisseur { --accent: #1d6b4a; }
+  section { max-width: none; margin: 0; min-height: 178mm; break-after: page; page-break-after: always; box-shadow: none; --pad: 26px 36px; }
+  section:last-child { break-after: auto; page-break-after: auto; }
+  .p-enfant section { box-shadow: none; margin: 0; }
+  .cover { min-height: 178mm; }
+  .refs { min-height: 0; }
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  a { text-decoration: none; }
+}
+</style>
+</head>
+<body class="p-cto">
+<section class="cover">
+<div class="cover-top"><span class="eyebrow">Note de décision technique</span><span class="date">Données GitHub relevées le 10 sept. 2026</span></div>
+<p class="repo">n8n-io/n8n</p>
+<h1>n8n : ingénierie solide, cadence industrielle, une seule vraie contrainte — la licence. Adopter en auto-hébergé, ne pas forker.</h1>
+<p class="desc">Fair-code workflow automation platform with native AI capabilities. Combine visual building with custom code, self-host or cloud, 400+ integrations.</p>
+<ul class="kpis"><li><b>16</b><span>bus factor</span><small>sur 12 semaines</small></li><li><b>500</b><span>commits</span><small>sur 12 semaines</small></li><li><b>28</b><span>dépendances</span><small>0 en production</small></li><li><b>Sustainable Use</b><span>licence</span></li></ul>
+<p class="cover-foot"><span><a href="https://github.com/n8n-io/n8n">https://github.com/n8n-io/n8n</a></span><span>Licence Sustainable Use License</span><span>Onboard · profil cto</span></p>
+</section><section class="page">
+<header><span class="kicker">02</span><h2>Que fait ce projet et quelle est son architecture ?</h2></header>
+<p class="takeaway">À retenir : ce n'est pas un projet communautaire qui a grossi, c'est un monorepo d'éditeur — 53 entrées à la racine dont la moitié sont des garde-fous d'ingénierie.</p>
+<div class="body split"><div class="chart-wrap"><ul class="tree"><li><code>.agents/</code><span class="role">règles de revue pour agents IA</span></li><li><code>.claude/</code><span class="role">config Claude Code</span></li><li><code>.devcontainer/</code><span class="role">environnement de dev conteneurisé</span></li><li><code>.githooks/</code><span class="role">hooks git</span></li><li><code>.github/</code><span class="role">workflows CI, actions, scripts</span></li><li><code>.opencode/</code><span class="role">config agent OpenCode</span></li><li><code>.vscode/</code><span class="role">réglages VS Code</span></li><li><code>assets/</code><span class="role">images et ressources</span></li><li><code>docker/</code><span class="role">images Docker</span></li><li><code>docs/</code><span class="role">documentation et schémas générés</span></li><li><code>packages/</code><span class="role">code source, monorepo pnpm</span></li><li><code>patches/</code><span class="role">patches de dépendances pnpm</span></li><li><code>scripts/</code><span class="role">scripts de build et de dev</span></li><li><code>security/</code><span class="role">outillage sécurité</span></li><li><code>.actrc</code><span class="role">config act, Actions en local</span></li><li><code>.aikido</code><span class="role">config scanner sécurité Aikido</span></li><li class="more">… et 37 autres entrées à la racine du dépôt</li></ul></div><div class="text"><p>Plateforme d'automatisation de workflows et d'agents IA, visuelle avec du code en secours, auto-hébergeable ou en SaaS<sup class="note"><a href="#note-1">1</a></sup>.</p>
+<p>Monorepo pnpm piloté par Turborepo : <code>pnpm-workspace.yaml</code>, <code>turbo.json</code> et un <code>package.json</code> racine <code>private: true</code> en version 2.39.0 ; tout le code applicatif vit sous <code>packages/</code>.</p>
+<p>Quatre points d'entrée à connaître :</p>
+<ul><li><code>packages/cli/bin/n8n</code> — binaire visé par les scripts <code>start</code>, <code>webhook</code> et <code>worker</code> : contrôle la version de Node, charge <code>dist/config</code> puis le <code>CommandRegistry</code>.</li><li><code>packages/core</code> — moteur d'exécution des workflows.</li><li><code>packages/nodes-base</code> — les nœuds intégrés, c'est-à-dire l'essentiel de la surface fonctionnelle.</li><li><code>packages/frontend</code> — l'éditeur web.</li></ul>
+<p>Contraintes de plateforme fortes et récentes : Node ≥ 24, pnpm ≥ 12.3.4 imposé (<code>preinstall</code> bloque npm), TypeScript 6.0.2, Biome et Prettier côte à côte.</p>
+<p>La racine est instrumentée comme un dépôt d'entreprise : <code>OWNERS</code>, <code>CODEOWNERS</code>, deux fichiers de licence, quatre configs d'agents IA (<code>AGENTS.md</code>, <code>CLAUDE.md</code>, <code>.claude/</code>, <code>.opencode</code>), trois configs de sécurité (<code>.aikido</code>, <code>.poutine.yml</code>, <code>security/</code>) et deux baselines gelées (<code>.boundaries-baseline.json</code>, <code>.code-health-baseline.json</code>).</p></div></div>
+<footer><span class="repo-name">n8n-io/n8n · relevé le 10 sept. 2026</span><span class="n">cto · 2 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">03</span><h2>Quelle est sa santé technique ?</h2></header>
+<p class="takeaway">À retenir : ~250 commits par semaine encaissés par une CI à merge queue avec check bloquant — la vélocité n'est pas payée en qualité.</p>
+<div class="body split"><div class="chart-wrap"><svg class="chart" viewBox="0 0 640 172" width="640" height="172" role="img" preserveAspectRatio="xMinYMin meet"><line class="axis" x1="34" y1="138" x2="628" y2="138"/><text class="tick" x="28" y="22" text-anchor="end">254</text><text class="tick" x="28" y="138" text-anchor="end">0</text><rect class="bar" x="43.9" y="138" width="29.7" height="1" rx="2"><title>2026-W26 : 0</title></rect><text class="tick" x="58.75" y="154" text-anchor="middle">W26</text><rect class="bar" x="93.4" y="138" width="29.7" height="1" rx="2"><title>2026-W27 : 0</title></rect><rect class="bar" x="142.9" y="138" width="29.7" height="1" rx="2"><title>2026-W28 : 0</title></rect><text class="tick" x="157.75" y="154" text-anchor="middle">W28</text><rect class="bar" x="192.4" y="138" width="29.7" height="1" rx="2"><title>2026-W29 : 0</title></rect><rect class="bar" x="241.9" y="138" width="29.7" height="1" rx="2"><title>2026-W30 : 0</title></rect><text class="tick" x="256.75" y="154" text-anchor="middle">W30</text><rect class="bar" x="291.4" y="138" width="29.7" height="1" rx="2"><title>2026-W31 : 0</title></rect><rect class="bar" x="340.9" y="138" width="29.7" height="1" rx="2"><title>2026-W32 : 0</title></rect><text class="tick" x="355.75" y="154" text-anchor="middle">W32</text><rect class="bar" x="390.4" y="138" width="29.7" height="1" rx="2"><title>2026-W33 : 0</title></rect><rect class="bar" x="439.9" y="138" width="29.7" height="1" rx="2"><title>2026-W34 : 0</title></rect><text class="tick" x="454.75" y="154" text-anchor="middle">W34</text><rect class="bar" x="489.4" y="138" width="29.7" height="1" rx="2"><title>2026-W35 : 0</title></rect><rect class="bar" x="538.9" y="16" width="29.7" height="122" rx="2"><title>2026-W36 : 246</title></rect><text class="tick" x="553.75" y="154" text-anchor="middle">W36</text><rect class="bar" x="588.4" y="12" width="29.7" height="126" rx="2"><title>2026-W37 : 254</title></rect></svg></div><div class="text"><p>Cadence rare : les 500 derniers changements relevés tiennent tous dans deux semaines, 251 puis 249, soit ~250 commits par semaine. Les barres à zéro sont la limite du relevé (500 commits), pas un arrêt : l'historique complet est dans le journal des commits du dépôt<sup class="note"><a href="#note-2">2</a></sup>.</p>
+<p>Dernier commit le jour même du relevé, dépôt non archivé, branche par défaut <code>master</code>.</p>
+<p>Livraison en continu et sur canaux : les dix dernières versions relevées tiennent en quatre jours, avec des pointeurs mobiles <code>stable</code> et <code>beta</code>. Deux lignes vivent en parallèle — <code>n8n@2.39.2</code> et <code>n8n@1.123.79</code> le même jour : la 1.x est encore maintenue, ce qui est une bonne nouvelle pour qui déploie aujourd'hui.</p>
+<p>Chaîne de build standard, sans surprise :</p>
+<pre><code>pnpm install     # installation
+pnpm start       # démarrage
+pnpm test        # tests (turbo run test)</code></pre>
+<p></p>
+<p>La CI est le vrai actif technique. <code>.github/workflows/ci-pull-requests.yml</code> tourne sur <code>pull_request</code> <strong>et</strong> <code>merge_group</code> : build, tests unitaires, typecheck, lint, <code>pack --dry-run</code>, e2e Playwright, tests DB SQLite + Postgres, e2e de performance, contrôles de sécurité, évaluations IA, et un job <code>required-checks</code> bloquant pour le merge<sup class="note"><a href="#note-3">3</a></sup>.</p>
+<p>Autour : plus de cent workflows, dont une trentaine dédiés à la release (backport, patch PR, promotion de tag, publication npm) et une dizaine à la sécurité (SBOM, Trivy, Poutine, zizmor).</p>
+<p>Tests répartis par package, pas de dossier racine : <code>vitest.workspace.ts</code>, six configs Vitest rien que pour <code>packages/cli</code> (unit, integration, migration, testcontainers), Playwright dans <code>packages/testing</code>, et du test de mutation via <code>@stryker-mutator/vitest-runner</code>. Le taux de couverture réel n'est pas relevé — Codecov est branché (<code>codecov.yml</code>), le chiffre est à lire sur le tableau de bord public du projet<sup class="note"><a href="#note-4">4</a></sup>.</p></div></div>
+<footer><span class="repo-name">n8n-io/n8n · relevé le 10 sept. 2026</span><span class="n">cto · 3 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">04</span><h2>Qui porte le projet et quel est le bus factor ?</h2></header>
+<p class="takeaway">À retenir : bus factor 16 et aucun contributeur au-dessus de 5 % du volume — le risque humain est faible, mais la roadmap se décide dans Linear, hors de votre vue.</p>
+<div class="body split"><div class="chart-wrap"><svg class="chart" viewBox="0 0 640 252" width="640" height="252" role="img" preserveAspectRatio="xMinYMin meet"><text class="lbl" x="168" y="21" text-anchor="end">bjorger</text><rect class="bar strong" x="178" y="10" width="398" height="14" rx="3"/><text class="val" x="582" y="21">24</text><text class="lbl" x="168" y="45" text-anchor="end">shortstacked</text><rect class="bar strong" x="178" y="34" width="365" height="14" rx="3"/><text class="val" x="549" y="45">22</text><text class="lbl" x="168" y="69" text-anchor="end">guillaumejacquart</text><rect class="bar strong" x="178" y="58" width="348" height="14" rx="3"/><text class="val" x="532" y="69">21</text><text class="lbl" x="168" y="93" text-anchor="end">looorent</text><rect class="bar strong" x="178" y="82" width="282" height="14" rx="3"/><text class="val" x="466" y="93">17</text><text class="lbl" x="168" y="117" text-anchor="end">Matsuuu</text><rect class="bar strong" x="178" y="106" width="265" height="14" rx="3"/><text class="val" x="449" y="117">16</text><text class="lbl" x="168" y="141" text-anchor="end">r00gm</text><rect class="bar strong" x="178" y="130" width="249" height="14" rx="3"/><text class="val" x="433" y="141">15</text><text class="lbl" x="168" y="165" text-anchor="end">heymynameisrob</text><rect class="bar strong" x="178" y="154" width="232" height="14" rx="3"/><text class="val" x="416" y="165">14</text><text class="lbl" x="168" y="189" text-anchor="end">Flexicon</text><rect class="bar strong" x="178" y="178" width="216" height="14" rx="3"/><text class="val" x="400" y="189">13</text><text class="lbl" x="168" y="213" text-anchor="end">uddish</text><rect class="bar strong" x="178" y="202" width="182" height="14" rx="3"/><text class="val" x="366" y="213">11</text><text class="lbl" x="168" y="237" text-anchor="end">Cadiac</text><rect class="bar strong" x="178" y="226" width="182" height="14" rx="3"/><text class="val" x="366" y="237">11</text></svg></div><div class="text"><p>Bus factor 16 : il faut réunir seize personnes pour couvrir la moitié des changements relevés. Au-delà de 10, le risque de dépendance individuelle est résiduel.</p>
+<p>Aucune concentration : le plus actif pèse 24 changements sur 500, soit moins de 5 %, et les dix premiers cumulent 166 sur 500, soit un tiers.</p>
+<p>Le dépôt appartient à une organisation, créée en juin 2019 — sept ans d'existence, pas une expérimentation.</p>
+<p>Gouvernance des revues outillée : <code>CODEOWNERS</code> et un fichier <code>OWNERS</code> par zone, avec <code>ci-owners-required-reviews.yml</code>, <code>ci-owners-assign-reviewers.yml</code> et <code>ci-owners-validation.yml</code> pour l'appliquer en CI.</p>
+<p>Point à connaître avant de compter sur GitHub comme source de vérité : 297 des issues relevées portent le label <code>status:in-linear</code> et 280 <code>status:team-assigned</code> — le pilotage réel se fait dans Linear, GitHub est la façade publique.</p>
+<p>Pas de page de financement communautaire : le projet est financé par son éditeur et ses licences entreprise, pas par des dons.</p></div></div>
+<footer><span class="repo-name">n8n-io/n8n · relevé le 10 sept. 2026</span><span class="n">cto · 4 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">05</span><h2>Quelles dépendances et quelle dette ?</h2></header>
+<p class="takeaway">À retenir : zéro dépendance runtime à la racine, un verrou pnpm centralisé et deux baselines de dette — l'inventaire précis passe par les SBOM de la CI, pas par le <code>package.json</code>.</p>
+<div class="body"><div class="text"><p>Le manifeste racine ne déclare aucune dépendance runtime : 28 entrées, toutes en <code>devDependencies</code> (turbo 2.9.15, typescript 6.0.2, eslint, prettier, biome, lefthook, zx…).</p>
+<p>Les dépendances de production sont déclarées package par package, avec catalogue et verrou centralisés (<code>pnpm-workspace.yaml</code>, <code>pnpm-lock.yaml</code>). Conséquence directe : <strong>l'inventaire réel des dépendances runtime n'est pas relevé</strong> ici ; il se lit dans les SBOM générés en CI (<code>sbom-generation-callable.yml</code>, <code>test-sbom-nightly.yml</code>).</p>
+<p>Signaux de dette, dans l'ordre de ce qu'ils coûtent :</p>
+<table><thead><tr><th>Signal</th><th>Ce qu'on voit</th><th>Lecture</th></tr></thead><tbody><tr><td><code>patches/</code> à la racine</td><td>patches pnpm appliqués à des dépendances tierces</td><td>dette externe assumée : chaque montée de version tierce peut casser un patch</td></tr><tr><td>Deux baselines gelées</td><td><code>.boundaries-baseline.json</code>, <code>.code-health-baseline.json</code></td><td>la dette est mesurée et plafonnée, pas ignorée — mais elle existe et est datée</td></tr><tr><td>Stock ouvert</td><td>375 issues ouvertes, 756 PR ouvertes</td><td>l'équipe absorbe le flux sans faire baisser le stock</td></tr><tr><td>Toolchain de pointe</td><td>Node ≥ 24, pnpm ≥ 12.3.4, TypeScript 6.0.2</td><td>à aligner sur vos environnements avant tout build interne</td></tr></tbody></table>
+<p>La recherche de marqueurs <code>TODO</code> remonte 564 fichiers, mais elle est textuelle : une partie des résultats sont des fonctionnalités « to-do » du produit (nœud Microsoft To Do, outils <code>write-todos</code> des agents), pas de la dette. Chiffre inexploitable tel quel.</p></div></div>
+<footer><span class="repo-name">n8n-io/n8n · relevé le 10 sept. 2026</span><span class="n">cto · 5 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">06</span><h2>Quels risques ?</h2></header>
+<p class="takeaway">À retenir : le seul risque qui remonte au comité est juridique — <code>.ee.</code> et branches hors <code>master</code> non licenciés, usage strictement interne sans licence entreprise.</p>
+<div class="body split"><div class="chart-wrap"><ul class="risks"><li><span class="light mid" aria-hidden="true"></span><b>license</b><span class="role">Licence non standard « Sustainable Use License » : lire LICENSE.md avant tout usage.</span></li><li><span class="light low" aria-hidden="true"></span><b>deps</b><span class="role">package.json racine : 28 devDependencies, aucun bloc dependencies ; les dépendances runtime sont déclarées dans chaque package du monorepo (pnpm-workspace.yaml, pnpm-lock.yaml)</span></li><li><span class="light low" aria-hidden="true"></span><b>ci</b><span class="role">ci-pull-requests.yml tourne sur pull_request et merge_group : build, tests unitaires, typecheck, lint, packaging, e2e ; nombreux autres workflows (release, sécurité, nightly) dans .github/w…</span></li></ul></div><div class="text"><p>Trois risques relevés, un seul bloquant, tous avec une parade connue.</p>
+<table><thead><tr><th>Risque</th><th>Niveau</th><th>Parade</th></tr></thead><tbody><tr><td>Licence non standard « Sustainable Use License »</td><td><span class="level mid">Moyen</span></td><td>Usage interne : autorisé sans contrepartie. Revente, SaaS ou intégration à une offre payante : licence entreprise à négocier avant tout engagement</td></tr><tr><td>Dépendances runtime éclatées par package</td><td><span class="level low">Faible</span></td><td>Verrou et catalogue pnpm centralisés, SBOM générés en CI : brancher <code>sbom-generation-callable.yml</code> sur votre chaîne d'audit</td></tr><tr><td>Dépendance à la CI de l'éditeur</td><td><span class="level low">Faible</span></td><td>Build, tests, typecheck, lint, packaging et e2e sont dans le dépôt et rejouables : rien de la validation n'est un service privé</td></tr></tbody></table>
+<p>Trois clauses de <code>LICENSE.md</code> à faire lire au juridique, elles vont plus loin que le résumé du README<sup class="note"><a href="#note-5">5</a></sup> :</p>
+<ol><li>L'usage est limité à vos <strong>propres besoins internes</strong>, ou non commercial ; la redistribution n'est permise que gratuitement et à but non commercial.</li><li>Tout fichier contenant <code>.ee.</code> dans son nom ou <code>.ee</code> dans son chemin <strong>n'est pas</strong> couvert : il exige une licence entreprise (<code>LICENSE_EE.md</code>).</li><li>Le contenu des branches autres que <code>master</code> <strong>n'est pas licencié</strong> — ce qui a un effet direct sur toute stratégie de fork ou de branche longue.</li></ol>
+<p>Versant sécurité correctement outillé : politique de divulgation publiée, scanners Aikido, Poutine, Trivy et zizmor en CI, chaîne <code>sec-*</code> de publication de correctifs. Non relevé en revanche : les CVE et avis publiés, à lire directement chez l'éditeur<sup class="note"><a href="#note-6">6</a></sup>.</p></div></div>
+<footer><span class="repo-name">n8n-io/n8n · relevé le 10 sept. 2026</span><span class="n">cto · 6 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">07</span><h2>Adopter, contribuer ou forker ?</h2></header>
+<p class="takeaway">À retenir : adopter et suivre l'amont ; contribuer si vous acceptez le CLA ; ne pas forker — la licence l'interdit sur les branches et la cadence le rend intenable.</p>
+<div class="body"><div class="text"><p>Ce qui se construit, lu dans les PR ouvertes : un plan de données séparé pour les exécutions, une pagination par curseur de bout en bout, un service de publication des workflows activé par défaut, et des applications capables de lire et écrire des tables de données — n8n dépasse l'automatisation d'arrière-plan.</p>
+<p>Deux signaux à ne pas manquer : une PR de comparaison « 3.x » est ouverte, et une PR marquée rupture supprime le nœud LangChain Code. Une majeure se prépare et les ruptures sont assumées : verrouillez votre version et suivez les branches <code>release-candidate/*</code>.</p>
+<p>Côté utilisateurs, les demandes les plus discutées convergent sur un même point de friction : faire fonctionner les agents et les outils MCP de façon fiable en production, y compris en mode queue. C'est aussi là que se situe le risque fonctionnel si votre cas d'usage est agentique.</p>
+<p><strong>Contribuer</strong> est possible mais encadré : CLA obligatoire vérifié par <code>ci-cla-check.yml</code>, revue imposée par les propriétaires de zone, règles explicites pour les PR communautaires et fermeture automatique des PR inactives (<code>community-pr-close-stale.yml</code>)<sup class="note"><a href="#note-7">7</a></sup>. Comptez le coût du CLA en amont, pas au moment du merge.</p>
+<p><strong>Forker</strong> est le mauvais calcul malgré 60 629 forks existants : la licence ne couvre pas les branches hors <code>master</code>, les fichiers <code>.ee.</code> en sont exclus, et un rythme de ~250 commits par semaine rend tout fork divergent irrattrapable en quelques mois.</p></div></div>
+<footer><span class="repo-name">n8n-io/n8n · relevé le 10 sept. 2026</span><span class="n">cto · 7 / 9</span></footer>
+</section><section class="finale">
+<header><span class="kicker">cto</span><h2>Décision</h2></header>
+
+<div class="body"><div class="text"><ul><li><strong>Adopter, en auto-hébergé, sur une version épinglée.</strong> Ingénierie mature (CI à merge queue avec check bloquant, tests DB et e2e, scanners de sécurité), cadence de ~250 commits par semaine, bus factor 16 : aucun signal technique ne s'y oppose.</li><li><strong>Condition bloquante avant tout engagement : validation juridique.</strong> Usage interne uniquement sans licence entreprise ; fichiers <code>.ee.</code> exclus ; branches hors <code>master</code> non licenciées. Si le projet est de revendre ou d'embarquer n8n dans une offre payante, la décision est commerciale, pas technique.</li><li><strong>Épingler la version et surveiller la 3.x.</strong> Deux lignes maintenues en parallèle (1.123.79 et 2.39.2), une PR de comparaison 3.x ouverte et une suppression de nœud marquée rupture : pas de <code>latest</code> en production.</li><li><strong>Ne pas forker, contribuer en amont si besoin</strong> — CLA à signer, revue par propriétaires de zone ; un fork décroche en quelques mois au rythme actuel.</li><li><strong>Deux angles morts à instruire vous-même</strong> : l'inventaire des dépendances runtime (par les SBOM de la CI, pas par le manifeste racine) et les avis de sécurité publiés, non relevés ici<sup class="note"><a href="#note-6">6</a></sup>.</li></ul></div></div>
+<footer><span class="repo-name">n8n-io/n8n · relevé le 10 sept. 2026</span><span class="n">cto · 8 / 9</span></footer>
+</section><section class="refs"><header><span class="kicker">références publiques</span><h2>Sources</h2></header><div class="body"><ol class="sources"><li id="note-1"><a href="https://github.com/n8n-io/n8n">https://github.com/n8n-io/n8n</a></li><li id="note-2"><a href="https://github.com/n8n-io/n8n/commits/master">https://github.com/n8n-io/n8n/commits/master</a></li><li id="note-3"><a href="https://github.com/n8n-io/n8n/blob/master/.github/workflows/ci-pull-requests.yml">https://github.com/n8n-io/n8n/blob/master/.github/workflows/ci-pull-requests.yml</a></li><li id="note-4"><a href="https://app.codecov.io/gh/n8n-io/n8n">https://app.codecov.io/gh/n8n-io/n8n</a></li><li id="note-5"><a href="https://github.com/n8n-io/n8n/blob/master/LICENSE.md">https://github.com/n8n-io/n8n/blob/master/LICENSE.md</a></li><li id="note-6"><a href="https://github.com/n8n-io/n8n/security/advisories">https://github.com/n8n-io/n8n/security/advisories</a></li><li id="note-7"><a href="https://github.com/n8n-io/n8n/blob/master/CONTRIBUTING.md">https://github.com/n8n-io/n8n/blob/master/CONTRIBUTING.md</a></li></ol></div><footer><span class="repo-name">n8n-io/n8n · relevé le 10 sept. 2026</span><span class="n">cto · 9 / 9</span></footer></section>
+</body>
+</html>

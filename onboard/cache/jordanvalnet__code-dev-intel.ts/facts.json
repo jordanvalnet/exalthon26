@@ -1,0 +1,368 @@
+{
+  "schema": 1,
+  "repo": {
+    "full_name": "jordanvalnet/code-dev-intel.ts",
+    "url": "https://github.com/jordanvalnet/code-dev-intel.ts",
+    "description": "Self-hosted AI code intelligence for TypeScript — symbol resolution, structural search, duplicate detection, and dependency graphs via MCP server.",
+    "created_at": "2026-03-20T18:55:13Z",
+    "pushed_at": "2026-09-06T12:39:32Z",
+    "default_branch": "main",
+    "license": "AGPL-3.0",
+    "stars": 0,
+    "forks": 0,
+    "open_issues": 1,
+    "topics": [],
+    "owner_type": "user",
+    "archived": false
+  },
+  "releases": [
+    {
+      "tag": "v0.1.6",
+      "date": "2026-03-26T22:09:19Z",
+      "name": "v0.1.6"
+    }
+  ],
+  "activity": {
+    "commits_per_week": [
+      {
+        "week": "2026-W26",
+        "count": 0
+      },
+      {
+        "week": "2026-W27",
+        "count": 0
+      },
+      {
+        "week": "2026-W28",
+        "count": 0
+      },
+      {
+        "week": "2026-W29",
+        "count": 0
+      },
+      {
+        "week": "2026-W30",
+        "count": 0
+      },
+      {
+        "week": "2026-W31",
+        "count": 0
+      },
+      {
+        "week": "2026-W32",
+        "count": 0
+      },
+      {
+        "week": "2026-W33",
+        "count": 0
+      },
+      {
+        "week": "2026-W34",
+        "count": 0
+      },
+      {
+        "week": "2026-W35",
+        "count": 0
+      },
+      {
+        "week": "2026-W36",
+        "count": 11
+      },
+      {
+        "week": "2026-W37",
+        "count": 0
+      }
+    ],
+    "last_commit": "2026-09-06T12:36:23Z",
+    "contributors": [
+      {
+        "login": "jordanvalnet",
+        "commits": 12
+      }
+    ],
+    "bus_factor": 1
+  },
+  "risks": [
+    {
+      "kind": "license",
+      "level": "high",
+      "note": "AGPL-3.0 : copyleft, contraignant pour un usage commercial."
+    },
+    {
+      "kind": "security",
+      "level": "mid",
+      "note": "Pas de SECURITY.md : aucun canal déclaré pour signaler une faille."
+    },
+    {
+      "kind": "bus_factor",
+      "level": "high",
+      "note": "Un seul contributeur porte la moitié des commits sur 12 semaines."
+    },
+    {
+      "kind": "ci",
+      "level": "low",
+      "note": "Quatre workflows dans .github/workflows ; ci.yml enchaîne lint, type-check et tests sur ubuntu, windows et macos (node 20, 22, 24), puis release-smoke, indexer-smoke et scan sécurité, à chaque push et pull request"
+    },
+    {
+      "kind": "deps",
+      "level": "low",
+      "note": "5 dépendances d'exécution et 9 de développement dans package.json, verrou pnpm-lock.yaml, versions vulnérables épinglées via pnpm.overrides ; engines annonce node >=18 mais ci.yml précise que l'outillage de dev (vitest 5, --experimental-strip-types) exige node 22+"
+    }
+  ],
+  "business": {
+    "funding": false,
+    "security_policy": false,
+    "codeowners": false
+  },
+  "issues": {
+    "open": 1,
+    "closed_30d": 0,
+    "by_label": {},
+    "good_first": [],
+    "hot": [
+      {
+        "number": 1,
+        "title": "Anti-Amnesia & Workflow Hardening for code-dev-intel.ts",
+        "url": "https://github.com/jordanvalnet/code-dev-intel.ts/issues/1",
+        "comments": 0
+      }
+    ]
+  },
+  "pulls": {
+    "open": 0,
+    "merged_30d": [
+      {
+        "number": 3,
+        "title": "ci: three-OS quality matrix, multi-OS release smoke, per-OS perf budget (T-021)",
+        "url": "https://github.com/jordanvalnet/code-dev-intel.ts/pull/3",
+        "merged_at": "2026-09-06T12:39:29Z"
+      }
+    ]
+  },
+  "roadmap": {
+    "open_prs": [],
+    "requests": [
+      {
+        "number": 1,
+        "title": "Anti-Amnesia & Workflow Hardening for code-dev-intel.ts",
+        "url": "https://github.com/jordanvalnet/code-dev-intel.ts/issues/1",
+        "comments": 0,
+        "labels": []
+      }
+    ],
+    "themes": []
+  },
+  "build": {
+    "install": "pnpm add -D code-dev-intel.ts",
+    "run": "pnpm exec code-dev-intel ensure --workspaceRoot=. --port=4545",
+    "test": "pnpm test",
+    "ci": [
+      {
+        "name": "ci",
+        "path": ".github/workflows/ci.yml",
+        "triggers": [
+          "push",
+          "pull_request"
+        ]
+      },
+      {
+        "name": "perf-budget",
+        "path": ".github/workflows/perf-budget.yml",
+        "triggers": []
+      },
+      {
+        "name": "pr-memory-reference",
+        "path": ".github/workflows/pr-memory-reference.yml",
+        "triggers": []
+      },
+      {
+        "name": "security",
+        "path": ".github/workflows/security.yml",
+        "triggers": []
+      }
+    ]
+  },
+  "ai_docs": {
+    "files": [],
+    "score": 0,
+    "max": 7
+  },
+  "tree": [
+    {
+      "path": ".dockerignore",
+      "type": "file",
+      "role": "exclusions du build Docker"
+    },
+    {
+      "path": ".github",
+      "type": "dir",
+      "role": "workflows GitHub Actions"
+    },
+    {
+      "path": ".gitignore",
+      "type": "file",
+      "role": "fichiers ignorés par git"
+    },
+    {
+      "path": ".npmignore",
+      "type": "file",
+      "role": "exclusions du paquet npm"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "type": "file",
+      "role": "journal des versions"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "type": "file",
+      "role": "guide de contribution"
+    },
+    {
+      "path": "LICENSE",
+      "type": "file",
+      "role": "licence AGPL-3.0-only"
+    },
+    {
+      "path": "README.md",
+      "type": "file",
+      "role": "présentation et documentation principale"
+    },
+    {
+      "path": "__tests__",
+      "type": "dir",
+      "role": "tests unitaires vitest"
+    },
+    {
+      "path": "docker",
+      "type": "dir",
+      "role": "docker-compose.yml et profils"
+    },
+    {
+      "path": "docs",
+      "type": "dir",
+      "role": "documentation, dont docs/ai"
+    },
+    {
+      "path": "eslint.config.mjs",
+      "type": "file",
+      "role": "configuration ESLint"
+    },
+    {
+      "path": "package.json",
+      "type": "file",
+      "role": "manifeste npm, scripts pnpm"
+    },
+    {
+      "path": "perf",
+      "type": "dir",
+      "role": "benchmarks de performance"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "type": "file",
+      "role": "verrou des dépendances pnpm"
+    },
+    {
+      "path": "schemas",
+      "type": "dir",
+      "role": "schémas livrés avec le paquet"
+    },
+    {
+      "path": "scripts",
+      "type": "dir",
+      "role": "bootstrap, smoke tests, benchmark"
+    },
+    {
+      "path": "security",
+      "type": "dir",
+      "role": "ressources sécurité"
+    },
+    {
+      "path": "services",
+      "type": "dir",
+      "role": "serveur MCP, indexeur, gouvernance, sécurité"
+    },
+    {
+      "path": "tsconfig.build.json",
+      "type": "file",
+      "role": "build TypeScript vers dist/"
+    },
+    {
+      "path": "tsconfig.json",
+      "type": "file",
+      "role": "configuration TypeScript"
+    },
+    {
+      "path": "vitest.config.ts",
+      "type": "file",
+      "role": "configuration des tests vitest"
+    }
+  ],
+  "entrypoints": [
+    {
+      "path": "services/code-intel-mcp/src/server.ts",
+      "why": "Le serveur MCP : `main` et `bin` (code-dev-intel) de package.json une fois compilé dans dist/, lancé par `pnpm mcp:start`, auto-testé avec `--self-test` dans .github/workflows/ci.yml"
+    },
+    {
+      "path": "services/indexer/src/indexer-runner.ts",
+      "why": "L'indexeur, lancé par `pnpm indexer:impacted` et piloté par scripts/indexer-smoke.mjs en modes git-diff et impacted"
+    },
+    {
+      "path": "services/code-intel-mcp/src/contracts.ts",
+      "why": "Export public `./contracts` de package.json : les contrats des outils exposés par le serveur"
+    },
+    {
+      "path": "services/security/opengrep-runner.ts",
+      "why": "Scan sécurité OpenGrep, `pnpm security:scan`, job security de .github/workflows/ci.yml"
+    },
+    {
+      "path": "scripts/bootstrap.sh",
+      "why": "Vérifie la présence de docs/ai/* et crée les dossiers de travail (services/*/src, schemas/sqlite, docker) avant de démarrer"
+    }
+  ],
+  "tests": {
+    "dir": "__tests__/unit",
+    "framework": "vitest",
+    "files": 4
+  },
+  "deps": {
+    "manifest": "package.json",
+    "count": 14,
+    "runtime": [
+      {
+        "name": "@ast-grep/cli",
+        "version": "^0.45.3"
+      },
+      {
+        "name": "@vscode/ripgrep",
+        "version": "^1.18.0"
+      },
+      {
+        "name": "picomatch",
+        "version": "^4.0.7"
+      },
+      {
+        "name": "typescript",
+        "version": "^6.0.3"
+      },
+      {
+        "name": "zod",
+        "version": "^4.5.4"
+      }
+    ]
+  },
+  "collected": {
+    "at": "2026-09-10T14:24:25.155Z",
+    "by": "merge de 1a-meta, 1b-issues, 1c-docs, 1d-code",
+    "lenses": [
+      "core",
+      "investisseur",
+      "qa",
+      "cto",
+      "enfant",
+      "ceo",
+      "dev"
+    ]
+  }
+}

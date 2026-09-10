@@ -134,7 +134,8 @@ function risks(facts: Facts): string {
   const list = facts.risks ?? [];
   if (!list.length) return "";
   const items = list
-    .map((r) => `<li><span class="light ${r.level}" aria-hidden="true"></span><b>${escapeHtml(r.kind)}</b><span class="role">${escapeHtml(r.note)}</span></li>`)
+    // Un feu tricolore se lit d'un coup d'œil : une note de collecte de 600 signes déborde de la page.
+    .map((r) => `<li><span class="light ${r.level}" aria-hidden="true"></span><b>${escapeHtml(r.kind)}</b><span class="role">${escapeHtml(clip(r.note, 190))}</span></li>`)
     .join("");
   return `<ul class="risks">${items}</ul>`;
 }

@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LangGraph : socle modulaire, MIT, tenu par une entreprise et peu de mains — adopter oui, dépendre aveuglément non</title>
+<style>
+:root {
+  --bg: #f5f5f3; --card: #ffffff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2;
+  --accent: #4f5bd5; --accent-2: #d1495b; --accent-ink: #ffffff;
+  --cover-bg: #17181c; --cover-fg: #ffffff; --cover-muted: #b7bccb;
+  --low: #2e9e6b; --mid: #d99a2b; --high: #d1495b;
+  --font: ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --display: var(--font); --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --radius: 12px; --pad: 40px 48px; --width: 1040px; --min-h: 600px;
+  --h1: 2.8rem; --h2: 1.7rem; --text: 1.02rem; --kpi: 2.6rem;
+}
+* { box-sizing: border-box; }
+html { font-size: 16px; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 1rem/1.55 var(--font); }
+section {
+  position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  max-width: var(--width); margin: 28px auto; padding: var(--pad); min-height: var(--min-h); font-size: var(--text);
+  display: flex; flex-direction: column;
+}
+section > .body { flex: 1; }
+h1 { font: 700 var(--h1)/1.1 var(--display); letter-spacing: -0.01em; margin: 0 0 16px; }
+h2 { font: 700 var(--h2)/1.2 var(--display); margin: 0 0 10px; }
+p { margin: 0 0 10px; }
+ul, ol { margin: 0 0 12px; padding-left: 22px; }
+li { margin: 0 0 6px; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code { font: 0.88em var(--mono); background: var(--bg); padding: 1px 6px; border-radius: 5px; }
+pre { background: #14151a; color: #e8eaf1; padding: 14px 18px; border-radius: 10px; overflow-x: auto; margin: 0 0 14px; font-size: 0.9em; line-height: 1.5; }
+pre code { background: none; padding: 0; color: inherit; font-size: 1em; }
+strong { font-weight: 700; }
+table { border-collapse: collapse; width: 100%; margin: 0 0 14px; font-size: 0.94em; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); border-bottom: 2px solid var(--accent); }
+.level { display: inline-block; padding: 1px 10px; border-radius: 999px; font-size: 0.8em; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.04em; }
+.level.low { background: var(--low); } .level.mid { background: var(--mid); } .level.high { background: var(--high); }
+
+/* Couverture */
+.cover { justify-content: center; background: var(--cover-bg); color: var(--cover-fg); border: 0; }
+.cover h1 code { background: rgba(255,255,255,0.14); color: inherit; padding: 0 0.25em; font-size: 0.85em; }
+.cover a { color: inherit; }
+.cover-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 40px; }
+.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.8rem; font-weight: 700; }
+.date, .repo, .cover-foot { color: var(--cover-muted); font-size: 0.9rem; }
+.repo { font-family: var(--mono); font-size: 1rem; margin: 0 0 12px; }
+.cover .desc { color: var(--cover-muted); font-size: 1.1rem; max-width: 46em; margin-bottom: 32px; }
+.kpis { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; padding: 0; margin: 0 0 32px; }
+.kpis li { border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; padding: 14px 18px; background: rgba(255,255,255,0.05); }
+.kpis b { display: block; font: 700 var(--kpi)/1 var(--display); letter-spacing: -0.02em; margin-bottom: 6px; }
+.kpis span { display: block; font-size: 0.82rem; color: var(--cover-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.kpis b.long { font-size: calc(var(--kpi) * 0.62); padding: 0.25em 0; }
+.kpis small { display: block; font-size: 0.78rem; color: var(--cover-muted); margin-top: 3px; text-transform: none; letter-spacing: 0; }
+.cover-foot { margin: 0; display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* Pages */
+.page header, .finale header { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+.kicker { font: 700 0.78rem/1 var(--mono); color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; }
+.takeaway { margin: 0 0 22px; padding: 14px 20px; border-left: 5px solid var(--accent); background: var(--bg); font-size: 1.12em; font-weight: 600; line-height: 1.45; border-radius: 0 10px 10px 0; }
+.body.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; align-items: start; align-content: start; }
+.body.split .chart-wrap { min-width: 0; }
+.body.stack .chart-wrap { margin-bottom: 20px; }
+footer { display: flex; justify-content: space-between; gap: 12px; margin-top: 26px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.78rem; }
+footer .n { font-family: var(--mono); }
+
+/* Graphiques SVG et listes annotées (charts.ts) */
+.chart { display: block; width: 100%; height: auto; max-width: 640px; margin: 0 0 12px; }
+.chart text { font-family: var(--font); fill: var(--fg); }
+.chart .lbl { font-size: 12px; }
+.chart .val, .chart .tick { font-size: 11px; fill: var(--muted); }
+.chart .bar { fill: var(--accent); }
+.chart .bar.strong { fill: var(--accent-2); }
+.chart .bar.off { fill: var(--line); }
+.chart .dot { fill: var(--accent); }
+.chart .axis { stroke: var(--line); stroke-width: 1; }
+.tree, .risks { list-style: none; margin: 0 0 14px; padding: 0; font-size: 0.92em; }
+.tree li, .risks li { display: flex; gap: 10px; align-items: baseline; padding: 4px 0; border-bottom: 1px solid var(--line); }
+.tree code { flex: 0 0 auto; }
+.tree .more { color: var(--muted); border: 0; font-style: italic; }
+.role { color: var(--muted); font-size: 0.9em; }
+.light { width: 11px; height: 11px; border-radius: 50%; flex: 0 0 auto; background: var(--muted); }
+.light.low { background: var(--low); } .light.mid { background: var(--mid); } .light.high { background: var(--high); }
+
+/* Finale et sources */
+.finale { border: 2px solid var(--accent); }
+.finale .body { font-size: 1.08em; }
+.finale ol, .finale ul { padding-left: 26px; }
+.finale li { margin-bottom: 10px; }
+.refs { min-height: 0; }
+.refs ol { padding-left: 22px; font-size: 0.86rem; column-count: 2; column-gap: 32px; }
+.refs li { margin-bottom: 6px; break-inside: avoid; }
+.note { font-size: 0.68em; }
+.note a { text-decoration: none; padding: 0 1px; }
+
+.p-cto { --accent: #1f3a5f; --accent-2: #c9772e; --cover-bg: #1f3a5f; --cover-fg: #ffffff; --cover-muted: #b9c7dc; --bg: #f4f6f9; --h1: 2.5rem; --h2: 1.5rem; --text: 0.98rem; }
+.p-cto .cover { background: linear-gradient(135deg, #1f3a5f 0%, #17304f 60%, #24466f 100%); }
+.p-cto .cover .eyebrow { color: #f0b97a; }
+.p-cto .cover h1 { border-left: 6px solid var(--accent-2); padding-left: 20px; }
+.p-cto .kpis { grid-template-columns: repeat(4, 1fr); }
+.p-cto .kpis li { border: 0; border-top: 3px solid var(--accent-2); border-radius: 0; background: rgba(255,255,255,0.06); }
+.p-cto section:not(.cover) { border-top: 4px solid var(--accent); border-radius: 0 0 var(--radius) var(--radius); }
+.p-cto .kicker { color: var(--accent-2); }
+.p-cto .takeaway { border-left-color: var(--accent-2); background: #fbf3ea; }
+.p-cto th { border-bottom-color: var(--accent); }
+.p-cto .finale { border: 0; background: var(--accent); color: #fff; }
+.p-cto .finale .kicker, .p-cto .finale h2 { color: #fff; }
+.p-cto .finale h2 { border-left: 6px solid var(--accent-2); padding-left: 16px; }
+.p-cto .finale code { background: rgba(255,255,255,0.14); color: #fff; }
+.p-cto .finale a, .p-cto .finale .note a { color: #f0b97a; }
+.p-cto .finale footer { border-top-color: rgba(255,255,255,0.25); color: #b9c7dc; }
+
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #14151a; --card: #1c1e25; --fg: #eceef3; --muted: #a0a6b4; --line: #2f323c; --low: #4cc38a; --mid: #e5b25d; --high: #ef7f8e; }
+  code { background: #262932; }
+  .p-dev { --accent: #8f97ee; --accent-2: #ef7f8e; }
+  .p-qa { --accent: #35c2a8; --accent-2: #ef7f8e; --bg: #14181a; --cover-bg: #1c2422; --cover-fg: #eef5f2; --cover-muted: #9fb8b0; }
+  .p-qa .kpis li { background: #213230; border-color: #2e4a45; }
+  .p-qa .takeaway, .p-qa .finale { background: #1f2b28; }
+  .p-qa tbody tr:nth-child(odd) { background: #1f2624; }
+  .p-cto { --accent: #7fa6d9; --accent-2: #f0b97a; --bg: #141821; }
+  .p-cto .takeaway { background: #2a2620; }
+  .p-cto .finale { background: #1f3a5f; }
+  .p-ceo { --accent: #dcc27a; --bg: #15171c; --card: #1c1e25; --line: #2f323c; }
+  .p-ceo .finale { background: #14213d; }
+  .p-investisseur { --accent: #5cc493; --accent-2: #dcb25f; --bg: #141816; --card: #1b201d; --line: #2c342f; --cover-bg: #1b201d; --cover-fg: #eef3ef; --cover-muted: #9fb0a6; }
+  .p-investisseur .kpis li { background: #16201b; }
+  .p-investisseur .finale { background: #1d6b4a; }
+}
+
+@media print {
+  @page { size: A4 landscape; margin: 10mm; }
+  html { font-size: 12px; }
+  .p-dev, .p-qa, .p-cto { --text: 0.9rem; }
+  .p-dev .tree, .p-qa .tree, .p-cto .tree { font-size: 0.82em; }
+  .p-ceo { --text: 1rem; }
+  .p-ceo .takeaway { font-size: 1.3rem; margin-bottom: 16px; }
+  .p-ceo .risks li { padding: 2px 0; }
+  .body.split { gap: 22px; }
+  .p-ceo .chart { max-height: 52mm; }
+  .p-enfant .chart { max-height: 60mm; }
+  .takeaway { font-size: 1.05em; padding: 10px 16px; margin-bottom: 14px; }
+  th, td { padding: 5px 10px; }
+  footer { margin-top: 14px; padding-top: 8px; }
+  .refs ol { column-count: 3; font-size: 0.82rem; }
+  .refs li { margin-bottom: 3px; }
+  body { background: #fff; }
+  :root, .p-dev, .p-qa, .p-cto, .p-ceo, .p-investisseur, .p-enfant { --bg: #f5f5f3; --card: #fff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2; }
+  .p-qa { --bg: #f2f7f5; } .p-cto { --bg: #f4f6f9; } .p-ceo { --bg: #f7f5ef; --card: #fffdf8; } .p-investisseur { --bg: #f6f6f2; } .p-enfant { --bg: #fff6e5; --card: #fffdf7; --fg: #2b2118; --muted: #7a6a5a; }
+  .p-ceo { --accent: #14213d; } .p-cto { --accent: #1f3a5f; } .p-dev { --accent: #4f5bd5; } .p-qa { --accent: #0f8f7a; } .p-investisseur { --accent: #1d6b4a; }
+  section { max-width: none; margin: 0; min-height: 178mm; break-after: page; page-break-after: always; box-shadow: none; --pad: 26px 36px; }
+  section:last-child { break-after: auto; page-break-after: auto; }
+  .p-enfant section { box-shadow: none; margin: 0; }
+  .cover { min-height: 178mm; }
+  .refs { min-height: 0; }
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  a { text-decoration: none; }
+}
+</style>
+</head>
+<body class="p-cto">
+<section class="cover">
+<div class="cover-top"><span class="eyebrow">Note de décision technique</span><span class="date">Données GitHub relevées le 10 sept. 2026</span></div>
+<p class="repo">langchain-ai/langgraph</p>
+<h1>LangGraph : socle modulaire, MIT, tenu par une entreprise et peu de mains — adopter oui, dépendre aveuglément non</h1>
+<p class="desc">Build resilient agents.</p>
+<ul class="kpis"><li><b>4</b><span>bus factor</span><small>sur 12 semaines</small></li><li><b>112</b><span>commits</span><small>sur 12 semaines</small></li><li><b>33</b><span>dépendances</span><small>6 en production</small></li><li><b>MIT</b><span>licence</span></li></ul>
+<p class="cover-foot"><span><a href="https://github.com/langchain-ai/langgraph">https://github.com/langchain-ai/langgraph</a></span><span>Licence MIT</span><span>Onboard · profil cto</span></p>
+</section><section class="page">
+<header><span class="kicker">02</span><h2>Que fait ce projet et quelle est son architecture ?</h2></header>
+<p class="takeaway">Neuf paquets séparés, un cœur MIT de 6 dépendances : on adopte LangGraph par morceaux, pas en bloc.</p>
+<div class="body split"><div class="chart-wrap"><ul class="tree"><li><code>.github/</code><span class="role">17 workflows GitHub Actions, scripts CI</span></li><li><code>docs/</code><span class="role">documentation</span></li><li><code>examples/</code><span class="role">exemples d'usage, notebooks</span></li><li><code>libs/</code><span class="role">code principal : 9 paquets, 8 en Python, sdk-js réduit à un README</span></li><li><code>.gitignore</code><span class="role">exclusions git</span></li><li><code>.markdownlint.json</code><span class="role">config lint Markdown</span></li><li><code>AGENTS.md</code><span class="role">consignes pour les agents IA</span></li><li><code>CLAUDE.md</code><span class="role">consignes pour Claude Code</span></li><li><code>LICENSE</code><span class="role">licence MIT</span></li><li><code>Makefile</code><span class="role">pilote du monorepo : install, lint, test via uv</span></li><li><code>README.md</code><span class="role">présentation du projet</span></li></ul></div><div class="text"><p>LangGraph est un framework d'orchestration bas niveau pour agents à état : exécution durable, reprise après panne exactement au point d'arrêt, interruption pour validation humaine, mémoire courte et longue.</p>
+<p>Ce n'est pas un produit clé en main mais une couche d'infrastructure : le modèle raisonne, LangGraph tient l'état, la reprise et le contrôle.</p>
+<p>L'architecture est un monorepo de neuf paquets sous <code>libs/</code>, publiés séparément : le cœur, quatre paquets de persistance, les briques préconstruites, la CLI et deux SDK.</p>
+<p>Le cœur tient dans <code>libs/langgraph/langgraph</code> — <code>graph/</code>, <code>pregel/</code>, <code>runtime.py</code> — et se distribue en wheel MIT versionnée 1.2.11.</p>
+<p>Conséquence directe pour une adoption : la persistance est un point d'extension, pas un choix imposé. Postgres, SQLite et une interface de conformité sont des paquets distincts, remplaçables par le vôtre.</p>
+<p>Le monorepo est piloté par un <code>Makefile</code> racine et <code>uv</code> : <code>make install</code> crée l'environnement et installe chaque lib en editable, <code>make lint</code>, <code>make lock</code> et <code>make test</code> délèguent à chaque paquet.</p>
+<p>Le modèle d'exécution est emprunté à Pregel et Apache Beam, l'interface publique à NetworkX : rien d'exotique, des fondations documentées depuis quinze ans.</p></div></div>
+<footer><span class="repo-name">langchain-ai/langgraph · relevé le 10 sept. 2026</span><span class="n">cto · 2 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">03</span><h2>Quelle est sa santé technique ?</h2></header>
+<p class="takeaway">112 modifications en 12 semaines mais 23 des 33 intégrations du mois sont des bumps : le projet est entretenu plus qu'il n'accélère.</p>
+<div class="body split"><div class="chart-wrap"><svg class="chart" viewBox="0 0 640 172" width="640" height="172" role="img" preserveAspectRatio="xMinYMin meet"><line class="axis" x1="34" y1="138" x2="628" y2="138"/><text class="tick" x="28" y="22" text-anchor="end">25</text><text class="tick" x="28" y="138" text-anchor="end">0</text><rect class="bar" x="43.9" y="67" width="29.7" height="71" rx="2"><title>2026-W26 : 14</title></rect><text class="tick" x="58.75" y="154" text-anchor="middle">W26</text><rect class="bar" x="93.4" y="57" width="29.7" height="81" rx="2"><title>2026-W27 : 16</title></rect><rect class="bar" x="142.9" y="113" width="29.7" height="25" rx="2"><title>2026-W28 : 5</title></rect><text class="tick" x="157.75" y="154" text-anchor="middle">W28</text><rect class="bar" x="192.4" y="118" width="29.7" height="20" rx="2"><title>2026-W29 : 4</title></rect><rect class="bar" x="241.9" y="93" width="29.7" height="45" rx="2"><title>2026-W30 : 9</title></rect><text class="tick" x="256.75" y="154" text-anchor="middle">W30</text><rect class="bar" x="291.4" y="118" width="29.7" height="20" rx="2"><title>2026-W31 : 4</title></rect><rect class="bar" x="340.9" y="12" width="29.7" height="126" rx="2"><title>2026-W32 : 25</title></rect><text class="tick" x="355.75" y="154" text-anchor="middle">W32</text><rect class="bar" x="390.4" y="128" width="29.7" height="10" rx="2"><title>2026-W33 : 2</title></rect><rect class="bar" x="439.9" y="118" width="29.7" height="20" rx="2"><title>2026-W34 : 4</title></rect><text class="tick" x="454.75" y="154" text-anchor="middle">W34</text><rect class="bar" x="489.4" y="113" width="29.7" height="25" rx="2"><title>2026-W35 : 5</title></rect><rect class="bar" x="538.9" y="42" width="29.7" height="96" rx="2"><title>2026-W36 : 19</title></rect><text class="tick" x="553.75" y="154" text-anchor="middle">W36</text><rect class="bar" x="588.4" y="113" width="29.7" height="25" rx="2"><title>2026-W37 : 5</title></rect></svg></div><div class="text"><p>112 modifications sur les douze dernières semaines, la dernière la veille du relevé : le projet est actif, sans ambiguïté.</p>
+<p>Le rythme est irrégulier — de 2 à 25 modifications par semaine — signature d'un développement par vagues autour des livraisons, pas d'un essoufflement.</p>
+<p>33 propositions de changement ont été intégrées en trente jours, mais 23 d'entre elles sont des montées de version de dépendances : le débit réel de fonctionnalités est de l'ordre de dix changements par mois.</p>
+<p>Dix livraisons en deux mois, réparties sur les paquets : le cœur est passé de 1.2.9 (10 juillet 2026) à 1.2.11 (11 août 2026), la plus récente relevée est le SDK Python 0.4.4 du 27 août 2026.</p>
+<p>À noter pour un plan de montée de version : le cœur n'a pas été republié depuis un mois au moment du relevé, alors que les SDK et checkpointers bougent toutes les deux semaines.</p>
+<p>L'intégration continue est sérieuse : <code>ci.yml</code> filtre par chemins modifiés, puis lint et tests sur huit paquets Python, vérification du schéma de la CLI, tests d'intégration CLI et SDK, job agrégateur <code>ci_success</code> ; les actions sont épinglées par SHA et les exécutions concurrentes annulées.</p>
+<p>Les tests se lancent par <code>make test</code>, en <code>pytest</code>, avec <code>--strict-markers --strict-config</code> et des snapshots <code>syrupy</code>.</p>
+<p>Donnée non relevée : le taux de couverture et le nombre de fichiers de test, aucun outil ne les expose ici ; à vérifier dans <a href="https://github.com/langchain-ai/langgraph/tree/main/libs/langgraph/tests">https://github.com/langchain-ai/langgraph/tree/main/libs/langgraph/tests</a>.</p></div></div>
+<footer><span class="repo-name">langchain-ai/langgraph · relevé le 10 sept. 2026</span><span class="n">cto · 3 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">04</span><h2>Qui porte le projet et quel est le bus factor ?</h2></header>
+<p class="takeaway">Un éditeur solide derrière, mais quatre personnes couvrent la moitié du travail et aucune zone n'a de responsable désigné.</p>
+<div class="body split"><div class="chart-wrap"><svg class="chart" viewBox="0 0 640 252" width="640" height="252" role="img" preserveAspectRatio="xMinYMin meet"><text class="lbl" x="168" y="21" text-anchor="end">eliornl</text><rect class="bar strong" x="178" y="10" width="398" height="14" rx="3"/><text class="val" x="582" y="21">11</text><text class="lbl" x="168" y="45" text-anchor="end">ccurme</text><rect class="bar strong" x="178" y="34" width="181" height="14" rx="3"/><text class="val" x="365" y="45">5</text><text class="lbl" x="168" y="69" text-anchor="end">longquanzheng</text><rect class="bar strong" x="178" y="58" width="181" height="14" rx="3"/><text class="val" x="365" y="69">5</text><text class="lbl" x="168" y="93" text-anchor="end">jkennedyvz</text><rect class="bar strong" x="178" y="82" width="109" height="14" rx="3"/><text class="val" x="293" y="93">3</text><text class="lbl" x="168" y="117" text-anchor="end">nick-hollon-lc</text><rect class="bar" x="178" y="106" width="109" height="14" rx="3"/><text class="val" x="293" y="117">3</text><text class="lbl" x="168" y="141" text-anchor="end">syachamaneni-lc</text><rect class="bar" x="178" y="130" width="72" height="14" rx="3"/><text class="val" x="256" y="141">2</text><text class="lbl" x="168" y="165" text-anchor="end">cwlbraa</text><rect class="bar" x="178" y="154" width="72" height="14" rx="3"/><text class="val" x="256" y="165">2</text><text class="lbl" x="168" y="189" text-anchor="end">saad-supports-langchain</text><rect class="bar" x="178" y="178" width="72" height="14" rx="3"/><text class="val" x="256" y="189">2</text><text class="lbl" x="168" y="213" text-anchor="end">sydney-runkle</text><rect class="bar" x="178" y="202" width="72" height="14" rx="3"/><text class="val" x="256" y="213">2</text><text class="lbl" x="168" y="237" text-anchor="end">pjrule</text><rect class="bar" x="178" y="226" width="36" height="14" rx="3"/><text class="val" x="220" y="237">1</text></svg></div><div class="text"><p>Bus factor relevé : 4. Quatre départs simultanés suffisent à faire décrocher le rythme.</p>
+<p>La distribution est plate et mince : la personne la plus active signe 11 modifications sur douze semaines, la deuxième et la troisième 5 chacune.</p>
+<p>Personne n'est à plein temps sur le cœur visible : les dix noms relevés totalisent 36 des 112 modifications de la période, le reste vient d'une traîne non relevée nominativement.</p>
+<p>L'éditeur est une organisation, LangChain Inc, pas un individu ; plusieurs comptes actifs portent d'ailleurs un suffixe maison (<code>nick-hollon-lc</code>, <code>saad-supports-langchain</code>).</p>
+<p>Aucun fichier CODEOWNERS : personne n'est désigné responsable d'une zone du code, ni pour la relecture, ni pour l'astreinte.</p>
+<p>Parade : ne jamais dépendre d'une correction amont. Prévoyez une personne capable de lire <code>pregel/</code> et de tenir un fork temporaire pendant six semaines.</p></div></div>
+<footer><span class="repo-name">langchain-ai/langgraph · relevé le 10 sept. 2026</span><span class="n">cto · 4 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">05</span><h2>Quelles dépendances et quelle dette ?</h2></header>
+<p class="takeaway">Six dépendances à l'exécution dont trois internes : la dette n'est pas dans les paquets, elle est dans le couplage à <code>langchain-core</code>.</p>
+<div class="body"><div class="text"><p>Le manifeste du cœur déclare 33 dépendances, dont 27 servent au développement : pytest et ses plugins, ruff, ty, jupyter.</p>
+<p>À l'exécution il n'en reste que six, et trois sont des paquets internes du monorepo :</p>
+<table><thead><tr><th>Dépendance</th><th>Version</th><th>Nature</th></tr></thead><tbody><tr><td><code>langchain-core</code></td><td><code>&gt;=1.4.7,&lt;2</code></td><td>externe, couplage structurant</td></tr><tr><td><code>pydantic</code></td><td><code>&gt;=2.7.4</code></td><td>externe, standard</td></tr><tr><td><code>xxhash</code></td><td><code>&gt;=3.5.0</code></td><td>externe, hachage</td></tr><tr><td><code>langgraph-checkpoint</code></td><td><code>&gt;=4.1.0,&lt;5.0.0</code></td><td>interne au dépôt</td></tr><tr><td><code>langgraph-sdk</code></td><td><code>&gt;=0.4.2,&lt;0.5.0</code></td><td>interne au dépôt</td></tr><tr><td><code>langgraph-prebuilt</code></td><td><code>&gt;=1.1.0,&lt;1.2.0</code></td><td>interne au dépôt</td></tr></tbody></table>
+<p>Trois dépendances externes seulement : la surface d'attaque et le risque de conflit de versions sont faibles pour un projet de cette taille.</p>
+<p>La vraie dépendance est <code>langchain-core</code>, borné à la majeure 1 : votre montée vers <code>langchain-core</code> 2 sera conditionnée par le calendrier de LangChain, pas par le vôtre.</p>
+<p>Pas de manifeste racine, chaque paquet a son <code>pyproject.toml</code> et son <code>uv.lock</code> versionné (712 Ko pour le cœur) : les versions sont verrouillées, reproductibles, et montées par lots.</p>
+<p>Dette relevée dans le code : quatre TODO structurels sur le cœur — signatures <code>config</code>/<code>store</code> à remplacer par un argument de contexte dans <code>graph/_node.py</code>, gestionnaire de contexte du <code>runtime.py</code>, paramètre <code>exiting</code> explicite dans <code>pregel/_loop.py</code> — plus un <code># TODO: add more tests</code> dans <code>tests/test_algo.py</code>.</p>
+<p>Donnée non relevée : les dépendances transitives et les alertes de vulnérabilité ; à vérifier dans <a href="https://github.com/langchain-ai/langgraph/security">https://github.com/langchain-ai/langgraph/security</a>.</p></div></div>
+<footer><span class="repo-name">langchain-ai/langgraph · relevé le 10 sept. 2026</span><span class="n">cto · 5 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">06</span><h2>Quels risques ?</h2></header>
+<p class="takeaway">Le code et la licence ne posent pas de problème ; ce sont l'absence de canal de sécurité, quatre porteurs et 528 tickets ouverts qui doivent entrer dans votre plan.</p>
+<div class="body split"><div class="chart-wrap"><ul class="risks"><li><span class="light low" aria-hidden="true"></span><b>license</b><span class="role">MIT : licence permissive.</span></li><li><span class="light mid" aria-hidden="true"></span><b>security</b><span class="role">Pas de SECURITY.md : aucun canal déclaré pour signaler une faille.</span></li><li><span class="light low" aria-hidden="true"></span><b>deps</b><span class="role">Pas de manifeste racine : chaque paquet de libs/ a son pyproject.toml et son uv.lock. libs/langgraph/pyproject.toml déclare 33 dépendances : 6 à l'exécution (langchain-core, pydantic, xxhas…</span></li><li><span class="light low" aria-hidden="true"></span><b>ci</b><span class="role">17 workflows dans .github/workflows. ci.yml (workflow_dispatch, push sur main, pull_request) filtre par chemins modifiés puis enchaîne lint et tests sur 8 libs Python via _lint.yml, _test.y…</span></li><li><span class="light low" aria-hidden="true"></span><b>security</b><span class="role">Aucune mesure de couverture : pytest-cov est bien dans le groupe test de libs/langgraph/pyproject.toml, mais ni ci.yml ni _test_langgraph.yml ne produisent de rapport ni n'imposent de seuil…</span></li></ul></div><div class="text"><p>Quatre risques ont été évalués, un seul sort du vert.</p>
+<table><thead><tr><th>Risque</th><th>Niveau</th><th>Constat</th><th>Parade</th></tr></thead><tbody><tr><td>Licence</td><td><span class="level low">faible</span></td><td>MIT, produit fermé autorisé</td><td>garder la mention de copyright</td></tr><tr><td>Sécurité</td><td><span class="level mid">moyen</span></td><td>pas de SECURITY.md</td><td>passer par le support de l'éditeur</td></tr><tr><td>Dépendances</td><td><span class="level low">faible</span></td><td>6 à l'exécution, <code>uv.lock</code> versionné</td><td>épingler le cœur, rejouer vos tests</td></tr><tr><td>Intégration continue</td><td><span class="level low">faible</span></td><td>17 workflows, actions épinglées par SHA</td><td>aucune, c'est un point fort</td></tr></tbody></table>
+<p>Deux risques absents de cette grille pèsent plus lourd pour une mise en production.</p>
+<p><strong>Concentration humaine, niveau élevé.</strong> Bus factor de 4, aucun CODEOWNERS : la parade est interne — une compétence maison sur le cœur et la capacité à tenir un fork temporaire.</p>
+<p><strong>File d'attente du support, niveau élevé.</strong> 528 tickets ouverts contre 7 refermés en trente jours, 245 propositions en attente : budgétez votre propre support plutôt que d'attendre l'amont.</p>
+<p>Les tickets les plus discutés sont des sujets de production : réexécution silencieuse d'appels longs depuis un checkpoint, ordre de persistance non garanti en <code>durability=&quot;sync&quot;</code><sup class="note"><a href="#note-1">1</a></sup><sup class="note"><a href="#note-2">2</a></sup>.</p></div></div>
+<footer><span class="repo-name">langchain-ai/langgraph · relevé le 10 sept. 2026</span><span class="n">cto · 6 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">07</span><h2>Adopter, contribuer ou forker ?</h2></header>
+<p class="takeaway">Adopter en épinglant, contribuer en ciblé, ne pas forker : le dépôt absorbe mal les contributions mais l'amont va dans votre sens.</p>
+<div class="body"><div class="text"><p><strong>Adopter</strong> est le choix par défaut, et il est peu risqué juridiquement : MIT, <code>pip install -U langgraph</code>, cœur en 1.x donc engagement de stabilité de l'interface.</p>
+<p>Le coût d'adoption réel n'est pas l'installation mais l'exploitation : les trois tickets les plus lourds portent sur la sémantique de reprise après panne, exactement ce que vous achetez en choisissant ce framework<sup class="note"><a href="#note-2">2</a></sup>.</p>
+<p><strong>Contribuer</strong> est possible mais lent : 245 propositions de changement sont ouvertes, dont des correctifs sur le cœur toujours en attente, et aucun ticket n'est étiqueté « bonne première contribution ».</p>
+<p>Le dépôt est en revanche bien outillé pour contribuer vite, y compris avec des agents : <code>AGENTS.md</code>, <code>CLAUDE.md</code> et <code>docs/llms.txt</code> sont présents, et deux workflows imposent le format des propositions et le lien vers un ticket.</p>
+<p><strong>Forker</strong> ne se justifie pas : rattraper 112 modifications par trimestre sur neuf paquets coûte plus cher qu'un correctif ciblé remonté en amont.</p>
+<p>La demande de la communauté dessine la trajectoire, et elle est alignée avec des besoins d'entreprise : preuves auditables de fin d'exécution (64 échanges), exemple de validation humaine en environnement réglementé, interception des appels d'outil avant exécution pour appliquer une politique<sup class="note"><a href="#note-3">3</a></sup><sup class="note"><a href="#note-4">4</a></sup><sup class="note"><a href="#note-5">5</a></sup>.</p>
+<p>Donnée non relevée : aucune feuille de route publiée ni jalon daté ; à suivre dans <a href="https://github.com/langchain-ai/langgraph/milestones">https://github.com/langchain-ai/langgraph/milestones</a>.</p></div></div>
+<footer><span class="repo-name">langchain-ai/langgraph · relevé le 10 sept. 2026</span><span class="n">cto · 7 / 9</span></footer>
+</section><section class="finale">
+<header><span class="kicker">cto</span><h2>Décision</h2></header>
+
+<div class="body"><div class="text"><ol><li><strong>Adopter, en épinglant le cœur.</strong> Figez <code>langgraph</code> 1.2.11 et le checkpointer, rejouez vos tests à chaque montée : 23 des 33 intégrations du mois sont des bumps, le flux est constant.</li><li><strong>Budgéter le support en interne.</strong> 528 tickets ouverts pour 7 refermés en trente jours : personne ne corrigera votre incident à votre place.</li><li><strong>Une compétence maison sur <code>pregel/</code>.</strong> Bus factor de 4, aucun CODEOWNERS : il faut une personne capable de lire le cœur et de tenir un fork temporaire six semaines.</li><li><strong>Deux points à instruire avant la production.</strong> L'ordre de persistance en <code>durability=&quot;sync&quot;</code> et la perte possible d'une exécution avant le premier checkpoint durable conditionnent votre promesse de reprise<sup class="note"><a href="#note-2">2</a></sup><sup class="note"><a href="#note-6">6</a></sup>.</li><li><strong>Un point de vigilance non technique.</strong> Aucun canal de divulgation de faille n'est publié : décidez dès maintenant par où vous signalerez une vulnérabilité.</li></ol></div></div>
+<footer><span class="repo-name">langchain-ai/langgraph · relevé le 10 sept. 2026</span><span class="n">cto · 8 / 9</span></footer>
+</section><section class="refs"><header><span class="kicker">références publiques</span><h2>Sources</h2></header><div class="body"><ol class="sources"><li id="note-1"><a href="https://github.com/langchain-ai/langgraph/issues/7417">https://github.com/langchain-ai/langgraph/issues/7417</a></li><li id="note-2"><a href="https://github.com/langchain-ai/langgraph/issues/8039">https://github.com/langchain-ai/langgraph/issues/8039</a></li><li id="note-3"><a href="https://github.com/langchain-ai/langgraph/issues/7844">https://github.com/langchain-ai/langgraph/issues/7844</a></li><li id="note-4"><a href="https://github.com/langchain-ai/langgraph/issues/7687">https://github.com/langchain-ai/langgraph/issues/7687</a></li><li id="note-5"><a href="https://github.com/langchain-ai/langgraph/issues/8102">https://github.com/langchain-ai/langgraph/issues/8102</a></li><li id="note-6"><a href="https://github.com/langchain-ai/langgraph/issues/8764">https://github.com/langchain-ai/langgraph/issues/8764</a></li></ol></div><footer><span class="repo-name">langchain-ai/langgraph · relevé le 10 sept. 2026</span><span class="n">cto · 9 / 9</span></footer></section>
+</body>
+</html>

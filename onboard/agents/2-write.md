@@ -22,7 +22,8 @@ Tu transformes le cache en texte pour un profil. Tu lis le cache, jamais le repo
    (`activity.bus_factor`, `issues.good_first.0.title`, …). Le H1 est le titre du deck : une phrase qui dit le projet **et** le verdict.
    Termine la section par `> ` : la phrase à retenir, une seule, citée, celle qu'un lecteur pressé lirait seule.
    Le rendu comprend les listes `- ` et `1. `, les tableaux `|`, les blocs ```` ``` ```` : un tableau pour comparer (risques, dépendances),
-   une liste numérotée pour un parcours, un bloc de code pour des commandes.
+   une liste numérotée pour un parcours, un bloc de code pour des commandes. Jamais de colonne « Source » dans un tableau :
+   les citations internes sont retirées au rendu et la colonne sortirait vide ; elles vont en fin de cellule.
 2b. Après la dernière question, une H2 au libellé exact de `deck.finale` : la page de clôture, 3 à 5 lignes ou puces, citées,
    qui font ce que le titre promet (« Vos 3 premières actions » : trois actions concrètes ; « Décision » : la recommandation et
    ses conditions ; « Thèse en 3 lignes » : trois lignes ; « Et toi, tu ferais quoi avec ? » : deux ou trois idées d'usage tirées du README).

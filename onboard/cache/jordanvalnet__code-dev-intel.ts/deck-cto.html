@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>code-dev-intel : une brique d'intelligence de code pour agents IA, bien fabriquée, portée par une seule personne sous AGPL — à adopter en interne, pas à intégrer</title>
+<style>
+:root {
+  --bg: #f5f5f3; --card: #ffffff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2;
+  --accent: #4f5bd5; --accent-2: #d1495b; --accent-ink: #ffffff;
+  --cover-bg: #17181c; --cover-fg: #ffffff; --cover-muted: #b7bccb;
+  --low: #2e9e6b; --mid: #d99a2b; --high: #d1495b;
+  --font: ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --display: var(--font); --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --radius: 12px; --pad: 40px 48px; --width: 1040px; --min-h: 600px;
+  --h1: 2.8rem; --h2: 1.7rem; --text: 1.02rem; --kpi: 2.6rem;
+}
+* { box-sizing: border-box; }
+html { font-size: 16px; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 1rem/1.55 var(--font); }
+section {
+  position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  max-width: var(--width); margin: 28px auto; padding: var(--pad); min-height: var(--min-h); font-size: var(--text);
+  display: flex; flex-direction: column;
+}
+section > .body { flex: 1; }
+h1 { font: 700 var(--h1)/1.1 var(--display); letter-spacing: -0.01em; margin: 0 0 16px; }
+h2 { font: 700 var(--h2)/1.2 var(--display); margin: 0 0 10px; }
+p { margin: 0 0 10px; }
+ul, ol { margin: 0 0 12px; padding-left: 22px; }
+li { margin: 0 0 6px; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code { font: 0.88em var(--mono); background: var(--bg); padding: 1px 6px; border-radius: 5px; }
+pre { background: #14151a; color: #e8eaf1; padding: 14px 18px; border-radius: 10px; overflow-x: auto; margin: 0 0 14px; font-size: 0.9em; line-height: 1.5; }
+pre code { background: none; padding: 0; color: inherit; font-size: 1em; }
+strong { font-weight: 700; }
+table { border-collapse: collapse; width: 100%; margin: 0 0 14px; font-size: 0.94em; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); border-bottom: 2px solid var(--accent); }
+.level { display: inline-block; padding: 1px 10px; border-radius: 999px; font-size: 0.8em; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.04em; }
+.level.low { background: var(--low); } .level.mid { background: var(--mid); } .level.high { background: var(--high); }
+
+/* Couverture */
+.cover { justify-content: center; background: var(--cover-bg); color: var(--cover-fg); border: 0; }
+.cover h1 code { background: rgba(255,255,255,0.14); color: inherit; padding: 0 0.25em; font-size: 0.85em; }
+.cover a { color: inherit; }
+.cover-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 40px; }
+.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.8rem; font-weight: 700; }
+.date, .repo, .cover-foot { color: var(--cover-muted); font-size: 0.9rem; }
+.repo { font-family: var(--mono); font-size: 1rem; margin: 0 0 12px; }
+.cover .desc { color: var(--cover-muted); font-size: 1.1rem; max-width: 46em; margin-bottom: 32px; }
+.kpis { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; padding: 0; margin: 0 0 32px; }
+.kpis li { border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; padding: 14px 18px; background: rgba(255,255,255,0.05); }
+.kpis b { display: block; font: 700 var(--kpi)/1 var(--display); letter-spacing: -0.02em; margin-bottom: 6px; }
+.kpis span { display: block; font-size: 0.82rem; color: var(--cover-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.kpis b.long { font-size: calc(var(--kpi) * 0.62); padding: 0.25em 0; }
+.kpis small { display: block; font-size: 0.78rem; color: var(--cover-muted); margin-top: 3px; text-transform: none; letter-spacing: 0; }
+.cover-foot { margin: 0; display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* Pages */
+.page header, .finale header { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+.kicker { font: 700 0.78rem/1 var(--mono); color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; }
+.takeaway { margin: 0 0 22px; padding: 14px 20px; border-left: 5px solid var(--accent); background: var(--bg); font-size: 1.12em; font-weight: 600; line-height: 1.45; border-radius: 0 10px 10px 0; }
+.body.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; align-items: start; align-content: start; }
+.body.split .chart-wrap { min-width: 0; }
+.body.stack .chart-wrap { margin-bottom: 20px; }
+footer { display: flex; justify-content: space-between; gap: 12px; margin-top: 26px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.78rem; }
+footer .n { font-family: var(--mono); }
+
+/* Graphiques SVG et listes annotées (charts.ts) */
+.chart { display: block; width: 100%; height: auto; max-width: 640px; margin: 0 0 12px; }
+.chart text { font-family: var(--font); fill: var(--fg); }
+.chart .lbl { font-size: 12px; }
+.chart .val, .chart .tick { font-size: 11px; fill: var(--muted); }
+.chart .bar { fill: var(--accent); }
+.chart .bar.strong { fill: var(--accent-2); }
+.chart .bar.off { fill: var(--line); }
+.chart .dot { fill: var(--accent); }
+.chart .axis { stroke: var(--line); stroke-width: 1; }
+.tree, .risks { list-style: none; margin: 0 0 14px; padding: 0; font-size: 0.92em; }
+.tree li, .risks li { display: flex; gap: 10px; align-items: baseline; padding: 4px 0; border-bottom: 1px solid var(--line); }
+.tree code { flex: 0 0 auto; }
+.tree .more { color: var(--muted); border: 0; font-style: italic; }
+.role { color: var(--muted); font-size: 0.9em; }
+.light { width: 11px; height: 11px; border-radius: 50%; flex: 0 0 auto; background: var(--muted); }
+.light.low { background: var(--low); } .light.mid { background: var(--mid); } .light.high { background: var(--high); }
+
+/* Finale et sources */
+.finale { border: 2px solid var(--accent); }
+.finale .body { font-size: 1.08em; }
+.finale ol, .finale ul { padding-left: 26px; }
+.finale li { margin-bottom: 10px; }
+.refs { min-height: 0; }
+.refs ol { padding-left: 22px; font-size: 0.86rem; column-count: 2; column-gap: 32px; }
+.refs li { margin-bottom: 6px; break-inside: avoid; }
+.note { font-size: 0.68em; }
+.note a { text-decoration: none; padding: 0 1px; }
+
+.p-cto { --accent: #1f3a5f; --accent-2: #c9772e; --cover-bg: #1f3a5f; --cover-fg: #ffffff; --cover-muted: #b9c7dc; --bg: #f4f6f9; --h1: 2.5rem; --h2: 1.5rem; --text: 0.98rem; }
+.p-cto .cover { background: linear-gradient(135deg, #1f3a5f 0%, #17304f 60%, #24466f 100%); }
+.p-cto .cover .eyebrow { color: #f0b97a; }
+.p-cto .cover h1 { border-left: 6px solid var(--accent-2); padding-left: 20px; }
+.p-cto .kpis { grid-template-columns: repeat(4, 1fr); }
+.p-cto .kpis li { border: 0; border-top: 3px solid var(--accent-2); border-radius: 0; background: rgba(255,255,255,0.06); }
+.p-cto section:not(.cover) { border-top: 4px solid var(--accent); border-radius: 0 0 var(--radius) var(--radius); }
+.p-cto .kicker { color: var(--accent-2); }
+.p-cto .takeaway { border-left-color: var(--accent-2); background: #fbf3ea; }
+.p-cto th { border-bottom-color: var(--accent); }
+.p-cto .finale { border: 0; background: var(--accent); color: #fff; }
+.p-cto .finale .kicker, .p-cto .finale h2 { color: #fff; }
+.p-cto .finale h2 { border-left: 6px solid var(--accent-2); padding-left: 16px; }
+.p-cto .finale code { background: rgba(255,255,255,0.14); color: #fff; }
+.p-cto .finale a, .p-cto .finale .note a { color: #f0b97a; }
+.p-cto .finale footer { border-top-color: rgba(255,255,255,0.25); color: #b9c7dc; }
+
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #14151a; --card: #1c1e25; --fg: #eceef3; --muted: #a0a6b4; --line: #2f323c; --low: #4cc38a; --mid: #e5b25d; --high: #ef7f8e; }
+  code { background: #262932; }
+  .p-dev { --accent: #8f97ee; --accent-2: #ef7f8e; }
+  .p-qa { --accent: #35c2a8; --accent-2: #ef7f8e; --bg: #14181a; --cover-bg: #1c2422; --cover-fg: #eef5f2; --cover-muted: #9fb8b0; }
+  .p-qa .kpis li { background: #213230; border-color: #2e4a45; }
+  .p-qa .takeaway, .p-qa .finale { background: #1f2b28; }
+  .p-qa tbody tr:nth-child(odd) { background: #1f2624; }
+  .p-cto { --accent: #7fa6d9; --accent-2: #f0b97a; --bg: #141821; }
+  .p-cto .takeaway { background: #2a2620; }
+  .p-cto .finale { background: #1f3a5f; }
+  .p-ceo { --accent: #dcc27a; --bg: #15171c; --card: #1c1e25; --line: #2f323c; }
+  .p-ceo .finale { background: #14213d; }
+  .p-investisseur { --accent: #5cc493; --accent-2: #dcb25f; --bg: #141816; --card: #1b201d; --line: #2c342f; --cover-bg: #1b201d; --cover-fg: #eef3ef; --cover-muted: #9fb0a6; }
+  .p-investisseur .kpis li { background: #16201b; }
+  .p-investisseur .finale { background: #1d6b4a; }
+}
+
+@media print {
+  @page { size: A4 landscape; margin: 10mm; }
+  html { font-size: 12px; }
+  .p-dev, .p-qa, .p-cto { --text: 0.9rem; }
+  .p-dev .tree, .p-qa .tree, .p-cto .tree { font-size: 0.82em; }
+  .p-ceo { --text: 1rem; }
+  .p-ceo .takeaway { font-size: 1.3rem; margin-bottom: 16px; }
+  .p-ceo .risks li { padding: 2px 0; }
+  .body.split { gap: 22px; }
+  .p-ceo .chart { max-height: 52mm; }
+  .p-enfant .chart { max-height: 60mm; }
+  .takeaway { font-size: 1.05em; padding: 10px 16px; margin-bottom: 14px; }
+  th, td { padding: 5px 10px; }
+  footer { margin-top: 14px; padding-top: 8px; }
+  .refs ol { column-count: 3; font-size: 0.82rem; }
+  .refs li { margin-bottom: 3px; }
+  body { background: #fff; }
+  :root, .p-dev, .p-qa, .p-cto, .p-ceo, .p-investisseur, .p-enfant { --bg: #f5f5f3; --card: #fff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2; }
+  .p-qa { --bg: #f2f7f5; } .p-cto { --bg: #f4f6f9; } .p-ceo { --bg: #f7f5ef; --card: #fffdf8; } .p-investisseur { --bg: #f6f6f2; } .p-enfant { --bg: #fff6e5; --card: #fffdf7; --fg: #2b2118; --muted: #7a6a5a; }
+  .p-ceo { --accent: #14213d; } .p-cto { --accent: #1f3a5f; } .p-dev { --accent: #4f5bd5; } .p-qa { --accent: #0f8f7a; } .p-investisseur { --accent: #1d6b4a; }
+  section { max-width: none; margin: 0; min-height: 178mm; break-after: page; page-break-after: always; box-shadow: none; --pad: 26px 36px; }
+  section:last-child { break-after: auto; page-break-after: auto; }
+  .p-enfant section { box-shadow: none; margin: 0; }
+  .cover { min-height: 178mm; }
+  .refs { min-height: 0; }
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  a { text-decoration: none; }
+}
+</style>
+</head>
+<body class="p-cto">
+<section class="cover">
+<div class="cover-top"><span class="eyebrow">Note de décision technique</span><span class="date">Données GitHub relevées le 10 sept. 2026</span></div>
+<p class="repo">jordanvalnet/code-dev-intel.ts</p>
+<h1>code-dev-intel : une brique d'intelligence de code pour agents IA, bien fabriquée, portée par une seule personne sous AGPL — à adopter en interne, pas à intégrer</h1>
+<p class="desc">Self-hosted AI code intelligence for TypeScript — symbol resolution, structural search, duplicate detection, and dependency graphs via MCP server.</p>
+<ul class="kpis"><li><b>1</b><span>bus factor</span><small>sur 12 semaines</small></li><li><b>11</b><span>commits</span><small>sur 12 semaines</small></li><li><b>14</b><span>dépendances</span><small>5 en production</small></li><li><b>AGPL-3.0</b><span>licence</span></li></ul>
+<p class="cover-foot"><span><a href="https://github.com/jordanvalnet/code-dev-intel.ts">https://github.com/jordanvalnet/code-dev-intel.ts</a></span><span>Licence AGPL-3.0</span><span>Onboard · profil cto</span></p>
+</section><section class="page">
+<header><span class="kicker">02</span><h2>Que fait ce projet et quelle est son architecture ?</h2></header>
+<p class="takeaway">Un service local de navigation de code pour agents IA : quatre services autour d'un seul exécutable, aucune dépendance à un indexeur distant.</p>
+<div class="body split"><div class="chart-wrap"><ul class="tree"><li><code>.github/</code><span class="role">workflows GitHub Actions</span></li><li><code>__tests__/</code><span class="role">tests unitaires vitest</span></li><li><code>docker/</code><span class="role">docker-compose.yml et profils</span></li><li><code>docs/</code><span class="role">documentation, dont docs/ai</span></li><li><code>perf/</code><span class="role">benchmarks de performance</span></li><li><code>schemas/</code><span class="role">schémas livrés avec le paquet</span></li><li><code>scripts/</code><span class="role">bootstrap, smoke tests, benchmark</span></li><li><code>security/</code><span class="role">ressources sécurité</span></li><li><code>services/</code><span class="role">serveur MCP, indexeur, gouvernance, sécurité</span></li><li><code>.dockerignore</code><span class="role">exclusions du build Docker</span></li><li><code>.gitignore</code><span class="role">fichiers ignorés par git</span></li><li><code>.npmignore</code><span class="role">exclusions du paquet npm</span></li><li><code>CHANGELOG.md</code><span class="role">journal des versions</span></li><li><code>CONTRIBUTING.md</code><span class="role">guide de contribution</span></li><li><code>LICENSE</code><span class="role">licence AGPL-3.0-only</span></li><li><code>README.md</code><span class="role">présentation et documentation principale</span></li><li class="more">… et 6 autres entrées à la racine du dépôt</li></ul></div><div class="text"><p><code>code-dev-intel.ts</code> est un serveur MCP auto-hébergé qui répond aux questions de navigation de code d'un agent IA sur un dépôt TypeScript : définitions, références, implémentations, hiérarchie d'appels, graphe d'imports, rayon d'impact d'un changement, recherche structurelle et détection de duplication.</p>
+<p>Trois surfaces d'accès pour un seul exécutable : MCP sur stdio, MCP en JSON-RPC sur <code>POST /mcp</code>, et des points HTTP <code>/tools/*</code> avec <code>/health</code> et <code>/tools/describe</code>.</p>
+<p>L'architecture est un monodépôt de services : <code>services/</code> porte le serveur MCP, l'indexeur, la gouvernance et la sécurité ; le reste de la racine est de l'outillage — <code>scripts/</code>, <code>perf/</code>, <code>schemas/</code>, <code>docker/</code>, <code>__tests__/</code>.</p>
+<p>Point d'entrée unique côté produit : <code>services/code-intel-mcp/src/server.ts</code>, à la fois <code>main</code> et <code>bin</code> du paquet une fois compilé dans <code>dist/</code>.</p>
+<p>La valeur technique n'est pas dans les outils exposés mais dans leur résolution : le graphe d'imports passe par <code>ts.resolveModuleName</code> avec le <code>tsconfig.json</code> le plus proche du fichier importateur, et rend compte de ce qu'il n'a pas su suivre au lieu de le taire.</p>
+<p>Distribution : paquet npm public installé en dépendance de développement, démarré par une commande unique conçue pour les scripts et la CI.</p></div></div>
+<footer><span class="repo-name">jordanvalnet/code-dev-intel.ts · relevé le 10 sept. 2026</span><span class="n">cto · 2 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">03</span><h2>Quelle est sa santé technique ?</h2></header>
+<p class="takeaway">Ingénierie de livraison sérieuse — matrice trois systèmes, smoke test du tarball — mais cinq mois d'écart entre la dernière version estampillée et le code du dépôt.</p>
+<div class="body split"><div class="chart-wrap"><svg class="chart" viewBox="0 0 640 172" width="640" height="172" role="img" preserveAspectRatio="xMinYMin meet"><line class="axis" x1="34" y1="138" x2="628" y2="138"/><text class="tick" x="28" y="22" text-anchor="end">11</text><text class="tick" x="28" y="138" text-anchor="end">0</text><rect class="bar" x="43.9" y="138" width="29.7" height="1" rx="2"><title>2026-W26 : 0</title></rect><text class="tick" x="58.75" y="154" text-anchor="middle">W26</text><rect class="bar" x="93.4" y="138" width="29.7" height="1" rx="2"><title>2026-W27 : 0</title></rect><rect class="bar" x="142.9" y="138" width="29.7" height="1" rx="2"><title>2026-W28 : 0</title></rect><text class="tick" x="157.75" y="154" text-anchor="middle">W28</text><rect class="bar" x="192.4" y="138" width="29.7" height="1" rx="2"><title>2026-W29 : 0</title></rect><rect class="bar" x="241.9" y="138" width="29.7" height="1" rx="2"><title>2026-W30 : 0</title></rect><text class="tick" x="256.75" y="154" text-anchor="middle">W30</text><rect class="bar" x="291.4" y="138" width="29.7" height="1" rx="2"><title>2026-W31 : 0</title></rect><rect class="bar" x="340.9" y="138" width="29.7" height="1" rx="2"><title>2026-W32 : 0</title></rect><text class="tick" x="355.75" y="154" text-anchor="middle">W32</text><rect class="bar" x="390.4" y="138" width="29.7" height="1" rx="2"><title>2026-W33 : 0</title></rect><rect class="bar" x="439.9" y="138" width="29.7" height="1" rx="2"><title>2026-W34 : 0</title></rect><text class="tick" x="454.75" y="154" text-anchor="middle">W34</text><rect class="bar" x="489.4" y="138" width="29.7" height="1" rx="2"><title>2026-W35 : 0</title></rect><rect class="bar" x="538.9" y="12" width="29.7" height="126" rx="2"><title>2026-W36 : 11</title></rect><text class="tick" x="553.75" y="154" text-anchor="middle">W36</text><rect class="bar" x="588.4" y="138" width="29.7" height="1" rx="2"><title>2026-W37 : 0</title></rect></svg></div><div class="text"><p>Le rythme est discontinu : 11 des commits relevés sur douze semaines tombent dans la seule semaine du 1er septembre 2026, les onze semaines précédentes sont à zéro ; dernier commit le 6 septembre 2026.</p>
+<p>La chaîne de vérification, elle, est nettement au-dessus de ce qu'on attend d'un projet à un contributeur : quatre workflows, et <code>ci.yml</code> enchaîne lint, type-check et tests sur ubuntu, windows et macos en Node 20, 22 et 24, puis <code>release-smoke</code>, <code>indexer-smoke</code> et un scan de sécurité, à chaque push et chaque pull request.</p>
+<p><code>release-smoke</code> va jusqu'au bout de la chaîne : il empaquette le tarball qu'une publication produirait, l'installe dans un projet jetable sur les trois systèmes et pilote le serveur installé — c'est là que se voient une erreur de <code>files</code>, une dépendance optionnelle absente ou un bug de chemin Windows, invisibles depuis l'arbre source.</p>
+<p>Tests : <code>vitest</code>, quatre ensembles sous <code>__tests__/unit</code> (serveur MCP, indexeur, gouvernance, sécurité), lancés par <code>pnpm test</code>.</p>
+<p>Le trou est ailleurs : une seule version estampillée, v0.1.6 du 26 mars 2026, alors que le manifeste du dépôt est en 0.5.0 et que le journal des versions décrit un 0.5.0 daté du 4 septembre 2026.</p>
+<p>Cinq mois de travail sans étiquette publique : la page des versions ne dit plus où en est le produit, et un adoptant ne sait pas ce qu'il installe<sup class="note"><a href="#note-1">1</a></sup>.</p></div></div>
+<footer><span class="repo-name">jordanvalnet/code-dev-intel.ts · relevé le 10 sept. 2026</span><span class="n">cto · 3 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">04</span><h2>Qui porte le projet et quel est le bus factor ?</h2></header>
+<p class="takeaway">Une personne, un compte personnel, aucun responsable de secours désigné : le premier risque de ce dépôt est humain, pas technique.</p>
+<div class="body split"><div class="chart-wrap"><svg class="chart" viewBox="0 0 640 36" width="640" height="36" role="img" preserveAspectRatio="xMinYMin meet"><text class="lbl" x="168" y="21" text-anchor="end">jordanvalnet</text><rect class="bar strong" x="178" y="10" width="398" height="14" rx="3"/><text class="val" x="582" y="21">12</text></svg></div><div class="text"><p>Bus factor 1 : un seul compte, <code>jordanvalnet</code>, porte la totalité des commits relevés — 12 à son compteur sur la période.</p>
+<p>Le dépôt vit sur un compte personnel et non sur une organisation, et aucun fichier <code>CODEOWNERS</code> ne désigne de responsable de secours.</p>
+<p>Le process, lui, est écrit et exigeant : branches courtes <code>task/T-00X-short-name</code>, une tâche par pull request, définition de fini en cinq points dont <code>pnpm lint</code>, <code>pnpm type-check</code> et <code>pnpm test</code>, et un journal de mémoire partagée à compléter à chaque tâche.</p>
+<p>Ce process est calibré pour des agents IA travaillant sur <code>docs/ai/</code>, pas pour une communauté : aucune contribution extérieure relevée, aucune issue étiquetée pour un premier contributeur.</p>
+<p>Parade, niveau élevé : obtenir un second mainteneur avec droit de publication avant tout usage en production, sinon traiter le fork interne comme le plan de continuité — la licence l'autorise expressément.</p></div></div>
+<footer><span class="repo-name">jordanvalnet/code-dev-intel.ts · relevé le 10 sept. 2026</span><span class="n">cto · 4 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">05</span><h2>Quelles dépendances et quelle dette ?</h2></header>
+<p class="takeaway">La dette n'est pas dans les paquets — cinq dépendances d'exécution, verrou, versions vulnérables épinglées — elle est dans le <code>engines.node &gt;=18</code> que rien ne vérifie.</p>
+<div class="body"><div class="text"><p>14 dépendances déclarées dans <code>package.json</code> : 5 d'exécution, 9 de développement.</p>
+<table><thead><tr><th>Dépendance d'exécution</th><th>Version</th><th>Ce qu'elle porte</th></tr></thead><tbody><tr><td><code>typescript</code></td><td>^6.0.3</td><td>résolution de modules et vérificateur de types, cœur du produit</td></tr><tr><td><code>@ast-grep/cli</code></td><td>^0.45.3</td><td>recherche structurelle, binaire natif par plateforme</td></tr><tr><td><code>@vscode/ripgrep</code></td><td>^1.18.0</td><td>recherche texte, binaire natif embarqué</td></tr><tr><td><code>zod</code></td><td>^4.5.4</td><td>validation des entrées d'outils</td></tr><tr><td><code>picomatch</code></td><td>^4.0.7</td><td>motifs d'exclusion de fichiers</td></tr></tbody></table>
+<p>Surface d'attaque contenue : cinq paquets d'exécution seulement, verrou <code>pnpm-lock.yaml</code>, et dix plages de versions vulnérables épinglées à la main via <code>pnpm.overrides</code>.</p>
+<p>Contrepartie assumée : deux binaires natifs et sept dépendances optionnelles par plateforme — c'est ce qui rend la matrice trois systèmes obligatoire et non confortable.</p>
+<p>Dette n° 1, déclarative : <code>engines.node</code> annonce <code>&gt;=18.0.0</code> alors que l'outillage de développement exige Node 22 ou plus (vitest 5, <code>--experimental-strip-types</code>) ; seul le paquet compilé est vérifié sur Node 20, et Node 18 n'est testé nulle part.</p>
+<p>Dette n° 2, documentaire : aucun repère d'agent à la racine — 0 sur 7, ni <code>AGENTS.md</code>, ni <code>CLAUDE.md</code>, ni <code>.mcp.json</code> — alors que le produit s'adresse aux agents ; la documentation existe mais est rangée sous <code>docs/ai/</code>.</p>
+<p>Dette de code, en revanche, quasi nulle : la recherche de marqueurs <code>TODO</code> ne remonte que deux occurrences, toutes deux dans des textes de description d'outils, aucun chantier laissé en commentaire.</p></div></div>
+<footer><span class="repo-name">jordanvalnet/code-dev-intel.ts · relevé le 10 sept. 2026</span><span class="n">cto · 5 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">06</span><h2>Quels risques ?</h2></header>
+<p class="takeaway">Les deux risques élevés sont non techniques — la licence et la personne unique — et tous deux se traitent par contrat, pas par correctif.</p>
+<div class="body split"><div class="chart-wrap"><ul class="risks"><li><span class="light high" aria-hidden="true"></span><b>license</b><span class="role">AGPL-3.0 : copyleft, contraignant pour un usage commercial.</span></li><li><span class="light mid" aria-hidden="true"></span><b>security</b><span class="role">Pas de SECURITY.md : aucun canal déclaré pour signaler une faille.</span></li><li><span class="light high" aria-hidden="true"></span><b>bus_factor</b><span class="role">Un seul contributeur porte la moitié des commits sur 12 semaines.</span></li><li><span class="light low" aria-hidden="true"></span><b>ci</b><span class="role">Quatre workflows dans .github/workflows ; ci.yml enchaîne lint, type-check et tests sur ubuntu, windows et macos (node 20, 22, 24), puis release-smoke, indexer-smoke et scan sécurité, à cha…</span></li><li><span class="light low" aria-hidden="true"></span><b>deps</b><span class="role">5 dépendances d'exécution et 9 de développement dans package.json, verrou pnpm-lock.yaml, versions vulnérables épinglées via pnpm.overrides ; engines annonce node &gt;=18 mais ci.yml précise q…</span></li></ul></div><div class="text"><p>Cinq risques relevés : deux élevés, un moyen, deux faibles.</p>
+<table><thead><tr><th>Risque</th><th>Niveau</th><th>Parade</th></tr></thead><tbody><tr><td>Licence</td><td><span class="level high">élevé</span></td><td>Usage interne sans modification : sans effet. Toute intégration à un produit vendu ou exposé en réseau : avis juridique, ou licence commerciale négociée avec l'auteur unique</td></tr><tr><td>Bus factor</td><td><span class="level high">élevé</span></td><td>Second mainteneur avec droit de publication, ou fork interne épinglé sur une version auditée</td></tr><tr><td>Sécurité</td><td><span class="level mid">moyen</span></td><td>Contact direct de l'auteur documenté côté adoptant, et scan <code>pnpm security:scan</code> rejoué chez vous</td></tr><tr><td>Intégration continue</td><td><span class="level low">faible</span></td><td>Rien à faire : vérifier seulement que la matrice reste à trois systèmes lors des montées de version</td></tr><tr><td>Dépendances</td><td><span class="level low">faible</span></td><td><code>pnpm install --frozen-lockfile</code>, relecture des <code>pnpm.overrides</code> à chaque montée de version</td></tr></tbody></table>
+<p>Le canal de signalement manque vraiment : aucune politique de sécurité n'est publiée, donc aucune adresse où envoyer une faille, alors même qu'un dossier <code>security/</code> existe à la racine et qu'un scan OpenGrep tourne en intégration continue.</p>
+<p>Donnée non relevée : les alertes de vulnérabilité des dépendances, hors de portée des moyens d'accès utilisés ici, à vérifier sur la page sécurité du dépôt<sup class="note"><a href="#note-2">2</a></sup>.</p></div></div>
+<footer><span class="repo-name">jordanvalnet/code-dev-intel.ts · relevé le 10 sept. 2026</span><span class="n">cto · 6 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">07</span><h2>Adopter, contribuer ou forker ?</h2></header>
+<p class="takeaway">Adopter en interne sans parier sur la communauté : elle n'existe pas encore, et le fork reste ouvert si l'auteur s'arrête.</p>
+<div class="body"><div class="text"><p>La feuille de route publique est vide ou presque : aucune pull request ouverte, une seule demande ouverte, « Anti-Amnesia &amp; Workflow Hardening », sans commentaire, et aucun thème qui se dégage.</p>
+<p>Le seul mouvement récent est interne : la pull request « ci: three-OS quality matrix, multi-OS release smoke, per-OS perf budget », fusionnée le 6 septembre 2026 — de la mise en qualité, pas de la fonctionnalité.</p>
+<p>Donnée non relevée : les jalons de planification, non exposés par les moyens d'accès utilisés ici, à vérifier sur la page des jalons du dépôt<sup class="note"><a href="#note-3">3</a></sup>.</p>
+<ul><li><strong>Adopter</strong> : oui, en interne. Installation en dépendance de développement, démarrage à la demande en CI ou en hook, rien ne quitte vos machines.</li><li><strong>Contribuer</strong> : possible, à faible rendement. La file est vide, il n'y a personne à convaincre, et le process de contribution est écrit pour des agents suivant un backlog interne.</li><li><strong>Forker</strong> : c'est la sortie de secours contre le bus factor 1, et la licence vous y autorise ; le coût est de reprendre un monodépôt TypeScript de quatre services.</li></ul></div></div>
+<footer><span class="repo-name">jordanvalnet/code-dev-intel.ts · relevé le 10 sept. 2026</span><span class="n">cto · 7 / 9</span></footer>
+</section><section class="finale">
+<header><span class="kicker">cto</span><h2>Décision</h2></header>
+
+<div class="body"><div class="text"><p><strong>Adopter en pilote interne, ne rien intégrer à un produit.</strong> Le gain annoncé est mesuré et l'engagement est réversible : une dépendance de développement, un serveur local, aucune donnée qui sort — 11 agents sur 11 l'ont choisi spontanément, pour 13 à 34 % de jetons en moins sur les tâches difficiles.</p>
+<ol><li><strong>Épingler une version connue et l'auditer.</strong> Le dépôt est en 0.5.0, la dernière version estampillée est v0.1.6 du 26 mars 2026 : installez depuis un commit choisi, pas depuis une étiquette qui a cinq mois de retard.</li><li><strong>Bloquer toute intégration produit avant avis juridique.</strong> AGPL-3.0, risque élevé : l'usage interne est libre, l'exposition en réseau d'un dérivé oblige à publier votre propre code.</li><li><strong>Traiter le bus factor 1 comme une condition, pas comme une réserve.</strong> Un contributeur, aucun responsable de secours désigné : fork interne tenu à jour, ou second mainteneur, avant tout usage en production.</li><li><strong>Mesurer avant de généraliser.</strong> Un mois, une équipe volontaire, la consommation de jetons avant et après : le seul chiffre disponible aujourd'hui est celui de l'auteur, sur sa propre base de code<sup class="note"><a href="#note-4">4</a></sup>.</li></ol></div></div>
+<footer><span class="repo-name">jordanvalnet/code-dev-intel.ts · relevé le 10 sept. 2026</span><span class="n">cto · 8 / 9</span></footer>
+</section><section class="refs"><header><span class="kicker">références publiques</span><h2>Sources</h2></header><div class="body"><ol class="sources"><li id="note-1"><a href="https://github.com/jordanvalnet/code-dev-intel.ts/releases">https://github.com/jordanvalnet/code-dev-intel.ts/releases</a></li><li id="note-2"><a href="https://github.com/jordanvalnet/code-dev-intel.ts/security">https://github.com/jordanvalnet/code-dev-intel.ts/security</a></li><li id="note-3"><a href="https://github.com/jordanvalnet/code-dev-intel.ts/milestones">https://github.com/jordanvalnet/code-dev-intel.ts/milestones</a></li><li id="note-4"><a href="https://github.com/jordanvalnet/code-dev-intel.ts/blob/main/docs/benchmarks/2026-06-07-agent-token-economy.md">https://github.com/jordanvalnet/code-dev-intel.ts/blob/main/docs/benchmarks/2026-06-07-agent-token-economy.md</a></li></ol></div><footer><span class="repo-name">jordanvalnet/code-dev-intel.ts · relevé le 10 sept. 2026</span><span class="n">cto · 9 / 9</span></footer></section>
+</body>
+</html>

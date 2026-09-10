@@ -1,0 +1,49 @@
+- **MCP (Model Context Protocol)** : protocole par lequel un agent IA découvre et appelle les outils d'un serveur, ici sur stdio ou en JSON-RPC via `POST /mcp`.
+- **stdio** : transport MCP où client et serveur échangent par l'entrée et la sortie standard du processus, sans port réseau.
+- **JSON-RPC** : format d'appel de procédure en JSON (`method`, `params`, `id`) utilisé par MCP.
+- **Type-checker** : le vérificateur de types de TypeScript, que le serveur utilise pour résoudre symboles et références sans faux positifs de grep.
+- **ast-grep** : outil de recherche structurelle par motifs d'arbre syntaxique, derrière `searchStruct`.
+- **ripgrep** : recherche texte rapide (`rg`), embarquée via `@vscode/ripgrep`, derrière `searchText`.
+- **OpenGrep** : analyseur statique de sécurité lancé par `pnpm security:scan` et par le job security de la CI, sortie au format SARIF.
+- **SARIF** : format JSON standard des résultats d'analyse statique, publié en artefact de CI.
+- **Graphe d'imports** : les fichiers qu'un fichier importe, résolus comme `tsc` le ferait ; `impactedFiles` en déduit le rayon d'impact d'un changement.
+- **Bus factor** : nombre minimal de contributeurs qui totalisent la moitié des commits sur douze semaines ; 1 signifie qu'une seule personne porte le projet.
+- **AGPL-3.0** : licence copyleft qui oblige à publier le code modifié, y compris quand le logiciel est seulement exposé en réseau.
+- **Copyleft** : clause de licence qui impose de redistribuer les dérivés sous la même licence.
+- **pnpm** : gestionnaire de paquets Node imposé par le projet, `--frozen-lockfile` refuse toute divergence avec `pnpm-lock.yaml`.
+- **--experimental-strip-types** : option de Node qui exécute un fichier `.ts` directement en retirant les types, disponible à partir de Node 22.
+- **vitest** : lanceur de tests du projet, `pnpm test` en une passe, `pnpm test:watch` en continu.
+- **Smoke test** : test minimal qui vérifie qu'un livrable démarre et répond, ici `release-smoke` sur le tarball npm et `indexer-smoke` sur l'indexeur.
+- **Mémoire partagée** : journal `docs/ai/memory/AGENT_MEMORY.md` que chaque tâche doit compléter, vérifié par `pnpm pr:check-memory-reference`.
+- **Dépôt (repository)** : l'espace où vivent le code d'un projet et tout son historique, ici sur GitHub.
+- **Étoile (star)** : signet public posé par un utilisateur de GitHub sur un projet ; le nombre d'étoiles sert d'indicateur de notoriété.
+- **Copie (fork)** : duplication d'un projet sur le compte de quelqu'un d'autre, pour le modifier ou le reprendre à son compte.
+- **Version publiée (release)** : livraison estampillée d'un numéro et installable par le public ; entre deux versions, le travail reste interne.
+- **Auto-hébergé (self-hosted)** : installé et exécuté sur vos propres machines, sans envoyer vos données à un service extérieur.
+- **Jeton (token)** : unité de facturation des IA génératives ; moins de jetons consommés pour la même tâche, c'est une facture plus basse.
+- **Code** : le texte qu'on écrit pour dire à un ordinateur quoi faire, comme une recette de cuisine où rien ne peut être deviné.
+- **GitHub** : le site où sont rangés les projets de code, avec tout leur historique, et où plusieurs personnes peuvent travailler sur les mêmes fichiers.
+- **Assistant IA** : un programme qui lit et écrit du code pour aider une personne, en répondant à ses questions.
+- **Index de code** : la liste qui dit où se trouve chaque morceau d'un programme, pour éviter d'avoir à tout relire.
+- **Changement enregistré (commit)** : un petit pas de travail sauvegardé avec sa date et son auteur, qu'on peut toujours revenir voir ou annuler.
+- **Robot de vérification (CI)** : un programme qui relance tout seul les contrôles à chaque changement et prévient si quelque chose est cassé.
+- **pnpm.overrides** : section du manifeste qui force la version d'une dépendance transitive, ici pour épingler dix plages de versions vulnérables.
+- **Dépendance transitive** : paquet installé par une de vos dépendances, que vous n'avez jamais demandé et qui compte pourtant dans votre surface d'attaque.
+- **Dépendance optionnelle** : paquet installé seulement si la plateforme le permet, ici les sept binaires `@ast-grep/cli` par système et architecture.
+- **engines** : champ du manifeste npm qui déclare les versions de Node et de pnpm supportées ; il est déclaratif, rien ne l'impose à l'installation.
+- **Matrice de CI** : combinaison de systèmes et de versions sur lesquels la chaîne de vérification rejoue les mêmes contrôles, ici trois systèmes et trois versions de Node.
+- **Tarball** : l'archive que `npm publish` enverrait au registre ; `release-smoke` l'installe dans un projet jetable pour vérifier ce qu'un consommateur reçoit vraiment.
+- **impactedFiles** : outil du serveur qui, à partir des fichiers changés, retourne tous ceux qui en dépendent — le rayon d'impact d'un changement.
+- **CODEOWNERS** : fichier GitHub qui désigne les responsables d'un chemin du dépôt ; absent ici, donc aucun relais identifié.
+- **Couverture (coverage)** : part du code réellement exécutée par les tests, mesurée ici une seule fois par passage, sur ubuntu en Node 24.
+- **Idempotent** : se dit d'une commande qu'on peut rejouer sans changer le résultat, ici `ensure` qui ne démarre le serveur que s'il ne tourne pas.
+- **Étiquette (label)** : marqueur posé sur une issue pour la classer (`bug`, `regression`) ; aucune n'existe dans ce dépôt, donc rien ne s'y compte.
+- **fail-fast** : réglage d'une matrice de CI qui arrête toutes les combinaisons dès la première en échec ; désactivé ici, chaque système va au bout.
+- **Cas reproductible minimal** : la plus petite suite de commandes qui refait apparaître un défaut, exigée comme preuve par le guide de contribution.
+- **Non-régression** : vérification qu'un changement n'a pas cassé ce qui fonctionnait, assurée ici par la relance complète de la chaîne à chaque push.
+- **CODE_INTEL_GRAPH_CACHE** : variable d'environnement qui, à `off`, désactive la persistance du graphe d'imports — l'interrupteur pour tester à froid.
+- **Risque d'homme-clé** : dépendance d'un actif à une seule personne, dont le départ suffirait à en arrêter la production ; ici le bus factor vaut 1.
+- **Relicence** : changement de licence décidé par les détenteurs des droits ; possible tant qu'un seul auteur a écrit le code, quasi impossible dès qu'ils sont nombreux.
+- **Demande ouverte (issue)** : requête publique déposée sur le dépôt — signalement de défaut ou souhait de fonctionnalité — et non encore traitée.
+- **Mot-clé public (topic)** : étiquette thématique posée sur la fiche d'un dépôt GitHub ; elle sert à être trouvé et à situer un projet parmi ses comparables.
+- **Banc d'essai (benchmark)** : mesure comparative conduite dans des conditions décrites ; la valeur de la mesure dépend de qui la conduit et sur quoi.

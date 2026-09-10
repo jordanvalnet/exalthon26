@@ -108,7 +108,8 @@ export function renderInline(text: string, notes?: Notes): string {
   // Une citation retirée part avec l'espace qui la précède : « gagnée [facts:x]. » devient « gagnée. »
   return decorated.replace(new RegExp(`\\s*${CITATION.source}`, "g"), (match, kind: string, ref: string) => {
     if (!notes || kind !== "gh") return "";
-    const { n } = notes.add("gh", ref.trim());
+    // ref vient du texte déjà échappé : un « & » d'URL y est devenu « &amp; », sources() l'échappera à nouveau.
+    const { n } = notes.add("gh", ref.trim().replace(/&amp;/g, "&"));
     return `${match.startsWith(" ") ? " " : ""}<sup class="note"><a href="#note-${n}">${n}</a></sup>`.replace(/^ /, "");
   });
 }

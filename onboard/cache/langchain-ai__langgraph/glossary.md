@@ -1,0 +1,51 @@
+# Glossaire
+
+- **agent à état** : programme piloté par un LLM dont l'état (messages, variables, étape courante) est conservé entre deux exécutions et peut être inspecté ou modifié.
+- **checkpoint** : instantané de l'état d'un graphe sauvegardé à chaque étape, qui permet de reprendre après une panne ou une interruption.
+- **checkpointer** : composant qui écrit et relit les checkpoints ; le dépôt en fournit une interface (`libs/checkpoint`) et deux implémentations, Postgres et SQLite.
+- **Pregel** : modèle de calcul par graphe de Google dont LangGraph reprend le principe : des nœuds qui s'exécutent par « super-étapes » et échangent des messages via des canaux.
+- **humain dans la boucle** : mécanisme (`interrupt()`) qui suspend l'exécution pour qu'une personne valide, corrige ou complète l'état avant de reprendre.
+- **exécution durable** : garantie qu'un agent long reprend exactement où il s'est arrêté après un crash, grâce aux checkpoints.
+- **monorepo** : un seul dépôt git pour plusieurs paquets publiés séparément, ici les neuf dossiers de `libs/`.
+- **uv** : gestionnaire d'environnements et de paquets Python utilisé par le `Makefile` (`uv venv`, `uv pip install -e`, `uv lock`).
+- **installation editable** : `pip install -e`, le paquet est importé depuis le dossier source, toute modification est visible sans réinstaller.
+- **hatchling** : backend de build Python déclaré dans chaque `pyproject.toml` ; construit les wheels publiés sur PyPI.
+- **ruff** : linter et formateur Python rapide, configuré par lib (règles E, F, I, UP, ligne à 88).
+- **ty** : vérificateur de types Python utilisé en plus de ruff dans le groupe `lint`.
+- **syrupy** : plugin pytest de tests par snapshot, la sortie attendue est stockée dans un fichier et comparée à chaque run.
+- **dependabot** : robot GitHub qui ouvre des PR de montée de version des dépendances ; la majorité des PR fusionnées récemment viennent de lui.
+- **bus factor** : nombre minimal de personnes qui totalisent la moitié des commits de la période ; plus il est bas, plus le projet dépend de quelques individus.
+- **LangSmith** : plateforme de LangChain pour tracer, évaluer et déployer des agents ; optionnelle, LangGraph fonctionne sans.
+- **prebuilt** : paquet `libs/prebuilt` d'API haut niveau (par exemple `create_react_agent`) construites sur le cœur.
+- **SDK** : bibliothèques clientes (`libs/sdk-py`, `libs/sdk-js`) pour parler à un serveur LangGraph par son API HTTP.
+- **logiciel ouvert (open source)** : logiciel dont le code est public et réutilisable gratuitement, selon les conditions de sa licence.
+- **licence MIT** : la plus permissive des licences courantes : on peut l'utiliser, le modifier et le revendre dans un produit fermé, sans redevance, à condition de conserver la mention de copyright.
+- **étoile** : signet public qu'un utilisateur de GitHub pose sur un projet ; c'est l'indicateur de notoriété le plus lu, pas une mesure d'usage réel.
+- **fork** : copie complète d'un projet faite par une équipe pour le modifier ou y contribuer ; un grand nombre de forks signale des gens qui travaillent dessus, pas seulement qui regardent.
+- **ticket** : demande d'aide, signalement de bug ou proposition déposée publiquement par un utilisateur du projet (« issue » en anglais).
+- **proposition de changement** : modification de code soumise à relecture avant d'être intégrée au projet (« pull request » en anglais).
+- **numéro de version** : trois nombres (1.2.11) ; le premier ne change qu'en cas de rupture assumée, ce qui fait d'une version 1.x un engagement de stabilité envers les utilisateurs.
+- **GitHub** : le grand site public où les programmeurs rangent leurs programmes et travaillent dessus à plusieurs, chacun voyant ce que les autres changent.
+- **agent** : un assistant informatique à qui on confie une tâche entière, et qui enchaîne les étapes tout seul jusqu'au résultat.
+- **commit** : un changement enregistré dans le projet, comme une page ajoutée au cahier ; on peut toujours revenir en arrière et voir qui l'a écrite.
+- **robot vérificateur (intégration continue)** : programme qui relit et teste automatiquement chaque changement proposé, et le refuse s'il casse quelque chose ; il y en a 17 ici, dans le dossier `.github`.
+- **paquet** : un morceau de programme livré à part, que d'autres programmes peuvent installer et réutiliser ; `libs/` en contient neuf.
+- **CODEOWNERS** : fichier qui désigne, par zone du code, qui doit relire les changements ; absent ici, donc aucune relecture n'est nommément obligatoire.
+- **verrou de dépendances (`uv.lock`)** : fichier qui fige les versions exactes de toutes les dépendances, directes et transitives, pour rendre une installation reproductible.
+- **dépendance transitive** : dépendance d'une de vos dépendances, tirée automatiquement ; elle n'apparaît pas dans le manifeste mais bien dans le verrou.
+- **épinglage par SHA** : dans un workflow d'intégration continue, référencer une action par son empreinte de commit plutôt que par un tag mouvant, pour qu'elle ne puisse pas être remplacée à votre insu.
+- **exécution durable en mode `sync`** : réglage qui exige que l'état soit écrit avant de poursuivre ; l'ordre exact de ces écritures est le sujet des tickets de reprise après panne les plus discutés.
+- **wheel** : format d'un paquet Python prêt à installer, construit ici par hatchling et publié sur PyPI.
+- **pytest** : le cadre de test Python utilisé par tout le dépôt ; un module dont le nom commence par `test_` est ramassé automatiquement.
+- **couverture de code** : part du code réellement exécutée par la suite de tests ; ici l'outil est installé mais aucun rapport ni seuil n'est produit par l'intégration continue.
+- **pytest-xdist** : plugin qui répartit les tests sur plusieurs processus ; c'est ce que fait `make test_parallel` en intégration continue.
+- **matrice de versions** : exécution de la même suite de tests sur plusieurs versions du langage, ici Python 3.10 à 3.14, pour détecter ce qui ne casse que sur l'une d'elles.
+- **exemple minimal reproductible** : le plus petit programme qui déclenche le bug, qu'un mainteneur peut copier, lancer tel quel et voir échouer ; il est obligatoire dans le gabarit de signalement.
+- **test de conformité** : suite unique rejouée à l'identique contre plusieurs implémentations d'une même interface, pour vérifier qu'elles respectent toutes le même contrat.
+- **msgpack strict** : mode de sérialisation plus sévère, rejoué sur Python 3.13 pour les deux gros fichiers du moteur, qui refuse ce qu'un mode permissif laisserait passer.
+- **PyPI** : l'index public des paquets Python, d'où `pip install langgraph` télécharge le logiciel ; c'est là que se mesure l'usage réel, pas sur GitHub.
+- **copyleft** : famille de licences qui obligent à rouvrir le code dérivé (AGPL, GPL) ; MIT, ici, n'impose rien de tel, ce qui facilite l'adoption en entreprise mais interdit toute rente de licence.
+- **capture de valeur** : la façon dont un éditeur transforme l'usage de son logiciel en revenu ; ici elle est hors du dépôt, du côté de l'offre commerciale de LangChain Inc.
+- **coût de migration** : effort qu'une équipe cliente devrait fournir pour remplacer la brique par une autre ; c'est la vraie barrière à la sortie d'un projet d'infrastructure.
+- **politique de sécurité (`SECURITY.md`)** : fichier qui indique comment signaler une faille en privé et sous quel délai l'éditeur répond ; absent ici.
+- **jalon (milestone)** : lot de tickets qu'un projet regroupe sous une échéance annoncée ; c'est la forme publique d'une feuille de route.

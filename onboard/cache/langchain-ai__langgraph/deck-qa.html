@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LangGraph : une suite de tests massive et une CI stricte, mais aucune couverture mesurée et 528 tickets ouverts</title>
+<style>
+:root {
+  --bg: #f5f5f3; --card: #ffffff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2;
+  --accent: #4f5bd5; --accent-2: #d1495b; --accent-ink: #ffffff;
+  --cover-bg: #17181c; --cover-fg: #ffffff; --cover-muted: #b7bccb;
+  --low: #2e9e6b; --mid: #d99a2b; --high: #d1495b;
+  --font: ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --display: var(--font); --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --radius: 12px; --pad: 40px 48px; --width: 1040px; --min-h: 600px;
+  --h1: 2.8rem; --h2: 1.7rem; --text: 1.02rem; --kpi: 2.6rem;
+}
+* { box-sizing: border-box; }
+html { font-size: 16px; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 1rem/1.55 var(--font); }
+section {
+  position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  max-width: var(--width); margin: 28px auto; padding: var(--pad); min-height: var(--min-h); font-size: var(--text);
+  display: flex; flex-direction: column;
+}
+section > .body { flex: 1; }
+h1 { font: 700 var(--h1)/1.1 var(--display); letter-spacing: -0.01em; margin: 0 0 16px; }
+h2 { font: 700 var(--h2)/1.2 var(--display); margin: 0 0 10px; }
+p { margin: 0 0 10px; }
+ul, ol { margin: 0 0 12px; padding-left: 22px; }
+li { margin: 0 0 6px; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code { font: 0.88em var(--mono); background: var(--bg); padding: 1px 6px; border-radius: 5px; }
+pre { background: #14151a; color: #e8eaf1; padding: 14px 18px; border-radius: 10px; overflow-x: auto; margin: 0 0 14px; font-size: 0.9em; line-height: 1.5; }
+pre code { background: none; padding: 0; color: inherit; font-size: 1em; }
+strong { font-weight: 700; }
+table { border-collapse: collapse; width: 100%; margin: 0 0 14px; font-size: 0.94em; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); border-bottom: 2px solid var(--accent); }
+.level { display: inline-block; padding: 1px 10px; border-radius: 999px; font-size: 0.8em; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.04em; }
+.level.low { background: var(--low); } .level.mid { background: var(--mid); } .level.high { background: var(--high); }
+
+/* Couverture */
+.cover { justify-content: center; background: var(--cover-bg); color: var(--cover-fg); border: 0; }
+.cover h1 code { background: rgba(255,255,255,0.14); color: inherit; padding: 0 0.25em; font-size: 0.85em; }
+.cover a { color: inherit; }
+.cover-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 40px; }
+.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.8rem; font-weight: 700; }
+.date, .repo, .cover-foot { color: var(--cover-muted); font-size: 0.9rem; }
+.repo { font-family: var(--mono); font-size: 1rem; margin: 0 0 12px; }
+.cover .desc { color: var(--cover-muted); font-size: 1.1rem; max-width: 46em; margin-bottom: 32px; }
+.kpis { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; padding: 0; margin: 0 0 32px; }
+.kpis li { border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; padding: 14px 18px; background: rgba(255,255,255,0.05); }
+.kpis b { display: block; font: 700 var(--kpi)/1 var(--display); letter-spacing: -0.02em; margin-bottom: 6px; }
+.kpis span { display: block; font-size: 0.82rem; color: var(--cover-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.kpis b.long { font-size: calc(var(--kpi) * 0.62); padding: 0.25em 0; }
+.kpis small { display: block; font-size: 0.78rem; color: var(--cover-muted); margin-top: 3px; text-transform: none; letter-spacing: 0; }
+.cover-foot { margin: 0; display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* Pages */
+.page header, .finale header { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+.kicker { font: 700 0.78rem/1 var(--mono); color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; }
+.takeaway { margin: 0 0 22px; padding: 14px 20px; border-left: 5px solid var(--accent); background: var(--bg); font-size: 1.12em; font-weight: 600; line-height: 1.45; border-radius: 0 10px 10px 0; }
+.body.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; align-items: start; align-content: start; }
+.body.split .chart-wrap { min-width: 0; }
+.body.stack .chart-wrap { margin-bottom: 20px; }
+footer { display: flex; justify-content: space-between; gap: 12px; margin-top: 26px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.78rem; }
+footer .n { font-family: var(--mono); }
+
+/* Graphiques SVG et listes annotées (charts.ts) */
+.chart { display: block; width: 100%; height: auto; max-width: 640px; margin: 0 0 12px; }
+.chart text { font-family: var(--font); fill: var(--fg); }
+.chart .lbl { font-size: 12px; }
+.chart .val, .chart .tick { font-size: 11px; fill: var(--muted); }
+.chart .bar { fill: var(--accent); }
+.chart .bar.strong { fill: var(--accent-2); }
+.chart .bar.off { fill: var(--line); }
+.chart .dot { fill: var(--accent); }
+.chart .axis { stroke: var(--line); stroke-width: 1; }
+.tree, .risks { list-style: none; margin: 0 0 14px; padding: 0; font-size: 0.92em; }
+.tree li, .risks li { display: flex; gap: 10px; align-items: baseline; padding: 4px 0; border-bottom: 1px solid var(--line); }
+.tree code { flex: 0 0 auto; }
+.tree .more { color: var(--muted); border: 0; font-style: italic; }
+.role { color: var(--muted); font-size: 0.9em; }
+.light { width: 11px; height: 11px; border-radius: 50%; flex: 0 0 auto; background: var(--muted); }
+.light.low { background: var(--low); } .light.mid { background: var(--mid); } .light.high { background: var(--high); }
+
+/* Finale et sources */
+.finale { border: 2px solid var(--accent); }
+.finale .body { font-size: 1.08em; }
+.finale ol, .finale ul { padding-left: 26px; }
+.finale li { margin-bottom: 10px; }
+.refs { min-height: 0; }
+.refs ol { padding-left: 22px; font-size: 0.86rem; column-count: 2; column-gap: 32px; }
+.refs li { margin-bottom: 6px; break-inside: avoid; }
+.note { font-size: 0.68em; }
+.note a { text-decoration: none; padding: 0 1px; }
+
+.p-qa { --accent: #0f8f7a; --accent-2: #d1495b; --bg: #f2f7f5; --cover-bg: #ffffff; --cover-fg: #14332c; --cover-muted: #5b7a72; --h1: 2.5rem; --h2: 1.5rem; }
+.p-qa .cover { border: 1px solid var(--line); border-top: 14px solid var(--accent); }
+.p-qa .cover .eyebrow::before { content: "✓ "; }
+.p-qa .kpis li { background: #eef7f4; border-color: #cfe6df; }
+.p-qa .kpis b { color: var(--accent); }
+.p-qa .kpis li:nth-child(3) b { color: var(--accent-2); }
+.p-qa .kpis span, .p-qa .kpis small { color: var(--cover-muted); }
+.p-qa h2::before { content: "☑ "; color: var(--accent); }
+.p-qa .takeaway { background: #eef7f4; border-left-color: var(--accent); }
+.p-qa .takeaway::before { content: "Verdict"; display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 4px; }
+.p-qa .body ul { list-style: none; padding-left: 0; }
+.p-qa .body ul li { padding-left: 26px; position: relative; }
+.p-qa .body ul li::before { content: "☐"; position: absolute; left: 0; color: var(--accent); font-size: 1.05em; }
+.p-qa .body ol { counter-reset: step; list-style: none; padding-left: 0; }
+.p-qa .body ol li { padding-left: 34px; position: relative; }
+.p-qa .body ol li::before { counter-increment: step; content: counter(step); position: absolute; left: 0; top: 1px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 0.8em; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.p-qa tbody tr:nth-child(odd) { background: #f6faf8; }
+.p-qa .finale { background: #eef7f4; }
+.p-qa .finale h2::before { content: "🧪 "; }
+
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #14151a; --card: #1c1e25; --fg: #eceef3; --muted: #a0a6b4; --line: #2f323c; --low: #4cc38a; --mid: #e5b25d; --high: #ef7f8e; }
+  code { background: #262932; }
+  .p-dev { --accent: #8f97ee; --accent-2: #ef7f8e; }
+  .p-qa { --accent: #35c2a8; --accent-2: #ef7f8e; --bg: #14181a; --cover-bg: #1c2422; --cover-fg: #eef5f2; --cover-muted: #9fb8b0; }
+  .p-qa .kpis li { background: #213230; border-color: #2e4a45; }
+  .p-qa .takeaway, .p-qa .finale { background: #1f2b28; }
+  .p-qa tbody tr:nth-child(odd) { background: #1f2624; }
+  .p-cto { --accent: #7fa6d9; --accent-2: #f0b97a; --bg: #141821; }
+  .p-cto .takeaway { background: #2a2620; }
+  .p-cto .finale { background: #1f3a5f; }
+  .p-ceo { --accent: #dcc27a; --bg: #15171c; --card: #1c1e25; --line: #2f323c; }
+  .p-ceo .finale { background: #14213d; }
+  .p-investisseur { --accent: #5cc493; --accent-2: #dcb25f; --bg: #141816; --card: #1b201d; --line: #2c342f; --cover-bg: #1b201d; --cover-fg: #eef3ef; --cover-muted: #9fb0a6; }
+  .p-investisseur .kpis li { background: #16201b; }
+  .p-investisseur .finale { background: #1d6b4a; }
+}
+
+@media print {
+  @page { size: A4 landscape; margin: 10mm; }
+  html { font-size: 12px; }
+  .p-dev, .p-qa, .p-cto { --text: 0.9rem; }
+  .p-dev .tree, .p-qa .tree, .p-cto .tree { font-size: 0.82em; }
+  .p-ceo { --text: 1rem; }
+  .p-ceo .takeaway { font-size: 1.3rem; margin-bottom: 16px; }
+  .p-ceo .risks li { padding: 2px 0; }
+  .body.split { gap: 22px; }
+  .p-ceo .chart { max-height: 52mm; }
+  .p-enfant .chart { max-height: 60mm; }
+  .takeaway { font-size: 1.05em; padding: 10px 16px; margin-bottom: 14px; }
+  th, td { padding: 5px 10px; }
+  footer { margin-top: 14px; padding-top: 8px; }
+  .refs ol { column-count: 3; font-size: 0.82rem; }
+  .refs li { margin-bottom: 3px; }
+  body { background: #fff; }
+  :root, .p-dev, .p-qa, .p-cto, .p-ceo, .p-investisseur, .p-enfant { --bg: #f5f5f3; --card: #fff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2; }
+  .p-qa { --bg: #f2f7f5; } .p-cto { --bg: #f4f6f9; } .p-ceo { --bg: #f7f5ef; --card: #fffdf8; } .p-investisseur { --bg: #f6f6f2; } .p-enfant { --bg: #fff6e5; --card: #fffdf7; --fg: #2b2118; --muted: #7a6a5a; }
+  .p-ceo { --accent: #14213d; } .p-cto { --accent: #1f3a5f; } .p-dev { --accent: #4f5bd5; } .p-qa { --accent: #0f8f7a; } .p-investisseur { --accent: #1d6b4a; }
+  section { max-width: none; margin: 0; min-height: 178mm; break-after: page; page-break-after: always; box-shadow: none; --pad: 26px 36px; }
+  section:last-child { break-after: auto; page-break-after: auto; }
+  .p-enfant section { box-shadow: none; margin: 0; }
+  .cover { min-height: 178mm; }
+  .refs { min-height: 0; }
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  a { text-decoration: none; }
+}
+</style>
+</head>
+<body class="p-qa">
+<section class="cover">
+<div class="cover-top"><span class="eyebrow">Rapport de qualification</span><span class="date">Données GitHub relevées le 10 sept. 2026</span></div>
+<p class="repo">langchain-ai/langgraph</p>
+<h1>LangGraph : une suite de tests massive et une CI stricte, mais aucune couverture mesurée et 528 tickets ouverts</h1>
+<p class="desc">Build resilient agents.</p>
+<ul class="kpis"><li><b>66</b><span>fichiers de test</span><small>pytest</small></li><li><b>2</b><span>workflows CI</span></li><li><b>81</b><span>bugs étiquetés</span></li><li><b>528</b><span>issues ouvertes</span></li></ul>
+<p class="cover-foot"><span><a href="https://github.com/langchain-ai/langgraph">https://github.com/langchain-ai/langgraph</a></span><span>Licence MIT</span><span>Onboard · profil qa</span></p>
+</section><section class="page">
+<header><span class="kicker">02</span><h2>Que fait ce projet et quels sont ses parcours critiques ?</h2></header>
+<p class="takeaway">Les parcours critiques ne sont pas des fonctionnalités mais des scénarios de panne — reprise après crash, interruption, reprise de mémoire — parce que c'est ce que le projet promet.</p>
+<div class="body"><div class="text"><p>LangGraph est un cadre d'orchestration bas niveau pour agents à état : des programmes pilotés par un modèle de langage qui tournent longtemps, gardent leur état et reprennent après une panne.</p>
+<p>Le projet met en avant quatre promesses, et ce sont elles qu'un plan de test doit attaquer en premier :</p>
+<ul><li><strong>exécution durable</strong> : l'agent reprend « exactement là où il s'est arrêté » après un échec ;</li><li><strong>humain dans la boucle</strong> : on inspecte et on modifie l'état à n'importe quel point de l'exécution ;</li><li><strong>mémoire</strong> : mémoire de travail à court terme et mémoire persistante entre sessions ;</li><li><strong>déploiement en production</strong> : charges longues et à état.</li></ul>
+<p>Chacune de ces quatre promesses ne se vérifie pas par un cas nominal mais par une panne provoquée : couper au milieu d'une étape, reprendre, comparer l'état. C'est la nature même du produit qui impose des cas de test destructifs.</p>
+<p>Le périmètre est large : 41 384 étoiles, 6 990 forks, licence MIT, dernier envoi de code le 2026-09-09.</p></div></div>
+<footer><span class="repo-name">langchain-ai/langgraph · relevé le 10 sept. 2026</span><span class="n">qa · 2 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">03</span><h2>Comment est-il testé aujourd'hui ?</h2></header>
+<p class="takeaway">97 modules de test recensés, mais 6 fichiers concentrent le gros du volume sur le seul moteur Pregel — c'est là que porte l'effort amont, et donc là que votre propre suite est la moins utile.</p>
+<div class="body split"><div class="chart-wrap"><ul class="tree"><li><code>.github/</code><span class="role">17 workflows GitHub Actions, scripts CI</span></li><li><code>docs/</code><span class="role">documentation</span></li><li><code>examples/</code><span class="role">exemples d'usage, notebooks</span></li><li><code>libs/</code><span class="role">code principal : 9 paquets, 8 en Python, sdk-js réduit à un README</span></li><li><code>.gitignore</code><span class="role">exclusions git</span></li><li><code>.markdownlint.json</code><span class="role">config lint Markdown</span></li><li><code>AGENTS.md</code><span class="role">consignes pour les agents IA</span></li><li><code>CLAUDE.md</code><span class="role">consignes pour Claude Code</span></li><li><code>LICENSE</code><span class="role">licence MIT</span></li><li><code>Makefile</code><span class="role">pilote du monorepo : install, lint, test via uv</span></li><li><code>README.md</code><span class="role">présentation du projet</span></li></ul></div><div class="text"><p>Monorepo : neuf paquets sous <code>libs/</code>, aucun dossier de tests à la racine, chaque paquet a le sien. Le cadre est <strong>pytest</strong>, le dossier principal est <code>libs/langgraph/tests</code> avec 66 entrées listées.</p>
+<p>Au total, **97 modules <code>test_*.py</code>** ont été dénombrés dans les sept dossiers énumérés :</p>
+<table><thead><tr><th>Paquet</th><th>Modules <code>test_*.py</code></th><th>Ce qu'il couvre</th></tr></thead><tbody><tr><td>libs/langgraph</td><td>51</td><td>moteur Pregel, streaming, reprise, canaux</td></tr><tr><td>libs/sdk-py</td><td>15</td><td>client HTTP Python</td></tr><tr><td>libs/prebuilt</td><td>10</td><td>agent ReAct, ToolNode, ValidationNode</td></tr><tr><td>libs/checkpoint-sqlite</td><td>8</td><td>sauvegarde d'état SQLite</td></tr><tr><td>libs/checkpoint</td><td>6</td><td>interface, sérialisation, chiffrement</td></tr><tr><td>libs/checkpoint-postgres</td><td>6</td><td>sauvegarde d'état Postgres</td></tr><tr><td>libs/checkpoint-conformance</td><td>1</td><td>contrat commun aux trois checkpointers</td></tr></tbody></table>
+<p>Le volume est très concentré : <code>test_pregel.py</code> et <code>test_pregel_async.py</code> pèsent 619 Ko à eux deux, et six fichiers portent l'essentiel de la suite du paquet principal. Le moteur d'exécution est testé massivement et de façon centralisée, pas éclaté par module.</p>
+<p>Deux points favorables au testeur : une suite de conformité partagée (<code>test_conformance_delta.py</code>, identique dans les trois implémentations de checkpointer) et des tests par instantané avec syrupy, plus Postgres et Redis montés en conteneurs pour les tests.</p></div></div>
+<footer><span class="repo-name">langchain-ai/langgraph · relevé le 10 sept. 2026</span><span class="n">qa · 3 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">04</span><h2>Que dit la CI et quand tourne-t-elle ?</h2></header>
+<p class="takeaway">La CI garantit que les tests passent sur 5 versions de Python et ne salissent rien, mais elle ne dit jamais quelle part du code est testée — la couverture réelle est inconnue et non surveillée.</p>
+<div class="body"><div class="text"><p>Deux workflows relevés : <code>CI</code> (<code>.github/workflows/ci.yml</code>), déclenché à la main, sur chaque envoi vers <code>main</code> et sur chaque proposition de changement ; et <code>test</code> (<code>.github/workflows/_test_langgraph.yml</code>), appelé par le premier. Il existe 17 workflows en tout, dont un seul a été lu en entier.</p>
+<p>Ce que la CI fait vraiment, dans l'ordre :</p>
+<ol><li><code>changes</code> filtre par chemins modifiés — un changement hors <code>libs/</code> ne déclenche aucun test ;</li><li><code>lint</code> sur une matrice de 8 paquets, <code>test</code> sur 7 d'entre eux, <code>test-langgraph</code> à part pour le cœur ;</li><li><code>check-sdk-methods</code> et <code>check-schema</code> échouent si le schéma généré de la CLI change sans être commité ;</li><li>tests d'intégration CLI et SDK Python, puis <code>ci_success</code> qui agrège tout.</li></ol>
+<p>Le workflow du cœur est exigeant : matrice <strong>Python 3.10 à 3.14</strong>, dépendances gelées (<code>uv sync --frozen</code>), exécution parallèle via <code>make test_parallel</code>, une seconde passe en sérialisation msgpack stricte sur Python 3.13 pour les deux gros fichiers Pregel, et une dernière étape qui échoue si la suite laisse le moindre fichier derrière elle.</p>
+<p>En local, la commande est <code>make test</code>, et <code>TEST=path/to/test.py make test</code> pour un seul fichier ; l'installation utilisateur est <code>pip install -U langgraph</code>.</p>
+<p>Le trou est net : <strong>aucune mesure de couverture</strong>. <code>pytest-cov</code> est installé mais ni <code>ci.yml</code> ni <code>_test_langgraph.yml</code> ne produit de rapport ni n'impose de seuil.</p></div></div>
+<footer><span class="repo-name">langchain-ai/langgraph · relevé le 10 sept. 2026</span><span class="n">qa · 4 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">05</span><h2>Où sont les bugs connus ?</h2></header>
+<p class="takeaway">528 ouverts contre 7 refermés en un mois, et les cinq tickets les plus discutés portent tous sur la reprise après panne — c'est le point de fragilité à couvrir en premier.</p>
+<div class="body split"><div class="chart-wrap"><svg class="chart" viewBox="0 0 640 84" width="640" height="84" role="img" preserveAspectRatio="xMinYMin meet"><text class="lbl" x="168" y="21" text-anchor="end">external</text><rect class="bar" x="178" y="10" width="398" height="14" rx="3"/><text class="val" x="582" y="21">297</text><text class="lbl" x="168" y="45" text-anchor="end">bug</text><rect class="bar" x="178" y="34" width="109" height="14" rx="3"/><text class="val" x="293" y="45">81</text><text class="lbl" x="168" y="69" text-anchor="end">internal</text><rect class="bar" x="178" y="58" width="4" height="14" rx="3"/><text class="val" x="188" y="69">3</text></svg></div><div class="text"><p><strong>528 tickets ouverts, 7 refermés sur les trente derniers jours</strong>. Parmi les tickets relevés, 81 portent l'étiquette <code>bug</code>, 297 l'étiquette <code>external</code> et 3 <code>internal</code>. Le rapport entre ce qui entre et ce qui se referme est le premier signal de risque du projet.</p>
+<p>Les tickets les plus discutés dessinent un thème unique — la reprise après panne et la persistance d'état :</p>
+<table><thead><tr><th>#</th><th>Sujet</th><th>Commentaires</th></tr></thead><tbody><tr><td>7417</td><td>appels d'outil longs (~180 s) rejoués silencieusement depuis un checkpoint</td><td>51</td></tr><tr><td>8039</td><td><code>durability=&quot;sync&quot;</code> : ordre d'écriture non garanti, reprise dépendante de l'hôte</td><td>36</td></tr><tr><td>7714</td><td>sérialisation : 85 % de volume de stockage en trop, 37,8 % de jetons en trop</td><td>21</td></tr><tr><td>8764</td><td>crash avant le premier checkpoint durable : exécution perdue sans trace</td><td>20</td></tr><tr><td>7780</td><td><code>interrupt()</code> dans une boucle provoque des reprises en trop</td><td>19</td></tr></tbody></table>
+<p>Ces cinq numéros sont des cas de test à écrire tels quels : chacun décrit une reproduction et un comportement attendu qui diverge.</p>
+<p>Donnée non relevée : aucun ticket « good first issue » n'apparaît, la liste est vide ; à vérifier dans <a href="https://github.com/langchain-ai/langgraph/issues">https://github.com/langchain-ai/langgraph/issues</a>.</p></div></div>
+<footer><span class="repo-name">langchain-ai/langgraph · relevé le 10 sept. 2026</span><span class="n">qa · 5 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">06</span><h2>Comment reproduire et signaler un bug ici ?</h2></header>
+<p class="takeaway">Un bug non accompagné d'un exemple copiable et de <code>python -m langchain_core.sys_info</code> ne sera pas traité, et une correction externe sans ticket approuvé est fermée d'office.</p>
+<div class="body"><div class="text"><p>Il n'existe <strong>pas de fichier <code>CONTRIBUTING.md</code></strong> dans le dépôt : ni à la racine, ni dans <code>.github/</code>, ni dans <code>docs/</code>. Les règles complètes sont hébergées hors du dépôt<sup class="note"><a href="#note-1">1</a></sup>.</p>
+<p>Ce que le dépôt impose, lui, est dans ses gabarits, et c'est une liste de contrôle stricte :</p>
+<ol><li>pas d'issue vierge possible (<code>blank_issues_enabled: false</code>) — une question part au forum, pas dans les tickets ;</li><li>sept cases à cocher obligatoires, dont « ce n'est pas une question d'usage » et « ce n'est pas résolu par une montée en dernière version stable » ;</li><li>un <strong>exemple minimal reproductible qu'un mainteneur peut copier-coller et lancer tel quel</strong> — capture d'écran refusée ;</li><li>la sortie de <code>python -m langchain_core.sys_info</code>, obligatoire ;</li><li>message d'erreur et pile d'appels complets.</li></ol>
+<p>Pour une correction, le gabarit de proposition de changement exige un titre <code>TYPE(SCOPE): DESCRIPTION</code>, une ligne <code>Fixes #xx</code> obligatoire pour toute contribution externe, et <code>make format</code>, <code>make lint</code>, <code>make test</code> verts. Une proposition externe sans ticket approuvé au préalable est fermée.</p>
+<p>Le débit donne l'ordre de grandeur de l'attente : <strong>245 propositions ouvertes</strong>, 33 intégrées sur trente jours, dont une large majorité de montées de version automatiques plutôt que de correctifs.</p></div></div>
+<footer><span class="repo-name">langchain-ai/langgraph · relevé le 10 sept. 2026</span><span class="n">qa · 6 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">07</span><h2>Quelles zones sont peu couvertes ?</h2></header>
+<p class="takeaway">La seule zone d'ombre qui compte est la même partout — la couverture n'est mesurée nulle part, donc tout jugement sur « ce qui est testé » repose sur la lecture des noms de fichiers.</p>
+<div class="body"><div class="text"><p>L'activité est régulière mais mince : entre 2 et 25 commits par semaine sur les douze dernières, dernier commit le 2026-09-09, et un bus factor de 4 sur dix contributeurs relevés.</p>
+<p>Les zones sans filet, telles que relevées :</p>
+<table><thead><tr><th>Zone</th><th>Ce qui manque</th><th>Conséquence pour le test</th></tr></thead><tbody><tr><td>tout le code</td><td>aucun seuil ni rapport de couverture en intégration continue</td><td>impossible de savoir ce qui n'est pas testé sans le mesurer soi-même</td></tr><tr><td><code>libs/sdk-js</code></td><td>le dossier ne contient qu'un <code>README.md</code></td><td>aucun test JavaScript ici : le SDK JS se teste dans un autre dépôt</td></tr><tr><td><code>libs/checkpoint-conformance</code></td><td>un seul module de test</td><td>le contrat commun aux trois checkpointers tient sur un fichier</td></tr><tr><td>signalement de faille</td><td>pas de <code>SECURITY.md</code>, aucun canal déclaré</td><td>un bug de sécurité n'a pas de voie de remontée privée</td></tr></tbody></table>
+<p>Donnée non relevée : le contenu de <code>libs/cli/tests/unit_tests</code> et <code>libs/cli/tests/integration_tests</code> n'a pas été énuméré, non plus que les sous-dossiers <code>integration/</code> et <code>streaming/</code> de <code>libs/sdk-py/tests</code> ; à vérifier dans <a href="https://github.com/langchain-ai/langgraph/tree/main/libs/cli/tests">https://github.com/langchain-ai/langgraph/tree/main/libs/cli/tests</a>.</p></div></div>
+<footer><span class="repo-name">langchain-ai/langgraph · relevé le 10 sept. 2026</span><span class="n">qa · 7 / 9</span></footer>
+</section><section class="finale">
+<header><span class="kicker">qa</span><h2>Plan de test en 5 points</h2></header>
+
+<div class="body"><div class="text"><ol><li><strong>Mesurer avant de juger.</strong> Lancer la suite avec couverture (<code>pytest-cov</code> est déjà installé) sur <code>libs/langgraph</code> et publier le chiffre : c'est la donnée qui manque au projet comme à vous.</li><li><strong>Rejouer les cinq tickets chauds comme cas de test.</strong> #7417, #8039, #7714, #8764 et #7780 décrivent chacun une reproduction et un écart de comportement sur la reprise après panne.</li><li><strong>Tester la panne, pas le nominal.</strong> Couper l'exécution avant le premier checkpoint durable, pendant un appel d'outil long, et dans une boucle <code>interrupt()</code> : les trois scénarios que le projet promet de tenir et que ses tickets contestent.</li><li><strong>Reproduire la matrice amont sur votre cible.</strong> La CI valide Python 3.10 à 3.14 en dépendances gelées ; ne validez que la version que vous déployez, mais avec le même <code>uv sync --frozen</code>, sinon vous testez autre chose.</li><li><strong>Vérifier les trois checkpointers contre le même contrat.</strong> Mémoire, SQLite et Postgres partagent <code>test_conformance_delta.py</code> : si vous en écrivez un quatrième ou changez de backend, c'est ce fichier qui fait foi.</li></ol></div></div>
+<footer><span class="repo-name">langchain-ai/langgraph · relevé le 10 sept. 2026</span><span class="n">qa · 8 / 9</span></footer>
+</section><section class="refs"><header><span class="kicker">références publiques</span><h2>Sources</h2></header><div class="body"><ol class="sources"><li id="note-1"><a href="https://docs.langchain.com/oss/python/contributing/overview">https://docs.langchain.com/oss/python/contributing/overview</a></li></ol></div><footer><span class="repo-name">langchain-ai/langgraph · relevé le 10 sept. 2026</span><span class="n">qa · 9 / 9</span></footer></section>
+</body>
+</html>

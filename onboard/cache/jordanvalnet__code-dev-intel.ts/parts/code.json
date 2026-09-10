@@ -1,0 +1,85 @@
+{
+  "tree": [
+    { "path": ".dockerignore", "type": "file", "role": "exclusions du build Docker" },
+    { "path": ".github", "type": "dir", "role": "workflows GitHub Actions" },
+    { "path": ".gitignore", "type": "file", "role": "fichiers ignorés par git" },
+    { "path": ".npmignore", "type": "file", "role": "exclusions du paquet npm" },
+    { "path": "CHANGELOG.md", "type": "file", "role": "journal des versions" },
+    { "path": "CONTRIBUTING.md", "type": "file", "role": "guide de contribution" },
+    { "path": "LICENSE", "type": "file", "role": "licence AGPL-3.0-only" },
+    { "path": "README.md", "type": "file", "role": "présentation et documentation principale" },
+    { "path": "__tests__", "type": "dir", "role": "tests unitaires vitest" },
+    { "path": "docker", "type": "dir", "role": "docker-compose.yml et profils" },
+    { "path": "docs", "type": "dir", "role": "documentation, dont docs/ai" },
+    { "path": "eslint.config.mjs", "type": "file", "role": "configuration ESLint" },
+    { "path": "package.json", "type": "file", "role": "manifeste npm, scripts pnpm" },
+    { "path": "perf", "type": "dir", "role": "benchmarks de performance" },
+    { "path": "pnpm-lock.yaml", "type": "file", "role": "verrou des dépendances pnpm" },
+    { "path": "schemas", "type": "dir", "role": "schémas livrés avec le paquet" },
+    { "path": "scripts", "type": "dir", "role": "bootstrap, smoke tests, benchmark" },
+    { "path": "security", "type": "dir", "role": "ressources sécurité" },
+    { "path": "services", "type": "dir", "role": "serveur MCP, indexeur, gouvernance, sécurité" },
+    { "path": "tsconfig.build.json", "type": "file", "role": "build TypeScript vers dist/" },
+    { "path": "tsconfig.json", "type": "file", "role": "configuration TypeScript" },
+    { "path": "vitest.config.ts", "type": "file", "role": "configuration des tests vitest" }
+  ],
+  "entrypoints": [
+    {
+      "path": "services/code-intel-mcp/src/server.ts",
+      "why": "Le serveur MCP : `main` et `bin` (code-dev-intel) de package.json une fois compilé dans dist/, lancé par `pnpm mcp:start`, auto-testé avec `--self-test` dans .github/workflows/ci.yml"
+    },
+    {
+      "path": "services/indexer/src/indexer-runner.ts",
+      "why": "L'indexeur, lancé par `pnpm indexer:impacted` et piloté par scripts/indexer-smoke.mjs en modes git-diff et impacted"
+    },
+    {
+      "path": "services/code-intel-mcp/src/contracts.ts",
+      "why": "Export public `./contracts` de package.json : les contrats des outils exposés par le serveur"
+    },
+    {
+      "path": "services/security/opengrep-runner.ts",
+      "why": "Scan sécurité OpenGrep, `pnpm security:scan`, job security de .github/workflows/ci.yml"
+    },
+    {
+      "path": "scripts/bootstrap.sh",
+      "why": "Vérifie la présence de docs/ai/* et crée les dossiers de travail (services/*/src, schemas/sqlite, docker) avant de démarrer"
+    }
+  ],
+  "build": {
+    "ci": [
+      { "name": "ci", "path": ".github/workflows/ci.yml", "triggers": ["push", "pull_request"] },
+      { "name": "perf-budget", "path": ".github/workflows/perf-budget.yml", "triggers": [] },
+      { "name": "pr-memory-reference", "path": ".github/workflows/pr-memory-reference.yml", "triggers": [] },
+      { "name": "security", "path": ".github/workflows/security.yml", "triggers": [] }
+    ]
+  },
+  "tests": {
+    "dir": "__tests__/unit",
+    "framework": "vitest",
+    "files": 4
+  },
+  "deps": {
+    "manifest": "package.json",
+    "count": 14,
+    "runtime": [
+      { "name": "@ast-grep/cli", "version": "^0.45.3" },
+      { "name": "@vscode/ripgrep", "version": "^1.18.0" },
+      { "name": "picomatch", "version": "^4.0.7" },
+      { "name": "typescript", "version": "^6.0.3" },
+      { "name": "zod", "version": "^4.5.4" }
+    ]
+  },
+  "risks": [
+    {
+      "kind": "ci",
+      "level": "low",
+      "note": "Quatre workflows dans .github/workflows ; ci.yml enchaîne lint, type-check et tests sur ubuntu, windows et macos (node 20, 22, 24), puis release-smoke, indexer-smoke et scan sécurité, à chaque push et pull request"
+    },
+    {
+      "kind": "deps",
+      "level": "low",
+      "note": "5 dépendances d'exécution et 9 de développement dans package.json, verrou pnpm-lock.yaml, versions vulnérables épinglées via pnpm.overrides ; engines annonce node >=18 mais ci.yml précise que l'outillage de dev (vitest 5, --experimental-strip-types) exige node 22+"
+    }
+  ],
+  "collected": { "by": "1d-code", "at": "2026-09-10T14:22:00Z" }
+}

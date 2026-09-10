@@ -51,9 +51,20 @@ async function file(q: Quota, label: string, owner: string, repo: string, branch
   const r = await q.call(label, "get_file_contents", { owner, repo, path: p });
   if (r.isError) return null;
   const resource = (r.content ?? []).find((c: { type: string }) => c.type === "resource");
+  // Chemin inexistant : le serveur MCP ne répond pas en erreur mais par une liste de fichiers approchants.
+  if (!resource && /^Resolved potential matches/.test(toolText(r))) return null;
   const all = toolText(resource ? { content: [resource] } : r).split("\n");
   const text = all.length > lines ? all.slice(0, lines).join("\n") + "\n[tronqué]" : all.join("\n");
   return { path: p, url: `https://github.com/${owner}/${repo}/blob/${branch}/${p}`, text };
+}
+
+// Nom d'une licence que GitHub ne reconnaît pas : la première ligne du fichier (« Elastic License 2.0 »), sauf si elle ne dit
+// que « License » (« # License » chez n8n) ; alors la première mention d'un nom de licence (« Sustainable Use License »).
+function licenseName(text: string | undefined): string | null {
+  if (!text) return null;
+  const first = text.split("\n").map((l) => l.replace(/^#+\s*/, "").trim()).find(Boolean) ?? "";
+  if (!/^(the )?licen[cs]e$/i.test(first)) return first.slice(0, 60) || null;
+  return text.match(/(?:[A-Z][\w-]*\s+){1,4}Licen[cs]e(?:\s+v?\d+(?:\.\d+)*)?/)?.[0].replace(/\s+/g, " ") ?? first;
 }
 
 async function first(q: Quota, label: string, owner: string, repo: string, branch: string, paths: string[], lines: number) {
@@ -163,15 +174,15 @@ async function collect(q: Quota, steps: Planned[], full: string, profileName: st
     competitors = s?.items
       .filter((x) => x.full_name !== r.full_name)
       .slice(0, 5)
-      .map((x) => ({ full_name: x.full_name, stars: x.stargazers_count, description: x.description }));
+      .map((x) => ({ full_name: x.full_name, stars: x.stargazers_count, description: x.description ?? null }));
   }
 
-  // GitHub ne reconnaît pas toutes les licences (ELv2, BUSL…) : on retient alors la première ligne du fichier LICENSE.
+  // GitHub ne reconnaît pas toutes les licences (ELv2, BUSL, Sustainable Use…) : on retient alors le nom lu dans le fichier LICENSE.
   const known = r.license?.spdx_id && r.license.spdx_id !== "NOASSERTION" ? r.license.spdx_id : null;
-  const spdx = known ?? license?.text.split("\n").find((l) => l.trim())?.trim().slice(0, 60) ?? null;
+  const spdx = known ?? licenseName(license?.text);
   const risks: NonNullable<Facts["risks"]> = [];
   if (!spdx) risks.push({ kind: "license", level: "high", note: "Pas de fichier LICENSE : réutilisation juridiquement incertaine." });
-  else if (!known) risks.push({ kind: "license", level: "mid", note: `Licence non standard « ${spdx} » : lire sources/license.md avant tout usage.` });
+  else if (!known) risks.push({ kind: "license", level: "mid", note: `Licence non standard « ${spdx} » : lire ${license?.path ?? "LICENSE"} avant tout usage.` });
   else if (/GPL/i.test(spdx)) risks.push({ kind: "license", level: "high", note: `${spdx} : copyleft, contraignant pour un usage commercial.` });
   else risks.push({ kind: "license", level: "low", note: `${spdx} : licence permissive.` });
   if (r.archived) risks.push({ kind: "activity", level: "high", note: "Repo archivé : plus de maintenance." });
@@ -188,7 +199,7 @@ async function collect(q: Quota, steps: Planned[], full: string, profileName: st
     repo: {
       full_name: r.full_name,
       url: r.html_url,
-      description: r.description,
+      description: r.description ?? null,
       created_at: r.created_at,
       pushed_at: r.pushed_at,
       default_branch: branch,

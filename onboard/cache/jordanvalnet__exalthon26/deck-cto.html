@@ -43,6 +43,7 @@ th { font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.06em; color
 
 /* Couverture */
 .cover { justify-content: center; background: var(--cover-bg); color: var(--cover-fg); border: 0; }
+.cover h1 code { background: rgba(255,255,255,0.14); color: inherit; padding: 0 0.25em; font-size: 0.85em; }
 .cover a { color: inherit; }
 .cover-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 40px; }
 .eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.8rem; font-weight: 700; }
@@ -61,7 +62,7 @@ th { font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.06em; color
 .page header, .finale header { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
 .kicker { font: 700 0.78rem/1 var(--mono); color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; }
 .takeaway { margin: 0 0 22px; padding: 14px 20px; border-left: 5px solid var(--accent); background: var(--bg); font-size: 1.12em; font-weight: 600; line-height: 1.45; border-radius: 0 10px 10px 0; }
-.body.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; align-items: start; }
+.body.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; align-items: start; align-content: start; }
 .body.split .chart-wrap { min-width: 0; }
 .body.stack .chart-wrap { margin-bottom: 20px; }
 footer { display: flex; justify-content: space-between; gap: 12px; margin-top: 26px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.78rem; }
@@ -140,6 +141,8 @@ footer .n { font-family: var(--mono); }
   .p-ceo .takeaway { font-size: 1.3rem; margin-bottom: 16px; }
   .p-ceo .risks li { padding: 2px 0; }
   .body.split { gap: 22px; }
+  .p-ceo .chart { max-height: 52mm; }
+  .p-enfant .chart { max-height: 60mm; }
   .takeaway { font-size: 1.05em; padding: 10px 16px; margin-bottom: 14px; }
   th, td { padding: 5px 10px; }
   footer { margin-top: 14px; padding-top: 8px; }
@@ -175,7 +178,7 @@ footer .n { font-family: var(--mono); }
 <p>Architecture en quatre étapes chaînées par fichiers : collecter (5 sous-agents en parallèle, outils <code>github:*</code>), rédiger (lit le cache, jamais GitHub), rendre (code, une identité visuelle par profil), guider (réponse citée, FAQ enrichie). Chaque étape ne lit que les sorties de la précédente et ne démarre que si une validation en code passe.</p>
 <p>21 entrées à la racine, 8 dossiers : <code>src/</code> (CLI, collecte, rendu, validation), <code>onboard/</code> (prompts des agents, profils JSON, caches versionnés), <code>onboarding/</code> (second package bun, collecteurs MCP), <code>chat/</code> (client du chat d'équipe), <code>test/</code> (2 tests bun).</p>
 <p>Choix structurant : les prompts vivent dans <code>onboard/agents/</code>, en texte, pour que Claude Code, Copilot et Codex exécutent le même texte ; les validations sont du code, <code>src/validate.ts</code>, <code>src/merge.ts</code>, schéma zod <code>src/facts.ts</code>. Un seul chemin vers GitHub, le serveur MCP, jamais REST.</p></div></div>
-<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">cto · 2 / 8</span></footer>
+<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">cto · 2 / 9</span></footer>
 </section>
 <section class="page">
 <header><span class="kicker">03</span><h2>Quelle est sa santé technique ?</h2></header>
@@ -189,7 +192,7 @@ footer .n { font-family: var(--mono); }
 bun onboard owner/repo profil
 bun run check</code></pre>
 <p>Les trois commandes du README : installer, lancer, vérifier.</p></div></div>
-<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">cto · 3 / 8</span></footer>
+<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">cto · 3 / 9</span></footer>
 </section>
 <section class="page">
 <header><span class="kicker">04</span><h2>Qui porte le projet et quel est le bus factor ?</h2></header>
@@ -199,7 +202,7 @@ bun run check</code></pre>
 <p>Aucun CODEOWNERS, aucune politique de sécurité, aucun financement déclaré : la gouvernance est implicite, portée par l'équipe du hackathon.</p>
 <p>À lire avec le contexte : une équipe constituée pour une journée (« Équipe eXaltemps, hackathon du 9 septembre 2026 »), pas une communauté ; la concentration des commits est celle d'un intégrateur qui assemble le travail des autres, ce qui ne dit rien de la capacité de chacun à reprendre le code.</p>
 <p>Parade : un second mainteneur avec droits d'écriture et un fichier CODEOWNERS sur <code>src/</code> et <code>onboard/</code> avant tout usage au-delà du pilote.</p></div></div>
-<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">cto · 4 / 8</span></footer>
+<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">cto · 4 / 9</span></footer>
 </section>
 <section class="page">
 <header><span class="kicker">05</span><h2>Quelles dépendances et quelle dette ?</h2></header>
@@ -209,7 +212,7 @@ bun run check</code></pre>
 <p>Dépendances hors manifeste, invisibles au lock : le runtime bun, l'assistant Claude Code que <code>bun onboard</code> lance en non interactif, le serveur MCP GitHub hébergé <code>https://api.githubcopilot.com/mcp/</code>, et Chrome ou Edge en headless pour les PDF.</p>
 <p>Un second <code>onboarding/package.json</code> (379 octets) coexiste avec le principal : deux packages bun dans un même dépôt, deux arbres de dépendances à suivre.</p>
 <p>Dette repérée : 12 résultats pour « TODO » dans le dépôt, 10 listés, un seul dans un fichier de code (<code>onboarding/src/report/skeleton.ts</code>), les 9 autres dans la doc et les caches, où c'est un mot du texte.</p></div></div>
-<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">cto · 5 / 8</span></footer>
+<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">cto · 5 / 9</span></footer>
 </section>
 <section class="page">
 <header><span class="kicker">06</span><h2>Quels risques ?</h2></header>
@@ -219,7 +222,7 @@ bun run check</code></pre>
 <p>Donnée non relevée : <code>SECURITY.md</code> ; le dépôt n'a pas de politique de sécurité ; à vérifier dans <a href="https://github.com/jordanvalnet/exalthon26/security/policy">https://github.com/jordanvalnet/exalthon26/security/policy</a><sup class="note"><a href="#note-1">1</a></sup>.</p>
 <p>Données non relevées : les CVE des dépendances et la répartition des langages ; à vérifier dans <a href="https://github.com/jordanvalnet/exalthon26/security/dependabot">https://github.com/jordanvalnet/exalthon26/security/dependabot</a><sup class="note"><a href="#note-2">2</a></sup>.</p>
 <p>Risque propre à l'architecture : le secret <code>GITHUB_PAT</code> (scope repo) part vers un serveur MCP hébergé par GitHub, en en-tête <code>Authorization: Bearer</code> ; à cadrer par un jeton à granularité fine, limité aux dépôts à onboarder.</p></div></div>
-<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">cto · 6 / 8</span></footer>
+<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">cto · 6 / 9</span></footer>
 </section>
 <section class="page">
 <header><span class="kicker">07</span><h2>Adopter, contribuer ou forker ?</h2></header>
@@ -230,14 +233,14 @@ bun run check</code></pre>
 <p>Adopter : oui, en pilote interne sur vos propres dépôts. Le produit est utilisable en trois commandes, le cache est du texte que l'on peut relire et corriger, et six profils sont livrés.</p>
 <p>Contribuer : le dépôt s'y prête, prompts en texte dans <code>onboard/agents/</code>, profils JSON, consignes pour les agents dans AGENTS.md ; mais pas de CONTRIBUTING.md à la racine ni de good first issue.</p>
 <p>Forker : non, tant qu'il n'y a pas de LICENSE : sans licence, aucun droit de copie ni de redistribution n'est accordé.</p></div></div>
-<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">cto · 7 / 8</span></footer>
+<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">cto · 7 / 9</span></footer>
 </section><section class="finale">
 <header><span class="kicker">cto</span><h2>Décision</h2></header>
 
 <div class="body"><div class="text"><p>Recommandation : <strong>adopter en pilote interne</strong>, sur vos propres dépôts, sans fork ni redistribution, jusqu'à la levée de deux conditions, la licence et le bus factor.</p>
 <ol><li>Licence : obtenir de l'auteur un fichier LICENSE ; sans lui, aucun droit de réutilisation n'est acquis, même en interne.</li><li>Bus factor : nommer un second mainteneur et un CODEOWNERS ; aujourd'hui une personne signe 41 commits sur 58.</li><li>Filet minimal avant tout usage régulier : un workflow qui lance <code>bun run check</code>, un SECURITY.md, <code>@types/bun</code> épinglé, et un <code>GITHUB_PAT</code> à granularité fine limité aux dépôts onboardés.</li></ol>
 <p>Ce que vous achetez : une architecture lisible, des prompts et un cache en texte versionné, une seule dépendance runtime ; ce que vous n'achetez pas encore : une garantie de maintenance.</p></div></div>
-<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">cto · 8 / 8</span></footer>
-</section><section class="refs"><header><span class="kicker">références publiques</span><h2>Sources</h2></header><div class="body"><ol class="sources"><li id="note-1"><a href="https://github.com/jordanvalnet/exalthon26/security/policy">https://github.com/jordanvalnet/exalthon26/security/policy</a></li><li id="note-2"><a href="https://github.com/jordanvalnet/exalthon26/security/dependabot">https://github.com/jordanvalnet/exalthon26/security/dependabot</a></li><li id="note-3"><a href="https://github.com/jordanvalnet/exalthon26/milestones">https://github.com/jordanvalnet/exalthon26/milestones</a></li></ol></div></section>
+<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">cto · 8 / 9</span></footer>
+</section><section class="refs"><header><span class="kicker">références publiques</span><h2>Sources</h2></header><div class="body"><ol class="sources"><li id="note-1"><a href="https://github.com/jordanvalnet/exalthon26/security/policy">https://github.com/jordanvalnet/exalthon26/security/policy</a></li><li id="note-2"><a href="https://github.com/jordanvalnet/exalthon26/security/dependabot">https://github.com/jordanvalnet/exalthon26/security/dependabot</a></li><li id="note-3"><a href="https://github.com/jordanvalnet/exalthon26/milestones">https://github.com/jordanvalnet/exalthon26/milestones</a></li></ol></div><footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">cto · 9 / 9</span></footer></section>
 </body>
 </html>

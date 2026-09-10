@@ -1,0 +1,205 @@
+{
+  "schema": 1,
+  "resets": {},
+  "collectors": {
+    "1a-meta": {
+      "at": "2026-09-10T14:22:02.937Z",
+      "budget": 12,
+      "deadline_s": 60,
+      "calls": 12,
+      "remaining": 0,
+      "ms": 11928,
+      "waited_ms": 0,
+      "made": [
+        {
+          "label": "repo",
+          "tool": "search_repositories",
+          "priority": "P0",
+          "ms": 1023,
+          "ok": true
+        },
+        {
+          "label": "commits",
+          "tool": "list_commits",
+          "priority": "P1",
+          "ms": 880,
+          "ok": true
+        },
+        {
+          "label": "commits",
+          "tool": "list_commits",
+          "priority": "P1",
+          "ms": 854,
+          "ok": true
+        },
+        {
+          "label": "commits",
+          "tool": "list_commits",
+          "priority": "P1",
+          "ms": 528,
+          "ok": true
+        },
+        {
+          "label": "commits",
+          "tool": "list_commits",
+          "priority": "P1",
+          "ms": 531,
+          "ok": true
+        },
+        {
+          "label": "commits",
+          "tool": "list_commits",
+          "priority": "P1",
+          "ms": 780,
+          "ok": true
+        },
+        {
+          "label": "releases",
+          "tool": "list_releases",
+          "priority": "P1",
+          "ms": 487,
+          "ok": true
+        },
+        {
+          "label": "license",
+          "tool": "get_file_contents",
+          "priority": "P1",
+          "ms": 1790,
+          "ok": true
+        },
+        {
+          "label": "license",
+          "tool": "get_file_contents",
+          "priority": "P1",
+          "ms": 1039,
+          "ok": true
+        },
+        {
+          "label": "security",
+          "tool": "get_file_contents",
+          "priority": "P1",
+          "ms": 731,
+          "ok": true
+        },
+        {
+          "label": "funding",
+          "tool": "get_file_contents",
+          "priority": "P2",
+          "ms": 2090,
+          "ok": false
+        },
+        {
+          "label": "codeowners",
+          "tool": "get_file_contents",
+          "priority": "P2",
+          "ms": 1173,
+          "ok": true
+        }
+      ],
+      "skipped": [
+        {
+          "label": "competitors",
+          "priority": "P2",
+          "reason": "budget : 12/12 appels faits",
+          "url": "https://github.com/topics/ai"
+        }
+      ]
+    },
+    "1b-issues": {
+      "at": "2026-09-10T13:22:58.693Z",
+      "budget": 12,
+      "deadline_s": 60,
+      "calls": 12,
+      "remaining": 0,
+      "ms": 18457,
+      "waited_ms": 0,
+      "made": [
+        {
+          "label": "repo",
+          "tool": "search_repositories",
+          "priority": "P0",
+          "ms": 1073,
+          "ok": true
+        },
+        {
+          "label": "issues",
+          "tool": "list_issues",
+          "priority": "P1",
+          "ms": 2040,
+          "ok": true
+        },
+        {
+          "label": "issues",
+          "tool": "list_issues",
+          "priority": "P1",
+          "ms": 2614,
+          "ok": true
+        },
+        {
+          "label": "issues",
+          "tool": "list_issues",
+          "priority": "P1",
+          "ms": 1935,
+          "ok": true
+        },
+        {
+          "label": "pulls",
+          "tool": "list_pull_requests",
+          "priority": "P1",
+          "ms": 1056,
+          "ok": true
+        },
+        {
+          "label": "pulls",
+          "tool": "list_pull_requests",
+          "priority": "P1",
+          "ms": 878,
+          "ok": true
+        },
+        {
+          "label": "pulls",
+          "tool": "list_pull_requests",
+          "priority": "P1",
+          "ms": 1011,
+          "ok": true
+        },
+        {
+          "label": "open_prs",
+          "tool": "list_pull_requests",
+          "priority": "P1",
+          "ms": 558,
+          "ok": true
+        },
+        {
+          "label": "open_pr_count",
+          "tool": "search_pull_requests",
+          "priority": "P1",
+          "ms": 530,
+          "ok": true
+        },
+        {
+          "label": "closed_30d",
+          "tool": "list_issues",
+          "priority": "P2",
+          "ms": 1935,
+          "ok": true
+        },
+        {
+          "label": "closed_30d",
+          "tool": "list_issues",
+          "priority": "P2",
+          "ms": 2379,
+          "ok": true
+        },
+        {
+          "label": "closed_30d",
+          "tool": "list_issues",
+          "priority": "P2",
+          "ms": 2431,
+          "ok": true
+        }
+      ],
+      "skipped": []
+    }
+  }
+}

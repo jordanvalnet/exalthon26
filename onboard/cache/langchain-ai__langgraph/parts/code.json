@@ -1,0 +1,78 @@
+{
+  "tree": [
+    { "path": ".github", "type": "dir", "role": "17 workflows GitHub Actions, scripts CI" },
+    { "path": ".gitignore", "type": "file", "role": "exclusions git" },
+    { "path": ".markdownlint.json", "type": "file", "role": "config lint Markdown" },
+    { "path": "AGENTS.md", "type": "file", "role": "consignes pour les agents IA" },
+    { "path": "CLAUDE.md", "type": "file", "role": "consignes pour Claude Code" },
+    { "path": "LICENSE", "type": "file", "role": "licence MIT" },
+    { "path": "Makefile", "type": "file", "role": "pilote du monorepo : install, lint, test via uv" },
+    { "path": "README.md", "type": "file", "role": "présentation du projet" },
+    { "path": "docs", "type": "dir", "role": "documentation" },
+    { "path": "examples", "type": "dir", "role": "exemples d'usage, notebooks" },
+    { "path": "libs", "type": "dir", "role": "code principal : 9 paquets, 8 en Python, sdk-js réduit à un README" }
+  ],
+  "entrypoints": [
+    {
+      "path": "libs/langgraph/langgraph",
+      "why": "le paquet Python `langgraph` (version 1.2.11, MIT) : `[tool.hatch.build.targets.wheel] packages = [\"langgraph\"]` dans libs/langgraph/pyproject.toml. C'est le cœur : la recherche y montre langgraph/graph/, langgraph/pregel/ et langgraph/runtime.py. Déduit du manifeste."
+    },
+    {
+      "path": "libs/langgraph/tests",
+      "why": "la suite de tests du cœur : 66 entrées, dont 51 modules `test_*.py`, listées. Point d'entrée du QA : `make test` à la racine, ou `make -C libs/langgraph test_parallel` comme en CI. Confirmé, dossier listé."
+    },
+    {
+      "path": "libs/cli/langgraph_cli/cli.py",
+      "why": "la commande `langgraph` : `[project.scripts] langgraph = \"langgraph_cli.cli:cli\"` dans libs/cli/pyproject.toml (paquet langgraph-cli, sur click). Déduit du script, fichier non lu."
+    },
+    {
+      "path": "Makefile",
+      "why": "pilote du monorepo : `make install` crée un venv uv et installe chaque libs/* en editable, `make lint`, `make format`, `make lock` et `make test` délèguent au Makefile de chaque lib. Confirmé, fichier lu."
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "why": "orchestration de la CI : filtre par chemins modifiés, puis lint et tests sur les 8 libs Python via les workflows réutilisables _lint.yml, _test.yml et _test_langgraph.yml, tests d'intégration CLI et sdk-py. Confirmé, fichier lu."
+    }
+  ],
+  "build": {
+    "ci": [
+      { "name": "CI", "path": ".github/workflows/ci.yml", "triggers": ["workflow_dispatch", "push", "pull_request"] },
+      { "name": "test", "path": ".github/workflows/_test_langgraph.yml", "triggers": ["workflow_call"] }
+    ]
+  },
+  "tests": {
+    "dir": "libs/langgraph/tests",
+    "framework": "pytest",
+    "files": 66
+  },
+  "deps": {
+    "manifest": "libs/langgraph/pyproject.toml",
+    "count": 33,
+    "runtime": [
+      { "name": "langchain-core", "version": ">=1.4.7,<2" },
+      { "name": "langgraph-checkpoint", "version": ">=4.1.0,<5.0.0" },
+      { "name": "langgraph-sdk", "version": ">=0.4.2,<0.5.0" },
+      { "name": "langgraph-prebuilt", "version": ">=1.1.0,<1.2.0" },
+      { "name": "xxhash", "version": ">=3.5.0" },
+      { "name": "pydantic", "version": ">=2.7.4" }
+    ]
+  },
+  "risks": [
+    {
+      "kind": "deps",
+      "level": "low",
+      "note": "Pas de manifeste racine : chaque paquet de libs/ a son pyproject.toml et son uv.lock. libs/langgraph/pyproject.toml déclare 33 dépendances : 6 à l'exécution (langchain-core, pydantic, xxhash et 3 paquets internes du monorepo : langgraph-checkpoint, langgraph-sdk, langgraph-prebuilt) et 27 de développement (pytest et plugins, ruff, ty, jupyter). Paquets internes liés en editable via [tool.uv.sources]. uv.lock versionné (712 Ko) et CI en `uv sync --frozen`. Transitives non relevées."
+    },
+    {
+      "kind": "ci",
+      "level": "low",
+      "note": "17 workflows dans .github/workflows. ci.yml (workflow_dispatch, push sur main, pull_request) filtre par chemins modifiés puis enchaîne lint et tests sur 8 libs Python via _lint.yml, _test.yml et _test_langgraph.yml, vérification du schéma de la CLI, tests d'intégration CLI et sdk-py, job ci_success agrégateur ; actions épinglées par SHA, runs concurrents annulés. _test_langgraph.yml (lu) teste le cœur sur 5 versions de Python (3.10 à 3.14) en `make test_parallel` (pytest-xdist), rejoue les deux gros fichiers Pregel en LANGGRAPH_STRICT_MSGPACK sur 3.13, et échoue si la suite laisse un fichier derrière elle. Les 15 autres workflows (release, bench, baseline, tri des issues et PR) n'ont pas été lus."
+    },
+    {
+      "kind": "security",
+      "level": "low",
+      "note": "Aucune mesure de couverture : pytest-cov est bien dans le groupe test de libs/langgraph/pyproject.toml, mais ni ci.yml ni _test_langgraph.yml ne produisent de rapport ni n'imposent de seuil. La couverture réelle du code est donc inconnue et non surveillée par la CI. Par ailleurs libs/sdk-js/ ne contient qu'un README.md : aucun code ni test JavaScript dans ce repo, le SDK JS est ailleurs."
+    }
+  ],
+  "collected": { "by": "1d-code", "at": "2026-09-10T14:03:30Z" }
+}

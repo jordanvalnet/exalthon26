@@ -43,6 +43,7 @@ th { font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.06em; color
 
 /* Couverture */
 .cover { justify-content: center; background: var(--cover-bg); color: var(--cover-fg); border: 0; }
+.cover h1 code { background: rgba(255,255,255,0.14); color: inherit; padding: 0 0.25em; font-size: 0.85em; }
 .cover a { color: inherit; }
 .cover-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 40px; }
 .eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.8rem; font-weight: 700; }
@@ -61,7 +62,7 @@ th { font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.06em; color
 .page header, .finale header { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
 .kicker { font: 700 0.78rem/1 var(--mono); color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; }
 .takeaway { margin: 0 0 22px; padding: 14px 20px; border-left: 5px solid var(--accent); background: var(--bg); font-size: 1.12em; font-weight: 600; line-height: 1.45; border-radius: 0 10px 10px 0; }
-.body.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; align-items: start; }
+.body.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; align-items: start; align-content: start; }
 .body.split .chart-wrap { min-width: 0; }
 .body.stack .chart-wrap { margin-bottom: 20px; }
 footer { display: flex; justify-content: space-between; gap: 12px; margin-top: 26px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.78rem; }
@@ -144,6 +145,8 @@ footer .n { font-family: var(--mono); }
   .p-ceo .takeaway { font-size: 1.3rem; margin-bottom: 16px; }
   .p-ceo .risks li { padding: 2px 0; }
   .body.split { gap: 22px; }
+  .p-ceo .chart { max-height: 52mm; }
+  .p-enfant .chart { max-height: 60mm; }
   .takeaway { font-size: 1.05em; padding: 10px 16px; margin-bottom: 14px; }
   th, td { padding: 5px 10px; }
   footer { margin-top: 14px; padding-top: 8px; }
@@ -180,7 +183,7 @@ footer .n { font-family: var(--mono); }
 <p>Quatre binaires : <code>astrid</code> (CLI uplink, TUI et mode headless), <code>astrid-daemon</code> (noyau), <code>astrid-build</code> (compile les capsules vers <code>wasm32-unknown-unknown</code>), <code>astrid-emit</code> (pont stdio → bus).</p>
 <p>Chiffres : 10277 étoiles, 137 forks, 216 issues ouvertes, dépôt créé le 2026-02-15 par une organisation, dernier push le 2026-09-09.</p>
 <p>Licence relevée par GitHub : Apache-2.0 ; le README et les fichiers <code>LICENSE-APACHE</code> / <code>LICENSE-MIT</code> disent « MIT OR Apache-2.0 ». Donnée non relevée : la répartition des langages ; à vérifier sur <a href="https://github.com/astrid-runtime/astrid">https://github.com/astrid-runtime/astrid</a>. Le manifeste est un workspace Cargo.</p></div></div>
-<footer><span class="repo-name">astrid-runtime/astrid · relevé le 9 sept. 2026</span><span class="n">dev · 2 / 8</span></footer>
+<footer><span class="repo-name">astrid-runtime/astrid · relevé le 9 sept. 2026</span><span class="n">dev · 2 / 9</span></footer>
 </section>
 <section class="page">
 <header><span class="kicker">03</span><h2>Comment le code est-il organisé ?</h2></header>
@@ -191,7 +194,7 @@ footer .n { font-family: var(--mono); }
 <p>Autour du code : <code>e2e/</code> (scénarios TOML et fixtures bout en bout), <code>fuzz/</code>, <code>crates/astrid-integration-tests</code> (39 fichiers, cargo test + insta), <code>native/macos/</code>, <code>docs/</code>, <code>scripts/</code> (build, CI, release), <code>changes/</code> (fragments de changelog en attente), <code>.github/</code> avec 20 workflows.</p>
 <p>Deux curiosités : <code>wit</code> est un fichier de 0 octet à la racine et <code>.gitmodules</code> déclare des sous-modules ; leur cible n'est pas relevée, à vérifier dans <a href="https://github.com/astrid-runtime/astrid/blob/main/.gitmodules">https://github.com/astrid-runtime/astrid/blob/main/.gitmodules</a>.</p>
 <p>Aucun repère pour agents IA (AGENTS.md, CLAUDE.md, .cursorrules…) : score 0 sur 7 ; seul un dossier <code>.gemini/</code> existe.</p></div></div>
-<footer><span class="repo-name">astrid-runtime/astrid · relevé le 9 sept. 2026</span><span class="n">dev · 3 / 8</span></footer>
+<footer><span class="repo-name">astrid-runtime/astrid · relevé le 9 sept. 2026</span><span class="n">dev · 3 / 9</span></footer>
 </section>
 <section class="page">
 <header><span class="kicker">04</span><h2>Par où commencer à lire ?</h2></header>
@@ -199,7 +202,7 @@ footer .n { font-family: var(--mono); }
 <div class="body"><div class="text"><ol><li><code>crates/astrid-cli/src/main.rs</code> : binaire <code>astrid</code>, <code>#[tokio::main]</code> qui parse clap puis route vers <code>dispatch</code> ; client léger qui se connecte au kernel (auto-démarrage), crée ou reprend des sessions et rend les événements en streaming.</li><li><code>crates/astrid-cli/src/cli.rs</code> : définitions clap des sous-commandes (<code>agent</code>, <code>capsule</code>, <code>quota</code>, <code>status</code>, <code>start</code>, <code>stop</code>, <code>ps</code>, <code>top</code>) ; déduit du <code>mod cli</code> de main.rs, fichier non lu.</li><li><code>crates/astrid-daemon/src/main.rs</code> : 26 lignes, <code>setsid</code> puis runtime tokio multi-thread qui appelle <code>astrid_daemon::run()</code>. C'est la porte vers le noyau.</li><li><code>crates/astrid-cli-mockup/src/main.rs</code> : maquette de CLI hors workspace, à ignorer au début.</li></ol>
 <p>Pour le modèle mental, lire d'abord les sections « How it works » et « The security model » du README (uplinks, bus, <code>Capsule.toml</code> avec <code>[imports]</code>/<code>[exports]</code>, ABI WIT <code>astrid:*</code>), puis The Astrid Book, présenté comme la référence canonique avec ancres fichier/ligne<sup class="note"><a href="#note-1">1</a></sup>. Le SDK des capsules (<code>astrid-sdk</code>) vit dans un autre dépôt<sup class="note"><a href="#note-2">2</a></sup>.</p>
 <p>Données non relevées : le corps de <code>astrid_daemon::run()</code> et le contenu de <code>crates/astrid-kernel/src/lib.rs</code> ; à vérifier dans <a href="https://github.com/astrid-runtime/astrid/tree/main/crates/astrid-daemon/src">https://github.com/astrid-runtime/astrid/tree/main/crates/astrid-daemon/src</a> et <a href="https://github.com/astrid-runtime/astrid/tree/main/crates/astrid-kernel/src">https://github.com/astrid-runtime/astrid/tree/main/crates/astrid-kernel/src</a>.</p></div></div>
-<footer><span class="repo-name">astrid-runtime/astrid · relevé le 9 sept. 2026</span><span class="n">dev · 4 / 8</span></footer>
+<footer><span class="repo-name">astrid-runtime/astrid · relevé le 9 sept. 2026</span><span class="n">dev · 4 / 9</span></footer>
 </section>
 <section class="page">
 <header><span class="kicker">05</span><h2>Comment builder, tester et lancer ?</h2></header>
@@ -213,7 +216,7 @@ astrid start &amp;&amp; astrid status &amp;&amp; astrid stop</code></pre>
 <p>Avant une PR, rejouer la CI en local : <code>cargo fmt --all -- --check</code>, <code>cargo clippy --workspace --all-features --all-targets --locked -- -D warnings</code>, <code>cargo test --workspace --locked</code> ; CONTRIBUTING exige au minimum <code>cargo test --workspace</code> et <code>cargo clippy -- -D warnings</code>. Lints du workspace : <code>unsafe_code = &quot;deny&quot;</code>, clippy <code>pedantic</code> en warn, <code>arithmetic_side_effects = &quot;deny&quot;</code>.</p>
 <p>CI : <code>.github/workflows/ci.yml</code>, déclenchée sur <code>push</code> (branches <code>main</code> et <code>stream-*</code>) et <code>pull_request</code> ; 14 jobs dont check, fmt, clippy, test (ubuntu et macos), msrv 1.95, cargo-audit, portabilité wasm32, tests natifs Windows. 20 workflows au total.</p>
 <p>Données non relevées : les prérequis système (FUSE, FSKit, WinFsp) des tests de stockage et le temps de build ; à vérifier dans <code>scripts/</code> et <a href="https://github.com/astrid-runtime/astrid/blob/main/.github/workflows/ci.yml">https://github.com/astrid-runtime/astrid/blob/main/.github/workflows/ci.yml</a>.</p></div></div>
-<footer><span class="repo-name">astrid-runtime/astrid · relevé le 9 sept. 2026</span><span class="n">dev · 5 / 8</span></footer>
+<footer><span class="repo-name">astrid-runtime/astrid · relevé le 9 sept. 2026</span><span class="n">dev · 5 / 9</span></footer>
 </section>
 <section class="page">
 <header><span class="kicker">06</span><h2>Comment le projet vit-il ?</h2></header>
@@ -223,7 +226,7 @@ astrid start &amp;&amp; astrid status &amp;&amp; astrid stop</code></pre>
 <p>Conséquence pratique : un seul relecteur pour vos PR ; 24 PR ouvertes pour 188 fusionnées en 30 jours. Donnée non relevée : combien attendent une revue ; à vérifier dans <a href="https://github.com/astrid-runtime/astrid/pulls">https://github.com/astrid-runtime/astrid/pulls</a>.</p>
 <p>Releases : <code>v2026.9.0</code> publiée le 2026-09-09, première du schéma <code>year.month.patch</code> annoncé par le README ; avant elle, de <code>v0.9.3</code> (2026-07-06) à <code>v0.10.4</code> (2026-07-20), plus des tags de canal <code>channel-stable</code>, <code>channel-nightly</code>, <code>channel-dev</code>.</p>
 <p>Dépôt créé le 2026-02-15, 10277 étoiles pour 137 forks : beaucoup de regards, peu de mains. Données non relevées : l'historique avant W26 et un éventuel rythme de release annoncé ; à vérifier dans <code>CHANGELOG.md</code> (410 Ko) et <a href="https://github.com/astrid-runtime/astrid/releases">https://github.com/astrid-runtime/astrid/releases</a>.</p></div></div>
-<footer><span class="repo-name">astrid-runtime/astrid · relevé le 9 sept. 2026</span><span class="n">dev · 6 / 8</span></footer>
+<footer><span class="repo-name">astrid-runtime/astrid · relevé le 9 sept. 2026</span><span class="n">dev · 6 / 9</span></footer>
 </section>
 <section class="page">
 <header><span class="kicker">07</span><h2>Quelle première contribution ?</h2></header>
@@ -233,13 +236,13 @@ astrid start &amp;&amp; astrid status &amp;&amp; astrid stop</code></pre>
 <ul><li>#459 « Markdown parser in TUI fails on numbered lists &gt;= 10 »<sup class="note"><a href="#note-3">3</a></sup> : la TUI est dans le binaire <code>astrid</code>, donc <code>crates/astrid-cli</code>, crate non-core ouverte aux nouveaux ; périmètre borné, test de régression évident : meilleur candidat.</li><li>#276 « MCP interceptor: propagate tool_result.is_error instead of treating it as success »<sup class="note"><a href="#note-4">4</a></sup> : probablement <code>crates/astrid-mcp</code>, hors liste des crates de sécurité.</li><li>#497 « Remove dead AgentHandler stub from astrid-hooks »<sup class="note"><a href="#note-5">5</a></sup> : <code>astrid-hooks</code> est un crate core, à confirmer avec le mainteneur avant de la réclamer. Restent #476 et #461.</li></ul>
 <p>Repère de style : les PR fusionnées suivent <code>fix(scope): …</code> / <code>feat(scope): …</code>, ex. « fix(init): honor explicit grants after completed batch resume » fusionnée le 2026-09-09. Éviter au début les fils chauds comme #1708 (29 commentaires).</p>
 <p>Donnée non relevée : l'assignation éventuelle de ces issues ; à vérifier sur chaque URL avant de commenter pour la réclamer.</p></div></div>
-<footer><span class="repo-name">astrid-runtime/astrid · relevé le 9 sept. 2026</span><span class="n">dev · 7 / 8</span></footer>
+<footer><span class="repo-name">astrid-runtime/astrid · relevé le 9 sept. 2026</span><span class="n">dev · 7 / 9</span></footer>
 </section><section class="finale">
 <header><span class="kicker">dev</span><h2>Vos 3 premières actions</h2></header>
 
 <div class="body"><div class="text"><ol><li>Cloner et vérifier le build : <code>git clone <a href="https://github.com/astrid-runtime/astrid">https://github.com/astrid-runtime/astrid</a> &amp;&amp; cd astrid &amp;&amp; cargo build --release</code>, puis <code>cargo test --workspace -- --quiet</code> ; Rust 1.95 minimum, épinglé par <code>rust-toolchain.toml</code>.</li><li>Lancer le runtime et suivre le code qui tourne : <code>astrid start &amp;&amp; astrid status &amp;&amp; astrid capsule list &amp;&amp; astrid stop</code>, en lisant <code>crates/astrid-cli/src/main.rs</code> puis <code>crates/astrid-daemon/src/main.rs</code>.</li><li>Réclamer #459 par un commentaire sur l'issue et attendre l'assignation ; ensuite seulement : <code>cargo clippy -- -D warnings</code> vert, <code>git commit -s -m &quot;fix(scope): …&quot;</code>, fragment <code>changes/459.fixed.md</code> avec <code>Closes #459</code>, template de PR rempli, label <code>newcomer-approved</code> posé par un mainteneur<sup class="note"><a href="#note-3">3</a></sup>.</li></ol>
 <p>Hors périmètre tant que vous n'êtes pas promu : <code>astrid-crypto</code>, <code>astrid-capabilities</code>, <code>astrid-audit</code>, <code>astrid-approval</code>, <code>astrid-vfs</code>, <code>astrid-storage</code>, <code>astrid-sys</code>, <code>astrid-core</code>, réservés aux tiers Core et Maintainer.</p></div></div>
-<footer><span class="repo-name">astrid-runtime/astrid · relevé le 9 sept. 2026</span><span class="n">dev · 8 / 8</span></footer>
-</section><section class="refs"><header><span class="kicker">références publiques</span><h2>Sources</h2></header><div class="body"><ol class="sources"><li id="note-1"><a href="https://github.com/astrid-runtime/book">https://github.com/astrid-runtime/book</a></li><li id="note-2"><a href="https://github.com/astrid-runtime/sdk-rust">https://github.com/astrid-runtime/sdk-rust</a></li><li id="note-3"><a href="https://github.com/astrid-runtime/astrid/issues/459">https://github.com/astrid-runtime/astrid/issues/459</a></li><li id="note-4"><a href="https://github.com/astrid-runtime/astrid/issues/276">https://github.com/astrid-runtime/astrid/issues/276</a></li><li id="note-5"><a href="https://github.com/astrid-runtime/astrid/issues/497">https://github.com/astrid-runtime/astrid/issues/497</a></li></ol></div></section>
+<footer><span class="repo-name">astrid-runtime/astrid · relevé le 9 sept. 2026</span><span class="n">dev · 8 / 9</span></footer>
+</section><section class="refs"><header><span class="kicker">références publiques</span><h2>Sources</h2></header><div class="body"><ol class="sources"><li id="note-1"><a href="https://github.com/astrid-runtime/book">https://github.com/astrid-runtime/book</a></li><li id="note-2"><a href="https://github.com/astrid-runtime/sdk-rust">https://github.com/astrid-runtime/sdk-rust</a></li><li id="note-3"><a href="https://github.com/astrid-runtime/astrid/issues/459">https://github.com/astrid-runtime/astrid/issues/459</a></li><li id="note-4"><a href="https://github.com/astrid-runtime/astrid/issues/276">https://github.com/astrid-runtime/astrid/issues/276</a></li><li id="note-5"><a href="https://github.com/astrid-runtime/astrid/issues/497">https://github.com/astrid-runtime/astrid/issues/497</a></li></ol></div><footer><span class="repo-name">astrid-runtime/astrid · relevé le 9 sept. 2026</span><span class="n">dev · 9 / 9</span></footer></section>
 </body>
 </html>

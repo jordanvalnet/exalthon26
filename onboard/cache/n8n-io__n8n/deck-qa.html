@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>n8n, automatisation de workflows et agents IA : une CI complète et bloquante, mais aucun bug étiqueté ni couverture publiée</title>
+<style>
+:root {
+  --bg: #f5f5f3; --card: #ffffff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2;
+  --accent: #4f5bd5; --accent-2: #d1495b; --accent-ink: #ffffff;
+  --cover-bg: #17181c; --cover-fg: #ffffff; --cover-muted: #b7bccb;
+  --low: #2e9e6b; --mid: #d99a2b; --high: #d1495b;
+  --font: ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --display: var(--font); --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --radius: 12px; --pad: 40px 48px; --width: 1040px; --min-h: 600px;
+  --h1: 2.8rem; --h2: 1.7rem; --text: 1.02rem; --kpi: 2.6rem;
+}
+* { box-sizing: border-box; }
+html { font-size: 16px; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 1rem/1.55 var(--font); }
+section {
+  position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  max-width: var(--width); margin: 28px auto; padding: var(--pad); min-height: var(--min-h); font-size: var(--text);
+  display: flex; flex-direction: column;
+}
+section > .body { flex: 1; }
+h1 { font: 700 var(--h1)/1.1 var(--display); letter-spacing: -0.01em; margin: 0 0 16px; }
+h2 { font: 700 var(--h2)/1.2 var(--display); margin: 0 0 10px; }
+p { margin: 0 0 10px; }
+ul, ol { margin: 0 0 12px; padding-left: 22px; }
+li { margin: 0 0 6px; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code { font: 0.88em var(--mono); background: var(--bg); padding: 1px 6px; border-radius: 5px; }
+pre { background: #14151a; color: #e8eaf1; padding: 14px 18px; border-radius: 10px; overflow-x: auto; margin: 0 0 14px; font-size: 0.9em; line-height: 1.5; }
+pre code { background: none; padding: 0; color: inherit; font-size: 1em; }
+strong { font-weight: 700; }
+table { border-collapse: collapse; width: 100%; margin: 0 0 14px; font-size: 0.94em; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); border-bottom: 2px solid var(--accent); }
+.level { display: inline-block; padding: 1px 10px; border-radius: 999px; font-size: 0.8em; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.04em; }
+.level.low { background: var(--low); } .level.mid { background: var(--mid); } .level.high { background: var(--high); }
+
+/* Couverture */
+.cover { justify-content: center; background: var(--cover-bg); color: var(--cover-fg); border: 0; }
+.cover h1 code { background: rgba(255,255,255,0.14); color: inherit; padding: 0 0.25em; font-size: 0.85em; }
+.cover a { color: inherit; }
+.cover-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 40px; }
+.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.8rem; font-weight: 700; }
+.date, .repo, .cover-foot { color: var(--cover-muted); font-size: 0.9rem; }
+.repo { font-family: var(--mono); font-size: 1rem; margin: 0 0 12px; }
+.cover .desc { color: var(--cover-muted); font-size: 1.1rem; max-width: 46em; margin-bottom: 32px; }
+.kpis { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; padding: 0; margin: 0 0 32px; }
+.kpis li { border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; padding: 14px 18px; background: rgba(255,255,255,0.05); }
+.kpis b { display: block; font: 700 var(--kpi)/1 var(--display); letter-spacing: -0.02em; margin-bottom: 6px; }
+.kpis span { display: block; font-size: 0.82rem; color: var(--cover-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.kpis b.long { font-size: calc(var(--kpi) * 0.62); padding: 0.25em 0; }
+.kpis small { display: block; font-size: 0.78rem; color: var(--cover-muted); margin-top: 3px; text-transform: none; letter-spacing: 0; }
+.cover-foot { margin: 0; display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* Pages */
+.page header, .finale header { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+.kicker { font: 700 0.78rem/1 var(--mono); color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; }
+.takeaway { margin: 0 0 22px; padding: 14px 20px; border-left: 5px solid var(--accent); background: var(--bg); font-size: 1.12em; font-weight: 600; line-height: 1.45; border-radius: 0 10px 10px 0; }
+.body.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; align-items: start; align-content: start; }
+.body.split .chart-wrap { min-width: 0; }
+.body.stack .chart-wrap { margin-bottom: 20px; }
+footer { display: flex; justify-content: space-between; gap: 12px; margin-top: 26px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.78rem; }
+footer .n { font-family: var(--mono); }
+
+/* Graphiques SVG et listes annotées (charts.ts) */
+.chart { display: block; width: 100%; height: auto; max-width: 640px; margin: 0 0 12px; }
+.chart text { font-family: var(--font); fill: var(--fg); }
+.chart .lbl { font-size: 12px; }
+.chart .val, .chart .tick { font-size: 11px; fill: var(--muted); }
+.chart .bar { fill: var(--accent); }
+.chart .bar.strong { fill: var(--accent-2); }
+.chart .bar.off { fill: var(--line); }
+.chart .dot { fill: var(--accent); }
+.chart .axis { stroke: var(--line); stroke-width: 1; }
+.tree, .risks { list-style: none; margin: 0 0 14px; padding: 0; font-size: 0.92em; }
+.tree li, .risks li { display: flex; gap: 10px; align-items: baseline; padding: 4px 0; border-bottom: 1px solid var(--line); }
+.tree code { flex: 0 0 auto; }
+.tree .more { color: var(--muted); border: 0; font-style: italic; }
+.role { color: var(--muted); font-size: 0.9em; }
+.light { width: 11px; height: 11px; border-radius: 50%; flex: 0 0 auto; background: var(--muted); }
+.light.low { background: var(--low); } .light.mid { background: var(--mid); } .light.high { background: var(--high); }
+
+/* Finale et sources */
+.finale { border: 2px solid var(--accent); }
+.finale .body { font-size: 1.08em; }
+.finale ol, .finale ul { padding-left: 26px; }
+.finale li { margin-bottom: 10px; }
+.refs { min-height: 0; }
+.refs ol { padding-left: 22px; font-size: 0.86rem; column-count: 2; column-gap: 32px; }
+.refs li { margin-bottom: 6px; break-inside: avoid; }
+.note { font-size: 0.68em; }
+.note a { text-decoration: none; padding: 0 1px; }
+
+.p-qa { --accent: #0f8f7a; --accent-2: #d1495b; --bg: #f2f7f5; --cover-bg: #ffffff; --cover-fg: #14332c; --cover-muted: #5b7a72; --h1: 2.5rem; --h2: 1.5rem; }
+.p-qa .cover { border: 1px solid var(--line); border-top: 14px solid var(--accent); }
+.p-qa .cover .eyebrow::before { content: "✓ "; }
+.p-qa .kpis li { background: #eef7f4; border-color: #cfe6df; }
+.p-qa .kpis b { color: var(--accent); }
+.p-qa .kpis li:nth-child(3) b { color: var(--accent-2); }
+.p-qa .kpis span, .p-qa .kpis small { color: var(--cover-muted); }
+.p-qa h2::before { content: "☑ "; color: var(--accent); }
+.p-qa .takeaway { background: #eef7f4; border-left-color: var(--accent); }
+.p-qa .takeaway::before { content: "Verdict"; display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 4px; }
+.p-qa .body ul { list-style: none; padding-left: 0; }
+.p-qa .body ul li { padding-left: 26px; position: relative; }
+.p-qa .body ul li::before { content: "☐"; position: absolute; left: 0; color: var(--accent); font-size: 1.05em; }
+.p-qa .body ol { counter-reset: step; list-style: none; padding-left: 0; }
+.p-qa .body ol li { padding-left: 34px; position: relative; }
+.p-qa .body ol li::before { counter-increment: step; content: counter(step); position: absolute; left: 0; top: 1px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 0.8em; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.p-qa tbody tr:nth-child(odd) { background: #f6faf8; }
+.p-qa .finale { background: #eef7f4; }
+.p-qa .finale h2::before { content: "🧪 "; }
+
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #14151a; --card: #1c1e25; --fg: #eceef3; --muted: #a0a6b4; --line: #2f323c; --low: #4cc38a; --mid: #e5b25d; --high: #ef7f8e; }
+  code { background: #262932; }
+  .p-dev { --accent: #8f97ee; --accent-2: #ef7f8e; }
+  .p-qa { --accent: #35c2a8; --accent-2: #ef7f8e; --bg: #14181a; --cover-bg: #1c2422; --cover-fg: #eef5f2; --cover-muted: #9fb8b0; }
+  .p-qa .kpis li { background: #213230; border-color: #2e4a45; }
+  .p-qa .takeaway, .p-qa .finale { background: #1f2b28; }
+  .p-qa tbody tr:nth-child(odd) { background: #1f2624; }
+  .p-cto { --accent: #7fa6d9; --accent-2: #f0b97a; --bg: #141821; }
+  .p-cto .takeaway { background: #2a2620; }
+  .p-cto .finale { background: #1f3a5f; }
+  .p-ceo { --accent: #dcc27a; --bg: #15171c; --card: #1c1e25; --line: #2f323c; }
+  .p-ceo .finale { background: #14213d; }
+  .p-investisseur { --accent: #5cc493; --accent-2: #dcb25f; --bg: #141816; --card: #1b201d; --line: #2c342f; --cover-bg: #1b201d; --cover-fg: #eef3ef; --cover-muted: #9fb0a6; }
+  .p-investisseur .kpis li { background: #16201b; }
+  .p-investisseur .finale { background: #1d6b4a; }
+}
+
+@media print {
+  @page { size: A4 landscape; margin: 10mm; }
+  html { font-size: 12px; }
+  .p-dev, .p-qa, .p-cto { --text: 0.9rem; }
+  .p-dev .tree, .p-qa .tree, .p-cto .tree { font-size: 0.82em; }
+  .p-ceo { --text: 1rem; }
+  .p-ceo .takeaway { font-size: 1.3rem; margin-bottom: 16px; }
+  .p-ceo .risks li { padding: 2px 0; }
+  .body.split { gap: 22px; }
+  .p-ceo .chart { max-height: 52mm; }
+  .p-enfant .chart { max-height: 60mm; }
+  .takeaway { font-size: 1.05em; padding: 10px 16px; margin-bottom: 14px; }
+  th, td { padding: 5px 10px; }
+  footer { margin-top: 14px; padding-top: 8px; }
+  .refs ol { column-count: 3; font-size: 0.82rem; }
+  .refs li { margin-bottom: 3px; }
+  body { background: #fff; }
+  :root, .p-dev, .p-qa, .p-cto, .p-ceo, .p-investisseur, .p-enfant { --bg: #f5f5f3; --card: #fff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2; }
+  .p-qa { --bg: #f2f7f5; } .p-cto { --bg: #f4f6f9; } .p-ceo { --bg: #f7f5ef; --card: #fffdf8; } .p-investisseur { --bg: #f6f6f2; } .p-enfant { --bg: #fff6e5; --card: #fffdf7; --fg: #2b2118; --muted: #7a6a5a; }
+  .p-ceo { --accent: #14213d; } .p-cto { --accent: #1f3a5f; } .p-dev { --accent: #4f5bd5; } .p-qa { --accent: #0f8f7a; } .p-investisseur { --accent: #1d6b4a; }
+  section { max-width: none; margin: 0; min-height: 178mm; break-after: page; page-break-after: always; box-shadow: none; --pad: 26px 36px; }
+  section:last-child { break-after: auto; page-break-after: auto; }
+  .p-enfant section { box-shadow: none; margin: 0; }
+  .cover { min-height: 178mm; }
+  .refs { min-height: 0; }
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  a { text-decoration: none; }
+}
+</style>
+</head>
+<body class="p-qa">
+<section class="cover">
+<div class="cover-top"><span class="eyebrow">Rapport de qualification</span><span class="date">Données GitHub relevées le 10 sept. 2026</span></div>
+<p class="repo">n8n-io/n8n</p>
+<h1>n8n, automatisation de workflows et agents IA : une CI complète et bloquante, mais aucun bug étiqueté ni couverture publiée</h1>
+<p class="desc">Fair-code workflow automation platform with native AI capabilities. Combine visual building with custom code, self-host or cloud, 400+ integrations.</p>
+<ul class="kpis"><li><b>10</b><span>fichiers de test</span><small>Vitest (unit, integration, migration) et Playwright pour l'e2e</small></li><li><b>1</b><span>workflows CI</span></li><li><b>375</b><span>issues ouvertes</span></li></ul>
+<p class="cover-foot"><span><a href="https://github.com/n8n-io/n8n">https://github.com/n8n-io/n8n</a></span><span>Licence Sustainable Use License</span><span>Onboard · profil qa</span></p>
+</section><section class="page">
+<header><span class="kicker">02</span><h2>Que fait ce projet et quels sont ses parcours critiques ?</h2></header>
+<p class="takeaway">Trois familles de parcours concentrent les bugs discutés : déclencheurs, moteur d'exécution, agents IA et MCP — commencez vos cas de test là.</p>
+<div class="body"><div class="text"><p>n8n est une plateforme d'automatisation de workflows avec des capacités IA natives : canevas visuel, code sur mesure, auto-hébergement ou cloud, plus de 1 500 intégrations annoncées. Le dépôt est actif et public : 203 921 étoiles, 60 629 copies, branche par défaut <code>master</code>.</p>
+<p>Les parcours à couvrir en priorité ne se devinent pas : ce sont ceux qui cassent déjà. Les dix issues les plus discutées les désignent une par une.</p>
+<table><thead><tr><th>Parcours</th><th>Ce qui casse</th><th>Issue</th></tr></thead><tbody><tr><td>Déclencheur Chat</td><td>URL de chat publique en « Connection rejected » après montée de version</td><td>28891, 25 commentaires</td></tr><tr><td>Déclencheur Webhook</td><td>déclenchement multiple sur un seul appel</td><td>31837, 17 commentaires</td></tr><tr><td>Exécution d'un workflow</td><td>objet imbriqué muté entre branches sœurs</td><td>29127, 15 commentaires</td></tr><tr><td>Agents IA et MCP</td><td>sous-agents incapables d'utiliser les outils MCP</td><td>26373, 15 commentaires</td></tr><tr><td>Sous-workflows</td><td>données du déclencheur renvoyées au lieu du nœud final</td><td>33539, 14 commentaires</td></tr><tr><td>Mode queue</td><td>appel d'outil MCP en échec côté worker</td><td>26394, 12 commentaires</td></tr></tbody></table>
+<p>Ces six lignes viennent des issues chaudes relevées<sup class="note"><a href="#note-1">1</a></sup><sup class="note"><a href="#note-2">2</a></sup>. Montée de version, exécution et IA reviennent dans presque toutes.</p></div></div>
+<footer><span class="repo-name">n8n-io/n8n · relevé le 10 sept. 2026</span><span class="n">qa · 2 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">03</span><h2>Comment est-il testé aujourd'hui ?</h2></header>
+<p class="takeaway">Quatre étages de tests coexistent — unitaire, intégration sur base réelle, migrations, end-to-end Playwright — mais aucun chiffre de couverture n'est publié dans le dépôt.</p>
+<div class="body split"><div class="chart-wrap"><ul class="tree"><li><code>.agents/</code><span class="role">règles de revue pour agents IA</span></li><li><code>.claude/</code><span class="role">config Claude Code</span></li><li><code>.devcontainer/</code><span class="role">environnement de dev conteneurisé</span></li><li><code>.githooks/</code><span class="role">hooks git</span></li><li><code>.github/</code><span class="role">workflows CI, actions, scripts</span></li><li><code>.opencode/</code><span class="role">config agent OpenCode</span></li><li><code>.vscode/</code><span class="role">réglages VS Code</span></li><li><code>assets/</code><span class="role">images et ressources</span></li><li><code>docker/</code><span class="role">images Docker</span></li><li><code>docs/</code><span class="role">documentation et schémas générés</span></li><li><code>packages/</code><span class="role">code source, monorepo pnpm</span></li><li><code>patches/</code><span class="role">patches de dépendances pnpm</span></li><li><code>scripts/</code><span class="role">scripts de build et de dev</span></li><li><code>security/</code><span class="role">outillage sécurité</span></li><li><code>.actrc</code><span class="role">config act, Actions en local</span></li><li><code>.aikido</code><span class="role">config scanner sécurité Aikido</span></li><li class="more">… et 37 autres entrées à la racine du dépôt</li></ul></div><div class="text"><p>Il n'y a pas de dossier de tests à la racine : n8n est un monorepo pnpm et chaque package porte les siens. Le repère principal est <code>packages/cli/test</code>, 10 entrées à sa racine — 4 dossiers (<code>unit</code>, <code>integration</code>, <code>migration</code>, <code>shared</code>) et 6 fichiers d'amorçage.</p>
+<p>L'outillage se lit dans les configurations, pas dans un README de test : Vitest pour l'unitaire, l'intégration et les migrations, Playwright pour l'end-to-end. <code>packages/cli</code> porte six fichiers <code>vitest.config.*.ts</code>, dont deux variantes <code>testcontainers</code> qui lancent une vraie base en conteneur ; <code>vitest.workspace.ts</code> à la racine agrège l'ensemble, et <code>@stryker-mutator/vitest-runner</code> en dépendance de développement signale des tests de mutation. L'e2e vit à part, dans <code>packages/testing/playwright</code>, aux côtés de <code>performance/</code>, <code>containers/</code>, <code>code-health/</code> et <code>test-impact/</code>.</p>
+<p>Une seule commande pour tout lancer : <code>pnpm test</code>, qui délègue à Turborepo.</p>
+<p>Deux chiffres manquent, et ils comptent : le nombre total de fichiers de test du dépôt n'a pas été compté (monorepo, tests répartis par package) et le taux de couverture n'est pas publié dans le dépôt — seul <code>codecov.yml</code> atteste d'un suivi. À vérifier sur <a href="https://app.codecov.io/gh/n8n-io/n8n">https://app.codecov.io/gh/n8n-io/n8n</a> et <a href="https://github.com/n8n-io/n8n/tree/master/packages">https://github.com/n8n-io/n8n/tree/master/packages</a>.</p></div></div>
+<footer><span class="repo-name">n8n-io/n8n · relevé le 10 sept. 2026</span><span class="n">qa · 3 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">04</span><h2>Que dit la CI et quand tourne-t-elle ?</h2></header>
+<p class="takeaway">La CI est riche et bloquante à la fusion, mais sélective par fichiers modifiés : un « tout vert » sur une pull request ne veut pas dire que l'end-to-end a tourné.</p>
+<div class="body"><div class="text"><p>Le pipeline de référence est <code>CI: Pull Requests (Build, Test, Lint)</code>, dans <code>.github/workflows/ci-pull-requests.yml</code>, déclenché sur <code>pull_request</code> et sur <code>merge_group</code>. La seconde condition est ce qui protège vraiment <code>master</code> : la file de fusion rejoue les contrôles sur la fusion réelle, et le job <code>required-checks</code> bloque l'intégration tant que tout n'est pas vert.</p>
+<p>Ce qu'il exécute, par étage :</p>
+<table><thead><tr><th>Étage</th><th>Job ou workflow appelé</th><th>Portée</th></tr></thead><tbody><tr><td>Build</td><td><code>install-and-build</code></td><td><code>pnpm build</code>, <code>format:check</code></td></tr><tr><td>Statique</td><td><code>typecheck</code>, <code>lint</code></td><td><code>turbo typecheck</code>, <code>test-linting-reusable.yml</code></td></tr><tr><td>Unitaire</td><td><code>unit-test</code></td><td><code>test-unit-reusable.yml</code></td></tr><tr><td>Base de données</td><td><code>db-tests</code></td><td><code>test-db-reusable.yml</code>, SQLite et Postgres</td></tr><tr><td>End-to-end</td><td><code>e2e</code>, <code>e2e-performance</code></td><td><code>test-e2e-reusable.yml</code> (Playwright), <code>test-e2e-performance-reusable.yml</code></td></tr><tr><td>Livraison</td><td><code>check-packaging</code>, <code>prepare-docker</code>, <code>dev-server-smoke</code></td><td><code>pnpm -r pack --dry-run</code>, image Docker, démarrage</td></tr><tr><td>Sécurité</td><td><code>security-checks</code></td><td><code>sec-ci-reusable.yml</code></td></tr></tbody></table>
+<p>Le point de vigilance est en amont de ce tableau : une étape <code>ci-filter</code> calcule, à partir des fichiers modifiés, quels étages tournent (<code>unit</code>, <code>e2e</code>, <code>db</code>, <code>db-migrations</code>, <code>e2e-performance</code>…). Une pull request peut donc être verte sans avoir rejoué l'end-to-end. Les campagnes complètes sont reportées la nuit, dans des workflows dédiés : <code>test-workflows-nightly.yml</code>, <code>test-e2e-coverage-nightly.yml</code>, <code>test-benchmark-nightly.yml</code>, <code>test-sbom-nightly.yml</code>.</p></div></div>
+<footer><span class="repo-name">n8n-io/n8n · relevé le 10 sept. 2026</span><span class="n">qa · 4 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">05</span><h2>Où sont les bugs connus ?</h2></header>
+<p class="takeaway">Ici, un bug ne porte pas d'étiquette « bug » : filtrez sur <code>Needs Feedback</code> et <code>triage:needs-info</code> pour trouver ce qui attend une reproduction.</p>
+<div class="body split"><div class="chart-wrap"><svg class="chart" viewBox="0 0 640 204" width="640" height="204" role="img" preserveAspectRatio="xMinYMin meet"><text class="lbl" x="168" y="21" text-anchor="end">status:in-linear</text><rect class="bar" x="178" y="10" width="398" height="14" rx="3"/><text class="val" x="582" y="21">297</text><text class="lbl" x="168" y="45" text-anchor="end">status:team-assigned</text><rect class="bar" x="178" y="34" width="375" height="14" rx="3"/><text class="val" x="559" y="45">280</text><text class="lbl" x="168" y="69" text-anchor="end">team:cats</text><rect class="bar" x="178" y="58" width="125" height="14" rx="3"/><text class="val" x="309" y="69">93</text><text class="lbl" x="168" y="93" text-anchor="end">team:nodes</text><rect class="bar" x="178" y="82" width="123" height="14" rx="3"/><text class="val" x="307" y="93">92</text><text class="lbl" x="168" y="117" text-anchor="end">team:ai</text><rect class="bar" x="178" y="106" width="82" height="14" rx="3"/><text class="val" x="266" y="117">61</text><text class="lbl" x="168" y="141" text-anchor="end">Needs Feedback</text><rect class="bar" x="178" y="130" width="55" height="14" rx="3"/><text class="val" x="239" y="141">41</text><text class="lbl" x="168" y="165" text-anchor="end">team:adore</text><rect class="bar" x="178" y="154" width="39" height="14" rx="3"/><text class="val" x="223" y="165">29</text><text class="lbl" x="168" y="189" text-anchor="end">team:lifecycle</text><rect class="bar" x="178" y="178" width="20" height="14" rx="3"/><text class="val" x="204" y="189">15</text></svg></div><div class="text"><p>375 issues ouvertes, 300 fermées sur les trente derniers jours : le flux est traité, pas accumulé. Le compteur global du dépôt affiche 1 141 éléments ouverts, pull requests comprises.</p>
+<p>Le piège est dans les étiquettes. Sur les 15 labels relevés, aucun ne s'appelle <code>bug</code> : ce sont des labels d'équipe — <code>team:cats</code> 93, <code>team:nodes</code> 92, <code>team:ai</code> 61, <code>team:adore</code> 29, <code>team:lifecycle</code> 15 — et de statut — <code>status:in-linear</code> 297, <code>status:team-assigned</code> 280. Autrement dit, le tri par gravité se fait dans l'outil de tickets interne, pas sur GitHub : on ne peut pas filtrer les bugs par label ici, il faut lire les titres.</p>
+<p>Deux étiquettes sont directement exploitables par un testeur : <code>Needs Feedback</code>, 41 issues, et <code>triage:needs-info</code>, 4 — des tickets bloqués faute de reproduction. Ce sont les meilleures cibles pour un premier apport.</p>
+<p>Aucune issue « good first issue » n'a été relevée : il n'y a pas de porte d'entrée balisée. Les dix tickets les plus discutés sont listés plus haut ; les quatre suivants complètent la carte : 25852 chat UI, 32278 enregistrement d'un serveur MCP local, 24986 compteurs d'exécution de la page Overview, 25276 schéma invalide du Vector Store Question Answer Tool<sup class="note"><a href="#note-3">3</a></sup>.</p></div></div>
+<footer><span class="repo-name">n8n-io/n8n · relevé le 10 sept. 2026</span><span class="n">qa · 5 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">06</span><h2>Comment reproduire et signaler un bug ici ?</h2></header>
+<p class="takeaway">Reproduisez dans le mode de déploiement du plaignant — SQLite, Postgres, queue ou multi-main — avant d'écrire le ticket : c'est là que se joue la moitié des bugs discutés.</p>
+<div class="body"><div class="text"><p>Le guide de contribution encadre la marche à suivre : il a une section « Test suite » (unitaires, couverture, end-to-end), des « Community PR Guidelines » et impose un accord de licence contributeur avant toute fusion.</p>
+<p>Reproduire, dans l'ordre :</p>
+<ol><li>Sur une version publiée, sans compiler : <code>docker run -it --rm --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n docker.n8n.io/n8nio/n8n</code>, éditeur sur <a href="http://localhost:5678">http://localhost:5678</a>.</li><li>Sur le code : <code>pnpm install</code>, puis <code>pnpm build</code>, puis <code>pnpm start</code>.</li><li>Sur une base propre, sans casser votre instance : <code>N8N_USER_FOLDER=~/.n8n3/ pnpm run dev</code> depuis <code>packages/cli</code>.</li><li>Dans la bonne configuration : les piles Testcontainers <code>stack:sqlite</code>, <code>stack:postgres</code>, <code>stack:queue</code>, <code>stack:multi-main</code> reproduisent les modes de déploiement. Plusieurs bugs relevés ne se voient qu'en mode queue, par exemple l'issue 26394.</li></ol>
+<p>Avant d'ouvrir un ticket, vérifiez qu'un correctif n'est pas déjà en vol : 756 pull requests sont ouvertes, et 167 fusions ont été relevées entre le 7 et le 10 septembre 2026. Vérifiez aussi la branche : les correctifs sont reportés sur <code>release-candidate/2.38.x</code>, <code>release-candidate/2.39.x</code> et <code>1.x</code>, donc un bug corrigé sur <code>master</code> ne l'est pas forcément sur votre version. Enfin, les questions d'usage vont au forum communautaire, pas au dépôt.</p></div></div>
+<footer><span class="repo-name">n8n-io/n8n · relevé le 10 sept. 2026</span><span class="n">qa · 6 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">07</span><h2>Quelles zones sont peu couvertes ?</h2></header>
+<p class="takeaway">Le débit est le risque principal : trois lignes de version publiées en trois jours, et pas un chiffre de couverture disponible pour savoir ce que la CI laisse passer.</p>
+<div class="body"><div class="text"><p>Le rythme est le premier facteur de risque. 251 puis 249 commits sur les deux semaines complètes relevées, dernier commit le 10 septembre 2026 à 13 h 00 UTC, dix versions publiées entre le 7 et le 10 septembre — dont <code>n8n@2.39.2</code>, <code>n8n@2.38.6</code> et <code>n8n@1.123.79</code> le même jour. Trois lignes de version vivent en parallèle : toute campagne de test doit dire sur laquelle elle porte.</p>
+<p>La charge est répartie : 166 commits pour les dix premiers contributeurs et un bus factor de 16, soit seize personnes pour la moitié des commits récents. Le risque n'est donc pas la dépendance à une personne, c'est le débit.</p>
+<p>Les zones sans mesure, à traiter comme non couvertes jusqu'à preuve du contraire :</p>
+<ul><li><strong>Couverture réelle</strong> : aucun taux dans le dépôt, seul <code>codecov.yml</code> atteste du suivi → <a href="https://app.codecov.io/gh/n8n-io/n8n">https://app.codecov.io/gh/n8n-io/n8n</a>.</li><li><strong>Volume de tests par package</strong> : non compté hors <code>packages/cli/test</code> → <a href="https://github.com/n8n-io/n8n/tree/master/packages">https://github.com/n8n-io/n8n/tree/master/packages</a>.</li><li><strong>Intégrations</strong> : plus de 1 500 annoncées au README, <code>team:nodes</code> porte 92 issues ouvertes — aucune mesure de couverture par nœud.</li><li><strong>IA et MCP</strong> : <code>team:ai</code> porte 61 issues, et quatre des dix tickets les plus discutés touchent agents, MCP ou vector store.</li></ul>
+<p>Les dix semaines antérieures apparaissent à zéro commit dans le relevé : c'est la limite de la fenêtre de mesure, pas un arrêt du projet — le dépôt a reçu du code le jour même.</p></div></div>
+<footer><span class="repo-name">n8n-io/n8n · relevé le 10 sept. 2026</span><span class="n">qa · 7 / 9</span></footer>
+</section><section class="finale">
+<header><span class="kicker">qa</span><h2>Plan de test en 5 points</h2></header>
+
+<div class="body"><div class="text"><ol><li><strong>Fixer la cible.</strong> Une campagne = une ligne de version et un mode de déploiement. Trois lignes vivent en parallèle (<code>n8n@2.39.2</code>, <code>n8n@2.38.6</code>, <code>n8n@1.123.79</code>) et quatre modes sont outillés (SQLite, Postgres, queue, multi-main).</li><li><strong>Couvrir d'abord les trois familles qui cassent</strong> : déclencheurs (webhook, chat), moteur d'exécution et sous-workflows, agents IA et MCP. Rejouez les scénarios des issues 28891, 31837, 29127, 26373, 33539 et 26394 comme cas de non-régression.</li><li><strong>Ne pas se fier au vert d'une pull request.</strong> L'étape <code>ci-filter</code> sélectionne les étages selon les fichiers modifiés : exigez un passage end-to-end complet avant livraison, ou appuyez-vous sur les campagnes de nuit <code>test-workflows-nightly.yml</code> et <code>test-e2e-coverage-nightly.yml</code>.</li><li><strong>Traiter la couverture comme inconnue.</strong> Aucun taux n'est publié dans le dépôt ; relevez-le sur Codecov avant de décider où écrire des tests, et priorisez les nœuds et l'IA, les deux zones les plus chargées en issues.</li><li><strong>Rendre vos reproductions utiles au projet.</strong> 41 issues <code>Needs Feedback</code> et 4 <code>triage:needs-info</code> attendent une reproduction ; le guide de contribution et l'accord de licence contributeur encadrent le dépôt d'un correctif ou d'un cas de test.</li></ol></div></div>
+<footer><span class="repo-name">n8n-io/n8n · relevé le 10 sept. 2026</span><span class="n">qa · 8 / 9</span></footer>
+</section><section class="refs"><header><span class="kicker">références publiques</span><h2>Sources</h2></header><div class="body"><ol class="sources"><li id="note-1"><a href="https://github.com/n8n-io/n8n/issues/28891">https://github.com/n8n-io/n8n/issues/28891</a></li><li id="note-2"><a href="https://github.com/n8n-io/n8n/issues/31837">https://github.com/n8n-io/n8n/issues/31837</a></li><li id="note-3"><a href="https://github.com/n8n-io/n8n/issues/24986">https://github.com/n8n-io/n8n/issues/24986</a></li></ol></div><footer><span class="repo-name">n8n-io/n8n · relevé le 10 sept. 2026</span><span class="n">qa · 9 / 9</span></footer></section>
+</body>
+</html>

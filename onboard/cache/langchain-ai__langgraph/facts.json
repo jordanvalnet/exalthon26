@@ -1,0 +1,847 @@
+{
+  "schema": 1,
+  "repo": {
+    "full_name": "langchain-ai/langgraph",
+    "url": "https://github.com/langchain-ai/langgraph",
+    "description": "Build resilient agents.",
+    "created_at": "2023-08-09T18:33:12Z",
+    "pushed_at": "2026-09-09T07:22:45Z",
+    "default_branch": "main",
+    "license": "MIT",
+    "stars": 41386,
+    "forks": 6990,
+    "open_issues": 773,
+    "topics": [
+      "agents",
+      "ai",
+      "ai-agents",
+      "chatgpt",
+      "deepagents",
+      "enterprise",
+      "framework",
+      "gemini",
+      "generative-ai",
+      "langchain",
+      "langgraph",
+      "llm",
+      "multiagent",
+      "open-source",
+      "openai",
+      "pydantic",
+      "python",
+      "rag"
+    ],
+    "owner_type": "org",
+    "archived": false
+  },
+  "releases": [
+    {
+      "tag": "sdk==0.4.4",
+      "date": "2026-08-27T21:25:36Z",
+      "name": "langgraph-sdk==0.4.4"
+    },
+    {
+      "tag": "sdk==0.4.3",
+      "date": "2026-08-19T18:05:32Z",
+      "name": "langgraph-sdk==0.4.3"
+    },
+    {
+      "tag": "1.2.11",
+      "date": "2026-08-11T14:00:50Z",
+      "name": "langgraph==1.2.11"
+    },
+    {
+      "tag": "checkpointpostgres==3.1.2",
+      "date": "2026-08-07T20:40:16Z",
+      "name": "langgraph-checkpoint-postgres==3.1.2"
+    },
+    {
+      "tag": "checkpoint==4.2.0",
+      "date": "2026-08-07T20:05:22Z",
+      "name": "langgraph-checkpoint==4.2.0"
+    },
+    {
+      "tag": "checkpointsqlite==3.1.1",
+      "date": "2026-07-30T19:19:47Z",
+      "name": "langgraph-checkpoint-sqlite==3.1.1"
+    },
+    {
+      "tag": "checkpointpostgres==3.1.1",
+      "date": "2026-07-30T19:16:01Z",
+      "name": "langgraph-checkpoint-postgres==3.1.1"
+    },
+    {
+      "tag": "1.2.10",
+      "date": "2026-07-28T18:34:14Z",
+      "name": "langgraph==1.2.10"
+    },
+    {
+      "tag": "1.2.9",
+      "date": "2026-07-10T01:30:24Z",
+      "name": "langgraph==1.2.9"
+    },
+    {
+      "tag": "cli==0.4.31",
+      "date": "2026-07-10T22:58:04Z",
+      "name": "langgraph-cli==0.4.31"
+    }
+  ],
+  "activity": {
+    "commits_per_week": [
+      {
+        "week": "2026-W26",
+        "count": 14
+      },
+      {
+        "week": "2026-W27",
+        "count": 16
+      },
+      {
+        "week": "2026-W28",
+        "count": 5
+      },
+      {
+        "week": "2026-W29",
+        "count": 4
+      },
+      {
+        "week": "2026-W30",
+        "count": 9
+      },
+      {
+        "week": "2026-W31",
+        "count": 4
+      },
+      {
+        "week": "2026-W32",
+        "count": 25
+      },
+      {
+        "week": "2026-W33",
+        "count": 2
+      },
+      {
+        "week": "2026-W34",
+        "count": 4
+      },
+      {
+        "week": "2026-W35",
+        "count": 5
+      },
+      {
+        "week": "2026-W36",
+        "count": 19
+      },
+      {
+        "week": "2026-W37",
+        "count": 5
+      }
+    ],
+    "last_commit": "2026-09-09T07:22:43Z",
+    "contributors": [
+      {
+        "login": "eliornl",
+        "commits": 11
+      },
+      {
+        "login": "ccurme",
+        "commits": 5
+      },
+      {
+        "login": "longquanzheng",
+        "commits": 5
+      },
+      {
+        "login": "jkennedyvz",
+        "commits": 3
+      },
+      {
+        "login": "nick-hollon-lc",
+        "commits": 3
+      },
+      {
+        "login": "syachamaneni-lc",
+        "commits": 2
+      },
+      {
+        "login": "cwlbraa",
+        "commits": 2
+      },
+      {
+        "login": "saad-supports-langchain",
+        "commits": 2
+      },
+      {
+        "login": "sydney-runkle",
+        "commits": 2
+      },
+      {
+        "login": "pjrule",
+        "commits": 1
+      }
+    ],
+    "bus_factor": 4
+  },
+  "risks": [
+    {
+      "kind": "license",
+      "level": "low",
+      "note": "MIT : licence permissive."
+    },
+    {
+      "kind": "security",
+      "level": "mid",
+      "note": "Pas de SECURITY.md : aucun canal déclaré pour signaler une faille."
+    },
+    {
+      "kind": "deps",
+      "level": "low",
+      "note": "Pas de manifeste racine : chaque paquet de libs/ a son pyproject.toml et son uv.lock. libs/langgraph/pyproject.toml déclare 33 dépendances : 6 à l'exécution (langchain-core, pydantic, xxhash et 3 paquets internes du monorepo : langgraph-checkpoint, langgraph-sdk, langgraph-prebuilt) et 27 de développement (pytest et plugins, ruff, ty, jupyter). Paquets internes liés en editable via [tool.uv.sources]. uv.lock versionné (712 Ko) et CI en `uv sync --frozen`. Transitives non relevées."
+    },
+    {
+      "kind": "ci",
+      "level": "low",
+      "note": "17 workflows dans .github/workflows. ci.yml (workflow_dispatch, push sur main, pull_request) filtre par chemins modifiés puis enchaîne lint et tests sur 8 libs Python via _lint.yml, _test.yml et _test_langgraph.yml, vérification du schéma de la CLI, tests d'intégration CLI et sdk-py, job ci_success agrégateur ; actions épinglées par SHA, runs concurrents annulés. _test_langgraph.yml (lu) teste le cœur sur 5 versions de Python (3.10 à 3.14) en `make test_parallel` (pytest-xdist), rejoue les deux gros fichiers Pregel en LANGGRAPH_STRICT_MSGPACK sur 3.13, et échoue si la suite laisse un fichier derrière elle. Les 15 autres workflows (release, bench, baseline, tri des issues et PR) n'ont pas été lus."
+    },
+    {
+      "kind": "security",
+      "level": "low",
+      "note": "Aucune mesure de couverture : pytest-cov est bien dans le groupe test de libs/langgraph/pyproject.toml, mais ni ci.yml ni _test_langgraph.yml ne produisent de rapport ni n'imposent de seuil. La couverture réelle du code est donc inconnue et non surveillée par la CI. Par ailleurs libs/sdk-js/ ne contient qu'un README.md : aucun code ni test JavaScript dans ce repo, le SDK JS est ailleurs."
+    }
+  ],
+  "business": {
+    "funding": false,
+    "security_policy": false,
+    "codeowners": false,
+    "competitors": [
+      {
+        "full_name": "Significant-Gravitas/AutoGPT",
+        "stars": 187244,
+        "description": "AutoGPT is the vision of accessible AI for everyone, to use and to build on. Our mission is to provide the tools, so that you can focus on what matters."
+      },
+      {
+        "full_name": "langflow-ai/langflow",
+        "stars": 154541,
+        "description": "Langflow is a powerful tool for building and deploying AI-powered agents and workflows."
+      },
+      {
+        "full_name": "langchain-ai/langchain",
+        "stars": 146069,
+        "description": "The agent engineering platform."
+      },
+      {
+        "full_name": "Shubhamsaboo/awesome-llm-apps",
+        "stars": 136922,
+        "description": "100+ AI Agents, Agent Skills and RAG Apps - Free and Open Source."
+      },
+      {
+        "full_name": "dair-ai/Prompt-Engineering-Guide",
+        "stars": 78170,
+        "description": "🐙 Guides, papers, lessons, notebooks and resources for prompt engineering, context engineering, RAG, and AI Agents."
+      }
+    ]
+  },
+  "issues": {
+    "open": 528,
+    "closed_30d": 7,
+    "by_label": {
+      "external": 297,
+      "bug": 81,
+      "internal": 3
+    },
+    "good_first": [],
+    "hot": [
+      {
+        "number": 7844,
+        "title": "Docs safety guidance: auditable final-state receipts for agent completion claims?",
+        "url": "https://github.com/langchain-ai/langgraph/issues/7844",
+        "comments": 64
+      },
+      {
+        "number": 7417,
+        "title": "Long tool calls (~180s+) silently re-executed from checkpoint on LangGraph Cloud",
+        "url": "https://github.com/langchain-ai/langgraph/issues/7417",
+        "comments": 51
+      },
+      {
+        "number": 8026,
+        "title": "[Feature Request]: Add a high-level ApprovalNode for Human-in-the-Loop workflows",
+        "url": "https://github.com/langchain-ai/langgraph/issues/8026",
+        "comments": 45
+      },
+      {
+        "number": 8039,
+        "title": "durability=\"sync\": put_writes/put persistence order is unenforced, so post-crash recovery (replay vs re-execute) is host-dependent",
+        "url": "https://github.com/langchain-ai/langgraph/issues/8039",
+        "comments": 36
+      },
+      {
+        "number": 7687,
+        "title": "Add: Compliance-aware human-in-the-loop checkpoint example for regulated environments",
+        "url": "https://github.com/langchain-ai/langgraph/issues/7687",
+        "comments": 30
+      },
+      {
+        "number": 8102,
+        "title": "RFC: Pre-execution tool call interception hooks for policy enforcement",
+        "url": "https://github.com/langchain-ai/langgraph/issues/8102",
+        "comments": 25
+      },
+      {
+        "number": 7714,
+        "title": "LangGraph checkpoint serialization produces 85% storage bloat and 37.8% token overhead with no opt-out path - reproducible with drop-in fix",
+        "url": "https://github.com/langchain-ai/langgraph/issues/7714",
+        "comments": 21
+      },
+      {
+        "number": 8764,
+        "title": "Crash before first durable checkpoint can silently drop an accepted run with no durable failure record",
+        "url": "https://github.com/langchain-ai/langgraph/issues/8764",
+        "comments": 20
+      },
+      {
+        "number": 7780,
+        "title": "[BUG] Interrupt() in a loop will cause extra resumes",
+        "url": "https://github.com/langchain-ai/langgraph/issues/7780",
+        "comments": 19
+      },
+      {
+        "number": 8130,
+        "title": "Typo in create_react_agent docstring: \"GraphRecusionError\" should be \"GraphRecursionError\"",
+        "url": "https://github.com/langchain-ai/langgraph/issues/8130",
+        "comments": 17
+      }
+    ]
+  },
+  "pulls": {
+    "open": 245,
+    "merged_30d": [
+      {
+        "number": 8867,
+        "title": "chore(deps): bump js-yaml from 4.3.1 to 4.3.2 in /libs/cli/js-monorepo-example",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8867",
+        "merged_at": "2026-09-09T06:19:18Z"
+      },
+      {
+        "number": 8864,
+        "title": "chore(deps): bump httpcore2 from 2.5.0 to 2.10.0 in /libs/cli",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8864",
+        "merged_at": "2026-09-09T04:26:37Z"
+      },
+      {
+        "number": 8863,
+        "title": "chore(deps): bump httpx2 from 2.10.0 to 2.12.0 in /libs/cli",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8863",
+        "merged_at": "2026-09-09T06:32:14Z"
+      },
+      {
+        "number": 8854,
+        "title": "fix(cli): clarify missing deploy config",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8854",
+        "merged_at": "2026-09-08T17:03:15Z"
+      },
+      {
+        "number": 8804,
+        "title": "chore(langgraph): bump mistune to 3.3.4",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8804",
+        "merged_at": "2026-09-03T00:38:31Z"
+      },
+      {
+        "number": 8798,
+        "title": "chore(deps): bump @humanfs/node from 0.16.7 to 0.16.8 in /libs/cli/js-examples",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8798",
+        "merged_at": "2026-09-02T20:27:22Z"
+      },
+      {
+        "number": 8797,
+        "title": "chore(deps): bump browserslist from 4.28.1 to 4.28.8 in /libs/cli/js-examples",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8797",
+        "merged_at": "2026-09-02T20:27:42Z"
+      },
+      {
+        "number": 8792,
+        "title": "chore(deps): bump tornado from 6.5.7 to 6.5.8 in /libs/langgraph",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8792",
+        "merged_at": "2026-09-02T08:13:18Z"
+      },
+      {
+        "number": 8783,
+        "title": "chore(deps): bump the major group in /libs/langgraph with 2 updates",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8783",
+        "merged_at": "2026-09-02T08:12:30Z"
+      },
+      {
+        "number": 8782,
+        "title": "chore(deps): bump the minor-and-patch group across 1 directory with 4 updates",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8782",
+        "merged_at": "2026-09-02T09:46:28Z"
+      },
+      {
+        "number": 8781,
+        "title": "chore(deps): bump websockets from 16.0 to 16.1.1 in /libs/sdk-py in the major group",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8781",
+        "merged_at": "2026-09-02T08:12:22Z"
+      },
+      {
+        "number": 8780,
+        "title": "chore(deps-dev): bump syrupy from 5.5.3 to 6.0.0 in /libs/prebuilt in the major group",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8780",
+        "merged_at": "2026-09-02T09:40:10Z"
+      },
+      {
+        "number": 8779,
+        "title": "chore(deps): bump the minor-and-patch group across 1 directory with 7 updates",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8779",
+        "merged_at": "2026-09-02T09:52:40Z"
+      },
+      {
+        "number": 8778,
+        "title": "chore(deps): bump the minor-and-patch group in /libs/cli with 6 updates",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8778",
+        "merged_at": "2026-09-02T08:12:27Z"
+      },
+      {
+        "number": 8777,
+        "title": "chore(deps): bump the minor-and-patch group in /libs/checkpoint with 4 updates",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8777",
+        "merged_at": "2026-09-02T09:45:11Z"
+      },
+      {
+        "number": 8776,
+        "title": "chore(deps): bump the minor-and-patch group in /libs/cli/js-monorepo-example with 6 updates",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8776",
+        "merged_at": "2026-09-02T08:11:58Z"
+      },
+      {
+        "number": 8775,
+        "title": "chore(deps): bump the minor-and-patch group in /libs/cli/js-examples with 6 updates",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8775",
+        "merged_at": "2026-09-02T08:11:19Z"
+      },
+      {
+        "number": 8774,
+        "title": "chore(deps-dev): bump the minor-and-patch group in /libs/prebuilt with 3 updates",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8774",
+        "merged_at": "2026-09-02T08:11:03Z"
+      },
+      {
+        "number": 8773,
+        "title": "chore(deps): bump the minor-and-patch group in /libs/checkpoint-postgres with 3 updates",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8773",
+        "merged_at": "2026-09-02T08:10:59Z"
+      },
+      {
+        "number": 8772,
+        "title": "chore(deps-dev): bump the minor-and-patch group in /libs/checkpoint-sqlite with 2 updates",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8772",
+        "merged_at": "2026-09-02T08:11:53Z"
+      },
+      {
+        "number": 8771,
+        "title": "chore(deps-dev): bump the minor-and-patch group in /libs/checkpoint-conformance with 2 updates",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8771",
+        "merged_at": "2026-09-02T08:11:12Z"
+      },
+      {
+        "number": 8770,
+        "title": "chore(deps): bump dorny/paths-filter from 4.0.2 to 4.0.3 in the minor-and-patch group",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8770",
+        "merged_at": "2026-09-02T08:10:37Z"
+      },
+      {
+        "number": 8738,
+        "title": "release(sdk-py): 0.4.4",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8738",
+        "merged_at": "2026-08-27T21:14:56Z"
+      },
+      {
+        "number": 8723,
+        "title": "feat: route LangSmith traces from thread streams",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8723",
+        "merged_at": "2026-08-26T20:57:41Z"
+      },
+      {
+        "number": 8677,
+        "title": "docs: add Corridor agent instructions",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8677",
+        "merged_at": "2026-08-24T21:42:28Z"
+      },
+      {
+        "number": 8657,
+        "title": "release(sdk-py): 0.4.3",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8657",
+        "merged_at": "2026-08-19T17:59:37Z"
+      },
+      {
+        "number": 8646,
+        "title": "chore(deps): bump langgraph-checkpoint-postgres from 3.0.5 to 3.1.1 in /libs/cli/uv-examples/monorepo in the uv group across 1 directory",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8646",
+        "merged_at": "2026-08-20T07:02:49Z"
+      },
+      {
+        "number": 8617,
+        "title": "fix(checkpoint): widen `Store` `put` value type to `Mapping[str, Any]`",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8617",
+        "merged_at": "2026-08-28T13:05:05Z"
+      },
+      {
+        "number": 8598,
+        "title": "feat(sdk-py): add decrypt replacement result",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8598",
+        "merged_at": "2026-08-19T17:45:56Z"
+      },
+      {
+        "number": 8596,
+        "title": "fix(langgraph): type undeclared v3 stream projections",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8596",
+        "merged_at": "2026-09-03T15:23:26Z"
+      },
+      {
+        "number": 8569,
+        "title": "fix(langgraph): detect subgraphs from bytecode instead of source",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8569",
+        "merged_at": "2026-08-18T19:04:30Z"
+      },
+      {
+        "number": 8449,
+        "title": "chore(deps): fix vulnerable dev dependencies",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8449",
+        "merged_at": "2026-09-09T07:22:44Z"
+      }
+    ]
+  },
+  "roadmap": {
+    "open_prs": [
+      {
+        "number": 8548,
+        "title": "fix(langgraph): don't replay an abandoned branch into a DeltaChannel fork",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8548",
+        "updated_at": "2026-09-09T11:23:04Z",
+        "draft": false
+      },
+      {
+        "number": 8868,
+        "title": "feat(langgraph): restrict stream_mode=\"messages\" to specific state keys (#6798)",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8868",
+        "updated_at": "2026-09-09T06:05:26Z",
+        "draft": false
+      },
+      {
+        "number": 8865,
+        "title": "fix(sdk-py): expose ls_user_id on StudioUser",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8865",
+        "updated_at": "2026-09-08T23:57:30Z",
+        "draft": false
+      },
+      {
+        "number": 8819,
+        "title": "feat: Send to same subgraph in parallel with persistent memory",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8819",
+        "updated_at": "2026-09-08T23:01:47Z",
+        "draft": true
+      },
+      {
+        "number": 8838,
+        "title": "feat: Queue/steer graphs while running ",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8838",
+        "updated_at": "2026-09-08T21:23:11Z",
+        "draft": true
+      },
+      {
+        "number": 8815,
+        "title": "docs: add openwiki",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8815",
+        "updated_at": "2026-09-07T11:08:53Z",
+        "draft": false
+      },
+      {
+        "number": 7207,
+        "title": "Ignore late writes after delete_thread",
+        "url": "https://github.com/langchain-ai/langgraph/pull/7207",
+        "updated_at": "2026-09-07T04:31:19Z",
+        "draft": false
+      },
+      {
+        "number": 6958,
+        "title": "fix(langgraph): skip RESUME writes in `_prepare_state_snapshot` so `get_state().next` is correct after double interrupt",
+        "url": "https://github.com/langchain-ai/langgraph/pull/6958",
+        "updated_at": "2026-09-07T00:47:00Z",
+        "draft": false
+      },
+      {
+        "number": 6719,
+        "title": "chore(deps): upgrade dependencies with `uv lock --upgrade`",
+        "url": "https://github.com/langchain-ai/langgraph/pull/6719",
+        "updated_at": "2026-09-06T00:57:13Z",
+        "draft": false
+      },
+      {
+        "number": 8556,
+        "title": "fix(checkpoint-postgres): derive the delta walk cursor once the target loads",
+        "url": "https://github.com/langchain-ai/langgraph/pull/8556",
+        "updated_at": "2026-09-04T14:26:06Z",
+        "draft": false
+      }
+    ],
+    "requests": [
+      {
+        "number": 7844,
+        "title": "Docs safety guidance: auditable final-state receipts for agent completion claims?",
+        "url": "https://github.com/langchain-ai/langgraph/issues/7844",
+        "comments": 64,
+        "labels": [
+          "external"
+        ]
+      },
+      {
+        "number": 7417,
+        "title": "Long tool calls (~180s+) silently re-executed from checkpoint on LangGraph Cloud",
+        "url": "https://github.com/langchain-ai/langgraph/issues/7417",
+        "comments": 51,
+        "labels": [
+          "external"
+        ]
+      },
+      {
+        "number": 7687,
+        "title": "Add: Compliance-aware human-in-the-loop checkpoint example for regulated environments",
+        "url": "https://github.com/langchain-ai/langgraph/issues/7687",
+        "comments": 30,
+        "labels": [
+          "external"
+        ]
+      },
+      {
+        "number": 8102,
+        "title": "RFC: Pre-execution tool call interception hooks for policy enforcement",
+        "url": "https://github.com/langchain-ai/langgraph/issues/8102",
+        "comments": 25,
+        "labels": [
+          "external"
+        ]
+      },
+      {
+        "number": 8753,
+        "title": "Cache namespace collapses to \"__dynamic__\" for non-function callables, so different graphs sharing a cache return each other's results",
+        "url": "https://github.com/langchain-ai/langgraph/issues/8753",
+        "comments": 15,
+        "labels": [
+          "external"
+        ]
+      },
+      {
+        "number": 7989,
+        "title": "ToolNode accepts ToolMessage results bound to sibling tool_call_id values",
+        "url": "https://github.com/langchain-ai/langgraph/issues/7989",
+        "comments": 14,
+        "labels": [
+          "external"
+        ]
+      },
+      {
+        "number": 8314,
+        "title": "State channels are reference-transparent end-to-end (read AND write) — local_read()'s missing copy() is a symptom, not the root cause (LastValue et al. alias caller/node objects from the first .invoke())",
+        "url": "https://github.com/langchain-ai/langgraph/issues/8314",
+        "comments": 12,
+        "labels": [
+          "external"
+        ]
+      },
+      {
+        "number": 7855,
+        "title": "Discussion: deterministic compiled subflows for predictable tool sequences",
+        "url": "https://github.com/langchain-ai/langgraph/issues/7855",
+        "comments": 12,
+        "labels": [
+          "external"
+        ]
+      },
+      {
+        "number": 8218,
+        "title": "interrupt() inside a tool is reported as a `tool-error` on the tools stream (structured Interrupt lost)",
+        "url": "https://github.com/langchain-ai/langgraph/issues/8218",
+        "comments": 11,
+        "labels": [
+          "external"
+        ]
+      },
+      {
+        "number": 8185,
+        "title": "Checkpoint serialization rejects fractions.Fraction and complex (TypeError) though Decimal is supported",
+        "url": "https://github.com/langchain-ai/langgraph/issues/8185",
+        "comments": 11,
+        "labels": [
+          "external"
+        ]
+      }
+    ],
+    "themes": []
+  },
+  "build": {
+    "install": "pip install -U langgraph",
+    "test": "make test",
+    "ci": [
+      {
+        "name": "CI",
+        "path": ".github/workflows/ci.yml",
+        "triggers": [
+          "workflow_dispatch",
+          "push",
+          "pull_request"
+        ]
+      },
+      {
+        "name": "test",
+        "path": ".github/workflows/_test_langgraph.yml",
+        "triggers": [
+          "workflow_call"
+        ]
+      }
+    ]
+  },
+  "ai_docs": {
+    "files": [
+      {
+        "path": "AGENTS.md",
+        "kind": "agents_md"
+      },
+      {
+        "path": "CLAUDE.md",
+        "kind": "claude_md"
+      },
+      {
+        "path": "docs/llms.txt",
+        "kind": "llms_txt"
+      }
+    ],
+    "score": 3,
+    "max": 7
+  },
+  "tree": [
+    {
+      "path": ".github",
+      "type": "dir",
+      "role": "17 workflows GitHub Actions, scripts CI"
+    },
+    {
+      "path": ".gitignore",
+      "type": "file",
+      "role": "exclusions git"
+    },
+    {
+      "path": ".markdownlint.json",
+      "type": "file",
+      "role": "config lint Markdown"
+    },
+    {
+      "path": "AGENTS.md",
+      "type": "file",
+      "role": "consignes pour les agents IA"
+    },
+    {
+      "path": "CLAUDE.md",
+      "type": "file",
+      "role": "consignes pour Claude Code"
+    },
+    {
+      "path": "LICENSE",
+      "type": "file",
+      "role": "licence MIT"
+    },
+    {
+      "path": "Makefile",
+      "type": "file",
+      "role": "pilote du monorepo : install, lint, test via uv"
+    },
+    {
+      "path": "README.md",
+      "type": "file",
+      "role": "présentation du projet"
+    },
+    {
+      "path": "docs",
+      "type": "dir",
+      "role": "documentation"
+    },
+    {
+      "path": "examples",
+      "type": "dir",
+      "role": "exemples d'usage, notebooks"
+    },
+    {
+      "path": "libs",
+      "type": "dir",
+      "role": "code principal : 9 paquets, 8 en Python, sdk-js réduit à un README"
+    }
+  ],
+  "entrypoints": [
+    {
+      "path": "libs/langgraph/langgraph",
+      "why": "le paquet Python `langgraph` (version 1.2.11, MIT) : `[tool.hatch.build.targets.wheel] packages = [\"langgraph\"]` dans libs/langgraph/pyproject.toml. C'est le cœur : la recherche y montre langgraph/graph/, langgraph/pregel/ et langgraph/runtime.py. Déduit du manifeste."
+    },
+    {
+      "path": "libs/langgraph/tests",
+      "why": "la suite de tests du cœur : 66 entrées, dont 51 modules `test_*.py`, listées. Point d'entrée du QA : `make test` à la racine, ou `make -C libs/langgraph test_parallel` comme en CI. Confirmé, dossier listé."
+    },
+    {
+      "path": "libs/cli/langgraph_cli/cli.py",
+      "why": "la commande `langgraph` : `[project.scripts] langgraph = \"langgraph_cli.cli:cli\"` dans libs/cli/pyproject.toml (paquet langgraph-cli, sur click). Déduit du script, fichier non lu."
+    },
+    {
+      "path": "Makefile",
+      "why": "pilote du monorepo : `make install` crée un venv uv et installe chaque libs/* en editable, `make lint`, `make format`, `make lock` et `make test` délèguent au Makefile de chaque lib. Confirmé, fichier lu."
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "why": "orchestration de la CI : filtre par chemins modifiés, puis lint et tests sur les 8 libs Python via les workflows réutilisables _lint.yml, _test.yml et _test_langgraph.yml, tests d'intégration CLI et sdk-py. Confirmé, fichier lu."
+    }
+  ],
+  "tests": {
+    "dir": "libs/langgraph/tests",
+    "framework": "pytest",
+    "files": 66
+  },
+  "deps": {
+    "manifest": "libs/langgraph/pyproject.toml",
+    "count": 33,
+    "runtime": [
+      {
+        "name": "langchain-core",
+        "version": ">=1.4.7,<2"
+      },
+      {
+        "name": "langgraph-checkpoint",
+        "version": ">=4.1.0,<5.0.0"
+      },
+      {
+        "name": "langgraph-sdk",
+        "version": ">=0.4.2,<0.5.0"
+      },
+      {
+        "name": "langgraph-prebuilt",
+        "version": ">=1.1.0,<1.2.0"
+      },
+      {
+        "name": "xxhash",
+        "version": ">=3.5.0"
+      },
+      {
+        "name": "pydantic",
+        "version": ">=2.7.4"
+      }
+    ]
+  },
+  "collected": {
+    "at": "2026-09-10T14:14:17.911Z",
+    "by": "merge de 1a-meta, 1b-issues, 1c-docs, 1d-code",
+    "lenses": [
+      "core",
+      "investisseur",
+      "qa",
+      "cto",
+      "enfant",
+      "ceo",
+      "dev"
+    ]
+  }
+}

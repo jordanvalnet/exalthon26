@@ -43,6 +43,7 @@ th { font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.06em; color
 
 /* Couverture */
 .cover { justify-content: center; background: var(--cover-bg); color: var(--cover-fg); border: 0; }
+.cover h1 code { background: rgba(255,255,255,0.14); color: inherit; padding: 0 0.25em; font-size: 0.85em; }
 .cover a { color: inherit; }
 .cover-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 40px; }
 .eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.8rem; font-weight: 700; }
@@ -61,7 +62,7 @@ th { font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.06em; color
 .page header, .finale header { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
 .kicker { font: 700 0.78rem/1 var(--mono); color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; }
 .takeaway { margin: 0 0 22px; padding: 14px 20px; border-left: 5px solid var(--accent); background: var(--bg); font-size: 1.12em; font-weight: 600; line-height: 1.45; border-radius: 0 10px 10px 0; }
-.body.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; align-items: start; }
+.body.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; align-items: start; align-content: start; }
 .body.split .chart-wrap { min-width: 0; }
 .body.stack .chart-wrap { margin-bottom: 20px; }
 footer { display: flex; justify-content: space-between; gap: 12px; margin-top: 26px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.78rem; }
@@ -143,6 +144,8 @@ footer .n { font-family: var(--mono); }
   .p-ceo .takeaway { font-size: 1.3rem; margin-bottom: 16px; }
   .p-ceo .risks li { padding: 2px 0; }
   .body.split { gap: 22px; }
+  .p-ceo .chart { max-height: 52mm; }
+  .p-enfant .chart { max-height: 60mm; }
   .takeaway { font-size: 1.05em; padding: 10px 16px; margin-bottom: 14px; }
   th, td { padding: 5px 10px; }
   footer { margin-top: 14px; padding-top: 8px; }
@@ -168,7 +171,7 @@ footer .n { font-family: var(--mono); }
 <p class="repo">jordanvalnet/exalthon26</p>
 <h1>Onboard : une chaîne à validations dures, mais 2 fichiers de test, aucune CI et tout écrit en une semaine</h1>
 <p class="desc">Hackathon eXaltemps 2026 : agent + MCP GitHub</p>
-<ul class="kpis"><li><b>2</b><span>fichiers de test</span><small>bun:test</small></li><li><b>1</b><span>issues ouvertes</span></li></ul>
+<ul class="kpis"><li><b>2</b><span>fichiers de test</span><small>bun:test</small></li><li><b>aucune</b><span>intégration continue</span></li><li><b>1</b><span>issues ouvertes</span></li></ul>
 <p class="cover-foot"><span><a href="https://github.com/jordanvalnet/exalthon26">https://github.com/jordanvalnet/exalthon26</a></span><span>Sans licence</span><span>Onboard · profil qa</span></p>
 </section><section class="page">
 <header><span class="kicker">02</span><h2>Que fait ce projet et quels sont ses parcours critiques ?</h2></header>
@@ -178,7 +181,7 @@ footer .n { font-family: var(--mono); }
 <p>Créé le 9 septembre 2026 pour le hackathon « Agent + MCP GitHub » de l'équipe eXaltemps, dernier push le 10 septembre ; aucune release, 0 étoile, 0 fork.</p>
 <p>Parcours critiques à qualifier, dans l'ordre où ils cassent le plus probablement :</p>
 <ol><li>Accès GitHub : <code>GITHUB_PAT</code> dans <code>.env</code>, serveur MCP déclaré dans <code>.mcp.json</code> ; <code>bun run dev</code> affiche « GitHub OK : &lt;login&gt; » ou sort en code 1.</li><li>Collecte : <code>bun run meta</code> et <code>bun run issues</code>, puis <code>bun run merge</code> qui assemble <code>parts/*.json</code> dans <code>facts.json</code>.</li><li>Validations : <code>bun run validate facts|narrative|deck</code>, la barrière entre deux étapes.</li><li>Rendu : <code>bun run render</code> puis <code>bun run pdf</code>, qui exige Chrome ou Edge en headless.</li><li>Orchestration : <code>bun onboard</code> lance Claude Code en non interactif et exige sa présence dans le PATH.</li></ol></div></div>
-<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">qa · 2 / 8</span></footer>
+<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">qa · 2 / 9</span></footer>
 </section>
 <section class="page">
 <header><span class="kicker">03</span><h2>Comment est-il testé aujourd'hui ?</h2></header>
@@ -188,7 +191,7 @@ footer .n { font-family: var(--mono); }
 <p>À en juger par leurs noms, les deux fichiers visent l'accès GitHub et le collecteur d'issues ; leur contenu n'a pas été lu.</p>
 <p>Ce que ces noms ne couvrent pas, sur les 9 entrées de <code>src/</code> et les 15 scripts du manifeste :</p>
 <ul><li><code>src/validate.ts</code> (8324 octets) : les trois validations dures du pipeline</li><li><code>src/merge.ts</code> (3849 octets) : la fusion des collectes dans <code>facts.json</code></li><li><code>src/render/</code> : deck HTML, PDF, capture d'écran</li><li><code>src/cli.ts</code> (2530 octets) : l'orchestration via Claude Code</li><li><code>onboarding/</code> : second package bun, manifeste et code non lus</li><li><code>chat/chat.mjs</code> : le client du chat d'équipe, node ou bun</li></ul></div></div>
-<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">qa · 3 / 8</span></footer>
+<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">qa · 3 / 9</span></footer>
 </section>
 <section class="page">
 <header><span class="kicker">04</span><h2>Que dit la CI et quand tourne-t-elle ?</h2></header>
@@ -198,7 +201,7 @@ footer .n { font-family: var(--mono); }
 <p>La collecte note ce risque mid : aucun workflow GitHub Actions, aucune vérification hébergée.</p>
 <p>Conséquence pour la qualification : aucune trace d'exécution des tests n'existe sur GitHub ; il faut les rejouer soi-même sur le commit à qualifier.</p>
 <p>Rien ne contrôle non plus les dépendances : <code>@types/bun</code> est en <code>latest</code>, non épinglée, malgré un <code>bun.lock</code> versionné.</p></div></div>
-<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">qa · 4 / 8</span></footer>
+<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">qa · 4 / 9</span></footer>
 </section>
 <section class="page">
 <header><span class="kicker">05</span><h2>Où sont les bugs connus ?</h2></header>
@@ -208,7 +211,7 @@ footer .n { font-family: var(--mono); }
 <p>Un tracker vide sur un projet d'une semaine ne dit rien de la qualité : personne n'a encore signalé. La liste des risques collectés est le seul inventaire disponible.</p>
 <table><thead><tr><th>Risque</th><th>Niveau</th><th>Constat</th></tr></thead><tbody><tr><td>Licence</td><td><span class="level high">high</span></td><td>pas de fichier LICENSE, réutilisation juridiquement incertaine</td></tr><tr><td>Bus factor</td><td><span class="level high">high</span></td><td>un seul contributeur porte la moitié des commits sur 12 semaines</td></tr><tr><td>CI</td><td><span class="level mid">mid</span></td><td>aucun workflow, vérification locale seulement</td></tr><tr><td>Sécurité</td><td><span class="level mid">mid</span></td><td>pas de SECURITY.md, aucun canal pour signaler une faille</td></tr><tr><td>Dépendances</td><td><span class="level low">low</span></td><td>3 déclarées, <code>@types/bun</code> non épinglée</td></tr></tbody></table>
 <p>Aucun commentaire <code>TODO</code> de dette dans <code>src/</code> ni <code>test/</code> : la recherche renvoie 12 résultats, tous dans de la documentation, des prompts ou des caches générés.</p></div></div>
-<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">qa · 5 / 8</span></footer>
+<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">qa · 5 / 9</span></footer>
 </section>
 <section class="page">
 <header><span class="kicker">06</span><h2>Comment reproduire et signaler un bug ici ?</h2></header>
@@ -223,7 +226,7 @@ bun run validate facts|narrative|deck onboard/cache/&lt;owner&gt;__&lt;repo&gt; 
 <p>Comparer avec GitHub sans passer par le pipeline : <code>bun run gh &lt;outil&gt; '&lt;args JSON&gt;'</code> fait l'appel brut au serveur MCP, <code>bun run gh tools</code> liste les outils.</p>
 <p>Signaler : 0 PR ouverte et 1 seule PR fusionnée, #2 le 9 septembre, pour 57 commits cette semaine ; les changements arrivent sur <code>main</code> sans passer par une PR<sup class="note"><a href="#note-2">2</a></sup>.</p>
 <p>L'issue #1 est réservée au chat des assistants et ne doit jamais être fermée ; un défaut se signale dans une issue neuve, avec l'étape (collecte, rédaction, rendu), le dossier de cache, le profil et la dernière ligne de la validation.</p></div></div>
-<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">qa · 6 / 8</span></footer>
+<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">qa · 6 / 9</span></footer>
 </section>
 <section class="page">
 <header><span class="kicker">07</span><h2>Quelles zones sont peu couvertes ?</h2></header>
@@ -234,12 +237,12 @@ bun run validate facts|narrative|deck onboard/cache/&lt;owner&gt;__&lt;repo&gt; 
 <p>Zones sans test connu, par ordre de risque pour le livrable :</p>
 <ul><li><code>src/render/</code> : deck HTML, PDF via Chrome headless, capture ; c'est le livrable visible</li><li><code>src/validate.ts</code> : les trois barrières du pipeline ; une barrière qui laisse passer rend le reste inutile</li><li><code>src/merge.ts</code> : la fusion des <code>parts/*.json</code> dans <code>facts.json</code></li><li><code>src/cli.ts</code> : l'orchestration via Claude Code, non testable sans l'agent</li><li><code>onboarding/</code> : second package bun, manifeste et code non lus par la collecte</li><li><code>chat/chat.mjs</code> : doit tourner sous node et sous bun</li></ul>
 <p>La documentation pour agents IA est en revanche bien présente, 4 repères sur 7 : AGENTS.md, CLAUDE.md, .mcp.json, .claude/skills/.</p></div></div>
-<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">qa · 7 / 8</span></footer>
+<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">qa · 7 / 9</span></footer>
 </section><section class="finale">
 <header><span class="kicker">qa</span><h2>Plan de test en 5 points</h2></header>
 <p class="takeaway">Sans CI, chaque point de ce plan se rejoue à la main sur le commit à qualifier : le point 5 est celui qui rend les quatre autres durables.</p>
 <div class="body"><div class="text"><ol><li>Environnement : sur un poste neuf, <code>bun install &amp;&amp; bun run check</code> passe et <code>bun run dev</code> affiche « GitHub OK : &lt;login&gt; » avec un <code>GITHUB_PAT</code> de scope repo.</li><li>Collecte : <code>bun run meta</code> et <code>bun run issues</code> sur un dépôt de <code>CIBLES.md</code>, comparer <code>parts/*.json</code> avec un appel brut <code>bun run gh</code>, vérifier que ce que le serveur MCP n'expose pas est déclaré manquant, jamais deviné.</li><li>Validations : corrompre volontairement <code>facts.json</code>, une citation du narratif et le deck, puis vérifier que <code>bun run validate facts|narrative|deck</code> bloque à chaque fois.</li><li>Rendu : <code>bun run render</code> puis <code>bun run pdf</code> pour les six profils sur un même cache, relecture à l'œil de chaque deck, aucun chiffre sans note de bas de page.</li><li>Non-régression : épingler <code>@types/bun</code> et ajouter un workflow qui lance <code>bun run check</code> à chaque push, aujourd'hui inexistant.</li></ol></div></div>
-<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">qa · 8 / 8</span></footer>
-</section><section class="refs"><header><span class="kicker">références publiques</span><h2>Sources</h2></header><div class="body"><ol class="sources"><li id="note-1"><a href="https://github.com/jordanvalnet/exalthon26/issues/1">https://github.com/jordanvalnet/exalthon26/issues/1</a></li><li id="note-2"><a href="https://github.com/jordanvalnet/exalthon26/pull/2">https://github.com/jordanvalnet/exalthon26/pull/2</a></li></ol></div></section>
+<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">qa · 8 / 9</span></footer>
+</section><section class="refs"><header><span class="kicker">références publiques</span><h2>Sources</h2></header><div class="body"><ol class="sources"><li id="note-1"><a href="https://github.com/jordanvalnet/exalthon26/issues/1">https://github.com/jordanvalnet/exalthon26/issues/1</a></li><li id="note-2"><a href="https://github.com/jordanvalnet/exalthon26/pull/2">https://github.com/jordanvalnet/exalthon26/pull/2</a></li></ol></div><footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">qa · 9 / 9</span></footer></section>
 </body>
 </html>

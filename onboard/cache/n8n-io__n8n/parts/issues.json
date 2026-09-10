@@ -1,0 +1,1289 @@
+{
+  "issues": {
+    "open": 375,
+    "closed_30d": 300,
+    "by_label": {
+      "status:in-linear": 297,
+      "status:team-assigned": 280,
+      "team:cats": 93,
+      "team:nodes": 92,
+      "team:ai": 61,
+      "Needs Feedback": 41,
+      "team:adore": 29,
+      "team:lifecycle": 15,
+      "triage:complete": 10,
+      "team:chat": 6,
+      "team:identity": 5,
+      "closed:requested": 4,
+      "triage:needs-info": 4,
+      "team:iam": 3,
+      "team:ins": 2
+    },
+    "good_first": [],
+    "hot": [
+      {
+        "number": 28891,
+        "title": "Chat Trigger public chat URL returns \"Connection rejected\" after upgrade from 2.16.x to 2.17.4",
+        "url": "https://github.com/n8n-io/n8n/issues/28891",
+        "comments": 25
+      },
+      {
+        "number": 31837,
+        "title": "Webhook trigger firing multiple times",
+        "url": "https://github.com/n8n-io/n8n/issues/31837",
+        "comments": 17
+      },
+      {
+        "number": 29127,
+        "title": "Nested object is unexpectedly mutated across sibling branches during execution",
+        "url": "https://github.com/n8n-io/n8n/issues/29127",
+        "comments": 15
+      },
+      {
+        "number": 26373,
+        "title": "Sub-agents unable to use MCP Tools due to Engine Request architecture",
+        "url": "https://github.com/n8n-io/n8n/issues/26373",
+        "comments": 15
+      },
+      {
+        "number": 33539,
+        "title": "After upgrading to 2.28.6, the Agent's calls to sub-workflows consistently return node data from the trigger instead of the data from the final node.",
+        "url": "https://github.com/n8n-io/n8n/issues/33539",
+        "comments": 14
+      },
+      {
+        "number": 25852,
+        "title": "Chat UI Error: 'type' must be 'output_text' after second message in conversation",
+        "url": "https://github.com/n8n-io/n8n/issues/25852",
+        "comments": 13
+      },
+      {
+        "number": 32278,
+        "title": "Cannot register local n8n mcp with my claude desktop connector",
+        "url": "https://github.com/n8n-io/n8n/issues/32278",
+        "comments": 12
+      },
+      {
+        "number": 26394,
+        "title": "MCP tool calls fail in queue mode: `Tool node \"\" does not have supplyData method` + `Worker tool execution timeout`",
+        "url": "https://github.com/n8n-io/n8n/issues/26394",
+        "comments": 12
+      },
+      {
+        "number": 24986,
+        "title": "Overview page has stopped tracking execution counts",
+        "url": "https://github.com/n8n-io/n8n/issues/24986",
+        "comments": 12
+      },
+      {
+        "number": 25276,
+        "title": "Vector Store Question Answer Tool generates invalid schema in v2.6.3 - breaks OpenAI and Anthropic",
+        "url": "https://github.com/n8n-io/n8n/issues/25276",
+        "comments": 11
+      }
+    ]
+  },
+  "pulls": {
+    "open": 756,
+    "merged_30d": [
+      {
+        "number": 38319,
+        "title": "Turn on encryption key rotation by defaul",
+        "url": "https://github.com/n8n-io/n8n/pull/38319",
+        "merged_at": "2026-09-10T13:17:58Z"
+      },
+      {
+        "number": 38309,
+        "title": "fix: Bump task-runner-launcher to 1.5.0",
+        "url": "https://github.com/n8n-io/n8n/pull/38309",
+        "merged_at": "2026-09-10T11:20:49Z"
+      },
+      {
+        "number": 38307,
+        "title": "chore: Update eslint configuration",
+        "url": "https://github.com/n8n-io/n8n/pull/38307",
+        "merged_at": "2026-09-10T11:40:35Z"
+      },
+      {
+        "number": 38304,
+        "title": "fix(core): Point the Docker-only deprecation notices at the hosting docs (no-changelog) (backport to release-candidate/2.38.x)",
+        "url": "https://github.com/n8n-io/n8n/pull/38304",
+        "merged_at": "2026-09-10T11:14:17Z"
+      },
+      {
+        "number": 38303,
+        "title": "fix(core): Point the Docker-only deprecation notices at the hosting docs (no-changelog) (backport to release-candidate/2.39.x)",
+        "url": "https://github.com/n8n-io/n8n/pull/38303",
+        "merged_at": "2026-09-10T11:00:30Z"
+      },
+      {
+        "number": 38302,
+        "title": "fix(AI Agent Node): Preserve Anthropic thinking blocks with empty text across tool calls",
+        "url": "https://github.com/n8n-io/n8n/pull/38302",
+        "merged_at": "2026-09-10T13:14:30Z"
+      },
+      {
+        "number": 38299,
+        "title": "chore: Extract the repeated resource-URL to webhook-path preamble in the oauth-server resolvers",
+        "url": "https://github.com/n8n-io/n8n/pull/38299",
+        "merged_at": "2026-09-10T10:55:58Z"
+      },
+      {
+        "number": 38298,
+        "title": "chore: Move the duplicated CLI command error banner into BaseCommand",
+        "url": "https://github.com/n8n-io/n8n/pull/38298",
+        "merged_at": "2026-09-10T10:55:58Z"
+      },
+      {
+        "number": 38294,
+        "title": "fix(core): Preserve link URLs in inbound agent chat messages",
+        "url": "https://github.com/n8n-io/n8n/pull/38294",
+        "merged_at": "2026-09-10T13:11:16Z"
+      },
+      {
+        "number": 38287,
+        "title": "fix: Show credentials shared with all users and projects in the",
+        "url": "https://github.com/n8n-io/n8n/pull/38287",
+        "merged_at": "2026-09-10T12:58:21Z"
+      },
+      {
+        "number": 38286,
+        "title": "fix: Close the variable modal on a backdrop click",
+        "url": "https://github.com/n8n-io/n8n/pull/38286",
+        "merged_at": "2026-09-10T10:00:29Z"
+      },
+      {
+        "number": 38284,
+        "title": "fix: Show custom role scope tooltips next to the hovered scope",
+        "url": "https://github.com/n8n-io/n8n/pull/38284",
+        "merged_at": "2026-09-10T11:01:47Z"
+      },
+      {
+        "number": 38281,
+        "title": "fix: Resolve node source path before the translation lookup",
+        "url": "https://github.com/n8n-io/n8n/pull/38281",
+        "merged_at": "2026-09-10T08:57:11Z"
+      },
+      {
+        "number": 38280,
+        "title": "feat(core): Add a Code tab to the App Builder",
+        "url": "https://github.com/n8n-io/n8n/pull/38280",
+        "merged_at": "2026-09-10T10:32:05Z"
+      },
+      {
+        "number": 38279,
+        "title": "fix(core): Point the Docker-only deprecation notices at the hosting docs (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38279",
+        "merged_at": "2026-09-10T10:41:03Z"
+      },
+      {
+        "number": 38277,
+        "title": "fix(core): Execute MCP toolkit members on workers (backport to release-candidate/2.38.x)",
+        "url": "https://github.com/n8n-io/n8n/pull/38277",
+        "merged_at": "2026-09-10T08:43:08Z"
+      },
+      {
+        "number": 38275,
+        "title": "fix: Center the registration badge in the Usage and Plan heading",
+        "url": "https://github.com/n8n-io/n8n/pull/38275",
+        "merged_at": "2026-09-10T10:31:10Z"
+      },
+      {
+        "number": 38274,
+        "title": "ci: Bump safe-chain to 1.5.20",
+        "url": "https://github.com/n8n-io/n8n/pull/38274",
+        "merged_at": "2026-09-10T07:37:13Z"
+      },
+      {
+        "number": 38273,
+        "title": "feat: add layout editor and jsx support to apps",
+        "url": "https://github.com/n8n-io/n8n/pull/38273",
+        "merged_at": "2026-09-10T07:29:16Z"
+      },
+      {
+        "number": 38272,
+        "title": ":rocket: Release 2.38.6",
+        "url": "https://github.com/n8n-io/n8n/pull/38272",
+        "merged_at": "2026-09-10T07:37:53Z"
+      },
+      {
+        "number": 38271,
+        "title": ":rocket: Release 2.39.2",
+        "url": "https://github.com/n8n-io/n8n/pull/38271",
+        "merged_at": "2026-09-10T07:22:21Z"
+      },
+      {
+        "number": 38269,
+        "title": "chore: Resolve master→3.x sync conflict",
+        "url": "https://github.com/n8n-io/n8n/pull/38269",
+        "merged_at": "2026-09-10T08:18:54Z"
+      },
+      {
+        "number": 38268,
+        "title": ":rocket: Release 1.123.79",
+        "url": "https://github.com/n8n-io/n8n/pull/38268",
+        "merged_at": "2026-09-10T06:06:30Z"
+      },
+      {
+        "number": 38267,
+        "title": "chore: Update e2e impact map",
+        "url": "https://github.com/n8n-io/n8n/pull/38267",
+        "merged_at": "2026-09-10T03:11:04Z"
+      },
+      {
+        "number": 38258,
+        "title": "fix(core): Trust the CA from GIT_SSL_CAINFO for source control HTTPS remotes",
+        "url": "https://github.com/n8n-io/n8n/pull/38258",
+        "merged_at": "2026-09-10T10:00:30Z"
+      },
+      {
+        "number": 38254,
+        "title": "fix(core): Keep node settings, positions and error routes through an assistant workflow edit",
+        "url": "https://github.com/n8n-io/n8n/pull/38254",
+        "merged_at": "2026-09-10T08:20:39Z"
+      },
+      {
+        "number": 38249,
+        "title": "fix(core): Reuse an existing consent grant after the visitor authenticates mid-flow (backport to release-candidate/2.38.x)",
+        "url": "https://github.com/n8n-io/n8n/pull/38249",
+        "merged_at": "2026-09-10T08:28:20Z"
+      },
+      {
+        "number": 38248,
+        "title": "fix(core): Reuse an existing consent grant after the visitor authenticates mid-flow (backport to release-candidate/2.39.x)",
+        "url": "https://github.com/n8n-io/n8n/pull/38248",
+        "merged_at": "2026-09-09T15:59:02Z"
+      },
+      {
+        "number": 38245,
+        "title": "feat: Allow browser recordings without prior connection",
+        "url": "https://github.com/n8n-io/n8n/pull/38245",
+        "merged_at": "2026-09-10T07:06:05Z"
+      },
+      {
+        "number": 38243,
+        "title": "fix(ai-builder): Enhance guidance UX for agents with no sessions on builder session tab",
+        "url": "https://github.com/n8n-io/n8n/pull/38243",
+        "merged_at": "2026-09-09T16:44:18Z"
+      },
+      {
+        "number": 38242,
+        "title": "refactor(core): Round system task intervals in the runner only (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38242",
+        "merged_at": "2026-09-10T06:44:33Z"
+      },
+      {
+        "number": 38238,
+        "title": "refactor(core): Move node type policy DTOs to @n8n/api-types",
+        "url": "https://github.com/n8n-io/n8n/pull/38238",
+        "merged_at": "2026-09-10T12:20:19Z"
+      },
+      {
+        "number": 38237,
+        "title": "feat(API): Let @Body require a body independently of DTO field optionality",
+        "url": "https://github.com/n8n-io/n8n/pull/38237",
+        "merged_at": "2026-09-10T08:47:05Z"
+      },
+      {
+        "number": 38236,
+        "title": "feat(core): Add observability for the decryption path",
+        "url": "https://github.com/n8n-io/n8n/pull/38236",
+        "merged_at": "2026-09-10T11:16:50Z"
+      },
+      {
+        "number": 38230,
+        "title": "feat(core): Let users select an App preview element to reference in the AI Assistant prompt (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38230",
+        "merged_at": "2026-09-10T08:44:52Z"
+      },
+      {
+        "number": 38228,
+        "title": "feat(core): Add node type availability endpoint for a project (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38228",
+        "merged_at": "2026-09-09T19:12:51Z"
+      },
+      {
+        "number": 38225,
+        "title": "chore: Remove corepack references from CONTRIBUTING.md",
+        "url": "https://github.com/n8n-io/n8n/pull/38225",
+        "merged_at": "2026-09-10T08:43:20Z"
+      },
+      {
+        "number": 38224,
+        "title": "feat(core): Enable the policy infrastructure module by default (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38224",
+        "merged_at": "2026-09-09T13:57:08Z"
+      },
+      {
+        "number": 38223,
+        "title": "build: Patch docker images to not build with pnpm 12",
+        "url": "https://github.com/n8n-io/n8n/pull/38223",
+        "merged_at": "2026-09-09T13:33:23Z"
+      },
+      {
+        "number": 38217,
+        "title": "docs: Teach the Instance AI eval skill to reproduce a gap before reclassifying it",
+        "url": "https://github.com/n8n-io/n8n/pull/38217",
+        "merged_at": "2026-09-09T12:58:25Z"
+      },
+      {
+        "number": 38212,
+        "title": "fix(core): Memoize pairedItem ancestry traversal (backport to release-candidate/2.39.x)",
+        "url": "https://github.com/n8n-io/n8n/pull/38212",
+        "merged_at": "2026-09-09T12:12:53Z"
+      },
+      {
+        "number": 38210,
+        "title": "feat(editor): Add preview chat utilities to the more options menu",
+        "url": "https://github.com/n8n-io/n8n/pull/38210",
+        "merged_at": "2026-09-10T09:09:08Z"
+      },
+      {
+        "number": 38209,
+        "title": "feat(core): Add published flag to Instance AI eval seed workflows (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38209",
+        "merged_at": "2026-09-10T08:31:55Z"
+      },
+      {
+        "number": 38207,
+        "title": "chore: Update isolated-vm to 7.0.1",
+        "url": "https://github.com/n8n-io/n8n/pull/38207",
+        "merged_at": "2026-09-09T12:11:22Z"
+      },
+      {
+        "number": 38205,
+        "title": "feat(core): Inject AI preferences into the MCP server instructions (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38205",
+        "merged_at": "2026-09-10T06:47:58Z"
+      },
+      {
+        "number": 38204,
+        "title": "fix(core): Recognize always-loaded tools in agent tool discovery",
+        "url": "https://github.com/n8n-io/n8n/pull/38204",
+        "merged_at": "2026-09-10T06:53:50Z"
+      },
+      {
+        "number": 38203,
+        "title": ":rocket: Release 2.39.1",
+        "url": "https://github.com/n8n-io/n8n/pull/38203",
+        "merged_at": "2026-09-09T11:26:56Z"
+      },
+      {
+        "number": 38202,
+        "title": ":rocket: Release 2.38.5",
+        "url": "https://github.com/n8n-io/n8n/pull/38202",
+        "merged_at": "2026-09-09T11:35:06Z"
+      },
+      {
+        "number": 38201,
+        "title": ":rocket: Release 1.123.78",
+        "url": "https://github.com/n8n-io/n8n/pull/38201",
+        "merged_at": "2026-09-09T11:36:51Z"
+      },
+      {
+        "number": 38200,
+        "title": "feat(core): Add a hashing package writer (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38200",
+        "merged_at": "2026-09-09T18:15:52Z"
+      },
+      {
+        "number": 38199,
+        "title": "perf(core): Stop copying user workflows into the Instance AI sandbox (backport to release-candidate/2.39.x)",
+        "url": "https://github.com/n8n-io/n8n/pull/38199",
+        "merged_at": "2026-09-09T11:17:38Z"
+      },
+      {
+        "number": 38198,
+        "title": "ci: Point the workflow-scripts lockfile dir at .github/scripts (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38198",
+        "merged_at": "2026-09-09T10:57:22Z"
+      },
+      {
+        "number": 38194,
+        "title": "feat(core): Add a live preview with HMR to the App Builder",
+        "url": "https://github.com/n8n-io/n8n/pull/38194",
+        "merged_at": "2026-09-10T12:42:05Z"
+      },
+      {
+        "number": 38193,
+        "title": "fix(core): Check Gateway credits eligibility against the correct sub-node",
+        "url": "https://github.com/n8n-io/n8n/pull/38193",
+        "merged_at": "2026-09-09T15:15:07Z"
+      },
+      {
+        "number": 38192,
+        "title": "fix(ai-builder): Give agent narration a larger judge budget than tool payloads (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38192",
+        "merged_at": "2026-09-10T08:50:08Z"
+      },
+      {
+        "number": 38191,
+        "title": "feat: Derive app pages from the built app's routes (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38191",
+        "merged_at": "2026-09-09T14:34:30Z"
+      },
+      {
+        "number": 38190,
+        "title": "fix(core): Reconnect the Email Trigger (IMAP) on every publish through the publication service",
+        "url": "https://github.com/n8n-io/n8n/pull/38190",
+        "merged_at": "2026-09-09T11:54:11Z"
+      },
+      {
+        "number": 38189,
+        "title": "fix(API): Report the full route path in public API usage telemetry (no-changelog) (backport to release-candidate/2.38.x)",
+        "url": "https://github.com/n8n-io/n8n/pull/38189",
+        "merged_at": "2026-09-10T11:57:53Z"
+      },
+      {
+        "number": 38188,
+        "title": "fix(API): Report the full route path in public API usage telemetry (no-changelog) (backport to release-candidate/2.39.x)",
+        "url": "https://github.com/n8n-io/n8n/pull/38188",
+        "merged_at": "2026-09-10T11:56:19Z"
+      },
+      {
+        "number": 38187,
+        "title": "chore: Extract the sixfold-duplicated isUnknownArray type guard into @n8n/utils",
+        "url": "https://github.com/n8n-io/n8n/pull/38187",
+        "merged_at": "2026-09-09T10:20:51Z"
+      },
+      {
+        "number": 38186,
+        "title": "refactor(API): Migrate POST /source-control/pull to the decorator pattern",
+        "url": "https://github.com/n8n-io/n8n/pull/38186",
+        "merged_at": "2026-09-10T10:00:29Z"
+      },
+      {
+        "number": 38185,
+        "title": "feat(core): Support ephemeral sandboxes for the n8n sandbox service",
+        "url": "https://github.com/n8n-io/n8n/pull/38185",
+        "merged_at": "2026-09-09T10:29:01Z"
+      },
+      {
+        "number": 38184,
+        "title": "fix(editor): Rename the first agent builder tab to Build",
+        "url": "https://github.com/n8n-io/n8n/pull/38184",
+        "merged_at": "2026-09-09T10:27:57Z"
+      },
+      {
+        "number": 38183,
+        "title": "refactor: Extract the duplicated N8N_ENV_FEAT_ flag check into a",
+        "url": "https://github.com/n8n-io/n8n/pull/38183",
+        "merged_at": "2026-09-09T16:21:35Z"
+      },
+      {
+        "number": 38182,
+        "title": "feat: Show live browser-recording screenshots as a flip-book, with a persistent recap (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38182",
+        "merged_at": "2026-09-09T15:20:44Z"
+      },
+      {
+        "number": 38180,
+        "title": "fix(editor): Show loading skeletons in the AI Assistant artifacts sidebar",
+        "url": "https://github.com/n8n-io/n8n/pull/38180",
+        "merged_at": "2026-09-09T11:18:13Z"
+      },
+      {
+        "number": 38179,
+        "title": "test: Use the hosted sandbox service when it is configured (backport to release-candidate/2.38.x)",
+        "url": "https://github.com/n8n-io/n8n/pull/38179",
+        "merged_at": "2026-09-09T15:45:13Z"
+      },
+      {
+        "number": 38178,
+        "title": "fix(editor): Keep the artifact tab the user picks during an AI Assistant run",
+        "url": "https://github.com/n8n-io/n8n/pull/38178",
+        "merged_at": "2026-09-09T11:50:28Z"
+      },
+      {
+        "number": 38175,
+        "title": "fix(Confluence Node): Match hyphenated and multi-word titles in the page picker search",
+        "url": "https://github.com/n8n-io/n8n/pull/38175",
+        "merged_at": "2026-09-10T08:03:55Z"
+      },
+      {
+        "number": 38174,
+        "title": "feat(core): Add the shared AI preference repository and resolver service (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38174",
+        "merged_at": "2026-09-10T10:38:44Z"
+      },
+      {
+        "number": 38170,
+        "title": "feat(core): Trace AI Assistant sandbox operations (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38170",
+        "merged_at": "2026-09-10T12:05:01Z"
+      },
+      {
+        "number": 38169,
+        "title": "chore: Migrate n8n provenance job to actions/attest",
+        "url": "https://github.com/n8n-io/n8n/pull/38169",
+        "merged_at": "2026-09-10T07:37:13Z"
+      },
+      {
+        "number": 38168,
+        "title": "chore: Extract the duplicated `mockNodeTypes` stub shared by CredentialsHelper and CredentialsTester",
+        "url": "https://github.com/n8n-io/n8n/pull/38168",
+        "merged_at": "2026-09-09T16:03:56Z"
+      },
+      {
+        "number": 38167,
+        "title": "feat: Show a recording indicator on the toolbar icon",
+        "url": "https://github.com/n8n-io/n8n/pull/38167",
+        "merged_at": "2026-09-09T08:23:26Z"
+      },
+      {
+        "number": 38166,
+        "title": "feat(core): Add a Theme tab to the App Builder",
+        "url": "https://github.com/n8n-io/n8n/pull/38166",
+        "merged_at": "2026-09-09T09:13:20Z"
+      },
+      {
+        "number": 38164,
+        "title": "build: Dedupe langchain deps and catch future cases",
+        "url": "https://github.com/n8n-io/n8n/pull/38164",
+        "merged_at": "2026-09-09T07:01:24Z"
+      },
+      {
+        "number": 38163,
+        "title": "fix(core): Resolve managed OAuth endpoint fields from the credential type (backport to 1.x) (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38163",
+        "merged_at": "2026-09-09T08:18:57Z"
+      },
+      {
+        "number": 38162,
+        "title": "chore: Bump hono 4.12.34 → 4.13.5 (minor) on 1.x to clear 3 Aikido findings",
+        "url": "https://github.com/n8n-io/n8n/pull/38162",
+        "merged_at": "2026-09-09T04:25:22Z"
+      },
+      {
+        "number": 38160,
+        "title": "chore: Bump multer 2.2.0 → 2.3.0 (minor) on 1.x to clear 4 Aikido findings",
+        "url": "https://github.com/n8n-io/n8n/pull/38160",
+        "merged_at": "2026-09-09T03:30:37Z"
+      },
+      {
+        "number": 38159,
+        "title": "chore: Update e2e impact map",
+        "url": "https://github.com/n8n-io/n8n/pull/38159",
+        "merged_at": "2026-09-09T03:06:46Z"
+      },
+      {
+        "number": 38158,
+        "title": "chore: Bump js-yaml 4.2.0 → 4.3.2 (patch) on 1.x to clear 2 Aikido findings",
+        "url": "https://github.com/n8n-io/n8n/pull/38158",
+        "merged_at": "2026-09-09T02:50:10Z"
+      },
+      {
+        "number": 38157,
+        "title": "chore: Bump sharp 0.35.0 → 0.35.4 (patch) on 1.x to clear 1 Aikido finding",
+        "url": "https://github.com/n8n-io/n8n/pull/38157",
+        "merged_at": "2026-09-09T01:35:25Z"
+      },
+      {
+        "number": 38156,
+        "title": "fix(core): Accept an object in the schema fields of the LangChain schema-driven nodes (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38156",
+        "merged_at": "2026-09-09T09:46:59Z"
+      },
+      {
+        "number": 38154,
+        "title": "chore: Bump @xmldom/xmldom 0.8.14 → 0.8.15 (patch) on 1.x to clear 1 Aikido finding",
+        "url": "https://github.com/n8n-io/n8n/pull/38154",
+        "merged_at": "2026-09-08T22:34:56Z"
+      },
+      {
+        "number": 38153,
+        "title": "fix(core): Re-register the n8n Trigger on every publish through the publication service",
+        "url": "https://github.com/n8n-io/n8n/pull/38153",
+        "merged_at": "2026-09-09T08:59:41Z"
+      },
+      {
+        "number": 38152,
+        "title": "fix(API): Report the full route path in public API usage telemetry (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38152",
+        "merged_at": "2026-09-09T09:32:44Z"
+      },
+      {
+        "number": 38150,
+        "title": "chore: Bump fflate 0.7.4 → 0.7.5 (patch) on 1.x to clear 1 Aikido finding",
+        "url": "https://github.com/n8n-io/n8n/pull/38150",
+        "merged_at": "2026-09-08T21:16:13Z"
+      },
+      {
+        "number": 38146,
+        "title": "test: Polyfill the jsdom dialog methods in the editor-ui test setup",
+        "url": "https://github.com/n8n-io/n8n/pull/38146",
+        "merged_at": "2026-09-08T20:15:24Z"
+      },
+      {
+        "number": 38145,
+        "title": "chore: Bump fast-uri 3.1.5 → 3.1.6 (patch) on 1.x to clear 4 Aikido findings",
+        "url": "https://github.com/n8n-io/n8n/pull/38145",
+        "merged_at": "2026-09-08T19:46:04Z"
+      },
+      {
+        "number": 38144,
+        "title": "feat(editor): Add MCP nudge modal on JSON export/import and copy/paste",
+        "url": "https://github.com/n8n-io/n8n/pull/38144",
+        "merged_at": "2026-09-10T08:24:23Z"
+      },
+      {
+        "number": 38142,
+        "title": "fix(core): Repair legacy-format data-encryption keys during bootstrap (backport to release-candidate/2.39.x)",
+        "url": "https://github.com/n8n-io/n8n/pull/38142",
+        "merged_at": "2026-09-08T17:26:33Z"
+      },
+      {
+        "number": 38141,
+        "title": "chore(core): Deprecate internal task runner mode and warn about SSRF default block list changes (no-changelog) (backport to release-candidate/2.38.x)",
+        "url": "https://github.com/n8n-io/n8n/pull/38141",
+        "merged_at": "2026-09-08T17:34:03Z"
+      },
+      {
+        "number": 38140,
+        "title": "chore(core): Deprecate internal task runner mode and warn about SSRF default block list changes (no-changelog) (backport to release-candidate/2.39.x)",
+        "url": "https://github.com/n8n-io/n8n/pull/38140",
+        "merged_at": "2026-09-08T17:16:31Z"
+      },
+      {
+        "number": 38139,
+        "title": "feat: app-version-quota-limits",
+        "url": "https://github.com/n8n-io/n8n/pull/38139",
+        "merged_at": "2026-09-09T11:04:07Z"
+      },
+      {
+        "number": 38136,
+        "title": "perf(core): Install sandbox dependencies from the npm cache again",
+        "url": "https://github.com/n8n-io/n8n/pull/38136",
+        "merged_at": "2026-09-09T10:53:25Z"
+      },
+      {
+        "number": 38135,
+        "title": "perf(core): Stop copying user workflows into the Instance AI sandbox",
+        "url": "https://github.com/n8n-io/n8n/pull/38135",
+        "merged_at": "2026-09-09T10:53:25Z"
+      },
+      {
+        "number": 38131,
+        "title": "feat(core): Add ai_preference table for AI preferences",
+        "url": "https://github.com/n8n-io/n8n/pull/38131",
+        "merged_at": "2026-09-10T05:43:16Z"
+      },
+      {
+        "number": 38123,
+        "title": "feat(engine): Add the control plane client that resolves credentials for the data plane (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38123",
+        "merged_at": "2026-09-10T10:31:11Z"
+      },
+      {
+        "number": 38121,
+        "title": "ci: Split the packages/modules test filters into frontend and backend (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38121",
+        "merged_at": "2026-09-09T07:58:19Z"
+      },
+      {
+        "number": 38116,
+        "title": "refactor(core): Move workflow publish and archive state out of workflow.json",
+        "url": "https://github.com/n8n-io/n8n/pull/38116",
+        "merged_at": "2026-09-09T08:46:02Z"
+      },
+      {
+        "number": 38115,
+        "title": "feat(core): List promote base branch files and hashes (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38115",
+        "merged_at": "2026-09-09T17:59:42Z"
+      },
+      {
+        "number": 38112,
+        "title": "feat(core): Add a shared entity file formatter for package exports (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38112",
+        "merged_at": "2026-09-09T08:19:17Z"
+      },
+      {
+        "number": 38107,
+        "title": "fix(editor): Restore tag text hidden by zero line-height",
+        "url": "https://github.com/n8n-io/n8n/pull/38107",
+        "merged_at": "2026-09-08T15:40:06Z"
+      },
+      {
+        "number": 38103,
+        "title": "chore(core): Deprecate internal task runner mode and warn about SSRF default block list changes (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38103",
+        "merged_at": "2026-09-08T16:56:15Z"
+      },
+      {
+        "number": 38100,
+        "title": "fix(core): Repair legacy-format data-encryption keys during bootstrap",
+        "url": "https://github.com/n8n-io/n8n/pull/38100",
+        "merged_at": "2026-09-08T17:02:24Z"
+      },
+      {
+        "number": 38099,
+        "title": "chore(Confluence Node): Polish error messages and validation",
+        "url": "https://github.com/n8n-io/n8n/pull/38099",
+        "merged_at": "2026-09-10T09:56:45Z"
+      },
+      {
+        "number": 38098,
+        "title": "feat: Enable the v3 migration report and fix findings table layout (no-changelog) (backport to release-candidate/2.38.x)",
+        "url": "https://github.com/n8n-io/n8n/pull/38098",
+        "merged_at": "2026-09-08T14:58:14Z"
+      },
+      {
+        "number": 38097,
+        "title": "feat: Enable the v3 migration report and fix findings table layout (no-changelog) (backport to release-candidate/2.39.x)",
+        "url": "https://github.com/n8n-io/n8n/pull/38097",
+        "merged_at": "2026-09-08T14:15:23Z"
+      },
+      {
+        "number": 38093,
+        "title": "fix(core): Keep nodes clear of the agent card in SDK-generated workflow layouts",
+        "url": "https://github.com/n8n-io/n8n/pull/38093",
+        "merged_at": "2026-09-09T13:35:15Z"
+      },
+      {
+        "number": 38092,
+        "title": "chore:Update design owners to design engineering (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38092",
+        "merged_at": "2026-09-09T08:46:00Z"
+      },
+      {
+        "number": 38091,
+        "title": "refactor: Migrate GET /api/v1/variables to the decorator pattern",
+        "url": "https://github.com/n8n-io/n8n/pull/38091",
+        "merged_at": "2026-09-10T10:00:29Z"
+      },
+      {
+        "number": 38090,
+        "title": "ci: Add post-checkout hook to inform about pnpm 12",
+        "url": "https://github.com/n8n-io/n8n/pull/38090",
+        "merged_at": "2026-09-08T13:10:45Z"
+      },
+      {
+        "number": 38087,
+        "title": "fix(editor): Prevent stale agent autosaves",
+        "url": "https://github.com/n8n-io/n8n/pull/38087",
+        "merged_at": "2026-09-09T14:40:17Z"
+      },
+      {
+        "number": 38085,
+        "title": "fix(core): Memoize pairedItem ancestry traversal",
+        "url": "https://github.com/n8n-io/n8n/pull/38085",
+        "merged_at": "2026-09-09T11:50:28Z"
+      },
+      {
+        "number": 38084,
+        "title": "fix(core): Reuse an existing consent grant after the visitor authenticates mid-flow",
+        "url": "https://github.com/n8n-io/n8n/pull/38084",
+        "merged_at": "2026-09-09T15:44:21Z"
+      },
+      {
+        "number": 38082,
+        "title": "fix(core): Fix flakey e2e test by awaiting debounce (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38082",
+        "merged_at": "2026-09-10T08:45:19Z"
+      },
+      {
+        "number": 38081,
+        "title": "fix(editor): Center modal dialogs vertically in the viewport",
+        "url": "https://github.com/n8n-io/n8n/pull/38081",
+        "merged_at": "2026-09-08T13:58:03Z"
+      },
+      {
+        "number": 38080,
+        "title": "fix(core): Retry Instance AI model turns when the provider stream closes without output",
+        "url": "https://github.com/n8n-io/n8n/pull/38080",
+        "merged_at": "2026-09-08T12:58:41Z"
+      },
+      {
+        "number": 38079,
+        "title": "fix(core): Treat Instance AI model stream stalls as dropped provider connections",
+        "url": "https://github.com/n8n-io/n8n/pull/38079",
+        "merged_at": "2026-09-08T13:58:59Z"
+      },
+      {
+        "number": 38077,
+        "title": "ci: Add nightly SBOM license validation (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38077",
+        "merged_at": "2026-09-08T15:00:55Z"
+      },
+      {
+        "number": 38075,
+        "title": "fix(editor): Refresh evaluations side panel when a run finishes",
+        "url": "https://github.com/n8n-io/n8n/pull/38075",
+        "merged_at": "2026-09-09T08:59:08Z"
+      },
+      {
+        "number": 38073,
+        "title": "fix(core): Route \"trigger my workflow\" to the existing workflow, not the builder",
+        "url": "https://github.com/n8n-io/n8n/pull/38073",
+        "merged_at": "2026-09-10T11:38:40Z"
+      },
+      {
+        "number": 38071,
+        "title": "build(editor): Declare SCSS @use explicitly instead of injecting a prelude",
+        "url": "https://github.com/n8n-io/n8n/pull/38071",
+        "merged_at": "2026-09-09T05:22:06Z"
+      },
+      {
+        "number": 38069,
+        "title": "fix(core): Execute MCP toolkit members on workers",
+        "url": "https://github.com/n8n-io/n8n/pull/38069",
+        "merged_at": "2026-09-08T12:58:41Z"
+      },
+      {
+        "number": 38068,
+        "title": "feat(Databricks Node): Send partner User-Agent on Genie MCP traffic",
+        "url": "https://github.com/n8n-io/n8n/pull/38068",
+        "merged_at": "2026-09-10T09:01:58Z"
+      },
+      {
+        "number": 38066,
+        "title": "fix(core): Ground provider OAuth scope guidance in n8n docs",
+        "url": "https://github.com/n8n-io/n8n/pull/38066",
+        "merged_at": "2026-09-10T11:33:10Z"
+      },
+      {
+        "number": 38065,
+        "title": "feat: Rename AI Assistant to n8n Assistant",
+        "url": "https://github.com/n8n-io/n8n/pull/38065",
+        "merged_at": "2026-09-10T09:15:19Z"
+      },
+      {
+        "number": 38064,
+        "title": "feat: Let Instance AI propose and drive a live browser recording",
+        "url": "https://github.com/n8n-io/n8n/pull/38064",
+        "merged_at": "2026-09-08T11:29:14Z"
+      },
+      {
+        "number": 38063,
+        "title": "fix(editor): Hide the AI Assistant settings page when it has nothing to show",
+        "url": "https://github.com/n8n-io/n8n/pull/38063",
+        "merged_at": "2026-09-09T12:03:40Z"
+      },
+      {
+        "number": 38061,
+        "title": "feat(core): Add node type policy project scope (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38061",
+        "merged_at": "2026-09-09T12:23:23Z"
+      },
+      {
+        "number": 38060,
+        "title": "feat(core): Stop Instance AI reporting a simulated run as fully verified",
+        "url": "https://github.com/n8n-io/n8n/pull/38060",
+        "merged_at": "2026-09-09T12:40:14Z"
+      },
+      {
+        "number": 38059,
+        "title": "fix(editor): Stop rendering task and sub-agent labels with no text",
+        "url": "https://github.com/n8n-io/n8n/pull/38059",
+        "merged_at": "2026-09-08T13:03:44Z"
+      },
+      {
+        "number": 38058,
+        "title": "feat: Enable the v3 migration report and fix findings table layout (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38058",
+        "merged_at": "2026-09-08T13:35:40Z"
+      },
+      {
+        "number": 38057,
+        "title": "fix(editor): Merge native agent tools into n8n nodes",
+        "url": "https://github.com/n8n-io/n8n/pull/38057",
+        "merged_at": "2026-09-08T11:26:49Z"
+      },
+      {
+        "number": 38056,
+        "title": "fix(editor): Remove legacy AI Workflow Builder references from AI usage settings",
+        "url": "https://github.com/n8n-io/n8n/pull/38056",
+        "merged_at": "2026-09-08T13:16:17Z"
+      },
+      {
+        "number": 38055,
+        "title": "refactor(editor): Re-organize Agent sections",
+        "url": "https://github.com/n8n-io/n8n/pull/38055",
+        "merged_at": "2026-09-10T12:00:14Z"
+      },
+      {
+        "number": 38054,
+        "title": "fix(core): Consolidate secret redaction in @n8n/utils and redact more credential shapes",
+        "url": "https://github.com/n8n-io/n8n/pull/38054",
+        "merged_at": "2026-09-09T15:58:45Z"
+      },
+      {
+        "number": 38053,
+        "title": "refactor(core): Import agents types and helpers from @n8n/agents instead of the instance-ai barrel (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38053",
+        "merged_at": "2026-09-08T12:21:04Z"
+      },
+      {
+        "number": 38052,
+        "title": "refactor(core): Replace local isRecord and model-id helper copies with shared ones (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38052",
+        "merged_at": "2026-09-08T12:21:04Z"
+      },
+      {
+        "number": 38051,
+        "title": "refactor(core): Share Zod to JSON Schema conversion through @n8n/ai-utilities (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38051",
+        "merged_at": "2026-09-08T12:58:41Z"
+      },
+      {
+        "number": 38050,
+        "title": "refactor(core): Share LLM output JSON extraction and tracing header stripping (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38050",
+        "merged_at": "2026-09-09T14:13:35Z"
+      },
+      {
+        "number": 38048,
+        "title": "chore: Pull the identical run-less `getCredentials` into the node execution context base",
+        "url": "https://github.com/n8n-io/n8n/pull/38048",
+        "merged_at": "2026-09-09T16:03:56Z"
+      },
+      {
+        "number": 38046,
+        "title": "feat(editor): Add the app builder view and bind assistant threads to apps",
+        "url": "https://github.com/n8n-io/n8n/pull/38046",
+        "merged_at": "2026-09-08T11:30:33Z"
+      },
+      {
+        "number": 38045,
+        "title": "feat(editor): Add the Instance AI app artifact and preview tab",
+        "url": "https://github.com/n8n-io/n8n/pull/38045",
+        "merged_at": "2026-09-08T11:31:10Z"
+      },
+      {
+        "number": 38044,
+        "title": "feat(core): Add the Instance AI apps tool and app-builder skill",
+        "url": "https://github.com/n8n-io/n8n/pull/38044",
+        "merged_at": "2026-09-08T11:31:36Z"
+      },
+      {
+        "number": 38042,
+        "title": "test(editor): Add an e2e guard for the $env expression preview",
+        "url": "https://github.com/n8n-io/n8n/pull/38042",
+        "merged_at": "2026-09-10T10:31:10Z"
+      },
+      {
+        "number": 38038,
+        "title": "chore: Share the workflow-node task payload type and guard between the schedule- and poll-trigger tasks",
+        "url": "https://github.com/n8n-io/n8n/pull/38038",
+        "merged_at": "2026-09-08T09:38:23Z"
+      },
+      {
+        "number": 38037,
+        "title": "chore: Reuse one helper for the triplicated scheduler task-identity span attributes",
+        "url": "https://github.com/n8n-io/n8n/pull/38037",
+        "merged_at": "2026-09-08T09:38:23Z"
+      },
+      {
+        "number": 38036,
+        "title": "ci: Report a missing required review as pending, not failure",
+        "url": "https://github.com/n8n-io/n8n/pull/38036",
+        "merged_at": "2026-09-08T09:06:48Z"
+      },
+      {
+        "number": 38034,
+        "title": "fix(core): Return luxon values from expressions as instances",
+        "url": "https://github.com/n8n-io/n8n/pull/38034",
+        "merged_at": "2026-09-09T15:40:44Z"
+      },
+      {
+        "number": 38033,
+        "title": "fix(core): Keep a resumed execution in the trace of the parked execution",
+        "url": "https://github.com/n8n-io/n8n/pull/38033",
+        "merged_at": "2026-09-08T13:38:24Z"
+      },
+      {
+        "number": 38031,
+        "title": "feat(core): Add setup panel verification and agent test execution (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38031",
+        "merged_at": "2026-09-10T08:02:12Z"
+      },
+      {
+        "number": 38030,
+        "title": "fix(core): Batch LangSmith agent session exports",
+        "url": "https://github.com/n8n-io/n8n/pull/38030",
+        "merged_at": "2026-09-08T09:19:24Z"
+      },
+      {
+        "number": 38029,
+        "title": ":rocket: Release 2.39.0",
+        "url": "https://github.com/n8n-io/n8n/pull/38029",
+        "merged_at": "2026-09-08T08:04:46Z"
+      },
+      {
+        "number": 38028,
+        "title": "fix(core): Keep reporting the original job error when the job key is gone (backport to release-candidate/2.38.x)",
+        "url": "https://github.com/n8n-io/n8n/pull/38028",
+        "merged_at": "2026-09-08T08:34:26Z"
+      },
+      {
+        "number": 38027,
+        "title": "feat: Replace Git connection CLI commands with Promotions",
+        "url": "https://github.com/n8n-io/n8n/pull/38027",
+        "merged_at": "2026-09-10T06:55:53Z"
+      },
+      {
+        "number": 38026,
+        "title": "fix(Azure OpenAI Chat Model Node): Resolve the proxy against the Azure endpoint so NO_PROXY applies",
+        "url": "https://github.com/n8n-io/n8n/pull/38026",
+        "merged_at": "2026-09-08T08:46:49Z"
+      },
+      {
+        "number": 38025,
+        "title": "feat(core): Share the parent workspace sandbox with background sub-agents",
+        "url": "https://github.com/n8n-io/n8n/pull/38025",
+        "merged_at": "2026-09-08T07:53:28Z"
+      },
+      {
+        "number": 38024,
+        "title": ":rocket: Release 2.38.0",
+        "url": "https://github.com/n8n-io/n8n/pull/38024",
+        "merged_at": "2026-09-08T07:20:30Z"
+      },
+      {
+        "number": 38022,
+        "title": "ci: Retarget PRs to bundle branches on sync",
+        "url": "https://github.com/n8n-io/n8n/pull/38022",
+        "merged_at": "2026-09-08T09:09:15Z"
+      },
+      {
+        "number": 38020,
+        "title": "fix(core): Release the workflow publication lock after a bounded wait for abandoned trigger operations (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38020",
+        "merged_at": "2026-09-10T11:38:40Z"
+      },
+      {
+        "number": 38019,
+        "title": "fix(core): Bound the wait for the workflow publication lock",
+        "url": "https://github.com/n8n-io/n8n/pull/38019",
+        "merged_at": "2026-09-08T08:52:53Z"
+      },
+      {
+        "number": 38017,
+        "title": "chore: Update e2e impact map",
+        "url": "https://github.com/n8n-io/n8n/pull/38017",
+        "merged_at": "2026-09-08T03:01:30Z"
+      },
+      {
+        "number": 38011,
+        "title": "fix: Use consistent personal space icon in the Instance AI artifacts",
+        "url": "https://github.com/n8n-io/n8n/pull/38011",
+        "merged_at": "2026-09-08T07:14:47Z"
+      },
+      {
+        "number": 38007,
+        "title": "fix(core): Allow a fallback model alongside the primary on AI nodes",
+        "url": "https://github.com/n8n-io/n8n/pull/38007",
+        "merged_at": "2026-09-08T10:25:34Z"
+      },
+      {
+        "number": 38006,
+        "title": "chore: Share the data-table row file prefix between the export and import services",
+        "url": "https://github.com/n8n-io/n8n/pull/38006",
+        "merged_at": "2026-09-07T19:54:26Z"
+      },
+      {
+        "number": 38001,
+        "title": "chore: Extract the duplicated stringifyQuery helper in the public API data-table handlers",
+        "url": "https://github.com/n8n-io/n8n/pull/38001",
+        "merged_at": "2026-09-07T16:29:37Z"
+      }
+    ]
+  },
+  "roadmap": {
+    "open_prs": [
+      {
+        "number": 38110,
+        "title": "feat(core): Read executions from the data plane and merge with the DB",
+        "url": "https://github.com/n8n-io/n8n/pull/38110",
+        "updated_at": "2026-09-10T13:21:09Z",
+        "draft": true
+      },
+      {
+        "number": 38070,
+        "title": "refactor(core): Connect cursor pagination end-to-end and drop unused range fields",
+        "url": "https://github.com/n8n-io/n8n/pull/38070",
+        "updated_at": "2026-09-10T13:20:20Z",
+        "draft": false
+      },
+      {
+        "number": 35696,
+        "title": "chore: 3.x comparison PR",
+        "url": "https://github.com/n8n-io/n8n/pull/35696",
+        "updated_at": "2026-09-10T13:18:19Z",
+        "draft": true
+      },
+      {
+        "number": 37835,
+        "title": "feat(core): Enable the workflow publication service by default",
+        "url": "https://github.com/n8n-io/n8n/pull/37835",
+        "updated_at": "2026-09-10T13:17:43Z",
+        "draft": false
+      },
+      {
+        "number": 38334,
+        "title": "fix(editor): Disable 'pining' redacted data if user does not have permission to un-redact it",
+        "url": "https://github.com/n8n-io/n8n/pull/38334",
+        "updated_at": "2026-09-10T13:16:44Z",
+        "draft": false
+      },
+      {
+        "number": 37962,
+        "title": "fix(core): Document the webhook input envelope and check simulated-node parameters in AI Assistant verification (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/37962",
+        "updated_at": "2026-09-10T13:14:58Z",
+        "draft": false
+      },
+      {
+        "number": 38335,
+        "title": "feat(LangChain Code Node)!: Remove LangChain Code node",
+        "url": "https://github.com/n8n-io/n8n/pull/38335",
+        "updated_at": "2026-09-10T13:14:36Z",
+        "draft": true
+      },
+      {
+        "number": 38332,
+        "title": "feat(core): Let built apps read and write bound data tables",
+        "url": "https://github.com/n8n-io/n8n/pull/38332",
+        "updated_at": "2026-09-10T13:14:32Z",
+        "draft": true
+      },
+      {
+        "number": 38331,
+        "title": "feat(core): Add node type policy telemetry events (no-changelog)",
+        "url": "https://github.com/n8n-io/n8n/pull/38331",
+        "updated_at": "2026-09-10T13:13:52Z",
+        "draft": false
+      },
+      {
+        "number": 38328,
+        "title": "fix(core): Settle answered confirmation cards in the AI Assistant run-sync frame",
+        "url": "https://github.com/n8n-io/n8n/pull/38328",
+        "updated_at": "2026-09-10T13:11:52Z",
+        "draft": true
+      }
+    ],
+    "requests": [
+      {
+        "number": 28891,
+        "title": "Chat Trigger public chat URL returns \"Connection rejected\" after upgrade from 2.16.x to 2.17.4",
+        "url": "https://github.com/n8n-io/n8n/issues/28891",
+        "comments": 25,
+        "labels": [
+          "status:in-linear"
+        ]
+      },
+      {
+        "number": 31837,
+        "title": "Webhook trigger firing multiple times",
+        "url": "https://github.com/n8n-io/n8n/issues/31837",
+        "comments": 17,
+        "labels": [
+          "team:cats",
+          "status:in-linear",
+          "status:team-assigned"
+        ]
+      },
+      {
+        "number": 29127,
+        "title": "Nested object is unexpectedly mutated across sibling branches during execution",
+        "url": "https://github.com/n8n-io/n8n/issues/29127",
+        "comments": 15,
+        "labels": [
+          "team:cats",
+          "status:in-linear",
+          "status:team-assigned"
+        ]
+      },
+      {
+        "number": 26373,
+        "title": "Sub-agents unable to use MCP Tools due to Engine Request architecture",
+        "url": "https://github.com/n8n-io/n8n/issues/26373",
+        "comments": 15,
+        "labels": [
+          "team:ai",
+          "status:in-linear",
+          "status:team-assigned",
+          "closed:requested"
+        ]
+      },
+      {
+        "number": 33539,
+        "title": "After upgrading to 2.28.6, the Agent's calls to sub-workflows consistently return node data from the trigger instead of the data from the final node.",
+        "url": "https://github.com/n8n-io/n8n/issues/33539",
+        "comments": 14,
+        "labels": [
+          "Needs Feedback",
+          "team:cats",
+          "status:in-linear",
+          "status:team-assigned"
+        ]
+      },
+      {
+        "number": 25852,
+        "title": "Chat UI Error: 'type' must be 'output_text' after second message in conversation",
+        "url": "https://github.com/n8n-io/n8n/issues/25852",
+        "comments": 13,
+        "labels": [
+          "triage:needs-info",
+          "triage:complete",
+          "status:in-linear",
+          "status:team-assigned",
+          "team:chat"
+        ]
+      },
+      {
+        "number": 32278,
+        "title": "Cannot register local n8n mcp with my claude desktop connector",
+        "url": "https://github.com/n8n-io/n8n/issues/32278",
+        "comments": 12,
+        "labels": [
+          "triage:pending",
+          "status:in-linear"
+        ]
+      },
+      {
+        "number": 26394,
+        "title": "MCP tool calls fail in queue mode: `Tool node \"\" does not have supplyData method` + `Worker tool execution timeout`",
+        "url": "https://github.com/n8n-io/n8n/issues/26394",
+        "comments": 12,
+        "labels": [
+          "Needs Feedback",
+          "team:nodes",
+          "team:cats",
+          "team:ai",
+          "status:in-linear",
+          "status:team-assigned",
+          "closed:requested"
+        ]
+      },
+      {
+        "number": 24986,
+        "title": "Overview page has stopped tracking execution counts",
+        "url": "https://github.com/n8n-io/n8n/issues/24986",
+        "comments": 12,
+        "labels": [
+          "status:in-linear",
+          "status:team-assigned",
+          "team:lifecycle"
+        ]
+      },
+      {
+        "number": 25276,
+        "title": "Vector Store Question Answer Tool generates invalid schema in v2.6.3 - breaks OpenAI and Anthropic",
+        "url": "https://github.com/n8n-io/n8n/issues/25276",
+        "comments": 11,
+        "labels": [
+          "team:ai",
+          "status:in-linear",
+          "status:team-assigned"
+        ]
+      }
+    ],
+    "themes": []
+  },
+  "collected": {
+    "by": "1b-issues",
+    "at": "2026-09-10T13:22:58.693Z"
+  }
+}

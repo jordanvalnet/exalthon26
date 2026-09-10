@@ -1,0 +1,18 @@
+{
+  "build": {
+    "install": "pnpm install",
+    "run": "pnpm start",
+    "test": "pnpm test"
+  },
+  "ai_docs": {
+    "files": [
+      { "path": "AGENTS.md", "kind": "agents_md" },
+      { "path": "CLAUDE.md", "kind": "claude_md" },
+      { "path": ".github/CLAUDE.md", "kind": "claude_md" },
+      { "path": ".claude/", "kind": "skills_dir" }
+    ],
+    "score": 3,
+    "max": 7
+  },
+  "collected": { "by": "1c-docs", "at": "2026-09-10T13:23:45Z" }
+}

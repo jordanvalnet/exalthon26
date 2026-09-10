@@ -17,7 +17,10 @@ export function buildDeck(facts: Facts, narrative: string, profile: Profile): st
   const last = sections[sections.length - 1];
   const written = last && profile.finale && last.title === profile.finale ? last : undefined;
   const questions = written ? sections.slice(0, -1) : sections;
-  const total = questions.length + 2;
+  // La page Sources existe dès qu'une référence publique [gh:…] est citée : elle compte dans la pagination.
+  const refs = notes !== undefined && sections.some((s) => /\[gh:/.test(`${s.takeaway ?? ""} ${s.body}`));
+  const closing = questions.length + 2;
+  const total = refs ? closing + 1 : closing;
   const day = formatDate(String(facts.collected.at));
   const foot = (n: number) => footer(facts.repo.full_name, day, profile.name, n, total);
 
@@ -25,8 +28,8 @@ export function buildDeck(facts: Facts, narrative: string, profile: Profile): st
   const body =
     cover(facts, profile, title) +
     pages +
-    finale(facts, profile, written, notes, foot(total)) +
-    (notes?.list().length ? sources(notes) : "");
+    finale(facts, profile, written, notes, foot(closing)) +
+    (notes?.list().length ? sources(notes, foot(total)) : "");
   return shell(title || facts.repo.full_name, body, profile.name);
 }
 
@@ -68,7 +71,7 @@ function cover(facts: Facts, profile: Profile, title: string): string {
   return `<section class="cover">
 <div class="cover-top"><span class="eyebrow">${escapeHtml(eyebrow)}</span><span class="date">Données GitHub relevées le ${escapeHtml(formatDate(String(facts.collected.at)))}</span></div>
 <p class="repo">${escapeHtml(repo.full_name)}</p>
-<h1>${escapeHtml(title || repo.full_name)}</h1>
+<h1>${renderInline(title || repo.full_name)}</h1>
 ${repo.description ? `<p class="desc">${escapeHtml(repo.description)}</p>` : ""}
 ${tiles ? `<ul class="kpis">${tiles}</ul>` : ""}
 <p class="cover-foot">${foot.map((f) => `<span>${f}</span>`).join("")}</p>
@@ -106,12 +109,12 @@ function factualFinale(facts: Facts, profile: Profile): string {
 }
 
 // Uniquement les références publiques : une URL par note. Le cache interne n'apparaît jamais dans le deck.
-function sources(notes: Notes): string {
+function sources(notes: Notes, foot: string): string {
   const items = notes
     .list()
     .map((cite) => `<li id="note-${cite.n}"><a href="${escapeHtml(cite.ref)}">${escapeHtml(cite.ref)}</a></li>`)
     .join("");
-  return `<section class="refs"><header><span class="kicker">références publiques</span><h2>Sources</h2></header><div class="body"><ol class="sources">${items}</ol></div></section>`;
+  return `<section class="refs"><header><span class="kicker">références publiques</span><h2>Sources</h2></header><div class="body"><ol class="sources">${items}</ol></div>${foot}</section>`;
 }
 
 // Une cellule de tableau qui ne contient qu'un niveau de risque devient une pastille : « high » se lit sans chercher.
@@ -129,7 +132,7 @@ function shell(title: string, body: string, profile: string): string {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${escapeHtml(title)}</title>
+<title>${escapeHtml(title.replace(/[`*]/g, ""))}</title>
 <style>${css(profile)}</style>
 </head>
 <body class="p-${escapeHtml(profile)}">

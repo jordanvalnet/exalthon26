@@ -43,6 +43,7 @@ th { font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.06em; color
 
 /* Couverture */
 .cover { justify-content: center; background: var(--cover-bg); color: var(--cover-fg); border: 0; }
+.cover h1 code { background: rgba(255,255,255,0.14); color: inherit; padding: 0 0.25em; font-size: 0.85em; }
 .cover a { color: inherit; }
 .cover-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 40px; }
 .eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.8rem; font-weight: 700; }
@@ -61,7 +62,7 @@ th { font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.06em; color
 .page header, .finale header { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
 .kicker { font: 700 0.78rem/1 var(--mono); color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; }
 .takeaway { margin: 0 0 22px; padding: 14px 20px; border-left: 5px solid var(--accent); background: var(--bg); font-size: 1.12em; font-weight: 600; line-height: 1.45; border-radius: 0 10px 10px 0; }
-.body.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; align-items: start; }
+.body.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; align-items: start; align-content: start; }
 .body.split .chart-wrap { min-width: 0; }
 .body.stack .chart-wrap { margin-bottom: 20px; }
 footer { display: flex; justify-content: space-between; gap: 12px; margin-top: 26px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.78rem; }
@@ -150,6 +151,8 @@ footer .n { font-family: var(--mono); }
   .p-ceo .takeaway { font-size: 1.3rem; margin-bottom: 16px; }
   .p-ceo .risks li { padding: 2px 0; }
   .body.split { gap: 22px; }
+  .p-ceo .chart { max-height: 52mm; }
+  .p-enfant .chart { max-height: 60mm; }
   .takeaway { font-size: 1.05em; padding: 10px 16px; margin-bottom: 14px; }
   th, td { padding: 5px 10px; }
   footer { margin-top: 14px; padding-top: 8px; }
@@ -218,7 +221,7 @@ footer .n { font-family: var(--mono); }
 <section class="page">
 <header><span class="kicker">06</span><h2>Quels sont les trois risques ?</h2></header>
 <p class="takeaway">Le vrai risque n'est ni la licence ni le contrôle qualité, c'est la personne clé : un seul pilote et 90 briques externes à surveiller.</p>
-<div class="body split"><div class="chart-wrap"><ul class="risks"><li><span class="light low" aria-hidden="true"></span><b>license</b><span class="role">Apache-2.0 : licence permissive.</span></li><li><span class="light high" aria-hidden="true"></span><b>bus_factor</b><span class="role">Un seul contributeur porte la moitié des commits sur 12 semaines.</span></li><li><span class="light mid" aria-hidden="true"></span><b>deps</b><span class="role">117 entrées dans [workspace.dependencies] de Cargo.toml : 27 crates internes (path) et 90 crates externes, dont 8 épinglées en version exacte (=). Cargo.lock versionné (217 Ko). Nombre de dépendances transitives non relevé.</span></li><li><span class="light low" aria-hidden="true"></span><b>ci</b><span class="role">20 workflows dans .github/workflows. ci.yml (push sur main et stream-*, pull_request) enchaîne cargo check, fmt, clippy -D warnings, cargo test --workspace (ubuntu et macos), MSRV 1.95, cargo-audit, builds release Linux gnu/musl, tests natifs Windows, portabilité wasm32.</span></li></ul></div><div class="text"><p>Risque 1, élevé : la dépendance à une personne. Un seul contributeur porte la moitié des modifications sur 12 semaines. Un départ, une maladie, et il n'y a plus de pilote.</p>
+<div class="body split"><div class="chart-wrap"><ul class="risks"><li><span class="light low" aria-hidden="true"></span><b>license</b><span class="role">Apache-2.0 : licence permissive.</span></li><li><span class="light high" aria-hidden="true"></span><b>bus_factor</b><span class="role">Un seul contributeur porte la moitié des commits sur 12 semaines.</span></li><li><span class="light mid" aria-hidden="true"></span><b>deps</b><span class="role">117 entrées dans [workspace.dependencies] de Cargo.toml : 27 crates internes (path) et 90 crates externes, dont 8 épinglées en version exacte (=). Cargo.lock versionné (217 Ko). Nombre de d…</span></li><li><span class="light low" aria-hidden="true"></span><b>ci</b><span class="role">20 workflows dans .github/workflows. ci.yml (push sur main et stream-*, pull_request) enchaîne cargo check, fmt, clippy -D warnings, cargo test --workspace (ubuntu et macos), MSRV 1.95, car…</span></li></ul></div><div class="text"><p>Risque 1, élevé : la dépendance à une personne. Un seul contributeur porte la moitié des modifications sur 12 semaines. Un départ, une maladie, et il n'y a plus de pilote.</p>
 <p>Risque 2, moyen : les fournisseurs techniques. Le projet s'appuie sur 90 briques externes ; le nombre de briques indirectes n'a pas été relevé. Comme une chaîne d'approvisionnement, chaque maillon peut casser.</p>
 <p>Risque 3, à surveiller : la maturité. 46 tickets portent l'étiquette sécurité et 91 « à concevoir », signe d'un produit encore en construction.</p>
 <p>Ce qui rassure : licence permissive, risque faible, et une chaîne de contrôle automatique très fournie, 20 procédures de vérification, risque faible.</p></div></div>

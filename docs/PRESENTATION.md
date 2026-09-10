@@ -165,12 +165,16 @@ Trois règles tiennent l'ensemble :
 
 Le cache est du texte versionné : on relit, on diffe, on corrige à la main, on rejoue l'étape suivante.
 
-## Deux dépôts, douze decks
+## Six dépôts, trente-six decks
 
 | Dépôt | dev | qa | cto | ceo | investisseur | enfant |
 |---|---|---|---|---|---|---|
 | [mksglu/context-mode](https://github.com/mksglu/context-mode) · serveur MCP, TypeScript, 21 k ★ | [PDF](../onboard/cache/mksglu__context-mode/deck-dev.pdf) | [PDF](../onboard/cache/mksglu__context-mode/deck-qa.pdf) | [PDF](../onboard/cache/mksglu__context-mode/deck-cto.pdf) | [PDF](../onboard/cache/mksglu__context-mode/deck-ceo.pdf) | [PDF](../onboard/cache/mksglu__context-mode/deck-investisseur.pdf) | [PDF](../onboard/cache/mksglu__context-mode/deck-enfant.pdf) |
 | [astrid-runtime/astrid](https://github.com/astrid-runtime/astrid) · runtime d'agents, Rust, 10 k ★ | [PDF](../onboard/cache/astrid-runtime__astrid/deck-dev.pdf) | [PDF](../onboard/cache/astrid-runtime__astrid/deck-qa.pdf) | [PDF](../onboard/cache/astrid-runtime__astrid/deck-cto.pdf) | [PDF](../onboard/cache/astrid-runtime__astrid/deck-ceo.pdf) | [PDF](../onboard/cache/astrid-runtime__astrid/deck-investisseur.pdf) | [PDF](../onboard/cache/astrid-runtime__astrid/deck-enfant.pdf) |
+| [jordanvalnet/exalthon26](https://github.com/jordanvalnet/exalthon26) · Onboard lui-même | [PDF](../onboard/cache/jordanvalnet__exalthon26/deck-dev.pdf) | [PDF](../onboard/cache/jordanvalnet__exalthon26/deck-qa.pdf) | [PDF](../onboard/cache/jordanvalnet__exalthon26/deck-cto.pdf) | [PDF](../onboard/cache/jordanvalnet__exalthon26/deck-ceo.pdf) | [PDF](../onboard/cache/jordanvalnet__exalthon26/deck-investisseur.pdf) | [PDF](../onboard/cache/jordanvalnet__exalthon26/deck-enfant.pdf) |
+| [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) · framework d'agents à états, Python, 41 k ★ | [PDF](../onboard/cache/langchain-ai__langgraph/deck-dev.pdf) | [PDF](../onboard/cache/langchain-ai__langgraph/deck-qa.pdf) | [PDF](../onboard/cache/langchain-ai__langgraph/deck-cto.pdf) | [PDF](../onboard/cache/langchain-ai__langgraph/deck-ceo.pdf) | [PDF](../onboard/cache/langchain-ai__langgraph/deck-investisseur.pdf) | [PDF](../onboard/cache/langchain-ai__langgraph/deck-enfant.pdf) |
+| [n8n-io/n8n](https://github.com/n8n-io/n8n) · automatisation et IA, TypeScript, 204 k ★, énorme flux d'issues | [PDF](../onboard/cache/n8n-io__n8n/deck-dev.pdf) | [PDF](../onboard/cache/n8n-io__n8n/deck-qa.pdf) | [PDF](../onboard/cache/n8n-io__n8n/deck-cto.pdf) | [PDF](../onboard/cache/n8n-io__n8n/deck-ceo.pdf) | [PDF](../onboard/cache/n8n-io__n8n/deck-investisseur.pdf) | [PDF](../onboard/cache/n8n-io__n8n/deck-enfant.pdf) |
+| [jordanvalnet/code-dev-intel.ts](https://github.com/jordanvalnet/code-dev-intel.ts) · intelligence de code TypeScript auto-hébergée | [PDF](../onboard/cache/jordanvalnet__code-dev-intel.ts/deck-dev.pdf) | [PDF](../onboard/cache/jordanvalnet__code-dev-intel.ts/deck-qa.pdf) | [PDF](../onboard/cache/jordanvalnet__code-dev-intel.ts/deck-cto.pdf) | [PDF](../onboard/cache/jordanvalnet__code-dev-intel.ts/deck-ceo.pdf) | [PDF](../onboard/cache/jordanvalnet__code-dev-intel.ts/deck-investisseur.pdf) | [PDF](../onboard/cache/jordanvalnet__code-dev-intel.ts/deck-enfant.pdf) |
 
 Les caches complets, faits, sources, narratifs, glossaires et FAQ, sont dans [onboard/cache/](../onboard/cache/).
 

@@ -1,0 +1,177 @@
+{
+  "schema": 1,
+  "resets": {},
+  "collectors": {
+    "1a-meta": {
+      "at": "2026-09-10T14:13:13.333Z",
+      "budget": 12,
+      "deadline_s": 60,
+      "calls": 11,
+      "remaining": 1,
+      "ms": 11709,
+      "waited_ms": 0,
+      "made": [
+        {
+          "label": "repo",
+          "tool": "search_repositories",
+          "priority": "P0",
+          "ms": 1007,
+          "ok": true
+        },
+        {
+          "label": "commits",
+          "tool": "list_commits",
+          "priority": "P1",
+          "ms": 2302,
+          "ok": true
+        },
+        {
+          "label": "commits",
+          "tool": "list_commits",
+          "priority": "P1",
+          "ms": 501,
+          "ok": true
+        },
+        {
+          "label": "releases",
+          "tool": "list_releases",
+          "priority": "P1",
+          "ms": 776,
+          "ok": true
+        },
+        {
+          "label": "license",
+          "tool": "get_file_contents",
+          "priority": "P1",
+          "ms": 1113,
+          "ok": true
+        },
+        {
+          "label": "security",
+          "tool": "get_file_contents",
+          "priority": "P1",
+          "ms": 1291,
+          "ok": false
+        },
+        {
+          "label": "security",
+          "tool": "get_file_contents",
+          "priority": "P1",
+          "ms": 995,
+          "ok": false
+        },
+        {
+          "label": "funding",
+          "tool": "get_file_contents",
+          "priority": "P2",
+          "ms": 992,
+          "ok": false
+        },
+        {
+          "label": "codeowners",
+          "tool": "get_file_contents",
+          "priority": "P2",
+          "ms": 982,
+          "ok": false
+        },
+        {
+          "label": "codeowners",
+          "tool": "get_file_contents",
+          "priority": "P2",
+          "ms": 994,
+          "ok": false
+        },
+        {
+          "label": "competitors",
+          "tool": "search_repositories",
+          "priority": "P2",
+          "ms": 671,
+          "ok": true
+        }
+      ],
+      "skipped": []
+    },
+    "1b-issues": {
+      "at": "2026-09-10T14:13:25.181Z",
+      "budget": 12,
+      "deadline_s": 60,
+      "calls": 10,
+      "remaining": 2,
+      "ms": 15922,
+      "waited_ms": 0,
+      "made": [
+        {
+          "label": "repo",
+          "tool": "search_repositories",
+          "priority": "P0",
+          "ms": 990,
+          "ok": true
+        },
+        {
+          "label": "issues",
+          "tool": "list_issues",
+          "priority": "P1",
+          "ms": 2146,
+          "ok": true
+        },
+        {
+          "label": "issues",
+          "tool": "list_issues",
+          "priority": "P1",
+          "ms": 2661,
+          "ok": true
+        },
+        {
+          "label": "issues",
+          "tool": "list_issues",
+          "priority": "P1",
+          "ms": 2251,
+          "ok": true
+        },
+        {
+          "label": "pulls",
+          "tool": "list_pull_requests",
+          "priority": "P1",
+          "ms": 1159,
+          "ok": true
+        },
+        {
+          "label": "pulls",
+          "tool": "list_pull_requests",
+          "priority": "P1",
+          "ms": 1388,
+          "ok": true
+        },
+        {
+          "label": "pulls",
+          "tool": "list_pull_requests",
+          "priority": "P1",
+          "ms": 1266,
+          "ok": true
+        },
+        {
+          "label": "open_prs",
+          "tool": "list_pull_requests",
+          "priority": "P1",
+          "ms": 594,
+          "ok": true
+        },
+        {
+          "label": "open_pr_count",
+          "tool": "search_pull_requests",
+          "priority": "P1",
+          "ms": 531,
+          "ok": true
+        },
+        {
+          "label": "closed_30d",
+          "tool": "list_issues",
+          "priority": "P2",
+          "ms": 2921,
+          "ok": true
+        }
+      ],
+      "skipped": []
+    }
+  }
+}

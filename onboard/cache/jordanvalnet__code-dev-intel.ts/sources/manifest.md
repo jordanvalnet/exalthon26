@@ -1,0 +1,122 @@
+---
+path: package.json
+url: https://github.com/jordanvalnet/code-dev-intel.ts/blob/HEAD/package.json
+fetched_at: 2026-09-10T13:25:00Z
+---
+{
+  "name": "code-dev-intel.ts",
+  "version": "0.5.0",
+  "private": false,
+  "type": "module",
+  "description": "Self-hosted AI code intelligence for TypeScript — symbol resolution, structural search, duplicate detection, and dependency graphs via MCP server.",
+  "keywords": [
+    "code-intelligence",
+    "mcp",
+    "typescript",
+    "ai",
+    "symbol-resolution",
+    "duplicate-detection",
+    "ast-grep",
+    "ripgrep"
+  ],
+  "author": "jordanvalnet",
+  "license": "AGPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jordanvalnet/code-dev-intel.ts.git"
+  },
+  "homepage": "https://github.com/jordanvalnet/code-dev-intel.ts#readme",
+  "bugs": {
+    "url": "https://github.com/jordanvalnet/code-dev-intel.ts/issues"
+  },
+  "main": "./dist/code-intel-mcp/src/server.js",
+  "bin": {
+    "code-dev-intel": "dist/code-intel-mcp/src/server.js"
+  },
+  "exports": {
+    ".": "./dist/code-intel-mcp/src/server.js",
+    "./contracts": "./dist/code-intel-mcp/src/contracts.js"
+  },
+  "files": [
+    "dist/",
+    "schemas/",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "packageManager": "pnpm@10.34.5",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=10.0.0"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "prepack": "pnpm build",
+    "mcp:start": "node --experimental-strip-types ./services/code-intel-mcp/src/server.ts",
+    "mcp:start:logs": "node --experimental-strip-types ./services/code-intel-mcp/src/server.ts --log-requests",
+    "mcp:self-test": "node --experimental-strip-types ./services/code-intel-mcp/src/server.ts --self-test",
+    "indexer:impacted": "node --experimental-strip-types ./services/indexer/src/indexer-runner.ts --mode=impacted",
+    "indexer:smoke": "node ./scripts/indexer-smoke.mjs",
+    "release:smoke": "node ./scripts/release-smoke.mjs",
+    "lint": "eslint . --max-warnings 0",
+    "type-check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "security:scan": "node --experimental-strip-types ./services/security/opengrep-runner.ts",
+    "pr:check-memory-reference": "node --experimental-strip-types ./services/governance/pr-memory-reference-check.ts",
+    "ci:quality": "pnpm lint && pnpm type-check && pnpm test",
+    "ci:security": "pnpm security:scan",
+    "ci:indexer": "pnpm indexer:smoke",
+    "perf:benchmark": "node ./scripts/perf-benchmark.mjs --mode=local",
+    "perf:benchmark:ci": "node ./scripts/perf-benchmark.mjs --mode=ci --iterations=2",
+    "test:all": "pnpm lint && pnpm type-check && pnpm test",
+    "docker:core:up": "docker compose -f docker/docker-compose.yml --profile core up -d",
+    "docker:core:down": "docker compose -f docker/docker-compose.yml --profile core down",
+    "docker:all:up": "docker compose -f docker/docker-compose.yml --profile core --profile search-optional up -d",
+    "docker:all:down": "docker compose -f docker/docker-compose.yml --profile core --profile search-optional down",
+    "docker:zoekt:up": "docker compose -f docker/docker-compose.yml --profile core --profile zoekt-optional up -d code-intel-mcp zoekt-webserver",
+    "docker:zoekt:index": "docker compose -f docker/docker-compose.yml --profile zoekt-optional run --rm zoekt-index",
+    "docker:zoekt:down": "docker compose -f docker/docker-compose.yml --profile core --profile zoekt-optional down"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^26.4.1",
+    "@types/picomatch": "^4.0.3",
+    "@vitest/coverage-v8": "^5.0.0",
+    "eslint": "^10.10.0",
+    "globals": "^17.12.0",
+    "typescript-eslint": "^8.69.0",
+    "vite": "^8.2.2",
+    "vitest": "^5.0.0"
+  },
+  "dependencies": {
+    "@ast-grep/cli": "^0.45.3",
+    "@vscode/ripgrep": "^1.18.0",
+    "picomatch": "^4.0.7",
+    "typescript": "^6.0.3",
+    "zod": "^4.5.4"
+  },
+  "pnpm": {
+    "overrides": {
+      "esbuild@<0.28.1": "0.28.1",
+      "minimatch@<3.1.4": "3.1.5",
+      "minimatch@>=9.0.0 <9.0.7": "9.0.9",
+      "flatted@<3.4.2": "3.4.2",
+      "brace-expansion@<1.1.18": "1.1.18",
+      "brace-expansion@>=2.0.0 <2.1.4": "2.1.4",
+      "postcss@<8.5.23": "8.5.23",
+      "js-yaml@>=4.0.0 <4.3.1": "4.3.1",
+      "nanoid@<3.3.18": "3.3.18",
+      "@humanfs/node@<0.16.8": "0.16.8"
+    }
+  },
+  "optionalDependencies": {
+    "@ast-grep/cli-win32-x64-msvc": "0.45.3",
+    "@ast-grep/cli-win32-arm64-msvc": "0.45.3",
+    "@ast-grep/cli-win32-ia32-msvc": "0.45.3",
+    "@ast-grep/cli-darwin-x64": "0.45.3",
+    "@ast-grep/cli-darwin-arm64": "0.45.3",
+    "@ast-grep/cli-linux-x64-gnu": "0.45.3",
+    "@ast-grep/cli-linux-arm64-gnu": "0.45.3"
+  }
+}

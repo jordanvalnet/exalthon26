@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LangGraph : le socle sur lequel des entreprises font tourner leurs agents IA, très adopté, très vivant, tenu par peu de monde</title>
+<style>
+:root {
+  --bg: #f5f5f3; --card: #ffffff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2;
+  --accent: #4f5bd5; --accent-2: #d1495b; --accent-ink: #ffffff;
+  --cover-bg: #17181c; --cover-fg: #ffffff; --cover-muted: #b7bccb;
+  --low: #2e9e6b; --mid: #d99a2b; --high: #d1495b;
+  --font: ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --display: var(--font); --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --radius: 12px; --pad: 40px 48px; --width: 1040px; --min-h: 600px;
+  --h1: 2.8rem; --h2: 1.7rem; --text: 1.02rem; --kpi: 2.6rem;
+}
+* { box-sizing: border-box; }
+html { font-size: 16px; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 1rem/1.55 var(--font); }
+section {
+  position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  max-width: var(--width); margin: 28px auto; padding: var(--pad); min-height: var(--min-h); font-size: var(--text);
+  display: flex; flex-direction: column;
+}
+section > .body { flex: 1; }
+h1 { font: 700 var(--h1)/1.1 var(--display); letter-spacing: -0.01em; margin: 0 0 16px; }
+h2 { font: 700 var(--h2)/1.2 var(--display); margin: 0 0 10px; }
+p { margin: 0 0 10px; }
+ul, ol { margin: 0 0 12px; padding-left: 22px; }
+li { margin: 0 0 6px; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code { font: 0.88em var(--mono); background: var(--bg); padding: 1px 6px; border-radius: 5px; }
+pre { background: #14151a; color: #e8eaf1; padding: 14px 18px; border-radius: 10px; overflow-x: auto; margin: 0 0 14px; font-size: 0.9em; line-height: 1.5; }
+pre code { background: none; padding: 0; color: inherit; font-size: 1em; }
+strong { font-weight: 700; }
+table { border-collapse: collapse; width: 100%; margin: 0 0 14px; font-size: 0.94em; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); border-bottom: 2px solid var(--accent); }
+.level { display: inline-block; padding: 1px 10px; border-radius: 999px; font-size: 0.8em; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.04em; }
+.level.low { background: var(--low); } .level.mid { background: var(--mid); } .level.high { background: var(--high); }
+
+/* Couverture */
+.cover { justify-content: center; background: var(--cover-bg); color: var(--cover-fg); border: 0; }
+.cover h1 code { background: rgba(255,255,255,0.14); color: inherit; padding: 0 0.25em; font-size: 0.85em; }
+.cover a { color: inherit; }
+.cover-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 40px; }
+.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.8rem; font-weight: 700; }
+.date, .repo, .cover-foot { color: var(--cover-muted); font-size: 0.9rem; }
+.repo { font-family: var(--mono); font-size: 1rem; margin: 0 0 12px; }
+.cover .desc { color: var(--cover-muted); font-size: 1.1rem; max-width: 46em; margin-bottom: 32px; }
+.kpis { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; padding: 0; margin: 0 0 32px; }
+.kpis li { border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; padding: 14px 18px; background: rgba(255,255,255,0.05); }
+.kpis b { display: block; font: 700 var(--kpi)/1 var(--display); letter-spacing: -0.02em; margin-bottom: 6px; }
+.kpis span { display: block; font-size: 0.82rem; color: var(--cover-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.kpis b.long { font-size: calc(var(--kpi) * 0.62); padding: 0.25em 0; }
+.kpis small { display: block; font-size: 0.78rem; color: var(--cover-muted); margin-top: 3px; text-transform: none; letter-spacing: 0; }
+.cover-foot { margin: 0; display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* Pages */
+.page header, .finale header { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+.kicker { font: 700 0.78rem/1 var(--mono); color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; }
+.takeaway { margin: 0 0 22px; padding: 14px 20px; border-left: 5px solid var(--accent); background: var(--bg); font-size: 1.12em; font-weight: 600; line-height: 1.45; border-radius: 0 10px 10px 0; }
+.body.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; align-items: start; align-content: start; }
+.body.split .chart-wrap { min-width: 0; }
+.body.stack .chart-wrap { margin-bottom: 20px; }
+footer { display: flex; justify-content: space-between; gap: 12px; margin-top: 26px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.78rem; }
+footer .n { font-family: var(--mono); }
+
+/* Graphiques SVG et listes annotées (charts.ts) */
+.chart { display: block; width: 100%; height: auto; max-width: 640px; margin: 0 0 12px; }
+.chart text { font-family: var(--font); fill: var(--fg); }
+.chart .lbl { font-size: 12px; }
+.chart .val, .chart .tick { font-size: 11px; fill: var(--muted); }
+.chart .bar { fill: var(--accent); }
+.chart .bar.strong { fill: var(--accent-2); }
+.chart .bar.off { fill: var(--line); }
+.chart .dot { fill: var(--accent); }
+.chart .axis { stroke: var(--line); stroke-width: 1; }
+.tree, .risks { list-style: none; margin: 0 0 14px; padding: 0; font-size: 0.92em; }
+.tree li, .risks li { display: flex; gap: 10px; align-items: baseline; padding: 4px 0; border-bottom: 1px solid var(--line); }
+.tree code { flex: 0 0 auto; }
+.tree .more { color: var(--muted); border: 0; font-style: italic; }
+.role { color: var(--muted); font-size: 0.9em; }
+.light { width: 11px; height: 11px; border-radius: 50%; flex: 0 0 auto; background: var(--muted); }
+.light.low { background: var(--low); } .light.mid { background: var(--mid); } .light.high { background: var(--high); }
+
+/* Finale et sources */
+.finale { border: 2px solid var(--accent); }
+.finale .body { font-size: 1.08em; }
+.finale ol, .finale ul { padding-left: 26px; }
+.finale li { margin-bottom: 10px; }
+.refs { min-height: 0; }
+.refs ol { padding-left: 22px; font-size: 0.86rem; column-count: 2; column-gap: 32px; }
+.refs li { margin-bottom: 6px; break-inside: avoid; }
+.note { font-size: 0.68em; }
+.note a { text-decoration: none; padding: 0 1px; }
+
+.p-ceo { --accent: #14213d; --accent-2: #c9a227; --cover-bg: #14213d; --cover-fg: #fdfbf5; --cover-muted: #c8cfe0; --bg: #f7f5ef; --card: #fffdf8; --line: #e6e1d3;
+  --display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif; --h1: 3.2rem; --h2: 2.3rem; --text: 1.12rem; --kpi: 3.2rem; --pad: 56px 64px; --min-h: 640px; }
+.p-ceo h1, .p-ceo h2 { font-weight: 600; letter-spacing: 0; }
+.p-ceo .cover { background: radial-gradient(ellipse at 20% 10%, #22345e 0%, #14213d 55%, #0e1730 100%); }
+.p-ceo .cover .eyebrow { color: var(--accent-2); }
+.p-ceo .cover h1 { max-width: 16em; }
+.p-ceo .kpis { grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid rgba(255,255,255,0.2); }
+.p-ceo .kpis li { border: 0; border-right: 1px solid rgba(255,255,255,0.2); border-radius: 0; background: none; padding: 22px 20px 8px 0; }
+.p-ceo .kpis li:last-child { border-right: 0; }
+.p-ceo .kpis li + li { padding-left: 20px; }
+.p-ceo .kpis b { color: var(--accent-2); }
+.p-ceo .kicker { color: var(--accent-2); font-family: var(--font); }
+.p-ceo h2 { color: var(--accent); }
+.p-ceo .takeaway { border: 0; background: none; padding: 6px 0 6px 36px; font: italic 500 1.55rem/1.35 var(--display); color: var(--accent); position: relative; margin-bottom: 28px; }
+.p-ceo .takeaway .note { opacity: 0.55; }
+.p-ceo .takeaway::before { content: "“"; position: absolute; left: 0; top: -6px; font-size: 3.2rem; color: var(--accent-2); line-height: 1; }
+.p-ceo .body p { max-width: 42em; }
+.p-ceo .body.split { grid-template-columns: 1fr; }
+.p-ceo .chart .bar { fill: var(--accent-2); }
+.p-ceo .chart .bar.strong { fill: var(--accent); }
+.p-ceo .finale { background: var(--accent); color: #fdfbf5; border: 0; }
+.p-ceo .finale .kicker, .p-ceo .finale h2 { color: var(--accent-2); }
+.p-ceo .finale .body { font-size: 1.25em; }
+.p-ceo .finale a, .p-ceo .finale .note a { color: var(--accent-2); }
+.p-ceo .finale footer { border-top-color: rgba(255,255,255,0.25); color: #c8cfe0; }
+.p-ceo footer { font-family: var(--font); }
+
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #14151a; --card: #1c1e25; --fg: #eceef3; --muted: #a0a6b4; --line: #2f323c; --low: #4cc38a; --mid: #e5b25d; --high: #ef7f8e; }
+  code { background: #262932; }
+  .p-dev { --accent: #8f97ee; --accent-2: #ef7f8e; }
+  .p-qa { --accent: #35c2a8; --accent-2: #ef7f8e; --bg: #14181a; --cover-bg: #1c2422; --cover-fg: #eef5f2; --cover-muted: #9fb8b0; }
+  .p-qa .kpis li { background: #213230; border-color: #2e4a45; }
+  .p-qa .takeaway, .p-qa .finale { background: #1f2b28; }
+  .p-qa tbody tr:nth-child(odd) { background: #1f2624; }
+  .p-cto { --accent: #7fa6d9; --accent-2: #f0b97a; --bg: #141821; }
+  .p-cto .takeaway { background: #2a2620; }
+  .p-cto .finale { background: #1f3a5f; }
+  .p-ceo { --accent: #dcc27a; --bg: #15171c; --card: #1c1e25; --line: #2f323c; }
+  .p-ceo .finale { background: #14213d; }
+  .p-investisseur { --accent: #5cc493; --accent-2: #dcb25f; --bg: #141816; --card: #1b201d; --line: #2c342f; --cover-bg: #1b201d; --cover-fg: #eef3ef; --cover-muted: #9fb0a6; }
+  .p-investisseur .kpis li { background: #16201b; }
+  .p-investisseur .finale { background: #1d6b4a; }
+}
+
+@media print {
+  @page { size: A4 landscape; margin: 10mm; }
+  html { font-size: 12px; }
+  .p-dev, .p-qa, .p-cto { --text: 0.9rem; }
+  .p-dev .tree, .p-qa .tree, .p-cto .tree { font-size: 0.82em; }
+  .p-ceo { --text: 1rem; }
+  .p-ceo .takeaway { font-size: 1.3rem; margin-bottom: 16px; }
+  .p-ceo .risks li { padding: 2px 0; }
+  .body.split { gap: 22px; }
+  .p-ceo .chart { max-height: 52mm; }
+  .p-enfant .chart { max-height: 60mm; }
+  .takeaway { font-size: 1.05em; padding: 10px 16px; margin-bottom: 14px; }
+  th, td { padding: 5px 10px; }
+  footer { margin-top: 14px; padding-top: 8px; }
+  .refs ol { column-count: 3; font-size: 0.82rem; }
+  .refs li { margin-bottom: 3px; }
+  body { background: #fff; }
+  :root, .p-dev, .p-qa, .p-cto, .p-ceo, .p-investisseur, .p-enfant { --bg: #f5f5f3; --card: #fff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2; }
+  .p-qa { --bg: #f2f7f5; } .p-cto { --bg: #f4f6f9; } .p-ceo { --bg: #f7f5ef; --card: #fffdf8; } .p-investisseur { --bg: #f6f6f2; } .p-enfant { --bg: #fff6e5; --card: #fffdf7; --fg: #2b2118; --muted: #7a6a5a; }
+  .p-ceo { --accent: #14213d; } .p-cto { --accent: #1f3a5f; } .p-dev { --accent: #4f5bd5; } .p-qa { --accent: #0f8f7a; } .p-investisseur { --accent: #1d6b4a; }
+  section { max-width: none; margin: 0; min-height: 178mm; break-after: page; page-break-after: always; box-shadow: none; --pad: 26px 36px; }
+  section:last-child { break-after: auto; page-break-after: auto; }
+  .p-enfant section { box-shadow: none; margin: 0; }
+  .cover { min-height: 178mm; }
+  .refs { min-height: 0; }
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  a { text-decoration: none; }
+}
+</style>
+</head>
+<body class="p-ceo">
+<section class="cover">
+<div class="cover-top"><span class="eyebrow">Synthèse pour la direction</span><span class="date">Données GitHub relevées le 10 sept. 2026</span></div>
+<p class="repo">langchain-ai/langgraph</p>
+<h1>LangGraph : le socle sur lequel des entreprises font tourner leurs agents IA, très adopté, très vivant, tenu par peu de monde</h1>
+<p class="desc">Build resilient agents.</p>
+<ul class="kpis"><li><b>41 386</b><span>étoiles GitHub</span></li><li><b>6 990</b><span>forks</span></li><li><b>10</b><span>contributeurs actifs</span><small>sur 12 semaines</small></li><li><b class="long">9 août 2023</b><span>créé le</span></li></ul>
+<p class="cover-foot"><span><a href="https://github.com/langchain-ai/langgraph">https://github.com/langchain-ai/langgraph</a></span><span>Licence MIT</span><span>Onboard · profil ceo</span></p>
+</section><section class="page">
+<header><span class="kicker">02</span><h2>Que fait ce projet, en une phrase, et pour qui ?</h2></header>
+<p class="takeaway">Ce n'est pas un produit qu'on achète, c'est une fondation gratuite sur laquelle des entreprises construisent leurs agents IA.</p>
+<div class="body"><div class="text"><p>LangGraph permet de construire des agents IA qui travaillent longtemps : ils s'arrêtent, attendent qu'une personne valide, encaissent une panne, puis repartent exactement où ils en étaient.</p>
+<p>Le projet se résume lui-même en trois mots : « Build resilient agents », construire des agents résilients.</p>
+<p>L'image la plus juste : le modèle d'IA est le cerveau, LangGraph est le système nerveux et la mémoire autour. Sans lui, un agent qui plante recommence à zéro ; avec lui, il reprend son travail.</p>
+<p>Le public visé n'est pas le grand public mais les équipes techniques qui mettent des agents en production. Sa page d'accueil cite Klarna, Replit et Elastic parmi les entreprises qui s'en servent.</p>
+<p>C'est un logiciel ouvert et gratuit, sous licence MIT : n'importe quelle société peut l'intégrer dans un produit payant sans redevance ni obligation de publier son propre code.</p></div></div>
+<footer><span class="repo-name">langchain-ai/langgraph · relevé le 10 sept. 2026</span><span class="n">ceo · 2 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">03</span><h2>Est-ce que ça marche et qui s'en sert ?</h2></header>
+<p class="takeaway">Adopté par des entreprises qui exposent leurs clients à cette technologie, mais avec une file d'attente de 528 demandes ouvertes.</p>
+<div class="body"><div class="text"><p>41 384 personnes ont mis ce projet en favori et 6 990 équipes en ont pris une copie pour travailler dessus : dans le monde du logiciel ouvert, ces deux chiffres sont l'équivalent d'une part de marché.</p>
+<p>La preuve la plus solide reste la liste des utilisateurs affichés : Klarna, Replit, Elastic, c'est-à-dire des entreprises qui exposent leurs propres clients à cette technologie.</p>
+<p>Le produit est livré au rythme d'une entreprise, pas d'un projet de garage : la version 1.2.11 du cœur date du 11 août 2026 et la dernière livraison relevée du 27 août 2026.</p>
+<p>Un numéro de version qui commence par 1 est un engagement public de stabilité : les clients existants ne seront pas cassés sans préavis.</p>
+<p>Le revers de l'adoption : 528 demandes d'aide ou de correction sont ouvertes, contre 7 refermées sur les trente derniers jours. Le succès arrive plus vite que le service après-vente.</p></div></div>
+<footer><span class="repo-name">langchain-ai/langgraph · relevé le 10 sept. 2026</span><span class="n">ceo · 3 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">04</span><h2>Le projet est-il vivant ?</h2></header>
+<p class="takeaway">Modifié la veille du relevé, 112 fois en douze semaines : ce projet n'est pas un dépôt abandonné, c'est un chantier permanent.</p>
+<div class="body split"><div class="chart-wrap"><svg class="chart" viewBox="0 0 640 172" width="640" height="172" role="img" preserveAspectRatio="xMinYMin meet"><line class="axis" x1="34" y1="138" x2="628" y2="138"/><text class="tick" x="28" y="22" text-anchor="end">25</text><text class="tick" x="28" y="138" text-anchor="end">0</text><rect class="bar" x="43.9" y="67" width="29.7" height="71" rx="2"><title>2026-W26 : 14</title></rect><text class="tick" x="58.75" y="154" text-anchor="middle">W26</text><rect class="bar" x="93.4" y="57" width="29.7" height="81" rx="2"><title>2026-W27 : 16</title></rect><rect class="bar" x="142.9" y="113" width="29.7" height="25" rx="2"><title>2026-W28 : 5</title></rect><text class="tick" x="157.75" y="154" text-anchor="middle">W28</text><rect class="bar" x="192.4" y="118" width="29.7" height="20" rx="2"><title>2026-W29 : 4</title></rect><rect class="bar" x="241.9" y="93" width="29.7" height="45" rx="2"><title>2026-W30 : 9</title></rect><text class="tick" x="256.75" y="154" text-anchor="middle">W30</text><rect class="bar" x="291.4" y="118" width="29.7" height="20" rx="2"><title>2026-W31 : 4</title></rect><rect class="bar" x="340.9" y="12" width="29.7" height="126" rx="2"><title>2026-W32 : 25</title></rect><text class="tick" x="355.75" y="154" text-anchor="middle">W32</text><rect class="bar" x="390.4" y="128" width="29.7" height="10" rx="2"><title>2026-W33 : 2</title></rect><rect class="bar" x="439.9" y="118" width="29.7" height="20" rx="2"><title>2026-W34 : 4</title></rect><text class="tick" x="454.75" y="154" text-anchor="middle">W34</text><rect class="bar" x="489.4" y="113" width="29.7" height="25" rx="2"><title>2026-W35 : 5</title></rect><rect class="bar" x="538.9" y="42" width="29.7" height="96" rx="2"><title>2026-W36 : 19</title></rect><text class="tick" x="553.75" y="154" text-anchor="middle">W36</text><rect class="bar" x="588.4" y="113" width="29.7" height="25" rx="2"><title>2026-W37 : 5</title></rect></svg></div><div class="text"><p>Oui, sans ambiguïté : 112 modifications ont été apportées au projet sur les douze dernières semaines.</p>
+<p>La dernière remonte au 9 septembre 2026, soit la veille de ce relevé.</p>
+<p>Sur trente jours, 33 changements ont été validés et intégrés — corrections, mises à jour de sécurité des briques utilisées, nouvelles fonctions.</p>
+<p>Le rythme est irrégulier : des semaines à 25 et 19 modifications, d'autres à 2. C'est la signature d'une équipe qui livre par vagues, autour des versions, pas d'un projet qui s'essouffle.</p></div></div>
+<footer><span class="repo-name">langchain-ai/langgraph · relevé le 10 sept. 2026</span><span class="n">ceo · 4 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">05</span><h2>Qui est derrière ?</h2></header>
+<p class="takeaway">Une entreprise finance, mais quatre personnes portent la moitié du travail : la dépendance est humaine avant d'être technique.</p>
+<div class="body split"><div class="chart-wrap"><svg class="chart" viewBox="0 0 640 252" width="640" height="252" role="img" preserveAspectRatio="xMinYMin meet"><text class="lbl" x="168" y="21" text-anchor="end">eliornl</text><rect class="bar strong" x="178" y="10" width="398" height="14" rx="3"/><text class="val" x="582" y="21">11</text><text class="lbl" x="168" y="45" text-anchor="end">ccurme</text><rect class="bar strong" x="178" y="34" width="181" height="14" rx="3"/><text class="val" x="365" y="45">5</text><text class="lbl" x="168" y="69" text-anchor="end">longquanzheng</text><rect class="bar strong" x="178" y="58" width="181" height="14" rx="3"/><text class="val" x="365" y="69">5</text><text class="lbl" x="168" y="93" text-anchor="end">jkennedyvz</text><rect class="bar strong" x="178" y="82" width="109" height="14" rx="3"/><text class="val" x="293" y="93">3</text><text class="lbl" x="168" y="117" text-anchor="end">nick-hollon-lc</text><rect class="bar" x="178" y="106" width="109" height="14" rx="3"/><text class="val" x="293" y="117">3</text><text class="lbl" x="168" y="141" text-anchor="end">syachamaneni-lc</text><rect class="bar" x="178" y="130" width="72" height="14" rx="3"/><text class="val" x="256" y="141">2</text><text class="lbl" x="168" y="165" text-anchor="end">cwlbraa</text><rect class="bar" x="178" y="154" width="72" height="14" rx="3"/><text class="val" x="256" y="165">2</text><text class="lbl" x="168" y="189" text-anchor="end">saad-supports-langchain</text><rect class="bar" x="178" y="178" width="72" height="14" rx="3"/><text class="val" x="256" y="189">2</text><text class="lbl" x="168" y="213" text-anchor="end">sydney-runkle</text><rect class="bar" x="178" y="202" width="72" height="14" rx="3"/><text class="val" x="256" y="213">2</text><text class="lbl" x="168" y="237" text-anchor="end">pjrule</text><rect class="bar" x="178" y="226" width="36" height="14" rx="3"/><text class="val" x="220" y="237">1</text></svg></div><div class="text"><p>Une entreprise, pas un individu : le projet est publié par LangChain Inc, l'éditeur du logiciel LangChain, sous un compte d'organisation.</p>
+<p>Le travail visible reste porté par une petite garde rapprochée : sur les douze dernières semaines, la personne la plus active signe 11 modifications, la deuxième 5.</p>
+<p>Le chiffre à retenir est 4 : quatre personnes suffisent à représenter la moitié du travail de la période. Si ces quatre-là partent le même trimestre, le rythme s'effondre.</p>
+<p>Le projet ne vit pas de dons mais du budget de l'entreprise qui l'édite, et personne n'y est nommément désigné responsable d'une partie du travail.</p></div></div>
+<footer><span class="repo-name">langchain-ai/langgraph · relevé le 10 sept. 2026</span><span class="n">ceo · 5 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">06</span><h2>Quels sont les trois risques ?</h2></header>
+<p class="takeaway">Le vrai risque n'est ni juridique ni technique : c'est de dépendre d'un projet que quatre personnes portent à bout de bras.</p>
+<div class="body split"><div class="chart-wrap"><ul class="risks"><li><span class="light low" aria-hidden="true"></span><b>license</b><span class="role">MIT : licence permissive.</span></li><li><span class="light mid" aria-hidden="true"></span><b>security</b><span class="role">Pas de SECURITY.md : aucun canal déclaré pour signaler une faille.</span></li><li><span class="light low" aria-hidden="true"></span><b>deps</b><span class="role">Pas de manifeste racine : chaque paquet de libs/ a son pyproject.toml et son uv.lock. libs/langgraph/pyproject.toml déclare 33 dépendances : 6 à l'exécution (langchain-core, pydantic, xxhas…</span></li><li><span class="light low" aria-hidden="true"></span><b>ci</b><span class="role">17 workflows dans .github/workflows. ci.yml (workflow_dispatch, push sur main, pull_request) filtre par chemins modifiés puis enchaîne lint et tests sur 8 libs Python via _lint.yml, _test.y…</span></li><li><span class="light low" aria-hidden="true"></span><b>security</b><span class="role">Aucune mesure de couverture : pytest-cov est bien dans le groupe test de libs/langgraph/pyproject.toml, mais ni ci.yml ni _test_langgraph.yml ne produisent de rapport ni n'imposent de seuil…</span></li></ul></div><div class="text"><p><strong>Premier risque, la concentration humaine.</strong> Quatre personnes représentent la moitié du travail des douze dernières semaines. C'est le risque le plus élevé du dossier, et il ne se corrige pas en achetant du logiciel.</p>
+<p><strong>Deuxième risque, la sécurité déclarative.</strong> Le projet ne publie aucune adresse ni procédure pour signaler une faille : un chercheur qui en trouve une n'a pas de canal officiel où l'annoncer discrètement.</p>
+<p><strong>Troisième risque, la file d'attente.</strong> 528 demandes ouvertes pour 7 refermées en trente jours : si votre équipe rencontre un problème, comptez sur vous-même avant de compter sur une réponse.</p>
+<p>Ce qui n'est <strong>pas</strong> un risque, et c'est important de le dire : la licence est permissive et sans piège commercial, les briques externes utilisées sont peu nombreuses et verrouillées, et chaque changement passe par des contrôles automatiques avant d'être intégré.</p></div></div>
+<footer><span class="repo-name">langchain-ai/langgraph · relevé le 10 sept. 2026</span><span class="n">ceo · 6 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">07</span><h2>Qu'en fait-on ?</h2></header>
+<p class="takeaway">Les demandes les plus discutées ne parlent plus de fonctionnalités mais de preuve, de conformité et de contrôle : le marché des agents entre en production<sup class="note"><a href="#note-1">1</a></sup>.</p>
+<div class="body"><div class="text"><p>245 propositions de changement attendent d'être examinées, dont dix ont bougé dans les jours précédant le relevé.</p>
+<p>Ce que la communauté réclame le plus fort dit où va le produit, et c'est une bonne nouvelle pour une direction : la demande la plus discutée porte sur la preuve auditable qu'un agent a bien terminé son travail, 64 échanges<sup class="note"><a href="#note-2">2</a></sup>.</p>
+<p>Viennent ensuite un exemple de validation humaine adapté aux environnements réglementés<sup class="note"><a href="#note-1">1</a></sup> et un mécanisme pour bloquer une action d'agent avant qu'elle ne s'exécute, au nom d'une politique interne<sup class="note"><a href="#note-3">3</a></sup>.</p>
+<p>Traduction : les entreprises qui utilisent ce projet ne demandent plus « est-ce que ça marche », elles demandent « est-ce que je peux le prouver à mon auditeur ». C'est le signe d'un marché qui passe de l'expérimentation à la production.</p>
+<p>Donnée non relevée : le projet ne publie pas de feuille de route datée ni de jalons publics ; les intentions se lisent dans les demandes ouvertes, à suivre sur <a href="https://github.com/langchain-ai/langgraph/issues">https://github.com/langchain-ai/langgraph/issues</a>.</p></div></div>
+<footer><span class="repo-name">langchain-ai/langgraph · relevé le 10 sept. 2026</span><span class="n">ceo · 7 / 9</span></footer>
+</section><section class="finale">
+<header><span class="kicker">ceo</span><h2>Ce que je retiens</h2></header>
+
+<div class="body"><div class="text"><ul><li><strong>Un standard de fait, gratuit.</strong> 41 384 favoris, 6 990 copies, une licence qui n'impose rien à mon entreprise.</li><li><strong>Une technologie mûre et active.</strong> Version 1.2.11, modifiée la veille du relevé, 112 modifications en douze semaines.</li><li><strong>Une dépendance humaine à surveiller.</strong> Quatre personnes portent la moitié du travail : si nous bâtissons dessus, il faut des compétences internes, pas seulement un contrat.</li><li><strong>Un support à ne pas attendre.</strong> 528 demandes ouvertes contre 7 refermées en trente jours : le service après-vente, c'est nous.</li><li><strong>La bonne question à poser à mon équipe technique.</strong> Sommes-nous capables de prouver ce que font nos agents ? C'est exactement ce que la communauté réclame aujourd'hui.</li></ul></div></div>
+<footer><span class="repo-name">langchain-ai/langgraph · relevé le 10 sept. 2026</span><span class="n">ceo · 8 / 9</span></footer>
+</section><section class="refs"><header><span class="kicker">références publiques</span><h2>Sources</h2></header><div class="body"><ol class="sources"><li id="note-1"><a href="https://github.com/langchain-ai/langgraph/issues/7687">https://github.com/langchain-ai/langgraph/issues/7687</a></li><li id="note-2"><a href="https://github.com/langchain-ai/langgraph/issues/7844">https://github.com/langchain-ai/langgraph/issues/7844</a></li><li id="note-3"><a href="https://github.com/langchain-ai/langgraph/issues/8102">https://github.com/langchain-ai/langgraph/issues/8102</a></li></ol></div><footer><span class="repo-name">langchain-ai/langgraph · relevé le 10 sept. 2026</span><span class="n">ceo · 9 / 9</span></footer></section>
+</body>
+</html>

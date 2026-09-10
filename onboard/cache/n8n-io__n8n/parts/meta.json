@@ -1,0 +1,202 @@
+{
+  "repo": {
+    "full_name": "n8n-io/n8n",
+    "url": "https://github.com/n8n-io/n8n",
+    "description": "Fair-code workflow automation platform with native AI capabilities. Combine visual building with custom code, self-host or cloud, 400+ integrations.",
+    "created_at": "2019-06-22T09:24:21Z",
+    "pushed_at": "2026-09-10T14:20:50Z",
+    "default_branch": "master",
+    "license": "Sustainable Use License",
+    "stars": 203922,
+    "forks": 60629,
+    "open_issues": 1146,
+    "topics": [
+      "ai",
+      "apis",
+      "automation",
+      "cli",
+      "data-flow",
+      "development",
+      "integration-framework",
+      "integrations",
+      "ipaas",
+      "low-code",
+      "low-code-platform",
+      "mcp",
+      "mcp-client",
+      "mcp-server",
+      "n8n",
+      "no-code",
+      "self-hosted",
+      "typescript",
+      "workflow",
+      "workflow-automation"
+    ],
+    "owner_type": "org",
+    "archived": false
+  },
+  "releases": [
+    {
+      "tag": "stable",
+      "date": "2026-09-10T08:08:05Z",
+      "name": "stable"
+    },
+    {
+      "tag": "n8n@2.38.6",
+      "date": "2026-09-10T08:08:03Z",
+      "name": "n8n@2.38.6"
+    },
+    {
+      "tag": "n8n@1.123.79",
+      "date": "2026-09-10T06:26:27Z",
+      "name": "n8n@1.123.79"
+    },
+    {
+      "tag": "n8n@2.39.2",
+      "date": "2026-09-10T07:40:12Z",
+      "name": "n8n@2.39.2"
+    },
+    {
+      "tag": "beta",
+      "date": "2026-09-10T07:40:14Z",
+      "name": "beta"
+    },
+    {
+      "tag": "n8n@2.38.5",
+      "date": "2026-09-09T12:03:58Z",
+      "name": "n8n@2.38.5"
+    },
+    {
+      "tag": "n8n@2.39.1",
+      "date": "2026-09-09T12:25:26Z",
+      "name": "n8n@2.39.1"
+    },
+    {
+      "tag": "n8n@2.39.0",
+      "date": "2026-09-08T08:25:15Z",
+      "name": "n8n@2.39.0"
+    },
+    {
+      "tag": "n8n@2.38.4",
+      "date": "2026-09-07T08:01:50Z",
+      "name": "n8n@2.38.4"
+    },
+    {
+      "tag": "n8n@2.37.11",
+      "date": "2026-09-07T12:53:40Z",
+      "name": "n8n@2.37.11"
+    }
+  ],
+  "activity": {
+    "commits_per_week": [
+      {
+        "week": "2026-W26",
+        "count": 0
+      },
+      {
+        "week": "2026-W27",
+        "count": 0
+      },
+      {
+        "week": "2026-W28",
+        "count": 0
+      },
+      {
+        "week": "2026-W29",
+        "count": 0
+      },
+      {
+        "week": "2026-W30",
+        "count": 0
+      },
+      {
+        "week": "2026-W31",
+        "count": 0
+      },
+      {
+        "week": "2026-W32",
+        "count": 0
+      },
+      {
+        "week": "2026-W33",
+        "count": 0
+      },
+      {
+        "week": "2026-W34",
+        "count": 0
+      },
+      {
+        "week": "2026-W35",
+        "count": 0
+      },
+      {
+        "week": "2026-W36",
+        "count": 246
+      },
+      {
+        "week": "2026-W37",
+        "count": 254
+      }
+    ],
+    "last_commit": "2026-09-10T13:53:56Z",
+    "contributors": [
+      {
+        "login": "bjorger",
+        "commits": 24
+      },
+      {
+        "login": "shortstacked",
+        "commits": 22
+      },
+      {
+        "login": "guillaumejacquart",
+        "commits": 21
+      },
+      {
+        "login": "looorent",
+        "commits": 17
+      },
+      {
+        "login": "Matsuuu",
+        "commits": 16
+      },
+      {
+        "login": "r00gm",
+        "commits": 15
+      },
+      {
+        "login": "heymynameisrob",
+        "commits": 14
+      },
+      {
+        "login": "Flexicon",
+        "commits": 13
+      },
+      {
+        "login": "uddish",
+        "commits": 11
+      },
+      {
+        "login": "Cadiac",
+        "commits": 11
+      }
+    ],
+    "bus_factor": 16
+  },
+  "business": {
+    "funding": false,
+    "security_policy": true,
+    "codeowners": true
+  },
+  "risks": [
+    {
+      "kind": "license",
+      "level": "mid",
+      "note": "Licence non standard « Sustainable Use License » : lire LICENSE.md avant tout usage."
+    }
+  ],
+  "collected": {
+    "by": "1a-meta",
+    "at": "2026-09-10T14:22:02.938Z"
+  }
+}

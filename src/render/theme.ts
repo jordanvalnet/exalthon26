@@ -42,6 +42,7 @@ th { font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.06em; color
 
 /* Couverture */
 .cover { justify-content: center; background: var(--cover-bg); color: var(--cover-fg); border: 0; }
+.cover h1 code { background: rgba(255,255,255,0.14); color: inherit; padding: 0 0.25em; font-size: 0.85em; }
 .cover a { color: inherit; }
 .cover-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 40px; }
 .eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.8rem; font-weight: 700; }
@@ -60,7 +61,7 @@ th { font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.06em; color
 .page header, .finale header { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
 .kicker { font: 700 0.78rem/1 var(--mono); color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; }
 .takeaway { margin: 0 0 22px; padding: 14px 20px; border-left: 5px solid var(--accent); background: var(--bg); font-size: 1.12em; font-weight: 600; line-height: 1.45; border-radius: 0 10px 10px 0; }
-.body.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; align-items: start; }
+.body.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; align-items: start; align-content: start; }
 .body.split .chart-wrap { min-width: 0; }
 .body.stack .chart-wrap { margin-bottom: 20px; }
 footer { display: flex; justify-content: space-between; gap: 12px; margin-top: 26px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.78rem; }
@@ -302,6 +303,8 @@ const PRINT = `
   .p-ceo .takeaway { font-size: 1.3rem; margin-bottom: 16px; }
   .p-ceo .risks li { padding: 2px 0; }
   .body.split { gap: 22px; }
+  .p-ceo .chart { max-height: 52mm; }
+  .p-enfant .chart { max-height: 60mm; }
   .takeaway { font-size: 1.05em; padding: 10px 16px; margin-bottom: 14px; }
   th, td { padding: 5px 10px; }
   footer { margin-top: 14px; padding-top: 8px; }

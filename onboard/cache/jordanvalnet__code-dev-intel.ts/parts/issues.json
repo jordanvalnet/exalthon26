@@ -1,0 +1,44 @@
+{
+  "issues": {
+    "open": 1,
+    "closed_30d": 0,
+    "by_label": {},
+    "good_first": [],
+    "hot": [
+      {
+        "number": 1,
+        "title": "Anti-Amnesia & Workflow Hardening for code-dev-intel.ts",
+        "url": "https://github.com/jordanvalnet/code-dev-intel.ts/issues/1",
+        "comments": 0
+      }
+    ]
+  },
+  "pulls": {
+    "open": 0,
+    "merged_30d": [
+      {
+        "number": 3,
+        "title": "ci: three-OS quality matrix, multi-OS release smoke, per-OS perf budget (T-021)",
+        "url": "https://github.com/jordanvalnet/code-dev-intel.ts/pull/3",
+        "merged_at": "2026-09-06T12:39:29Z"
+      }
+    ]
+  },
+  "roadmap": {
+    "open_prs": [],
+    "requests": [
+      {
+        "number": 1,
+        "title": "Anti-Amnesia & Workflow Hardening for code-dev-intel.ts",
+        "url": "https://github.com/jordanvalnet/code-dev-intel.ts/issues/1",
+        "comments": 0,
+        "labels": []
+      }
+    ],
+    "themes": []
+  },
+  "collected": {
+    "by": "1b-issues",
+    "at": "2026-09-10T14:21:42.424Z"
+  }
+}

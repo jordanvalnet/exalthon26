@@ -49,6 +49,16 @@ Le pipeline a tourné sur ce dépôt même, en ligne, par le serveur MCP GitHub,
 
 Le cache complet (faits, sources, narratifs, FAQ, glossaire) : [onboard/cache/jordanvalnet__exalthon26/](onboard/cache/jordanvalnet__exalthon26/).
 
+## D'autres dépôts
+
+Même commande, même pipeline, sans intervention. Six PDF par dépôt ; la vignette est la synthèse pour la direction.
+
+<table>
+    <tr><td><a href="onboard/cache/langchain-ai__langgraph/deck-ceo.pdf"><img src="docs/img/langgraph-ceo-cover.png" width="220" alt="langchain-ai/langgraph, deck ceo"></a></td><td><a href="https://github.com/langchain-ai/langgraph"><strong>langchain-ai/langgraph</strong></a><br>framework d'agents à états, Python, 41 k ★<br>[dev](onboard/cache/langchain-ai__langgraph/deck-dev.pdf) · [qa](onboard/cache/langchain-ai__langgraph/deck-qa.pdf) · [cto](onboard/cache/langchain-ai__langgraph/deck-cto.pdf) · [ceo](onboard/cache/langchain-ai__langgraph/deck-ceo.pdf) · [investisseur](onboard/cache/langchain-ai__langgraph/deck-investisseur.pdf) · [enfant](onboard/cache/langchain-ai__langgraph/deck-enfant.pdf)</td></tr>
+    <tr><td><a href="onboard/cache/n8n-io__n8n/deck-ceo.pdf"><img src="docs/img/n8n-ceo-cover.png" width="220" alt="n8n-io/n8n, deck ceo"></a></td><td><a href="https://github.com/n8n-io/n8n"><strong>n8n-io/n8n</strong></a><br>automatisation et IA, TypeScript, 204 k ★, énorme flux d'issues<br>[dev](onboard/cache/n8n-io__n8n/deck-dev.pdf) · [qa](onboard/cache/n8n-io__n8n/deck-qa.pdf) · [cto](onboard/cache/n8n-io__n8n/deck-cto.pdf) · [ceo](onboard/cache/n8n-io__n8n/deck-ceo.pdf) · [investisseur](onboard/cache/n8n-io__n8n/deck-investisseur.pdf) · [enfant](onboard/cache/n8n-io__n8n/deck-enfant.pdf)</td></tr>
+    <tr><td><a href="onboard/cache/jordanvalnet__code-dev-intel.ts/deck-ceo.pdf"><img src="docs/img/code-dev-intel-ceo-cover.png" width="220" alt="jordanvalnet/code-dev-intel.ts, deck ceo"></a></td><td><a href="https://github.com/jordanvalnet/code-dev-intel.ts"><strong>jordanvalnet/code-dev-intel.ts</strong></a><br>intelligence de code TypeScript auto-hébergée<br>[dev](onboard/cache/jordanvalnet__code-dev-intel.ts/deck-dev.pdf) · [qa](onboard/cache/jordanvalnet__code-dev-intel.ts/deck-qa.pdf) · [cto](onboard/cache/jordanvalnet__code-dev-intel.ts/deck-cto.pdf) · [ceo](onboard/cache/jordanvalnet__code-dev-intel.ts/deck-ceo.pdf) · [investisseur](onboard/cache/jordanvalnet__code-dev-intel.ts/deck-investisseur.pdf) · [enfant](onboard/cache/jordanvalnet__code-dev-intel.ts/deck-enfant.pdf)</td></tr>
+</table>
+
 ## Démarrer
 
 ```bash
