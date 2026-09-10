@@ -42,7 +42,10 @@ console.error("collecte, rédaction puis rendu : plusieurs minutes, les comptes 
 
 // Lancé depuis un terminal Claude Code, la variable CLAUDECODE ferait refuser l'imbrication : on la retire.
 const { CLAUDECODE: _nested, ...env } = process.env;
-const proc = Bun.spawn([claude, "-p", `/onboard ${target} ${profile.name} ${rest.join(" ")}`.trim(), "--permission-mode", "acceptEdits"], {
+// Non interactif : personne ne répond aux demandes de permission, donc les outils du pipeline sont autorisés d'avance
+// (github:* via le MCP, les commandes bun du dépôt, la lecture et l'écriture du cache, les sous-agents de collecte).
+const allowed = ["mcp__github__*", "Bash(bun *)", "Bash(bun run *)", "Read", "Write", "Edit", "Glob", "Grep", "Agent", "Skill", "TodoWrite"];
+const proc = Bun.spawn([claude, "-p", `/onboard ${target} ${profile.name} ${rest.join(" ")}`.trim(), "--permission-mode", "acceptEdits", "--allowedTools", ...allowed], {
   stdio: ["inherit", "inherit", "inherit"],
   env,
 });
