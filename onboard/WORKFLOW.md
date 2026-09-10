@@ -35,7 +35,16 @@ owner/repo + profil
 5. Un agent n'invente rien. Donnée absente = champ absent + une ligne dans « Manques » du compte rendu.
 6. Un agent ne lit que ses IN. Le rédacteur ne va pas sur GitHub ; les collecteurs ne lisent pas le narratif.
 7. **GitHub se lit par le serveur MCP uniquement** : outils `github:*` pour les agents, client MCP de `onboarding/src/` pour le code. Aucun appel REST, aucun `gh`, aucun `curl`, aucun clone. Ce que le MCP n'expose pas (langages, statistiques, jalons) est un manque déclaré avec son URL, jamais contourné.
-8. Collecte rapide même sur un gros repo : chaque sous-agent a un budget d'appels, personne ne lit un fichier de code au-delà de 60 lignes ni ne descend au-delà de 2 niveaux d'arborescence.
+8. **Quota GitHub, budgets et priorités.** Le token a 5000 appels par heure, 30 par minute pour `search_*`, partagés par tout
+   le poste ; le serveur MCP n'expose ni compteur ni en-tête de quota, il ne se connaît que par ses refus. Chaque appel prévu
+   porte une priorité : **P0** indispensable (repo, readme, tree), **P1** utile, **P2** jetable. Chaque collecteur a un **budget**
+   d'appels et une **échéance** (`agents/1-collect.md`) ; dès que l'un des deux ne permet plus de tout faire, il jette les P2
+   puis les P1 restants, et chaque jet va dans « Manques » avec l'URL où lire la donnée. **Erreur de quota** (texte
+   `GitHub API rate limit exceeded. Retry after 42s.` ou `GitHub secondary rate limit exceeded…`) : jamais de nouvel essai en
+   boucle. Reset annoncé à 60 s ou moins et appel P0 ou P1 : une seule attente, puis un seul nouvel essai. Sinon on arrête, on
+   écrit ce qu'on a, on déclare, on rend la main avec l'heure de reset dans la ligne `Quota`. En code, `src/quota.ts` applique
+   tout cela et tient `parts/quota.json` (`bun run quota <cache>`). Personne ne lit un fichier de code au-delà de 60 lignes ni
+   ne descend au-delà de 2 niveaux d'arborescence.
 
 ## Compte rendu d'étape (format exact, dernière chose qu'écrit chaque agent)
 ```
@@ -43,6 +52,7 @@ owner/repo + profil
 Cache : onboard/cache/<owner>__<repo>
 Écrit : <fichiers>
 Manques : <liste, ou « aucun »>
+Quota : <appels> appels, <jetés> jetés, reset <heure ou aucun>
 Validation : <dernière ligne de la commande>
 ```
 

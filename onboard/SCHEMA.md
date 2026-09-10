@@ -5,6 +5,9 @@ Un dossier par repo : `onboard/cache/<owner>__<repo>/`. Tout est du texte versio
 ```
 facts.json               chiffres et faits structurés, validés par `bun run validate facts <cache> <profil>`
 parts/<sous-agent>.json  ce que chaque sous-agent de collecte a produit ; `bun run merge <cache> <profil>` les assemble dans facts.json
+parts/quota.json         état du quota GitHub de la collecte, tenu par src/quota.ts : par collecteur, appels faits et jetés
+                         (quoi, priorité, pourquoi, URL), budget restant ; resets connus. Pas une part : ignoré par merge,
+                         résumé par `bun run quota <cache>`
 sources/                 extraits bruts du repo, un fichier par source, tels que lus
   readme.md  tree.md  contributing.md  ci.md  manifest.md  license.md  tests.md  todo.md  funding.md  security.md
 narrative/<profil>.md    texte rédigé pour un profil, une section H2 par question du profil, un « à retenir » par section, une finale

@@ -16,7 +16,7 @@ flowchart TD
   P[("profiles/{profil}.json<br/>description · éléments priorisés<br/>facts et sources requis · ton · deck")] --> O
 
   O --> C["1 · Collecte<br/>agents/1-collect.md"]
-  subgraph PAR["cinq sous-agents en parallèle · outils github:* · budget d'appels chacun"]
+  subgraph PAR["cinq sous-agents en parallèle · outils github:* · budget, échéance et priorités P0-P2 chacun"]
     direction LR
     A1["1a métadonnées<br/>repo, languages,<br/>releases, business"]
     A2["1b historique<br/>activity, issues, pulls"]
@@ -52,6 +52,7 @@ Trois règles font tenir l'ensemble :
 2. **Une validation en code entre chaque étape.** Un agent ne peut pas se déclarer fini : la commande dit OK ou liste les erreurs, l'agent corrige, deux essais.
 3. **Rien d'inventé.** Une donnée absente reste absente et se dit dans « Manques ».
 4. **GitHub se lit par le serveur MCP uniquement.** Outils `github:*` pour les agents, client MCP de `onboarding/src/` pour le code. Aucun appel REST, aucun `gh`, aucun `curl`, aucun clone. Ce que le MCP n'expose pas est un manque déclaré avec son URL.
+   Le quota GitHub se gère par budget, échéance et priorités : les appels jetables partent d'abord, une erreur de quota arrête sans réessayer ([WORKFLOW.md](WORKFLOW.md), règle 8).
 
 ## Les étapes
 
@@ -108,6 +109,7 @@ Chaque élément dit ce qu'il lui faut : c'est la liste de courses des collecteu
 | `src/validate.ts` | Lit le profil JSON. `facts` : schéma, loupes, blocs demandés, readme et tree présents. `narrative` : en-tête, une H2 par question au libellé identique, directive chart attendue, une citation par section, chaque `[facts:x.y]` résolu dans le JSON, chaque `[src:f]` existant, 5 termes de glossaire. `deck` : aucune ressource externe, assez de sections, pas de citation brute, règle print. | `bun run validate facts\|narrative\|deck <cache> <profil>` |
 | `src/merge.ts` | Fusionne `parts/*.json` et le `facts.json` existant (objets en profondeur, tableaux sans doublon), valide chaque part, unit les loupes, écrit `facts.json`, lance `validate facts`. | `bun run merge <cache> <profil>` |
 | `src/gh.ts` | Appel brut d'un outil du serveur MCP GitHub depuis le code, même serveur que `.mcp.json`. Jamais d'API REST directe. | `bun run gh <outil> '<args JSON>'`, `bun run gh tools` |
+| `src/quota.ts` | La couche par laquelle passe tout appel MCP du code : erreur de quota reconnue et attendue une seule fois si le reset est proche ; budget, échéance et priorités P0-P2 par collecteur, jets journalisés dans `parts/quota.json`. | `bun run quota <cache>` |
 | `src/cli.ts` | Lance Claude Code en non interactif avec `/onboard`. | `bun onboard owner/repo profil` |
 | `src/render/` | Le deck HTML à partir du cache : `theme.ts` une identité visuelle par profil, `kpi.ts` les tuiles de couverture, `charts.ts` les graphiques SVG, `deck.ts` l'assemblage. | `bun run render <cache> <profil>`, `bun run pdf`, `bun run screenshot` |
 
