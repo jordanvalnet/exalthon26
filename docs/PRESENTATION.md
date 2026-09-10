@@ -4,7 +4,7 @@
 
 <h1 align="center">Onboard</h1>
 
-<p align="center"><strong>Un repo GitHub. Six publics. Six decks qui citent leurs sources.</strong></p>
+<p align="center"><strong>Un repo GitHub. Six publics. Six decks, rien d'inventé.</strong></p>
 
 <p align="center">
   <code>bun onboard owner/repo profil</code>
