@@ -51,7 +51,7 @@ Les deux autres : pas de canal pour signaler une faille (moyen), et une dépenda
 
 ## Qu'en fait-on ?
 Le dépôt n'affiche aucune feuille de route : pas de proposition de modification en attente, aucun thème de travail étiqueté, et la seule demande ouverte est le canal de discussion de l'équipe, pas une évolution [facts:roadmap.open_prs] [facts:roadmap.themes] [facts:roadmap.requests.0.title].
-Le cache ne contient pas de jalons ; à vérifier dans https://github.com/jordanvalnet/exalthon26/milestones [facts:roadmap].
+Donnée non relevée : les jalons ; à vérifier dans https://github.com/jordanvalnet/exalthon26/milestones [facts:roadmap].
 Ce qui existe : une démonstration complète sur un projet extérieur, un rapport de mission, des supports de pitch et une présentation illustrée, autrement dit tout ce qu'il faut pour convaincre un jury [src:readme.md] [facts:tree.8.role] [facts:tree.16.role].
 Trois options pour la direction, par ordre d'engagement croissant [facts:roadmap.themes] :
 1. Classer comme démonstration de hackathon et en garder l'idée : six publics, une source par chiffre [src:readme.md].

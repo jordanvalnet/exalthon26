@@ -12,6 +12,7 @@ serveur MCP GitHub (jamais l'API REST), chaque appel passant par la couche de qu
   `collected: { by: "1a-meta", … }`. Un bloc dont l'appel a été jeté est absent, jamais mis à zéro.
 - `<cache>/parts/meta.md` : bilan lisible du repo (stars, forks, licence, releases, activité, risques), hors contenu.
 - `<cache>/sources/license.md` (40 premières lignes), `sources/funding.md` et `sources/security.md` s'ils existent.
+  Les `note` de `risks` sont lues par le public : « lire LICENSE avant tout usage », jamais « lire sources/license.md ».
 - `<cache>/parts/quota.json`, entrée `1a-meta` : appels faits, jetés, reset connu.
 
 ## Quota

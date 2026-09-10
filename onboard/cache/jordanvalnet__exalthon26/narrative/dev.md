@@ -27,7 +27,7 @@ Racine de 21 entrées, sans dossier `.github/` [src:tree.md] [facts:tree]. Deux 
 | `docs/`, `pitch/`, `pitch_fr.html` | documentation, supports du pitch, pitch HTML en français | [facts:tree.12.role] [facts:tree.16.role] [facts:tree.17.role] |
 Deux `package.json` : celui de la racine, 15 scripts, une dépendance runtime (zod) et deux de dev (@types/bun, typescript) [src:manifest.md] ; celui d'`onboarding/`, 379 octets, non lu par la collecte [facts:risks.4.note].
 Le repo est balisé pour les agents : `AGENTS.md`, `CLAUDE.md`, `.mcp.json`, `.claude/skills/`, soit 4 repères sur 7 [facts:ai_docs.score] [facts:ai_docs.max] ; manquent `.cursorrules`, `.github/copilot-instructions.md` et `llms.txt` [src:ai-docs.md].
-Le cache ne contient pas le contenu de `.claude/`, `chat/`, `docs/`, `pitch/`, `src/collect/`, `src/render/`, `onboarding/src/`, `onboard/agents/`, `onboard/cache/`, `onboard/profiles/` : non descendus par la collecte, à parcourir dans le repo [src:tree.md].
+Donnée non relevée : le contenu de `.claude/`, `chat/`, `docs/`, `pitch/`, `src/collect/`, `src/render/`, `onboarding/src/`, `onboard/agents/`, `onboard/cache/`, `onboard/profiles/`, dossiers non descendus ; à parcourir dans le repo [src:tree.md].
 > Tout le code est dans `src/` (9 entrées), tout le pipeline dans `onboard/` : prompts, profils, contrats, caches [src:tree.md] [facts:tree.13.role].
 
 ## Par où commencer à lire ?
@@ -38,7 +38,7 @@ Puis le code, dans cet ordre :
 3. `src/render/index.ts` : script `render`, produit le deck HTML depuis le cache ; voisins `pdf.ts` et `screenshot.ts` [facts:entrypoints.2.why] ; `theme.ts` une identité par profil, `kpi.ts` tuiles, `charts.ts` SVG, `deck.ts` assemblage [src:readme.md].
 4. `src/index.ts` : scripts `dev` et `start`, appelle `whoami()` de `./github.ts`, affiche « GitHub OK : <login> » ou sort en code 1 [facts:entrypoints.1.why].
 5. `chat/chat.mjs` : script `chat`, client du chat d'équipe, seul `.mjs` cité par les scripts [facts:entrypoints.4.why].
-Honnêteté du cache : seuls `src/cli.ts` (40 premières lignes) et `src/index.ts` ont été lus ; `src/render/index.ts`, `src/validate.ts` et `chat/chat.mjs` sont déduits du manifeste, à confirmer en ouvrant les fichiers [facts:entrypoints.0.why] [facts:entrypoints.2.why] [facts:entrypoints.3.why].
+Limite des données relevées : seuls `src/cli.ts` (40 premières lignes) et `src/index.ts` ont été lus ; `src/render/index.ts`, `src/validate.ts` et `chat/chat.mjs` sont déduits du manifeste, à confirmer en ouvrant les fichiers [facts:entrypoints.0.why] [facts:entrypoints.2.why] [facts:entrypoints.3.why].
 > Ouvrez `src/cli.ts` puis `onboard/agents/0-onboard.md` : le CLI n'est qu'un lanceur, la logique est dans les prompts d'agents [facts:entrypoints.0.why] [src:readme.md].
 
 ## Comment builder, tester et lancer ?
@@ -53,7 +53,7 @@ Les commandes viennent du README [src:readme.md] ; installer = `bun install`, la
 Runtime bun, jamais npm, TypeScript strict ; bun charge `.env` tout seul, `process.env.GITHUB_PAT` est disponible [src:ai-docs.md]. Pour que le serveur MCP voie le token dans une session Claude Code : `set -a; source .env; set +a` avant de lancer l'assistant, puis `/mcp` pour vérifier que `github` est connecté [src:readme.md].
 Tests : `bun test`, 2 fichiers dans `test/` (`github.test.ts`, `issues.test.ts`), ni vitest ni jest [facts:tests.framework] [facts:tests.files] [src:tests.md] ; `check` = `bun run typecheck && bun test`, soit `tsc --noEmit` puis `bun test` [src:manifest.md].
 CI : aucune. Pas de `.github/workflows/`, `build.ci` est vide, la seule vérification est locale [facts:build.ci] [src:ci.md] [facts:risks.3.note]. Dépendances : 3 déclarées, 1 runtime (zod ^4.5.4), `bun.lock` versionné [facts:deps.count] [facts:deps.runtime.0.name] [facts:deps.runtime.0.version] [facts:risks.4.note].
-Autres scripts : `render`, `validate facts|narrative|deck`, `merge`, `meta`, `issues`, `gh`, `screenshot`, `pdf` ; 15 au total [src:manifest.md]. Le cache ne contient pas `sources/contributing.md` : il n'y a pas de CONTRIBUTING.md à la racine, les règles de travail sont dans `AGENTS.md` [src:tree.md] [src:ai-docs.md].
+Autres scripts : `render`, `validate facts|narrative|deck`, `merge`, `meta`, `issues`, `gh`, `screenshot`, `pdf` ; 15 au total [src:manifest.md]. Donnée non relevée : `CONTRIBUTING.md`, il n'y en a pas à la racine ; les règles de travail sont dans `AGENTS.md` [src:tree.md] [src:ai-docs.md].
 > Aucune CI : `bun run check` (`tsc --noEmit && bun test`) avant chaque push est la seule barrière [facts:risks.3.note] [src:readme.md].
 
 ## Comment le projet vit-il ?
@@ -75,7 +75,7 @@ L'équipe coordonne ses assistants par l'issue #1, 22 commentaires : un commenta
 ## Quelle première contribution ?
 Pas de piste balisée : 1 issue ouverte, 0 fermée sur 30 jours, aucun label, aucune « good first issue » [facts:issues.open] [facts:issues.closed_30d] [facts:issues.by_label] [facts:issues.good_first].
 L'unique issue ouverte, #1 « 💬 Chat équipe — canal IA ↔ IA », 22 commentaires, n'est pas une demande : c'est le canal de chat des assistants de l'équipe, un commentaire = un message, à ne jamais fermer [facts:issues.hot.0.title] [facts:issues.hot.0.comments] [facts:issues.hot.0.url] [src:ai-docs.md].
-Côté PR : 0 ouverte [facts:pulls.open], 1 fusionnée, #2, le 2026-09-09 [facts:pulls.merged_30d.0.number] [facts:pulls.merged_30d.0.merged_at]. Le cache ne contient pas `sources/contributing.md` (pas de CONTRIBUTING.md à la racine) ; les règles connues sont celles d'`AGENTS.md` : bun jamais npm, GitHub uniquement par le serveur MCP, `bun run check` avant de rendre la main [src:tree.md] [src:ai-docs.md].
+Côté PR : 0 ouverte [facts:pulls.open], 1 fusionnée, #2, le 2026-09-09 [facts:pulls.merged_30d.0.number] [facts:pulls.merged_30d.0.merged_at]. Donnée non relevée : `CONTRIBUTING.md` (absent de la racine) ; les règles connues sont celles d'`AGENTS.md` : bun jamais npm, GitHub uniquement par le serveur MCP, `bun run check` avant de rendre la main [src:tree.md] [src:ai-docs.md].
 Les manques relevés par la collecte font de bonnes premières contributions, petites et vérifiables :
 | Piste | Pourquoi | Source |
 |---|---|---|

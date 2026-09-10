@@ -83,9 +83,9 @@ Cinq risques collectés, deux au niveau high, chacun avec sa parade [facts:risks
 | Sécurité | mid | Pas de SECURITY.md, aucun canal de signalement [facts:risks.1.level] [facts:risks.1.note] | Un SECURITY.md avec un contact |
 | Dépendances | low | 3 déclarées, lock versionné [facts:risks.4.level] [facts:risks.4.note] | Épingler `@types/bun` |
 
-Le cache ne contient pas `security.md` : le dépôt n'a pas de politique de sécurité ; à vérifier dans https://github.com/jordanvalnet/exalthon26/security/policy [facts:business.security_policy] [gh:https://github.com/jordanvalnet/exalthon26/security/policy].
+Donnée non relevée : `SECURITY.md` ; le dépôt n'a pas de politique de sécurité ; à vérifier dans https://github.com/jordanvalnet/exalthon26/security/policy [facts:business.security_policy] [gh:https://github.com/jordanvalnet/exalthon26/security/policy].
 
-Non mesurable par la collecte : les CVE des dépendances et la répartition des langages, que le serveur MCP n'expose pas ; à vérifier dans https://github.com/jordanvalnet/exalthon26/security/dependabot [gh:https://github.com/jordanvalnet/exalthon26/security/dependabot].
+Données non relevées : les CVE des dépendances et la répartition des langages ; à vérifier dans https://github.com/jordanvalnet/exalthon26/security/dependabot [gh:https://github.com/jordanvalnet/exalthon26/security/dependabot].
 
 Risque propre à l'architecture : le secret `GITHUB_PAT` (scope repo) part vers un serveur MCP hébergé par GitHub, en en-tête `Authorization: Bearer` ; à cadrer par un jeton à granularité fine, limité aux dépôts à onboarder [src:ai-docs.md] [src:readme.md].
 

@@ -22,8 +22,8 @@ Framework vitest, dossier `tests/`, 255 fichiers trouvés par recherche de code 
 
 Les 20 premiers chemins montrent des sous-dossiers `tests/executor/`, `tests/core/` (deny-policy, routing), `tests/session/`, `tests/adapters/` (kiro, memory-conventions) et `tests/util/`, plus un `tests/mcp-integration.ts` [src:tests.md]. Un benchmark existe : `npx tsx tests/benchmark.ts` [src:manifest.md].
 
-Le cache ne contient ni couverture de code ni liste complète des 255 fichiers ; à vérifier dans https://github.com/mksglu/context-mode/tree/main/tests.
-> 255 fichiers vitest lancés par `npm test` après un build automatique, mais aucune mesure de couverture dans le cache [facts:tests.files] [facts:build.test] [src:manifest.md].
+Données non relevées : couverture de code et liste complète des 255 fichiers ; à vérifier dans https://github.com/mksglu/context-mode/tree/main/tests.
+> 255 fichiers vitest lancés par `npm test` après un build automatique, mais aucune mesure de couverture dans les données relevées [facts:tests.files] [facts:build.test] [src:manifest.md].
 
 ## Que dit la CI et quand tourne-t-elle ?
 Un workflow lu, `CI` (`.github/workflows/ci.yml`), déclenché par workflow_dispatch, push et pull_request, sur les branches main et next [facts:build.ci.0.name] [facts:build.ci.0.triggers] [src:ci.md].
@@ -49,11 +49,11 @@ Bugs les plus discutés :
 ## Comment reproduire et signaler un bug ici ?
 Le mainteneur demande trois choses : suivre les templates d'issue, lancer `bash scripts/ctx-debug.sh` et joindre sa sortie, écrire des tests pour tout correctif [src:contributing.md]. Pour tester localement dans une vraie session : `npm run build` puis supprimer `server.bundle.mjs`, sinon vos changements ne sont jamais chargés [src:contributing.md].
 
-Côté PR : 107 ouvertes, aucune fusionnée sur 30 jours dans le cache [facts:pulls.open] [facts:pulls.merged_30d]. Attendez-vous à une revue lente ; un rapport de bug précis avec sortie de debug a plus de valeur qu'une PR non testée.
+Côté PR : 107 ouvertes, aucune fusionnée sur 30 jours dans les données relevées [facts:pulls.open] [facts:pulls.merged_30d]. Attendez-vous à une revue lente ; un rapport de bug précis avec sortie de debug a plus de valeur qu'une PR non testée.
 > Un rapport recevable = template d'issue, sortie de `bash scripts/ctx-debug.sh`, prompt exact et étapes de reproduction ; pas de SECURITY.md pour une faille, et 107 PR attendent déjà [src:contributing.md] [facts:business.security_policy] [facts:pulls.open].
 
 ## Quelles zones sont peu couvertes ?
-Le cache ne contient pas de mesure de couverture ; les zones ci-dessous sont déduites des issues et de la structure, à vérifier dans https://github.com/mksglu/context-mode/tree/main/tests.
+Donnée non relevée : mesure de couverture ; les zones ci-dessous sont déduites des issues et de la structure, à vérifier dans https://github.com/mksglu/context-mode/tree/main/tests.
 - Timeouts et annulation (#947, #959) : les tests vus portent sur l'exécuteur et le bac à sable Windows, pas sur l'interruption [facts:issues.hot.4.url] [src:tests.md].
 - Budgets et statistiques (#950, #1022) : `tests/session/stats-output-format.test.ts` existe mais les bugs persistent [src:tests.md] [facts:issues.hot.3.url].
 - Plateformes secondaires : issue #45 cherche encore des testeurs sur 15 plateformes × 3 OS [facts:issues.hot.0.title]. Les adaptateurs kiro et memory-conventions ont des tests, les autres n'apparaissent pas dans les 20 chemins vus [src:tests.md].

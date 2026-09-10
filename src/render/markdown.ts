@@ -1,4 +1,5 @@
-// Narratif Markdown → HTML. Les citations [facts:…] [src:…] [gh:…] deviennent des notes numérotées :
+// Narratif Markdown → HTML. Les citations [facts:…] et [src:…] renvoient au cache interne : elles servent au guide et à la
+// validation, jamais au lecteur, elles disparaissent du deck. Seules les [gh:url] (références publiques) deviennent des notes.
 // `validate deck` refuse toute citation encore visible une fois les balises retirées.
 // Sous-ensemble compris (SCHEMA.md) : une ligne = un paragraphe, listes - et 1., tableaux |, blocs ```, > à retenir, **gras**, `code`, URL nues.
 const CITATION = /\[(facts|src|gh):([^\]]+)\]/g;
@@ -49,7 +50,7 @@ export function parseNarrative(md: string): Narrative {
   return { title, sections };
 }
 
-// Sans `notes`, les citations disparaissent du texte (deck enfant : pas de notes de bas de page).
+// Sans `notes`, même les références publiques disparaissent (deck enfant : pas de notes de bas de page).
 export function renderBody(body: string, notes?: Notes): string {
   const lines = body.replace(/\r/g, "").split("\n");
   const out: string[] = [];
@@ -104,10 +105,10 @@ export function renderInline(text: string, notes?: Notes): string {
     .replace(/`([^`]+)`/g, "<code>$1</code>")
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
     .replace(/(^|[\s(])(https?:\/\/[^\s<)\]]*[^\s<)\].,;:!?])/g, (_m, before: string, url: string) => `${before}<a href="${url}">${url}</a>`);
-  // Sans notes, la citation part avec l'espace qui la précède : « gagnée [facts:x]. » devient « gagnée. »
-  if (!notes) return decorated.replace(new RegExp(`\\s*${CITATION.source}`, "g"), "");
-  return decorated.replace(new RegExp(CITATION.source, "g"), (_match, kind: string, ref: string) => {
-    const { n } = notes.add(kind as CiteKind, ref.trim());
-    return `<sup class="note"><a href="#note-${n}">${n}</a></sup>`;
+  // Une citation retirée part avec l'espace qui la précède : « gagnée [facts:x]. » devient « gagnée. »
+  return decorated.replace(new RegExp(`\\s*${CITATION.source}`, "g"), (match, kind: string, ref: string) => {
+    if (!notes || kind !== "gh") return "";
+    const { n } = notes.add("gh", ref.trim());
+    return `${match.startsWith(" ") ? " " : ""}<sup class="note"><a href="#note-${n}">${n}</a></sup>`.replace(/^ /, "");
   });
 }

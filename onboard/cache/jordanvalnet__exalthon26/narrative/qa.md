@@ -21,7 +21,7 @@ Parcours critiques à qualifier, dans l'ordre où ils cassent le plus probableme
 <!-- chart: tree -->
 Un dossier `test/` à la racine, lanceur `bun test`, 2 fichiers : `test/github.test.ts` (801 octets) et `test/issues.test.ts` (1654 octets) [facts:tests.dir] [facts:tests.framework] [facts:tests.files] [src:tests.md].
 La commande de référence est `bun run check` = `tsc --noEmit` puis `bun test` : le typecheck pèse autant que les tests [facts:build.test] [src:ci.md] [src:manifest.md].
-À en juger par leurs noms, les deux fichiers visent l'accès GitHub et le collecteur d'issues ; leur contenu n'a pas été lu par la collecte [src:tests.md].
+À en juger par leurs noms, les deux fichiers visent l'accès GitHub et le collecteur d'issues ; leur contenu n'a pas été lu [src:tests.md].
 Ce que ces noms ne couvrent pas, sur les 9 entrées de `src/` et les 15 scripts du manifeste [src:tree.md] [src:manifest.md] :
 - `src/validate.ts` (8324 octets) : les trois validations dures du pipeline [src:tree.md] [src:readme.md]
 - `src/merge.ts` (3849 octets) : la fusion des collectes dans `facts.json` [src:tree.md] [src:readme.md]
@@ -55,7 +55,7 @@ Aucun commentaire `TODO` de dette dans `src/` ni `test/` : la recherche renvoie 
 > Aucun bug tracé : le tracker est vide parce que personne n'a signalé, pas parce que le produit est qualifié [facts:issues.open] [facts:issues.by_label].
 
 ## Comment reproduire et signaler un bug ici ?
-Le cache ne contient pas de CONTRIBUTING.md : le fichier est absent des 21 entrées de la racine, à vérifier dans https://github.com/jordanvalnet/exalthon26 ; aucune procédure de signalement n'est écrite [src:tree.md].
+Donnée non relevée : CONTRIBUTING.md ; le fichier est absent des 21 entrées de la racine, à vérifier dans https://github.com/jordanvalnet/exalthon26 ; aucune procédure de signalement n'est écrite [src:tree.md].
 Reproduire : l'environnement tient en quelques lignes du README, bun, `.env` avec `GITHUB_PAT`, `bun install && bun run check`, puis la commande d'onboarding [src:readme.md] [facts:build.install] [facts:build.run].
 ```bash
 cp .env.example .env            # GITHUB_PAT=<token GitHub, scope repo>

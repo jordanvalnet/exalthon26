@@ -188,7 +188,7 @@
     {
       "kind": "license",
       "level": "mid",
-      "note": "Licence non standard « Elastic License 2.0 (ELv2) » : lire sources/license.md avant tout usage."
+      "note": "Licence non standard « Elastic License 2.0 (ELv2) » : lire LICENSE avant tout usage."
     },
     {
       "kind": "security",

@@ -93,7 +93,6 @@ footer .n { font-family: var(--mono); }
 .refs { min-height: 0; }
 .refs ol { padding-left: 22px; font-size: 0.86rem; column-count: 2; column-gap: 32px; }
 .refs li { margin-bottom: 6px; break-inside: avoid; }
-.kind { color: var(--muted); margin-right: 8px; }
 .note { font-size: 0.68em; }
 .note a { text-decoration: none; padding: 0 1px; }
 
@@ -114,7 +113,10 @@ footer .n { font-family: var(--mono); }
 .p-enfant .cover-top { justify-content: center; margin-bottom: 20px; }
 .p-enfant .cover .eyebrow { font-size: 1.15rem; letter-spacing: 0; text-transform: none; }
 .p-enfant .cover .eyebrow::before { content: "🎒 "; }
-.p-enfant .cover .date, .p-enfant .cover .desc, .p-enfant .cover-foot { display: none; }
+.p-enfant .cover .desc, .p-enfant .cover-foot { display: none; }
+.p-enfant .cover-top { flex-direction: column; align-items: center; gap: 6px; }
+.p-enfant .cover .date { font-size: 1rem; color: var(--muted); }
+.p-enfant .cover .date::before { content: "📅 "; }
 .p-enfant .cover .repo { font-family: var(--font); font-size: 1.1rem; }
 .p-enfant .cover .repo::before { content: "📦 "; }
 .p-enfant .kpis { display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; }
@@ -131,7 +133,7 @@ footer .n { font-family: var(--mono); }
 .p-enfant .chart .val, .p-enfant .chart .tick { font-size: 13px; }
 .p-enfant .chart .bar { fill: #f08a3c; } .p-enfant .chart .bar.strong { fill: #a98be0; }
 .p-enfant footer { border-top: 0; justify-content: center; }
-.p-enfant footer .repo-name { display: none; }
+.p-enfant footer { gap: 18px; }
 .p-enfant .finale { border-style: solid; }
 .p-enfant .finale h2::before { content: "🚀 "; }
 .p-enfant .finale .body { font-size: 1.15em; }
@@ -184,7 +186,7 @@ footer .n { font-family: var(--mono); }
 </head>
 <body class="p-enfant">
 <section class="cover">
-<div class="cover-top"><span class="eyebrow">Un projet expliqué aux curieux</span><span class="date">10 sept. 2026</span></div>
+<div class="cover-top"><span class="eyebrow">Un projet expliqué aux curieux</span><span class="date">Données GitHub relevées le 10 sept. 2026</span></div>
 <p class="repo">jordanvalnet/exalthon26</p>
 <h1>Onboard, c'est un robot qui lit un projet d'ordinateur et t'en fait un livre à ta taille : il marche, il est tout neuf, et il s'est lu lui-même</h1>
 <p class="desc">Hackathon eXaltemps 2026 : agent + MCP GitHub</p>
@@ -199,7 +201,7 @@ footer .n { font-family: var(--mono); }
 <p>Onboard fait ça pour six sortes de lecteurs, et l'un d'eux, c'est toi.</p>
 <p>Il a été fabriqué pendant un hackathon, un concours où des équipes créent un logiciel en une journée, le 9 septembre 2026.</p>
 <p>Sa règle numéro un : il n'invente rien. Chaque chiffre qu'il écrit dit d'où il vient.</p></div></div>
-<footer><span class="repo-name">jordanvalnet/exalthon26</span><span class="n">enfant · 2 / 7</span></footer>
+<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">enfant · 2 / 7</span></footer>
 </section>
 <section class="page">
 <header><span class="kicker">03</span><h2>Qui s'en sert et pour quoi faire ?</h2></header>
@@ -210,7 +212,7 @@ footer .n { font-family: var(--mono); }
 <p>Après avoir lu son livre, chacun peut poser des questions au guide, qui répond et dit toujours où il a trouvé la réponse.</p>
 <p>L'équipe l'a essayé sur un vrai projet fait par quelqu'un d'autre, et a mis les six livres en ligne pour montrer que ça marche.</p>
 <p>Pour l'instant, c'est surtout l'équipe qui s'en sert : sur GitHub, personne n'a encore mis d'étoile sur le projet, une étoile c'est comme un « j'aime », et personne ne l'a encore copié chez lui.</p></div></div>
-<footer><span class="repo-name">jordanvalnet/exalthon26</span><span class="n">enfant · 3 / 7</span></footer>
+<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">enfant · 3 / 7</span></footer>
 </section>
 <section class="page">
 <header><span class="kicker">04</span><h2>Combien de personnes le fabriquent ?</h2></header>
@@ -221,7 +223,7 @@ footer .n { font-family: var(--mono); }
 <p>Imagine une cabane construite par cinq copains : l'un d'eux a planté presque toutes les planches, les autres ont apporté les clous, la peinture et le toit.</p>
 <p>Si le copain principal partait, la cabane serait dure à finir. Les informaticiens appellent ça le bus factor, et ici il vaut 1 : une seule personne porte la moitié du travail.</p>
 <p>Et presque tout a été fait en une seule semaine : 57 commits la semaine du concours, contre 1 seul pendant les onze semaines d'avant.</p></div></div>
-<footer><span class="repo-name">jordanvalnet/exalthon26</span><span class="n">enfant · 4 / 7</span></footer>
+<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">enfant · 4 / 7</span></footer>
 </section>
 <section class="page">
 <header><span class="kicker">05</span><h2>Comment on fabrique un logiciel à plusieurs ?</h2></header>
@@ -233,7 +235,7 @@ footer .n { font-family: var(--mono); }
 <p>Il y a aussi des consignes écrites pour les robots : les assistants IA de l'équipe lisent le fichier AGENTS.md pour savoir quoi faire et comment se parler.</p>
 <p>Tout le monde travaille sur la même copie, rangée sur GitHub, et chaque changement est signé : comme un cahier de classe où chacun écrit son nom à côté de sa ligne.</p>
 <p>Pour discuter, l'équipe et ses robots utilisent une conversation sur GitHub, avec 22 messages échangés.</p></div></div>
-<footer><span class="repo-name">jordanvalnet/exalthon26</span><span class="n">enfant · 5 / 7</span></footer>
+<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">enfant · 5 / 7</span></footer>
 </section>
 <section class="page">
 <header><span class="kicker">06</span><h2>Une chose étonnante sur ce projet ?</h2></header>
@@ -243,12 +245,12 @@ footer .n { font-family: var(--mono); }
 <p>Le plus étonnant : le livre que tu tiens a été fabriqué par Onboard, en lisant le projet Onboard. Le robot s'est regardé dans le miroir.</p>
 <p>Autre chose étonnante : des robots ont travaillé avec les humains. Les assistants IA de l'équipe se parlent entre eux dans la conversation du projet, et chacun de leurs messages commence par 🤖.</p>
 <p>Et une chose qui manque : le projet n'a pas de licence, ce papier qui dit si tu as le droit de le copier ou de le prêter. C'est comme un jouet sans la notice qui dit à qui il appartient.</p></div></div>
-<footer><span class="repo-name">jordanvalnet/exalthon26</span><span class="n">enfant · 6 / 7</span></footer>
+<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">enfant · 6 / 7</span></footer>
 </section><section class="finale">
 <header><span class="kicker">enfant</span><h2>Et toi, tu ferais quoi avec ?</h2></header>
 
 <div class="body"><div class="text"><ul><li>Tu pourrais lui donner l'adresse de ton jeu préféré, s'il est rangé sur GitHub, et lui demander de te l'expliquer en version enfant.</li><li>Tu pourrais fabriquer le même livre pour ta grande sœur qui code ou pour tes parents : il existe une version pour chacun des six lecteurs.</li><li>Tu pourrais lui poser des questions après, comme à un guide de musée : il répond et dit toujours où il a trouvé la réponse.</li><li>Et toi, quelle question tu lui poserais en premier ?</li></ul></div></div>
-<footer><span class="repo-name">jordanvalnet/exalthon26</span><span class="n">enfant · 7 / 7</span></footer>
+<footer><span class="repo-name">jordanvalnet/exalthon26 · relevé le 10 sept. 2026</span><span class="n">enfant · 7 / 7</span></footer>
 </section>
 </body>
 </html>

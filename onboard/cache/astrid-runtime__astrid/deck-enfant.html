@@ -93,7 +93,6 @@ footer .n { font-family: var(--mono); }
 .refs { min-height: 0; }
 .refs ol { padding-left: 22px; font-size: 0.86rem; column-count: 2; column-gap: 32px; }
 .refs li { margin-bottom: 6px; break-inside: avoid; }
-.kind { color: var(--muted); margin-right: 8px; }
 .note { font-size: 0.68em; }
 .note a { text-decoration: none; padding: 0 1px; }
 
@@ -114,7 +113,10 @@ footer .n { font-family: var(--mono); }
 .p-enfant .cover-top { justify-content: center; margin-bottom: 20px; }
 .p-enfant .cover .eyebrow { font-size: 1.15rem; letter-spacing: 0; text-transform: none; }
 .p-enfant .cover .eyebrow::before { content: "🎒 "; }
-.p-enfant .cover .date, .p-enfant .cover .desc, .p-enfant .cover-foot { display: none; }
+.p-enfant .cover .desc, .p-enfant .cover-foot { display: none; }
+.p-enfant .cover-top { flex-direction: column; align-items: center; gap: 6px; }
+.p-enfant .cover .date { font-size: 1rem; color: var(--muted); }
+.p-enfant .cover .date::before { content: "📅 "; }
 .p-enfant .cover .repo { font-family: var(--font); font-size: 1.1rem; }
 .p-enfant .cover .repo::before { content: "📦 "; }
 .p-enfant .kpis { display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; }
@@ -131,7 +133,7 @@ footer .n { font-family: var(--mono); }
 .p-enfant .chart .val, .p-enfant .chart .tick { font-size: 13px; }
 .p-enfant .chart .bar { fill: #f08a3c; } .p-enfant .chart .bar.strong { fill: #a98be0; }
 .p-enfant footer { border-top: 0; justify-content: center; }
-.p-enfant footer .repo-name { display: none; }
+.p-enfant footer { gap: 18px; }
 .p-enfant .finale { border-style: solid; }
 .p-enfant .finale h2::before { content: "🚀 "; }
 .p-enfant .finale .body { font-size: 1.15em; }
@@ -159,8 +161,15 @@ footer .n { font-family: var(--mono); }
   html { font-size: 12px; }
   .p-dev, .p-qa, .p-cto { --text: 0.9rem; }
   .p-dev .tree, .p-qa .tree, .p-cto .tree { font-size: 0.82em; }
+  .p-ceo { --text: 1rem; }
+  .p-ceo .takeaway { font-size: 1.3rem; margin-bottom: 16px; }
+  .p-ceo .risks li { padding: 2px 0; }
   .body.split { gap: 22px; }
   .takeaway { font-size: 1.05em; padding: 10px 16px; margin-bottom: 14px; }
+  th, td { padding: 5px 10px; }
+  footer { margin-top: 14px; padding-top: 8px; }
+  .refs ol { column-count: 3; font-size: 0.82rem; }
+  .refs li { margin-bottom: 3px; }
   body { background: #fff; }
   :root, .p-dev, .p-qa, .p-cto, .p-ceo, .p-investisseur, .p-enfant { --bg: #f5f5f3; --card: #fff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2; }
   .p-qa { --bg: #f2f7f5; } .p-cto { --bg: #f4f6f9; } .p-ceo { --bg: #f7f5ef; --card: #fffdf8; } .p-investisseur { --bg: #f6f6f2; } .p-enfant { --bg: #fff6e5; --card: #fffdf7; --fg: #2b2118; --muted: #7a6a5a; }
@@ -177,7 +186,7 @@ footer .n { font-family: var(--mono); }
 </head>
 <body class="p-enfant">
 <section class="cover">
-<div class="cover-top"><span class="eyebrow">Un projet expliqué aux curieux</span><span class="date">9 sept. 2026</span></div>
+<div class="cover-top"><span class="eyebrow">Un projet expliqué aux curieux</span><span class="date">Données GitHub relevées le 9 sept. 2026</span></div>
 <p class="repo">astrid-runtime/astrid</p>
 <h1>Astrid, une maison avec des portes qui ferment à clé pour les programmes</h1>
 <p class="desc">Astrid is a portable, capability-secure operating system for composable software.</p>
@@ -190,7 +199,7 @@ footer .n { font-family: var(--mono); }
 <p>Imagine une grande maison. Chaque petit programme a sa chambre, et chaque chambre a une porte qui ferme à clé. Un programme ne peut entrer dans une autre chambre que s'il a la clé. Les créateurs appellent ces petits programmes des « capsules » et les clés des « capacités ».</p>
 <p>Pourquoi ? Parce qu'aujourd'hui on fait travailler des intelligences artificielles (des IA) sur nos ordinateurs. Une IA peut décider de faire des choses. Mais lui dire « sois sage » ne suffit pas. Astrid, lui, ne la laisse pas ouvrir les portes qu'elle n'a pas le droit d'ouvrir.</p>
 <p>Pour l'instant, Astrid tourne sur les Mac et sur Linux. Le rêve des créateurs, c'est d'en faire plus tard un vrai système complet pour ordinateur, comme Windows ou macOS.</p></div></div>
-<footer><span class="repo-name">astrid-runtime/astrid</span><span class="n">enfant · 2 / 7</span></footer>
+<footer><span class="repo-name">astrid-runtime/astrid · relevé le 9 sept. 2026</span><span class="n">enfant · 2 / 7</span></footer>
 </section>
 <section class="page">
 <header><span class="kicker">03</span><h2>Qui s'en sert et pour quoi faire ?</h2></header>
@@ -198,8 +207,8 @@ footer .n { font-family: var(--mono); }
 <div class="body"><div class="text"><p>Ce sont surtout des gens qui fabriquent des programmes : ils s'en servent pour construire des robots-assistants (des IA qui font des tâches), des outils ou des services. Astrid leur donne la maison avec les portes, et ils choisissent eux-mêmes qui habite dedans.</p>
 <p>C'est comme une boîte de Lego : Astrid donne la plaque de base et les règles d'emboîtement, mais il ne décide pas ce que tu construis. Le mode d'emploi dit même qu'Astrid « ne choisit pas de produit » pour toi.</p>
 <p>On peut l'installer sur un Mac ou un Linux en quelques lignes, et on peut lui demander des choses en écrivant, par exemple « résume ce qui a changé ».</p>
-<p>Combien de personnes s'en servent vraiment ? Le cache ne contient pas ce chiffre ; à vérifier sur <a href="https://github.com/astrid-runtime/astrid">https://github.com/astrid-runtime/astrid</a>. Ce qu'on sait : 10277 personnes ont mis une étoile au projet (un « j'aime » sur GitHub) et 137 en ont fait leur propre copie pour bricoler dessus.</p></div></div>
-<footer><span class="repo-name">astrid-runtime/astrid</span><span class="n">enfant · 3 / 7</span></footer>
+<p>Combien de personnes s'en servent vraiment ? Donnée non relevée : ce chiffre ; à vérifier sur <a href="https://github.com/astrid-runtime/astrid">https://github.com/astrid-runtime/astrid</a>. Ce qu'on sait : 10277 personnes ont mis une étoile au projet (un « j'aime » sur GitHub) et 137 en ont fait leur propre copie pour bricoler dessus.</p></div></div>
+<footer><span class="repo-name">astrid-runtime/astrid · relevé le 9 sept. 2026</span><span class="n">enfant · 3 / 7</span></footer>
 </section>
 <section class="page">
 <header><span class="kicker">04</span><h2>Combien de personnes le fabriquent ?</h2></header>
@@ -208,7 +217,7 @@ footer .n { font-family: var(--mono); }
 <p>Deux autres ont aidé un peu : jvsteiner avec 7 commits et Copilot avec 3 commits.</p>
 <p>C'est comme un gâteau fait presque entièrement par un seul pâtissier, avec deux amis qui ont ajouté trois cerises. Les développeurs appellent ça un « bus factor » de 1 : si cette personne s'arrête, le projet s'arrête presque.</p>
 <p>Le pâtissier travaille beaucoup : entre 16 et 41 commits chaque semaine. Le dernier commit date du 9 septembre 2026, le jour même de cette fiche.</p></div></div>
-<footer><span class="repo-name">astrid-runtime/astrid</span><span class="n">enfant · 4 / 7</span></footer>
+<footer><span class="repo-name">astrid-runtime/astrid · relevé le 9 sept. 2026</span><span class="n">enfant · 4 / 7</span></footer>
 </section>
 <section class="page">
 <header><span class="kicker">05</span><h2>Comment on fabrique un logiciel à plusieurs ?</h2></header>
@@ -218,7 +227,7 @@ footer .n { font-family: var(--mono); }
 <p>Quand quelqu'un propose un changement, des robots vérifient tout automatiquement : le dossier <code>.github</code> contient 20 chaînes de vérification. C'est comme un contrôle de qualité à la sortie d'une usine de jouets.</p>
 <p>Il y a aussi un dossier <code>e2e</code> pour tester le programme de bout en bout et un dossier <code>fuzz</code> qui lui envoie n'importe quoi pour voir s'il résiste.</p>
 <p>Ça bouge beaucoup : 192 tickets sont ouverts, 149 ont été réglés en 30 jours et 24 propositions de changement attendent. Chaque changement accepté est noté dans un journal, <code>CHANGELOG.md</code>, qui fait déjà 410 Ko de texte.</p></div></div>
-<footer><span class="repo-name">astrid-runtime/astrid</span><span class="n">enfant · 5 / 7</span></footer>
+<footer><span class="repo-name">astrid-runtime/astrid · relevé le 9 sept. 2026</span><span class="n">enfant · 5 / 7</span></footer>
 </section>
 <section class="page">
 <header><span class="kicker">06</span><h2>Une chose étonnante sur ce projet ?</h2></header>
@@ -226,13 +235,13 @@ footer .n { font-family: var(--mono); }
 <div class="body"><div class="text"><p>Le projet est tout jeune : il est né le 15 février 2026. En moins de sept mois, 10277 personnes lui ont donné une étoile. C'est comme si un nouveau à l'école avait dix mille amis avant la fin de l'année.</p>
 <p>Encore plus drôle : Astrid sert à empêcher les IA de faire n'importe quoi sur ton ordinateur. Et pourtant, une IA, Copilot, a elle-même ajouté 3 commits au projet. Le gardien a été un peu construit par ceux qu'il surveille.</p>
 <p>Une dernière : tout ça est presque l'œuvre d'une seule personne, mais le projet a déjà un numéro de version qui ressemble à une date, <code>v2026.9.0</code>, sorti le jour de cette fiche.</p></div></div>
-<footer><span class="repo-name">astrid-runtime/astrid</span><span class="n">enfant · 6 / 7</span></footer>
+<footer><span class="repo-name">astrid-runtime/astrid · relevé le 9 sept. 2026</span><span class="n">enfant · 6 / 7</span></footer>
 </section><section class="finale">
 <header><span class="kicker">enfant</span><h2>Et toi, tu ferais quoi avec ?</h2></header>
 
 <div class="body"><div class="text"><ul><li>Lui écrire une phrase, comme « résume ce qui a changé », et le laisser faire le travail à ta place.</li><li>Fabriquer ta propre petite chambre de la maison, une « capsule » : le mode d'emploi montre l'exemple d'une capsule qui donne la météo d'une ville.</li><li>Créer un robot-assistant qui n'a le droit d'ouvrir qu'un seul tiroir de ton ordinateur, avec une mémoire limitée, comme un argent de poche.</li></ul>
 <p>Et toi, quelle porte tu laisserais ouverte à ton robot, et laquelle tu fermerais à clé ?</p></div></div>
-<footer><span class="repo-name">astrid-runtime/astrid</span><span class="n">enfant · 7 / 7</span></footer>
+<footer><span class="repo-name">astrid-runtime/astrid · relevé le 9 sept. 2026</span><span class="n">enfant · 7 / 7</span></footer>
 </section>
 </body>
 </html>

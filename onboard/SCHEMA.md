@@ -68,8 +68,10 @@ Paragraphes courts. Chaque affirmation chiffrée cite sa source : [facts:activit
 ```
 
 Règles : une H2 par question du profil, dans l'ordre et avec le libellé exact du profil (sans la mention du graphique).
-Au plus une directive `<!-- chart: … -->` par section, prise dans la liste ci-dessous. Le rendu convertit les citations
-en notes de bas de page (profil enfant : les citations disparaissent, pas de page Sources).
+Au plus une directive `<!-- chart: … -->` par section, prise dans la liste ci-dessous. Les citations `[facts:…]` et `[src:…]`
+renvoient au cache interne : elles servent à la validation et au guide, le rendu les retire du deck. Seules les `[gh:url]`,
+références publiques, deviennent des notes, et la page Sources n'existe que s'il y en a (jamais pour le profil enfant).
+Le deck est un instantané : la date du relevé (`collected.at`) est sur la couverture et sur chaque page.
 
 Deux éléments font le deck « agence de com » ; le rendu les met en scène, le rédacteur les écrit :
 - **À retenir** : chaque section se termine par une ligne `> …`, la phrase que le lecteur doit garder, citée comme le reste.

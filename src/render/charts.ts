@@ -126,7 +126,7 @@ function tree(facts: Facts): string {
   const items = shown
     .map((e) => `<li><code>${escapeHtml(e.path)}${e.type === "dir" ? "/" : ""}</code><span class="role">${escapeHtml(e.role)}</span></li>`)
     .join("");
-  const more = entries.length > shown.length ? `<li class="more">… et ${entries.length - shown.length} autres entrées, voir sources/tree.md</li>` : "";
+  const more = entries.length > shown.length ? `<li class="more">… et ${entries.length - shown.length} autres entrées à la racine du dépôt</li>` : "";
   return `<ul class="tree">${items}${more}</ul>`;
 }
 

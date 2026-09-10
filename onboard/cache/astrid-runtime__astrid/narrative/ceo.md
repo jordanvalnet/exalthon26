@@ -18,7 +18,7 @@ Le projet est ouvert sous licence Apache-2.0, permissive pour un usage commercia
 L'intérêt est réel : 10 277 étoiles GitHub, l'équivalent de « j'aime », et 137 copies du projet par des tiers [facts:repo.stars] [facts:repo.forks].
 La demande est soutenue : 192 tickets ouverts et 149 fermés sur les 30 derniers jours [facts:issues.open] [facts:issues.closed_30d], ce qui ressemble à un service client qui répond vite.
 Point d'attention : 42 tickets étiquetés « bug » et 46 étiquetés « sécurité » [facts:issues.by_label.bug] [facts:issues.by_label.security], pour un produit dont la promesse est justement la sécurité.
-Le cache ne contient pas de liste d'utilisateurs ou de clients nommés ; à vérifier sur https://github.com/astrid-runtime/astrid et dans le Book cité par la documentation [src:readme.md].
+Donnée non relevée : une liste d'utilisateurs ou de clients nommés ; à vérifier sur https://github.com/astrid-runtime/astrid et dans le Book cité par la documentation [src:readme.md].
 > 10 277 étoiles et 149 tickets fermés en 30 jours : ça se livre et ça répond, mais 46 tickets portent encore l'étiquette sécurité [facts:repo.stars] [facts:issues.closed_30d] [facts:issues.by_label.security].
 
 ## Le projet est-il vivant ?
@@ -34,7 +34,7 @@ Le projet est jeune : créé le 15 février 2026 [facts:repo.created_at], il a m
 Une organisation GitHub, astrid-runtime [facts:repo.owner_type] [facts:repo.full_name], mais dans les faits une seule personne : joshuajbouw signe 309 des modifications des 12 dernières semaines, le deuxième contributeur en signe 7 et un assistant automatique 3 [facts:activity.contributors.0.commits] [facts:activity.contributors.1.commits] [facts:activity.contributors.2.commits].
 Le « bus factor » est de 1 : si cette personne s'arrête, le projet s'arrête [facts:activity.bus_factor]. C'est une entreprise à un seul salarié clé.
 Côté gouvernance, les bons réflexes sont là : une politique de sécurité publiée et des responsables de code désignés [facts:business.security_policy] [facts:business.codeowners].
-Aucun financement déclaré (pas de sponsors, pas de page de dons) [facts:business.funding]. Le cache ne contient pas de liste de concurrents ; à vérifier dans facts.json, bloc business.competitors.
+Aucun financement déclaré (pas de sponsors, pas de page de dons) [facts:business.funding]. Donnée non relevée : une liste de concurrents ; à vérifier sur https://github.com/astrid-runtime/astrid.
 > Une organisation sur le papier, une seule personne dans les faits : 309 modifications sur 12 semaines pour le premier contributeur, 7 pour le deuxième [facts:activity.contributors.0.commits] [facts:activity.contributors.1.commits] [facts:activity.bus_factor].
 
 ## Quels sont les trois risques ?
@@ -48,7 +48,7 @@ Ce qui rassure : licence permissive, risque faible [facts:risks.0.level], et une
 ## Qu'en fait-on ?
 La direction est lisible dans les demandes : les chantiers les plus discutés visent un « système universel » (campagne os-universal) et une « Station » de distribution de briques [facts:roadmap.requests.0.labels.0] [facts:roadmap.requests.1.labels.0], avec en tête un ticket de qualification Linux à 29 commentaires [facts:roadmap.requests.0.comments].
 10 propositions de changement sont en attente, dont 7 encore en brouillon [facts:roadmap.open_prs] [facts:roadmap.open_prs.2.draft] ; deux sont des mises à jour automatiques de fournisseurs [facts:roadmap.open_prs.0.title] [facts:roadmap.open_prs.1.title]. Une prépare Windows [facts:roadmap.open_prs.3.title].
-Le cache ne contient pas de jalons datés ni de synthèse par thème (roadmap.themes est vide, roadmap.milestones absent) ; à vérifier sur https://github.com/astrid-runtime/astrid/milestones.
+Données non relevées : jalons datés et synthèse par thème ; à vérifier sur https://github.com/astrid-runtime/astrid/milestones.
 Décision proposée : ne pas miser dessus seul aujourd'hui, l'observer trois mois. À suivre : le bus factor [facts:activity.bus_factor], l'arrivée d'un financement [facts:business.funding] et la fermeture des 46 tickets sécurité [facts:issues.by_label.security].
 > Observer trois mois avant de miser : le cap est lisible, un système universel et une Station de distribution, mais sans calendrier annoncé et avec un seul pilote [facts:roadmap.requests.0.labels.0] [facts:roadmap.requests.1.labels.0] [facts:activity.bus_factor].
 

@@ -26,6 +26,10 @@ Objectif : moins de 3 minutes même sur un repo de 500 000 lignes. Personne ne l
 Budget de l'étape : 48 appels au plus, dont 5 `search_*` (limite de 30 par minute pour tout le poste).
 Échéance : 60 s par collecteur en code, 2 minutes par collecteur en prompt.
 
+## Textes destinés au lecteur
+Les champs `role` de `tree`, `why` de `entrypoints` et `note` de `risks` sont affichés tels quels dans le deck. Ils nomment
+les fichiers du dépôt (`LICENSE`, `.github/workflows/ci.yml`), jamais un chemin du cache (`sources/license.md`), ni le mot « cache ».
+
 ## Protocole quota (WORKFLOW.md, règle 8)
 Chaque prompt de sous-agent liste sa file d'appels, dans l'ordre, avec sa priorité : P0 indispensable, P1 utile, P2 jetable.
 Le serveur MCP ne dit pas le quota restant : on ne le connaît que par ses refus.

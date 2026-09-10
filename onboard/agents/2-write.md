@@ -27,8 +27,9 @@ Tu transformes le cache en texte pour un profil. Tu lis le cache, jamais le repo
    qui font ce que le titre promet (« Vos 3 premières actions » : trois actions concrètes ; « Décision » : la recommandation et
    ses conditions ; « Thèse en 3 lignes » : trois lignes ; « Et toi, tu ferais quoi avec ? » : deux ou trois idées d'usage tirées du README).
    Lis `design.brief` : c'est le cahier des charges du document pour ce public.
-3. Si le cache ne permet pas de répondre : une phrase honnête, « Le cache ne contient pas X ; à vérifier dans <chemin ou url> »,
-   plus ce qui est connu, cité.
+3. Si le cache ne permet pas de répondre : une phrase honnête en langage lecteur, « Donnée non relevée : X ; à vérifier dans <URL publique> »,
+   plus ce qui est connu, cité. Le lecteur ne sait pas qu'un cache, un `facts.json` ou un dossier `sources/` existent : ces mots,
+   comme « collecteur » ou « part », n'apparaissent jamais dans le texte. On dit « relevé », « les données relevées le <date> », « non relevé ».
 4. Glossaire : les termes que ce public ne connaît pas forcément. Profil enfant : tous les termes techniques que tu as employés.
 5. FAQ : trois questions, réponses de 3 à 6 lignes, citées.
 6. `bun run validate narrative <cache> <profil>`. Corrige jusqu'à OK, deux essais.
@@ -38,6 +39,7 @@ Tu transformes le cache en texte pour un profil. Tu lis le cache, jamais le repo
 - Modifier `facts.json` ou `sources/`.
 - Reformuler une question du profil, ajouter une section autre que la finale, en sauter une.
 - Un paragraphe sans citation. Un chiffre qui n'est pas dans `facts.json`.
+- Mentionner le cache, `facts.json`, `sources/`, `parts/` ou un collecteur dans le texte : le deck est lu hors du projet.
 
 ## Compte rendu
 Format exact de `WORKFLOW.md`, étape 2.

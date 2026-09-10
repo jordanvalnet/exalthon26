@@ -17,13 +17,13 @@ Point d'attention : 5 manifestes de plugin cachés (.claude-plugin, .codex-plugi
 
 ## Quelle est sa santé technique ?
 <!-- chart: commits_per_week -->
-Activité en décrue : 57 commits en semaine 26, plateau à 11-13 par semaine, 9 en semaine 36 [facts:activity.commits_per_week]. Dernier commit le 2026-09-08 [facts:activity.last_commit]. 10 releases entre le 2026-06-01 et le 2026-06-29, aucune dans le cache depuis [facts:releases.9.date] [facts:releases.0.date] ; à vérifier dans https://github.com/mksglu/context-mode/releases.
+Activité en décrue : 57 commits en semaine 26, plateau à 11-13 par semaine, 9 en semaine 36 [facts:activity.commits_per_week]. Dernier commit le 2026-09-08 [facts:activity.last_commit]. 10 releases entre le 2026-06-01 et le 2026-06-29, aucune dans les données relevées depuis [facts:releases.9.date] [facts:releases.0.date] ; à vérifier dans https://github.com/mksglu/context-mode/releases.
 
 CI sérieuse : matrice ubuntu, macos, windows, typecheck, build, bundle, assertions d'invariants sur les bundles, vitest, sur push et PR vers main et next [facts:build.ci.0.triggers] [src:ci.md]. 255 fichiers de tests vitest [facts:tests.files].
 
-Signal négatif : 107 PR ouvertes, 0 fusionnée sur 30 jours dans le cache, 119 issues ouvertes, 6 fermées sur 30 jours [facts:pulls.open] [facts:pulls.merged_30d] [facts:issues.open] [facts:issues.closed_30d]. Le débit d'absorption des contributions est quasi nul.
+Signal négatif : 107 PR ouvertes, 0 fusionnée sur 30 jours dans les données relevées, 119 issues ouvertes, 6 fermées sur 30 jours [facts:pulls.open] [facts:pulls.merged_30d] [facts:issues.open] [facts:issues.closed_30d]. Le débit d'absorption des contributions est quasi nul.
 
-> CI sur ubuntu, macos, windows et 255 fichiers de tests, mais 107 PR ouvertes, 0 fusionnée sur 30 jours et aucune release dans le cache depuis le 2026-06-29 : le code est sain, le flux ne l'est plus [src:ci.md] [facts:tests.files] [facts:pulls.open] [facts:pulls.merged_30d] [facts:releases.0.date].
+> CI sur ubuntu, macos, windows et 255 fichiers de tests, mais 107 PR ouvertes, 0 fusionnée sur 30 jours et aucune release dans les données relevées depuis le 2026-06-29 : le code est sain, le flux ne l'est plus [src:ci.md] [facts:tests.files] [facts:pulls.open] [facts:pulls.merged_30d] [facts:releases.0.date].
 
 ## Qui porte le projet et quel est le bus factor ?
 <!-- chart: contributors -->
@@ -50,7 +50,7 @@ Node ≥ 22.5.0 ; `packageManager` déclare pnpm alors que la CI et la doc font 
 | CI [facts:risks.3.level] | low | Rien à faire |
 | Dépendances [facts:risks.4.level] | low | Épingler la version, surveiller better-sqlite3 |
 
-Le cache ne contient pas `security.md` puisque le repo n'a pas de SECURITY.md [facts:business.security_policy]. Risque supplémentaire non noté : l'outil injecte des prompts et exécute du code ; deux issues signalent des collisions avec le classificateur de Claude Code (#911, #946) [facts:issues.hot.1.url] [facts:issues.hot.5.url].
+Le dépôt n'a pas de SECURITY.md [facts:business.security_policy]. Risque supplémentaire non noté : l'outil injecte des prompts et exécute du code ; deux issues signalent des collisions avec le classificateur de Claude Code (#911, #946) [facts:issues.hot.1.url] [facts:issues.hot.5.url].
 
 > Un risque haut, le bus factor ; deux moyens, licence ELv2 et absence de SECURITY.md ; deux bas, CI et dépendances : chacun a sa parade, aucun ne bloque un usage interne [facts:risks.2.level] [facts:risks.0.level] [facts:risks.1.level] [facts:risks.3.level] [facts:risks.4.level].
 
@@ -62,7 +62,7 @@ Décision : adopter en interne, version épinglée, sur une équipe pilote. Cont
 > Adopter en interne, version épinglée, sur une équipe pilote ; fork dormant, bascule si aucune release ne sort d'ici trois mois [facts:releases.0.date] [facts:pulls.open] [facts:activity.bus_factor].
 
 ## Décision
-**Adopter en interne, sans en dépendre.** Version épinglée sur v1.0.169, dernière release du cache datée du 2026-06-29, installée via `claude mcp add context-mode -- npx -y context-mode` sur une équipe pilote [facts:releases.0.tag] [facts:releases.0.date] [facts:build.run].
+**Adopter en interne, sans en dépendre.** Version épinglée sur v1.0.169, dernière release relevée, datée du 2026-06-29, installée via `claude mcp add context-mode -- npx -y context-mode` sur une équipe pilote [facts:releases.0.tag] [facts:releases.0.date] [facts:build.run].
 - Conditions avant déploiement : revue interne de `src/security.ts` et des hooks, car le repo n'a pas de SECURITY.md ; vérifier l'installation de better-sqlite3 sur les Node de l'équipe (≥ 22.5.0 requis) [facts:business.security_policy] [facts:risks.4.note] [src:contributing.md] [src:manifest.md].
 - Licence : ELv2 autorise l'usage, la copie et les dérivés ; elle interdit de fournir le logiciel à des tiers en service hébergé ou managé : pas de mise en produit [facts:repo.license] [src:license.md].
 - Contribuer : seulement des correctifs petits, testés, dans les fichiers de tests existants ; 107 PR ouvertes et 0 fusionnée sur 30 jours, ne pas attendre de retour rapide [facts:pulls.open] [facts:pulls.merged_30d] [src:contributing.md].

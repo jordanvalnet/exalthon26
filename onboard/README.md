@@ -76,7 +76,7 @@ onboard/cache/<owner>__<repo>/
 ├── narrative/{profil}.md  le texte pour un profil : une section H2 par question, chaque phrase citée [facts:…] [src:…] [gh:…]
 ├── glossary.md            un terme par ligne
 ├── faq.md                 questions et réponses accumulées, tous profils
-└── deck-{profil}.html     la présentation, autonome, imprimable en PDF
+└── deck-{profil}.html     la présentation, autonome, datée, sans référence au cache, imprimable en PDF
 ```
 
 Les blocs de `facts.json`, les graphiques disponibles et les formats exacts sont dans [SCHEMA.md](SCHEMA.md).

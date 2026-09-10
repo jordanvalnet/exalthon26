@@ -27,7 +27,7 @@ Sur 12 semaines, 57 contributions la semaine du hackathon contre 1 sur les onze 
 Dernière contribution le 10 septembre 2026 au matin, le lendemain de la création [facts:activity.last_commit] [facts:repo.created_at].
 Une seule proposition de modification a été fusionnée, le 9 septembre, celle qui a posé l'architecture du pipeline ; aucune n'est en attente [facts:pulls.merged_30d.0.title] [facts:pulls.merged_30d.0.merged_at] [facts:pulls.open].
 Aucune feuille de route : pas de proposition ouverte, aucun thème de travail étiqueté, et l'unique demande ouverte est le chat d'équipe [facts:roadmap.open_prs] [facts:roadmap.themes] [facts:roadmap.requests.0.title].
-Le cache ne contient pas de jalons, le serveur MCP GitHub ne les expose pas ; à vérifier dans https://github.com/jordanvalnet/exalthon26/milestones [facts:roadmap].
+Donnée non relevée : les jalons, le serveur MCP GitHub ne les expose pas ; à vérifier dans https://github.com/jordanvalnet/exalthon26/milestones [facts:roadmap].
 > Une intensité de sprint, 57 contributions en une semaine, et rien d'écrit pour la suivante [facts:activity.commits_per_week.11.count] [facts:roadmap.themes].
 
 ## Quelle équipe et quelle gouvernance ?
@@ -40,7 +40,7 @@ Point positif : le savoir-faire est écrit. Consignes pour les agents, prompt de
 > Une équipe de hackathon, un pilier unique, aucune structure juridique ni gouvernance : rien d'investissable en l'état [facts:activity.bus_factor] [facts:repo.owner_type].
 
 ## Quelle concurrence ?
-Le cache ne contient aucun concurrent : la collecte cherche des projets voisins par thème GitHub, et ce dépôt n'affiche aucun thème ; à vérifier sur https://github.com/search?type=repositories avec les mots-clés onboarding, documentation, agent [facts:repo.topics] [facts:business].
+Donnée non relevée : les concurrents, la recherche de projets voisins se fait par thème GitHub et ce dépôt n'affiche aucun thème ; à vérifier sur https://github.com/search?type=repositories avec les mots-clés onboarding, documentation, agent [facts:repo.topics] [facts:business].
 Lecture d'analyste, à confirmer : la fonction « lire un dépôt et l'expliquer à un public » est à portée des deux plateformes dont Onboard dépend, l'assistant Claude Code d'un éditeur tiers et le serveur MCP hébergé par GitHub ; le risque est moins un concurrent qu'une absorption par la plateforme [src:readme.md] [src:ai-docs.md].
 Ce qui serait défendable : la méthode, validations en code entre chaque étape, cache versionné, six profils décrits en fichiers, plutôt que le code, léger, 3 dépendances dont 1 seule à l'exécution [src:readme.md] [facts:deps.count] [facts:deps.runtime.0.name].
 La documentation affirme que les prompts, en texte brut, s'exécutent aussi avec Copilot et Codex : ce qui rend le projet portable le rend aussi facile à copier [src:readme.md].
@@ -48,7 +48,7 @@ La documentation affirme que les prompts, en texte brut, s'exécutent aussi avec
 
 ## Licence, financement, risques ?
 <!-- chart: risks -->
-Le dépôt n'a ni fichier de licence, ni fichier de financement, ni politique de sécurité : le cache ne contient pas license.md, funding.md ni security.md parce que ces fichiers n'existent pas dans le dépôt ; à vérifier dans https://github.com/jordanvalnet/exalthon26 [facts:repo.license] [facts:business.funding] [facts:business.security_policy].
+Le dépôt n'a ni fichier de licence, ni fichier de financement, ni politique de sécurité : donnée non relevée pour LICENSE, FUNDING et SECURITY.md parce que ces fichiers n'existent pas dans le dépôt ; à vérifier dans https://github.com/jordanvalnet/exalthon26 [facts:repo.license] [facts:business.funding] [facts:business.security_policy].
 Sans licence, personne n'a de droit clair de réutiliser le code, ni un tiers ni un investisseur : la propriété est de fait répartie entre les cinq contributeurs, sans accord écrit dans le dépôt [facts:risks.0.note] [facts:activity.contributors].
 | Risque | Niveau | Ce que ça change pour un investisseur |
 |---|---|---|

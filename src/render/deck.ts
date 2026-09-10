@@ -18,14 +18,15 @@ export function buildDeck(facts: Facts, narrative: string, profile: Profile): st
   const written = last && profile.finale && last.title === profile.finale ? last : undefined;
   const questions = written ? sections.slice(0, -1) : sections;
   const total = questions.length + 2;
-  const foot = (n: number) => footer(facts.repo.full_name, profile.name, n, total);
+  const day = formatDate(String(facts.collected.at));
+  const foot = (n: number) => footer(facts.repo.full_name, day, profile.name, n, total);
 
   const pages = questions.map((section, i) => page(section, facts, notes, i + 2, foot(i + 2))).join("\n");
   const body =
     cover(facts, profile, title) +
     pages +
     finale(facts, profile, written, notes, foot(total)) +
-    (notes ? sources(notes) : "");
+    (notes?.list().length ? sources(notes) : "");
   return shell(title || facts.repo.full_name, body, profile.name);
 }
 
@@ -48,8 +49,9 @@ function kicker(n: number): string {
   return String(n).padStart(2, "0");
 }
 
-function footer(repo: string, profile: string, n: number, total: number): string {
-  return `<footer><span class="repo-name">${escapeHtml(repo)}</span><span class="n">${escapeHtml(profile)} · ${n} / ${total}</span></footer>`;
+// Un deck est un instantané : la date du relevé GitHub est sur chaque page.
+function footer(repo: string, day: string, profile: string, n: number, total: number): string {
+  return `<footer><span class="repo-name">${escapeHtml(repo)} · relevé le ${escapeHtml(day)}</span><span class="n">${escapeHtml(profile)} · ${n} / ${total}</span></footer>`;
 }
 
 function cover(facts: Facts, profile: Profile, title: string): string {
@@ -64,7 +66,7 @@ function cover(facts: Facts, profile: Profile, title: string): string {
     `Onboard · profil ${escapeHtml(profile.name)}`,
   ];
   return `<section class="cover">
-<div class="cover-top"><span class="eyebrow">${escapeHtml(eyebrow)}</span><span class="date">${escapeHtml(formatDate(String(facts.collected.at)))}</span></div>
+<div class="cover-top"><span class="eyebrow">${escapeHtml(eyebrow)}</span><span class="date">Données GitHub relevées le ${escapeHtml(formatDate(String(facts.collected.at)))}</span></div>
 <p class="repo">${escapeHtml(repo.full_name)}</p>
 <h1>${escapeHtml(title || repo.full_name)}</h1>
 ${repo.description ? `<p class="desc">${escapeHtml(repo.description)}</p>` : ""}
@@ -103,16 +105,13 @@ function factualFinale(facts: Facts, profile: Profile): string {
     : `<p>Tout part de <a href="${escapeHtml(facts.repo.url)}">${escapeHtml(facts.repo.url)}</a>.</p>`;
 }
 
+// Uniquement les références publiques : une URL par note. Le cache interne n'apparaît jamais dans le deck.
 function sources(notes: Notes): string {
-  const items = notes.list().map((cite) => {
-    const label = cite.kind === "facts" ? "donnée collectée" : cite.kind === "src" ? "source du repo" : "GitHub";
-    const value = /^https?:\/\//.test(cite.ref)
-      ? `<a href="${escapeHtml(cite.ref)}">${escapeHtml(cite.ref)}</a>`
-      : `<code>${escapeHtml(cite.ref)}</code>`;
-    return `<li id="note-${cite.n}"><span class="kind">${escapeHtml(label)}</span>${value}</li>`;
-  });
-  const body = items.length ? `<ol class="sources">${items.join("")}</ol>` : "<p>Aucune citation dans ce narratif.</p>";
-  return `<section class="refs"><header><span class="kicker">notes</span><h2>Sources</h2></header><div class="body">${body}</div></section>`;
+  const items = notes
+    .list()
+    .map((cite) => `<li id="note-${cite.n}"><a href="${escapeHtml(cite.ref)}">${escapeHtml(cite.ref)}</a></li>`)
+    .join("");
+  return `<section class="refs"><header><span class="kicker">références publiques</span><h2>Sources</h2></header><div class="body"><ol class="sources">${items}</ol></div></section>`;
 }
 
 // Une cellule de tableau qui ne contient qu'un niveau de risque devient une pastille : « high » se lit sans chercher.

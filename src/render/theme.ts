@@ -92,7 +92,6 @@ footer .n { font-family: var(--mono); }
 .refs { min-height: 0; }
 .refs ol { padding-left: 22px; font-size: 0.86rem; column-count: 2; column-gap: 32px; }
 .refs li { margin-bottom: 6px; break-inside: avoid; }
-.kind { color: var(--muted); margin-right: 8px; }
 .note { font-size: 0.68em; }
 .note a { text-decoration: none; padding: 0 1px; }
 `;
@@ -244,7 +243,10 @@ const PROFILES: Record<string, string> = {
 .p-enfant .cover-top { justify-content: center; margin-bottom: 20px; }
 .p-enfant .cover .eyebrow { font-size: 1.15rem; letter-spacing: 0; text-transform: none; }
 .p-enfant .cover .eyebrow::before { content: "🎒 "; }
-.p-enfant .cover .date, .p-enfant .cover .desc, .p-enfant .cover-foot { display: none; }
+.p-enfant .cover .desc, .p-enfant .cover-foot { display: none; }
+.p-enfant .cover-top { flex-direction: column; align-items: center; gap: 6px; }
+.p-enfant .cover .date { font-size: 1rem; color: var(--muted); }
+.p-enfant .cover .date::before { content: "📅 "; }
 .p-enfant .cover .repo { font-family: var(--font); font-size: 1.1rem; }
 .p-enfant .cover .repo::before { content: "📦 "; }
 .p-enfant .kpis { display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; }
@@ -261,7 +263,7 @@ const PROFILES: Record<string, string> = {
 .p-enfant .chart .val, .p-enfant .chart .tick { font-size: 13px; }
 .p-enfant .chart .bar { fill: #f08a3c; } .p-enfant .chart .bar.strong { fill: #a98be0; }
 .p-enfant footer { border-top: 0; justify-content: center; }
-.p-enfant footer .repo-name { display: none; }
+.p-enfant footer { gap: 18px; }
 .p-enfant .finale { border-style: solid; }
 .p-enfant .finale h2::before { content: "🚀 "; }
 .p-enfant .finale .body { font-size: 1.15em; }

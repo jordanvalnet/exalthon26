@@ -118,8 +118,10 @@ faits collectés, les sources relues, les six narratifs, la FAQ et le glossaire.
 
 ## Ne répondez pas seulement, montrez pourquoi
 
-Chaque affirmation d'un deck porte une note qui renvoie à une donnée collectée, à un fichier du dépôt ou à une URL
-GitHub. La dernière page liste les sources. Un dirigeant peut vérifier ; un développeur peut cliquer.
+Dans le cache, chaque phrase du narratif cite sa source : une donnée collectée, un fichier du dépôt, une URL GitHub. La
+validation refuse un chiffre qui ne se retrouve pas dans les faits. Le deck, lui, reste propre : les références internes
+n'y apparaissent pas, seules les URL publiques restent en notes, et chaque page porte la date du relevé, parce qu'un deck
+est un instantané.
 
 Et le deck n'est que le début. Le cache reste là, et un guide y répond aux questions en citant ses sources, en allant
 relire le dépôt s'il le faut :

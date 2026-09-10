@@ -8,7 +8,7 @@
 
 Onboard parcourt n'importe quel dépôt GitHub par le serveur MCP GitHub, construit un cache documentaire vérifié et en
 tire une présentation taillée pour la personne qui la lit : **dev, qa, cto, ceo, investisseur, enfant**. Chaque chiffre
-renvoie à sa source, rien n'est inventé, et un guide répond ensuite aux questions à partir du cache.
+est vérifié contre les faits collectés, rien n'est inventé, chaque deck est daté, et un guide répond ensuite aux questions à partir du cache.
 
 <a href="docs/PRESENTATION.md"><img src="docs/img/presentation-banner.png" alt="Ouvrir la présentation illustrée : démos, pages des decks, comment ça marche" width="100%"></a>
 

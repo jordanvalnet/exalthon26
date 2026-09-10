@@ -16,7 +16,7 @@ Pour l'instant, Astrid tourne sur les Mac et sur Linux. Le rêve des créateurs,
 Ce sont surtout des gens qui fabriquent des programmes : ils s'en servent pour construire des robots-assistants (des IA qui font des tâches), des outils ou des services. Astrid leur donne la maison avec les portes, et ils choisissent eux-mêmes qui habite dedans [src:readme.md].
 C'est comme une boîte de Lego : Astrid donne la plaque de base et les règles d'emboîtement, mais il ne décide pas ce que tu construis. Le mode d'emploi dit même qu'Astrid « ne choisit pas de produit » pour toi [src:readme.md].
 On peut l'installer sur un Mac ou un Linux en quelques lignes, et on peut lui demander des choses en écrivant, par exemple « résume ce qui a changé » [src:readme.md].
-Combien de personnes s'en servent vraiment ? Le cache ne contient pas ce chiffre ; à vérifier sur https://github.com/astrid-runtime/astrid. Ce qu'on sait : 10277 personnes ont mis une étoile au projet (un « j'aime » sur GitHub) [facts:repo.stars] et 137 en ont fait leur propre copie pour bricoler dessus [facts:repo.forks].
+Combien de personnes s'en servent vraiment ? Donnée non relevée : ce chiffre ; à vérifier sur https://github.com/astrid-runtime/astrid. Ce qu'on sait : 10277 personnes ont mis une étoile au projet (un « j'aime » sur GitHub) [facts:repo.stars] et 137 en ont fait leur propre copie pour bricoler dessus [facts:repo.forks].
 > Astrid, c'est la plaque de Lego : il donne la base, et ce sont les gens qui construisent dessus ce qu'ils veulent [src:readme.md].
 
 ## Combien de personnes le fabriquent ?
