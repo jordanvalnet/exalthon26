@@ -6,6 +6,14 @@
     "pages": 7,
     "finale": "Et toi, tu ferais quoi avec ?"
   },
+  "design": {
+    "brief": "Un album illustré pour un enfant de 10 ans : gros titres, couleurs, une image du quotidien par page, aucune note de bas de page.",
+    "eyebrow": "Un projet expliqué aux curieux",
+    "kpis": [
+      "repo.stars",
+      "repo.forks"
+    ]
+  },
   "priorities": [
     {
       "question": "C'est quoi, ce projet ?",

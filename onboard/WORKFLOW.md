@@ -9,7 +9,7 @@ L'agent suivant ne lit que les sorties du précédent. Rien d'autre.
 | 0 | orchestrer | `agents/0-onboard.md` | `owner/repo profil [--force]` | enchaîne 1 → 2 → 3 | chacune des validations ci-dessous |
 | 1 | collecter | `agents/1-collect.md` lance en parallèle `1a-meta`, `1b-history`, `1c-docs`, `1d-code`, `1e-roadmap` | le repo via `github:*`, `profiles/<profil>.json`, `SCHEMA.md` | `parts/*.json`, `sources/*.md`, puis `facts.json` par `bun run merge` | `bun run merge <cache> <profil>` (fusion + `validate facts`) |
 | 2 | rédiger | `agents/2-write.md` | `facts.json`, `sources/`, `profiles/<profil>.json` | `narrative/<profil>.md`, `glossary.md`, `faq.md` | `bun run validate narrative <cache> <profil>` |
-| 3 | mettre en page | `agents/3-render.md` | `facts.json`, `narrative/<profil>.md`, `profiles/<profil>.json` | `deck-<profil>.html` | `bun run validate deck <cache> <profil>` |
+| 3 | mettre en page | `agents/3-render.md` | `facts.json`, `narrative/<profil>.md`, `profiles/<profil>.json` (`deck`, `design`) | `deck-<profil>.html`, `deck-<profil>.pdf` | `bun run validate deck <cache> <profil>` |
 | 4 | guider (à la demande) | `agents/4-ask.md` | le cache entier, une question, `github:*` en secours | la réponse, `faq.md` (ajout), `sources/` (ajout) | `faq.md` a une entrée de plus, chaque affirmation est citée |
 
 `<cache>` = `onboard/cache/<owner>__<repo>`. Les validations sont dans `src/validate.ts`.

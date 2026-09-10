@@ -6,6 +6,16 @@
     "pages": 9,
     "finale": "Plan de test en 5 points"
   },
+  "design": {
+    "brief": "Un rapport de qualification : ce qui est couvert, ce qui casse, où regarder. Listes de contrôle, numéros d'issues, niveaux de risque visibles.",
+    "eyebrow": "Rapport de qualification",
+    "kpis": [
+      "tests.files",
+      "build.ci",
+      "issues.by_label.bug",
+      "issues.open"
+    ]
+  },
   "priorities": [
     {
       "question": "Que fait ce projet et quels sont ses parcours critiques ?",

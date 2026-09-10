@@ -118,13 +118,16 @@ function releases(facts: Facts): string {
 }
 
 // « Liste annotée, pas un graphique » (SCHEMA.md) : du HTML, pas du SVG.
+// Une page, pas un inventaire : les dossiers d'abord, 16 entrées au plus, le reste est compté.
 function tree(facts: Facts): string {
-  const entries = facts.tree ?? [];
+  const entries = [...(facts.tree ?? [])].sort((a, b) => (a.type === b.type ? 0 : a.type === "dir" ? -1 : 1));
   if (!entries.length) return "";
-  const items = entries
+  const shown = entries.slice(0, 16);
+  const items = shown
     .map((e) => `<li><code>${escapeHtml(e.path)}${e.type === "dir" ? "/" : ""}</code><span class="role">${escapeHtml(e.role)}</span></li>`)
     .join("");
-  return `<ul class="tree">${items}</ul>`;
+  const more = entries.length > shown.length ? `<li class="more">… et ${entries.length - shown.length} autres entrées, voir sources/tree.md</li>` : "";
+  return `<ul class="tree">${items}${more}</ul>`;
 }
 
 function risks(facts: Facts): string {

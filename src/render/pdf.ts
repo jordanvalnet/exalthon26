@@ -1,6 +1,6 @@
 // `bun run pdf <cache> <profil>` : deck-<profil>.html → deck-<profil>.pdf, via Chrome ou Edge en headless.
 // Zéro dépendance : c'est la feuille @media print du deck qui fait la mise en page.
-import { existsSync } from "node:fs";
+import { existsSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
@@ -42,6 +42,7 @@ if (!browser) {
 
 // Profil jetable : sans lui, un Chrome déjà ouvert récupère la commande et n'écrit aucun PDF.
 const pdf = path.resolve(dir, `deck-${profile}.pdf`);
+if (existsSync(pdf)) rmSync(pdf);
 const proc = Bun.spawn(
   [
     browser,
@@ -55,8 +56,15 @@ const proc = Bun.spawn(
   { stdio: ["ignore", "inherit", "inherit"] },
 );
 
-const code = await proc.exited;
-if (code !== 0 || !existsSync(pdf)) {
+// Chrome écrit le PDF en quelques secondes puis, sur certaines machines, ne se termine jamais :
+// on attend le fichier (60 s au plus), puis on coupe le navigateur nous-mêmes.
+const started = Date.now();
+while (!existsSync(pdf) && Date.now() - started < 60_000) await Bun.sleep(300);
+await Bun.sleep(1_000);
+proc.kill();
+// Un Chrome coupé pendant son démarrage ignore parfois SIGTERM : on insiste après 3 s.
+const code = await Promise.race([proc.exited, Bun.sleep(3_000).then(() => (proc.kill(9), proc.exited))]);
+if (!existsSync(pdf)) {
   console.error(`Échec de l'export PDF (${path.basename(browser)} a rendu ${code}).`);
   process.exit(1);
 }

@@ -6,6 +6,16 @@
     "pages": 9,
     "finale": "Décision"
   },
+  "design": {
+    "brief": "Une note de décision : chiffres, risques avec niveau et parade, recommandation assumée. Dense mais lisible en cinq minutes.",
+    "eyebrow": "Note de décision technique",
+    "kpis": [
+      "activity.bus_factor",
+      "activity.commits_per_week",
+      "deps.count",
+      "repo.license"
+    ]
+  },
   "priorities": [
     {
       "question": "Que fait ce projet et quelle est son architecture ?",

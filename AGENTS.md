@@ -42,14 +42,14 @@ onboard/WORKFLOW.md   chaîne d'agents : IN, OUT, validation dure, chaînage par
 onboard/SCHEMA.md     contrat du cache (facts.json, sources/, narrative/, faq, glossaire, graphiques) : se change en l'annonçant sur le chat
 onboard/PLAN.md       morceaux, définition de fini, qui fait quoi
 onboard/agents/       prompt de chaque agent (0-onboard, 1-collect + 1a…1e, 2-write, 3-render, 4-ask)
-onboard/profiles/     un JSON par profil (input : description, éléments priorisés), lu par src/validate.ts
+onboard/profiles/     un JSON par profil (description, éléments priorisés, deck, design : sur-titre, tuiles KPI, brief), lu par src/validate.ts
 onboard/cache/        caches produits, versionnés ; example/ est fictif, écrit à la main
 .claude/skills/       /onboard, /onboard-collect, /onboard-write, /onboard-render, /onboard-ask : pointent sur onboard/agents/
 src/facts.ts          schéma zod de facts.json
 src/validate.ts       validations facts, narrative, deck
 src/merge.ts          fusion des parts des sous-agents de collecte
 src/collect/meta.ts   sous-agent 1a-meta en code (MCP), bun run meta
-src/render/           deck HTML (à implémenter, M4)
+src/render/           deck HTML : theme.ts une identité par profil, kpi.ts tuiles de couverture, charts.ts SVG, deck.ts assemblage, pdf.ts et screenshot.ts via Chrome headless
 src/cli.ts            bun onboard
 src/github.ts         accès GitHub via le serveur MCP (token GITHUB_PAT), src/gh.ts l'expose en ligne de commande
 onboarding/           collecteurs TypeScript (bun, zéro dépendance) qui parlent au serveur MCP GitHub : src/mcp/client.ts, src/github/GitHubMcp.ts

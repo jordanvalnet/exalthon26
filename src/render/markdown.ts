@@ -1,10 +1,11 @@
 // Narratif Markdown → HTML. Les citations [facts:…] [src:…] [gh:…] deviennent des notes numérotées :
 // `validate deck` refuse toute citation encore visible une fois les balises retirées.
+// Sous-ensemble compris (SCHEMA.md) : une ligne = un paragraphe, listes - et 1., tableaux |, blocs ```, > à retenir, **gras**, `code`, URL nues.
 const CITATION = /\[(facts|src|gh):([^\]]+)\]/g;
 
 export type CiteKind = "facts" | "src" | "gh";
 export type Citation = { n: number; kind: CiteKind; ref: string };
-export type Section = { title: string; chart?: string; body: string };
+export type Section = { title: string; chart?: string; takeaway?: string; body: string };
 export type Narrative = { title: string; sections: Section[] };
 
 export function escapeHtml(text: string): string {
@@ -40,36 +41,69 @@ export function parseNarrative(md: string): Narrative {
       const heading = (nl === -1 ? chunk : chunk.slice(0, nl)).trim();
       const rest = nl === -1 ? "" : chunk.slice(nl + 1);
       const chart = rest.match(/<!--\s*chart\s*:\s*([a-z_]+)\s*-->/)?.[1];
-      return { title: heading, ...(chart ? { chart } : {}), body: rest.replace(/<!--[\s\S]*?-->/g, "").trim() };
+      // L'« à retenir » (première ligne « > ») sort du corps : le deck l'affiche en exergue, en tête de page.
+      const takeaway = rest.match(/^>\s*(\S.*)$/m)?.[1]?.trim();
+      const text = rest.replace(/<!--[\s\S]*?-->/g, "").replace(/^>.*$/gm, "").trim();
+      return { title: heading, ...(chart ? { chart } : {}), ...(takeaway ? { takeaway } : {}), body: text };
     });
   return { title, sections };
 }
 
 // Sans `notes`, les citations disparaissent du texte (deck enfant : pas de notes de bas de page).
 export function renderBody(body: string, notes?: Notes): string {
-  return body
-    .split(/\r?\n\s*\r?\n/)
-    .map((block) => block.trim())
-    .filter(Boolean)
-    .map((block) => (/^[-*]\s/.test(block) ? renderList(block, notes) : `<p>${renderInline(block, notes)}</p>`))
-    .join("\n");
+  const lines = body.replace(/\r/g, "").split("\n");
+  const out: string[] = [];
+  let i = 0;
+  while (i < lines.length) {
+    const line = lines[i]!;
+    const trimmed = line.trim();
+    if (!trimmed) {
+      i++;
+      continue;
+    }
+    if (trimmed.startsWith("```")) {
+      const code: string[] = [];
+      i++;
+      while (i < lines.length && !lines[i]!.trim().startsWith("```")) code.push(lines[i]!), i++;
+      i++;
+      out.push(`<pre><code>${escapeHtml(code.join("\n"))}</code></pre>`);
+      continue;
+    }
+    if (trimmed.startsWith("|")) {
+      const rows: string[] = [];
+      while (i < lines.length && lines[i]!.trim().startsWith("|")) rows.push(lines[i]!.trim()), i++;
+      out.push(renderTable(rows, notes));
+      continue;
+    }
+    const list = /^[-*]\s/.test(trimmed) ? "ul" : /^\d+[.)]\s/.test(trimmed) ? "ol" : null;
+    if (list) {
+      const items: string[] = [];
+      const marker = list === "ul" ? /^[-*]\s+/ : /^\d+[.)]\s+/;
+      while (i < lines.length && marker.test(lines[i]!.trim())) items.push(lines[i]!.trim().replace(marker, "")), i++;
+      out.push(`<${list}>${items.map((item) => `<li>${renderInline(item, notes)}</li>`).join("")}</${list}>`);
+      continue;
+    }
+    out.push(`<p>${renderInline(trimmed, notes)}</p>`);
+    i++;
+  }
+  return out.join("\n");
 }
 
-function renderList(block: string, notes?: Notes): string {
-  const items = block
-    .split(/\r?\n/)
-    .map((line) => line.replace(/^[-*]\s*/, "").trim())
-    .filter(Boolean)
-    .map((item) => `<li>${renderInline(item, notes)}</li>`);
-  return `<ul>${items.join("")}</ul>`;
+function renderTable(rows: string[], notes?: Notes): string {
+  const cells = (row: string) => row.replace(/^\|/, "").replace(/\|$/, "").split("|").map((c) => c.trim());
+  const [head, ...rest] = rows;
+  const body = rest.filter((r) => !/^\|?\s*:?-{2,}/.test(r));
+  const th = cells(head!).map((c) => `<th>${renderInline(c, notes)}</th>`).join("");
+  const tr = body.map((r) => `<tr>${cells(r).map((c) => `<td>${renderInline(c, notes)}</td>`).join("")}</tr>`).join("");
+  return `<table><thead><tr>${th}</tr></thead><tbody>${tr}</tbody></table>`;
 }
 
 // Échapper d'abord, décorer ensuite : un titre contenant « < » ne doit jamais casser la page.
-function renderInline(text: string, notes?: Notes): string {
+export function renderInline(text: string, notes?: Notes): string {
   const decorated = escapeHtml(text)
-    .replace(/\r?\n/g, " ")
     .replace(/`([^`]+)`/g, "<code>$1</code>")
-    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+    .replace(/(^|[\s(])(https?:\/\/[^\s<)\]]*[^\s<)\].,;:!?])/g, (_m, before: string, url: string) => `${before}<a href="${url}">${url}</a>`);
   // Sans notes, la citation part avec l'espace qui la précède : « gagnée [facts:x]. » devient « gagnée. »
   if (!notes) return decorated.replace(new RegExp(`\\s*${CITATION.source}`, "g"), "");
   return decorated.replace(new RegExp(CITATION.source, "g"), (_match, kind: string, ref: string) => {

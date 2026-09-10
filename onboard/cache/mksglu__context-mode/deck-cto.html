@@ -6,101 +6,210 @@
 <title>Context Mode : outil populaire et utile, bus factor 1, licence ELv2, à adopter en interne sans en dépendre</title>
 <style>
 :root {
-  --bg: #f7f7f5; --card: #ffffff; --fg: #17181c; --muted: #5f6470;
-  --line: #dcdde2; --bar: #4f5bd5; --bar-strong: #d1495b; --accent: #4f5bd5;
+  --bg: #f5f5f3; --card: #ffffff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2;
+  --accent: #4f5bd5; --accent-2: #d1495b; --accent-ink: #ffffff;
+  --cover-bg: #17181c; --cover-fg: #ffffff; --cover-muted: #b7bccb;
   --low: #2e9e6b; --mid: #d99a2b; --high: #d1495b;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #14151a; --card: #1c1e25; --fg: #eceef3; --muted: #a0a6b4;
-    --line: #2f323c; --bar: #8f97ee; --bar-strong: #ef7f8e; --accent: #8f97ee;
-    --low: #4cc38a; --mid: #e5b25d; --high: #ef7f8e;
-  }
+  --font: ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --display: var(--font); --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --radius: 12px; --pad: 40px 48px; --width: 1040px; --min-h: 600px;
+  --h1: 2.8rem; --h2: 1.7rem; --text: 1.02rem; --kpi: 2.6rem;
 }
 * { box-sizing: border-box; }
-body {
-  margin: 0; background: var(--bg); color: var(--fg);
-  font: 16px/1.55 ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-}
+html { font-size: 16px; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 1rem/1.55 var(--font); }
 section {
-  background: var(--card); border: 1px solid var(--line); border-radius: 10px;
-  max-width: 900px; margin: 24px auto; padding: 32px 36px; min-height: 460px;
+  position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  max-width: var(--width); margin: 28px auto; padding: var(--pad); min-height: var(--min-h); font-size: var(--text);
+  display: flex; flex-direction: column;
 }
-h1 { font-size: 2.1rem; line-height: 1.2; margin: 0 0 12px; }
-h2 { font-size: 1.45rem; margin: 0 0 20px; padding-bottom: 12px; border-bottom: 2px solid var(--accent); }
-p { margin: 0 0 12px; }
-code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.88em; background: var(--bg); padding: 1px 5px; border-radius: 4px; }
-a { color: var(--accent); }
-.cover { display: flex; flex-direction: column; justify-content: center; }
-.eyebrow { color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.78rem; margin-bottom: 18px; }
-.lede { font-size: 1.15rem; }
-.desc { color: var(--muted); }
-.meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-.meta span { border: 1px solid var(--line); border-radius: 999px; padding: 3px 12px; font-size: 0.85rem; color: var(--muted); }
-.url { margin-top: 16px; }
-.note { font-size: 0.7em; }
-.note a { text-decoration: none; padding: 0 1px; }
-.chart { display: block; width: 100%; height: auto; max-width: 640px; margin: 0 0 20px; }
-.chart text { font-family: inherit; fill: var(--fg); }
+section > .body { flex: 1; }
+h1 { font: 700 var(--h1)/1.1 var(--display); letter-spacing: -0.01em; margin: 0 0 16px; }
+h2 { font: 700 var(--h2)/1.2 var(--display); margin: 0 0 10px; }
+p { margin: 0 0 10px; }
+ul, ol { margin: 0 0 12px; padding-left: 22px; }
+li { margin: 0 0 6px; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code { font: 0.88em var(--mono); background: var(--bg); padding: 1px 6px; border-radius: 5px; }
+pre { background: #14151a; color: #e8eaf1; padding: 14px 18px; border-radius: 10px; overflow-x: auto; margin: 0 0 14px; font-size: 0.9em; line-height: 1.5; }
+pre code { background: none; padding: 0; color: inherit; font-size: 1em; }
+strong { font-weight: 700; }
+table { border-collapse: collapse; width: 100%; margin: 0 0 14px; font-size: 0.94em; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); border-bottom: 2px solid var(--accent); }
+.level { display: inline-block; padding: 1px 10px; border-radius: 999px; font-size: 0.8em; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.04em; }
+.level.low { background: var(--low); } .level.mid { background: var(--mid); } .level.high { background: var(--high); }
+
+/* Couverture */
+.cover { justify-content: center; background: var(--cover-bg); color: var(--cover-fg); border: 0; }
+.cover a { color: inherit; }
+.cover-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 40px; }
+.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.8rem; font-weight: 700; }
+.date, .repo, .cover-foot { color: var(--cover-muted); font-size: 0.9rem; }
+.repo { font-family: var(--mono); font-size: 1rem; margin: 0 0 12px; }
+.cover .desc { color: var(--cover-muted); font-size: 1.1rem; max-width: 46em; margin-bottom: 32px; }
+.kpis { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; padding: 0; margin: 0 0 32px; }
+.kpis li { border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; padding: 14px 18px; background: rgba(255,255,255,0.05); }
+.kpis b { display: block; font: 700 var(--kpi)/1 var(--display); letter-spacing: -0.02em; margin-bottom: 6px; }
+.kpis span { display: block; font-size: 0.82rem; color: var(--cover-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.kpis b.long { font-size: calc(var(--kpi) * 0.62); padding: 0.25em 0; }
+.kpis small { display: block; font-size: 0.78rem; color: var(--cover-muted); margin-top: 3px; text-transform: none; letter-spacing: 0; }
+.cover-foot { margin: 0; display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* Pages */
+.page header, .finale header { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+.kicker { font: 700 0.78rem/1 var(--mono); color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; }
+.takeaway { margin: 0 0 22px; padding: 14px 20px; border-left: 5px solid var(--accent); background: var(--bg); font-size: 1.12em; font-weight: 600; line-height: 1.45; border-radius: 0 10px 10px 0; }
+.body.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; align-items: start; }
+.body.split .chart-wrap { min-width: 0; }
+.body.stack .chart-wrap { margin-bottom: 20px; }
+footer { display: flex; justify-content: space-between; gap: 12px; margin-top: 26px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.78rem; }
+footer .n { font-family: var(--mono); }
+
+/* Graphiques SVG et listes annotées (charts.ts) */
+.chart { display: block; width: 100%; height: auto; max-width: 640px; margin: 0 0 12px; }
+.chart text { font-family: var(--font); fill: var(--fg); }
 .chart .lbl { font-size: 12px; }
 .chart .val, .chart .tick { font-size: 11px; fill: var(--muted); }
-.chart .bar { fill: var(--bar); }
-.chart .bar.strong { fill: var(--bar-strong); }
+.chart .bar { fill: var(--accent); }
+.chart .bar.strong { fill: var(--accent-2); }
 .chart .bar.off { fill: var(--line); }
 .chart .dot { fill: var(--accent); }
 .chart .axis { stroke: var(--line); stroke-width: 1; }
-.tree, .risks, .steps, .sources { margin: 0 0 18px; padding-left: 0; }
-.tree, .risks { list-style: none; }
+.tree, .risks { list-style: none; margin: 0 0 14px; padding: 0; font-size: 0.92em; }
 .tree li, .risks li { display: flex; gap: 10px; align-items: baseline; padding: 4px 0; border-bottom: 1px solid var(--line); }
-.role { color: var(--muted); font-size: 0.9rem; }
-.light { width: 10px; height: 10px; border-radius: 50%; flex: 0 0 auto; background: var(--muted); }
-.light.low { background: var(--low); }
-.light.mid { background: var(--mid); }
-.light.high { background: var(--high); }
-.steps, .sources { padding-left: 22px; }
-.steps li, .sources li { margin-bottom: 10px; }
-.sources { font-size: 0.9rem; }
+.tree code { flex: 0 0 auto; }
+.tree .more { color: var(--muted); border: 0; font-style: italic; }
+.role { color: var(--muted); font-size: 0.9em; }
+.light { width: 11px; height: 11px; border-radius: 50%; flex: 0 0 auto; background: var(--muted); }
+.light.low { background: var(--low); } .light.mid { background: var(--mid); } .light.high { background: var(--high); }
+
+/* Finale et sources */
+.finale { border: 2px solid var(--accent); }
+.finale .body { font-size: 1.08em; }
+.finale ol, .finale ul { padding-left: 26px; }
+.finale li { margin-bottom: 10px; }
+.refs { min-height: 0; }
+.refs ol { padding-left: 22px; font-size: 0.86rem; column-count: 2; column-gap: 32px; }
+.refs li { margin-bottom: 6px; break-inside: avoid; }
 .kind { color: var(--muted); margin-right: 8px; }
+.note { font-size: 0.68em; }
+.note a { text-decoration: none; padding: 0 1px; }
+
+.p-cto { --accent: #1f3a5f; --accent-2: #c9772e; --cover-bg: #1f3a5f; --cover-fg: #ffffff; --cover-muted: #b9c7dc; --bg: #f4f6f9; --h1: 2.5rem; --h2: 1.5rem; --text: 0.98rem; }
+.p-cto .cover { background: linear-gradient(135deg, #1f3a5f 0%, #17304f 60%, #24466f 100%); }
+.p-cto .cover .eyebrow { color: #f0b97a; }
+.p-cto .cover h1 { border-left: 6px solid var(--accent-2); padding-left: 20px; }
+.p-cto .kpis { grid-template-columns: repeat(4, 1fr); }
+.p-cto .kpis li { border: 0; border-top: 3px solid var(--accent-2); border-radius: 0; background: rgba(255,255,255,0.06); }
+.p-cto section:not(.cover) { border-top: 4px solid var(--accent); border-radius: 0 0 var(--radius) var(--radius); }
+.p-cto .kicker { color: var(--accent-2); }
+.p-cto .takeaway { border-left-color: var(--accent-2); background: #fbf3ea; }
+.p-cto th { border-bottom-color: var(--accent); }
+.p-cto .finale { border: 0; background: var(--accent); color: #fff; }
+.p-cto .finale .kicker, .p-cto .finale h2 { color: #fff; }
+.p-cto .finale h2 { border-left: 6px solid var(--accent-2); padding-left: 16px; }
+.p-cto .finale code { background: rgba(255,255,255,0.14); color: #fff; }
+.p-cto .finale a, .p-cto .finale .note a { color: #f0b97a; }
+.p-cto .finale footer { border-top-color: rgba(255,255,255,0.25); color: #b9c7dc; }
+
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #14151a; --card: #1c1e25; --fg: #eceef3; --muted: #a0a6b4; --line: #2f323c; --low: #4cc38a; --mid: #e5b25d; --high: #ef7f8e; }
+  code { background: #262932; }
+  .p-dev { --accent: #8f97ee; --accent-2: #ef7f8e; }
+  .p-qa { --accent: #35c2a8; --accent-2: #ef7f8e; --bg: #14181a; --cover-bg: #1c2422; --cover-fg: #eef5f2; --cover-muted: #9fb8b0; }
+  .p-qa .kpis li { background: #213230; border-color: #2e4a45; }
+  .p-qa .takeaway, .p-qa .finale { background: #1f2b28; }
+  .p-qa tbody tr:nth-child(odd) { background: #1f2624; }
+  .p-cto { --accent: #7fa6d9; --accent-2: #f0b97a; --bg: #141821; }
+  .p-cto .takeaway { background: #2a2620; }
+  .p-cto .finale { background: #1f3a5f; }
+  .p-ceo { --accent: #dcc27a; --bg: #15171c; --card: #1c1e25; --line: #2f323c; }
+  .p-ceo .finale { background: #14213d; }
+  .p-investisseur { --accent: #5cc493; --accent-2: #dcb25f; --bg: #141816; --card: #1b201d; --line: #2c342f; --cover-bg: #1b201d; --cover-fg: #eef3ef; --cover-muted: #9fb0a6; }
+  .p-investisseur .kpis li { background: #16201b; }
+  .p-investisseur .finale { background: #1d6b4a; }
+}
+
 @media print {
-  @page { size: A4 landscape; margin: 12mm; }
-  /* Palette claire forcée : sinon une impression depuis un navigateur en thème sombre sort en texte clair sur blanc. */
-  :root {
-    --bg: #fff; --card: #fff; --fg: #17181c; --muted: #5f6470;
-    --line: #dcdde2; --bar: #4f5bd5; --bar-strong: #d1495b; --accent: #4f5bd5;
-    --low: #2e9e6b; --mid: #d99a2b; --high: #d1495b;
-  }
-  body { background: #fff; color: var(--fg); }
-  section {
-    border: 0; margin: 0; padding: 0; max-width: none; min-height: 0;
-    break-after: page; page-break-after: always;
-  }
+  @page { size: A4 landscape; margin: 10mm; }
+  html { font-size: 12px; }
+  .p-dev, .p-qa, .p-cto { --text: 0.9rem; }
+  .p-dev .tree, .p-qa .tree, .p-cto .tree { font-size: 0.82em; }
+  .body.split { gap: 22px; }
+  .takeaway { font-size: 1.05em; padding: 10px 16px; margin-bottom: 14px; }
+  body { background: #fff; }
+  :root, .p-dev, .p-qa, .p-cto, .p-ceo, .p-investisseur, .p-enfant { --bg: #f5f5f3; --card: #fff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2; }
+  .p-qa { --bg: #f2f7f5; } .p-cto { --bg: #f4f6f9; } .p-ceo { --bg: #f7f5ef; --card: #fffdf8; } .p-investisseur { --bg: #f6f6f2; } .p-enfant { --bg: #fff6e5; --card: #fffdf7; --fg: #2b2118; --muted: #7a6a5a; }
+  .p-ceo { --accent: #14213d; } .p-cto { --accent: #1f3a5f; } .p-dev { --accent: #4f5bd5; } .p-qa { --accent: #0f8f7a; } .p-investisseur { --accent: #1d6b4a; }
+  section { max-width: none; margin: 0; min-height: 178mm; break-after: page; page-break-after: always; box-shadow: none; --pad: 26px 36px; }
   section:last-child { break-after: auto; page-break-after: auto; }
-  .chart .bar, .chart .bar.strong, .light { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-  a { color: #000; text-decoration: none; }
+  .p-enfant section { box-shadow: none; margin: 0; }
+  .cover { min-height: 178mm; }
+  .refs { min-height: 0; }
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  a { text-decoration: none; }
 }
 </style>
 </head>
-<body>
+<body class="p-cto">
 <section class="cover">
-  <p class="eyebrow">Onboarding · profil cto · 2026-09-09</p>
-  <h1>mksglu/context-mode</h1>
-  <p class="lede">Context Mode : outil populaire et utile, bus factor 1, licence ELv2, à adopter en interne sans en dépendre</p>
-  <p class="desc">Context window optimization for AI coding agents. Sandboxes tool output (98% reduction), persists session memory, and   enforces routing across 17 platforms via MCP + hooks.</p>
-  <p class="meta"><span>21624 ★</span><span>1555 forks</span><span>226 issues ouvertes</span><span>Elastic License 2.0 (ELv2)</span></p>
-  <p class="url"><code>https://github.com/mksglu/context-mode</code></p>
-</section><section><h2>Que fait ce projet et quelle est son architecture ?</h2><div class="body"><ul class="tree"><li><code>.agents/</code><span class="role">config agents IA</span></li><li><code>.claude-plugin/</code><span class="role">manifeste plugin Claude Code</span></li><li><code>.claude/</code><span class="role">config locale Claude Code</span></li><li><code>.codex-plugin/</code><span class="role">manifeste plugin Codex</span></li><li><code>.cursor-plugin/</code><span class="role">manifeste plugin Cursor</span></li><li><code>.gitattributes</code><span class="role">attributs git</span></li><li><code>.github/</code><span class="role">5 workflows GitHub Actions</span></li><li><code>.gitignore</code><span class="role">exclusions git</span></li><li><code>.mcp.json.codex.example</code><span class="role">exemple config MCP Codex</span></li><li><code>.mcp.json.example</code><span class="role">exemple config MCP</span></li><li><code>.npmignore</code><span class="role">exclusions publication npm</span></li><li><code>.openclaw-plugin/</code><span class="role">manifeste plugin OpenClaw</span></li><li><code>.pi/</code><span class="role">extension pour Pi</span></li><li><code>BENCHMARK.md</code><span class="role">résultats de benchmark</span></li><li><code>CLAUDE.md</code><span class="role">instructions pour Claude Code</span></li><li><code>CONTRIBUTING.md</code><span class="role">guide de contribution</span></li><li><code>LICENSE</code><span class="role">licence Elastic 2.0</span></li><li><code>README.md</code><span class="role">documentation principale</span></li><li><code>bin/</code><span class="role">script statusline.mjs</span></li><li><code>bun.lock</code><span class="role">verrou dépendances bun</span></li><li><code>cli.bundle.mjs</code><span class="role">CLI bundlée par esbuild</span></li><li><code>configs/</code><span class="role">configs par plateforme</span></li><li><code>docs/</code><span class="role">documentation</span></li><li><code>hooks/</code><span class="role">hooks par plateforme, bundles session</span></li><li><code>openclaw.plugin.json</code><span class="role">manifeste plugin OpenClaw</span></li><li><code>package.json</code><span class="role">manifeste npm</span></li><li><code>scripts/</code><span class="role">scripts build, install, version</span></li><li><code>server.bundle.mjs</code><span class="role">serveur MCP bundlé par esbuild</span></li><li><code>skills/</code><span class="role">skills pour agents</span></li><li><code>src/</code><span class="role">TypeScript : serveur MCP, CLI, adaptateurs</span></li><li><code>start.mjs</code><span class="role">lanceur publié avec le paquet</span></li><li><code>stats.json</code><span class="role">statistiques publiées</span></li><li><code>tests/</code><span class="role">tests vitest</span></li><li><code>tsconfig.json</code><span class="role">config TypeScript</span></li><li><code>vitest.config.ts</code><span class="role">config vitest</span></li><li><code>web/</code><span class="role">partie web du projet</span></li></ul><p>Serveur MCP plus hooks : les sorties d'outils sont indexées dans SQLite FTS5 et remplacées par un résumé recherchable, la session est persistée pour survivre à la compaction, et un routage est imposé sur 17 plateformes <sup class="note"><a href="#note-1">1</a></sup> <sup class="note"><a href="#note-2">2</a></sup>. 21 624 étoiles, 1 555 forks, créé le 2026-02-23 <sup class="note"><a href="#note-3">3</a></sup> <sup class="note"><a href="#note-4">4</a></sup> <sup class="note"><a href="#note-5">5</a></sup>.</p>
-<p>Architecture en trois couches : <code>src/</code> en TypeScript (serveur MCP, CLI, exécuteur polyglotte, sécurité, un adaptateur par plateforme), <code>hooks/</code> en JS pur sans build, <code>configs/</code> par plateforme <sup class="note"><a href="#note-6">6</a></sup> <sup class="note"><a href="#note-7">7</a></sup>. Deux bases : SessionDB persistante par projet et ContentStore FTS5 éphémère par processus <sup class="note"><a href="#note-7">7</a></sup>. Les artefacts publiés sont des bundles esbuild (<code>server.bundle.mjs</code>, <code>cli.bundle.mjs</code>) <sup class="note"><a href="#note-6">6</a></sup>.</p>
-<p>Point d'attention : 5 manifestes de plugin cachés (.claude-plugin, .codex-plugin, .cursor-plugin, .openclaw-plugin, .pi) et un dossier <code>web/</code> <sup class="note"><a href="#note-6">6</a></sup>. La surface multi-plateforme est le coût principal de maintenance.</p></div></section>
-<section><h2>Quelle est sa santé technique ?</h2><div class="body"><svg class="chart" viewBox="0 0 640 172" width="640" height="172" role="img" preserveAspectRatio="xMinYMin meet"><line class="axis" x1="34" y1="138" x2="628" y2="138"/><text class="tick" x="28" y="22" text-anchor="end">57</text><text class="tick" x="28" y="138" text-anchor="end">0</text><rect class="bar" x="43.9" y="12" width="29.7" height="126" rx="2"><title>2026-W26 : 57</title></rect><text class="tick" x="58.75" y="154" text-anchor="middle">W26</text><rect class="bar" x="93.4" y="107" width="29.7" height="31" rx="2"><title>2026-W27 : 14</title></rect><rect class="bar" x="142.9" y="114" width="29.7" height="24" rx="2"><title>2026-W28 : 11</title></rect><text class="tick" x="157.75" y="154" text-anchor="middle">W28</text><rect class="bar" x="192.4" y="111" width="29.7" height="27" rx="2"><title>2026-W29 : 12</title></rect><rect class="bar" x="241.9" y="111" width="29.7" height="27" rx="2"><title>2026-W30 : 12</title></rect><text class="tick" x="256.75" y="154" text-anchor="middle">W30</text><rect class="bar" x="291.4" y="111" width="29.7" height="27" rx="2"><title>2026-W31 : 12</title></rect><rect class="bar" x="340.9" y="114" width="29.7" height="24" rx="2"><title>2026-W32 : 11</title></rect><text class="tick" x="355.75" y="154" text-anchor="middle">W32</text><rect class="bar" x="390.4" y="109" width="29.7" height="29" rx="2"><title>2026-W33 : 13</title></rect><rect class="bar" x="439.9" y="114" width="29.7" height="24" rx="2"><title>2026-W34 : 11</title></rect><text class="tick" x="454.75" y="154" text-anchor="middle">W34</text><rect class="bar" x="489.4" y="114" width="29.7" height="24" rx="2"><title>2026-W35 : 11</title></rect><rect class="bar" x="538.9" y="118" width="29.7" height="20" rx="2"><title>2026-W36 : 9</title></rect><text class="tick" x="553.75" y="154" text-anchor="middle">W36</text><rect class="bar" x="588.4" y="134" width="29.7" height="4" rx="2"><title>2026-W37 : 2</title></rect></svg><p>Activité en décrue : 57 commits en semaine 26, plateau à 11-13 par semaine, 9 en semaine 36 <sup class="note"><a href="#note-8">8</a></sup>. Dernier commit le 2026-09-08 <sup class="note"><a href="#note-9">9</a></sup>. 10 releases entre le 2026-06-01 et le 2026-06-29, aucune dans le cache depuis <sup class="note"><a href="#note-10">10</a></sup> <sup class="note"><a href="#note-11">11</a></sup> ; à vérifier dans https://github.com/mksglu/context-mode/releases.</p>
-<p>CI sérieuse : matrice ubuntu, macos, windows, typecheck, build, bundle, assertions d'invariants sur les bundles, vitest, sur push et PR vers main et next <sup class="note"><a href="#note-12">12</a></sup> <sup class="note"><a href="#note-13">13</a></sup>. 255 fichiers de tests vitest <sup class="note"><a href="#note-14">14</a></sup>.</p>
-<p>Signal négatif : 107 PR ouvertes, 0 fusionnée sur 30 jours dans le cache, 119 issues ouvertes, 6 fermées sur 30 jours <sup class="note"><a href="#note-15">15</a></sup> <sup class="note"><a href="#note-16">16</a></sup> <sup class="note"><a href="#note-17">17</a></sup> <sup class="note"><a href="#note-18">18</a></sup>. Le débit d'absorption des contributions est quasi nul.</p></div></section>
-<section><h2>Qui porte le projet et quel est le bus factor ?</h2><div class="body"><svg class="chart" viewBox="0 0 640 252" width="640" height="252" role="img" preserveAspectRatio="xMinYMin meet"><text class="lbl" x="168" y="21" text-anchor="end">mksglu</text><rect class="bar strong" x="178" y="10" width="398" height="14" rx="3"/><text class="val" x="582" y="21">60</text><text class="lbl" x="168" y="45" text-anchor="end">ken-jo</text><rect class="bar" x="178" y="34" width="40" height="14" rx="3"/><text class="val" x="224" y="45">6</text><text class="lbl" x="168" y="69" text-anchor="end">pg-adm1n</text><rect class="bar" x="178" y="58" width="13" height="14" rx="3"/><text class="val" x="197" y="69">2</text><text class="lbl" x="168" y="93" text-anchor="end">NgoQuocViet2001</text><rect class="bar" x="178" y="82" width="7" height="14" rx="3"/><text class="val" x="191" y="93">1</text><text class="lbl" x="168" y="117" text-anchor="end">ousamabenyounes</text><rect class="bar" x="178" y="106" width="7" height="14" rx="3"/><text class="val" x="191" y="117">1</text><text class="lbl" x="168" y="141" text-anchor="end">pradigmaz</text><rect class="bar" x="178" y="130" width="7" height="14" rx="3"/><text class="val" x="191" y="141">1</text><text class="lbl" x="168" y="165" text-anchor="end">eejd</text><rect class="bar" x="178" y="154" width="7" height="14" rx="3"/><text class="val" x="191" y="165">1</text><text class="lbl" x="168" y="189" text-anchor="end">xuli500177</text><rect class="bar" x="178" y="178" width="7" height="14" rx="3"/><text class="val" x="191" y="189">1</text><text class="lbl" x="168" y="213" text-anchor="end">Niche-alchemy</text><rect class="bar" x="178" y="202" width="7" height="14" rx="3"/><text class="val" x="191" y="213">1</text><text class="lbl" x="168" y="237" text-anchor="end">daniel-enqz</text><rect class="bar" x="178" y="226" width="7" height="14" rx="3"/><text class="val" x="191" y="237">1</text></svg><p>Bus factor 1 <sup class="note"><a href="#note-19">19</a></sup>. <code>mksglu</code> : 60 commits sur 12 semaines ; <code>ken-jo</code> : 6 ; les huit suivants 1 ou 2 <sup class="note"><a href="#note-20">20</a></sup> <sup class="note"><a href="#note-21">21</a></sup> <sup class="note"><a href="#note-22">22</a></sup>. L'auteur l'écrit : « I'm a solo maintainer with limited time » <sup class="note"><a href="#note-7">7</a></sup>.</p>
-<p>Compte personnel, pas d'organisation, pas de CODEOWNERS <sup class="note"><a href="#note-23">23</a></sup> <sup class="note"><a href="#note-24">24</a></sup>. Financement par GitHub Sponsors uniquement <sup class="note"><a href="#note-25">25</a></sup> <sup class="note"><a href="#note-26">26</a></sup>.</p></div></section>
-<section><h2>Quelles dépendances et quelle dette ?</h2><div class="body"><p>15 dépendances dans package.json, 8 en runtime : SDK MCP, better-sqlite3, zod 3, turndown et son plugin GFM, domino, clack, picocolors <sup class="note"><a href="#note-27">27</a></sup> <sup class="note"><a href="#note-28">28</a></sup> <sup class="note"><a href="#note-29">29</a></sup>. better-sqlite3 est un module natif externalisé du bundle : c'est le point de fragilité à l'installation (ABI Node), confirmé par la PR ouverte « pin ABI healing to the running Node » <sup class="note"><a href="#note-30">30</a></sup> <sup class="note"><a href="#note-31">31</a></sup>.</p>
-<p>Node ≥ 22.5.0 ; <code>packageManager</code> déclare pnpm alors que la CI et la doc font <code>npm install</code> <sup class="note"><a href="#note-29">29</a></sup> <sup class="note"><a href="#note-13">13</a></sup>. Un seul TODO/FIXME dans tout le code, et dans un fichier de doc <sup class="note"><a href="#note-32">32</a></sup> : la dette n'est pas dans les commentaires, elle est dans le backlog.</p></div></section>
-<section><h2>Quels risques ?</h2><div class="body"><ul class="risks"><li><span class="light mid" aria-hidden="true"></span><b>license</b><span class="role">Licence non standard « Elastic License 2.0 (ELv2) » : lire sources/license.md avant tout usage.</span></li><li><span class="light mid" aria-hidden="true"></span><b>security</b><span class="role">Pas de SECURITY.md : aucun canal déclaré pour signaler une faille.</span></li><li><span class="light high" aria-hidden="true"></span><b>bus_factor</b><span class="role">Un seul contributeur porte la moitié des commits sur 12 semaines.</span></li><li><span class="light low" aria-hidden="true"></span><b>ci</b><span class="role">5 workflows dans .github/workflows ; ci.yml (seul lu) : typecheck, build, bundle, vitest sur ubuntu, macos et windows, déclenché par workflow_dispatch, push et pull_request sur main et next.</span></li><li><span class="light low" aria-hidden="true"></span><b>deps</b><span class="role">15 dépendances déclarées dans package.json (8 runtime, 7 dev) ; better-sqlite3 est un module natif externalisé du bundle ; node &gt;= 22.5.0 requis.</span></li></ul><p>| Risque | Niveau | Parade | |---|---|---| | Bus factor 1 <sup class="note"><a href="#note-33">33</a></sup> | high | Fork interne prêt, pas de dépendance produit | | Licence ELv2 <sup class="note"><a href="#note-34">34</a></sup> | mid | Usage interne et contribution OK ; pas d'offre hébergée <sup class="note"><a href="#note-35">35</a></sup> | | Sécurité : pas de SECURITY.md <sup class="note"><a href="#note-36">36</a></sup> | mid | Revue interne de <code>src/security.ts</code> et des hooks avant déploiement | | CI <sup class="note"><a href="#note-37">37</a></sup> | low | Rien à faire | | Dépendances <sup class="note"><a href="#note-38">38</a></sup> | low | Épingler la version, surveiller better-sqlite3 |</p>
-<p>Le cache ne contient pas <code>security.md</code> puisque le repo n'a pas de SECURITY.md <sup class="note"><a href="#note-39">39</a></sup>. Risque supplémentaire non noté : l'outil injecte des prompts et exécute du code ; deux issues signalent des collisions avec le classificateur de Claude Code (#911, #946) <sup class="note"><a href="#note-40">40</a></sup> <sup class="note"><a href="#note-41">41</a></sup>.</p></div></section>
-<section><h2>Adopter, contribuer ou forker ?</h2><div class="body"><p>Roadmap sans jalon, un seul thème étiqueté (6 enhancement) ; les 10 PR récentes sont des correctifs de timeouts, routage réseau et budgets <sup class="note"><a href="#note-42">42</a></sup> <sup class="note"><a href="#note-31">31</a></sup>. Les demandes ouvertes les plus commentées sont un appel à beta-testeurs (#45, 154 commentaires) et des bugs de timeout et de budget <sup class="note"><a href="#note-43">43</a></sup> <sup class="note"><a href="#note-44">44</a></sup>.</p>
-<p>Décision : adopter en interne, version épinglée, sur une équipe pilote. Contribuer seulement des correctifs petits et testés, car la file de 107 PR n'avance pas. Ne pas forker aujourd'hui : préparer plutôt un fork dormant, et déclencher la bascule si aucune release ne sort d'ici trois mois.</p></div></section><section class="finale"><h2>Décision</h2><div class="body"><ol class="steps"><li>Installer : <code>npm install</code></li><li>Lancer les tests : <code>npm test</code></li><li>Ouvrir <code>src/server.ts</code> — Serveur MCP : script dev = npx tsx src/server.ts, bundlé en server.bundle.mjs par esbuild (package.json).</li></ol></div></section><section class="refs"><h2>Sources</h2><div class="body"><ol class="sources"><li id="note-1"><span class="kind">donnée collectée</span><code>repo.description</code></li><li id="note-2"><span class="kind">source du repo</span><code>readme.md</code></li><li id="note-3"><span class="kind">donnée collectée</span><code>repo.stars</code></li><li id="note-4"><span class="kind">donnée collectée</span><code>repo.forks</code></li><li id="note-5"><span class="kind">donnée collectée</span><code>repo.created_at</code></li><li id="note-6"><span class="kind">donnée collectée</span><code>tree</code></li><li id="note-7"><span class="kind">source du repo</span><code>contributing.md</code></li><li id="note-8"><span class="kind">donnée collectée</span><code>activity.commits_per_week</code></li><li id="note-9"><span class="kind">donnée collectée</span><code>activity.last_commit</code></li><li id="note-10"><span class="kind">donnée collectée</span><code>releases.9.date</code></li><li id="note-11"><span class="kind">donnée collectée</span><code>releases.0.date</code></li><li id="note-12"><span class="kind">donnée collectée</span><code>build.ci.0.triggers</code></li><li id="note-13"><span class="kind">source du repo</span><code>ci.md</code></li><li id="note-14"><span class="kind">donnée collectée</span><code>tests.files</code></li><li id="note-15"><span class="kind">donnée collectée</span><code>pulls.open</code></li><li id="note-16"><span class="kind">donnée collectée</span><code>pulls.merged_30d</code></li><li id="note-17"><span class="kind">donnée collectée</span><code>issues.open</code></li><li id="note-18"><span class="kind">donnée collectée</span><code>issues.closed_30d</code></li><li id="note-19"><span class="kind">donnée collectée</span><code>activity.bus_factor</code></li><li id="note-20"><span class="kind">donnée collectée</span><code>activity.contributors.0.commits</code></li><li id="note-21"><span class="kind">donnée collectée</span><code>activity.contributors.1.commits</code></li><li id="note-22"><span class="kind">donnée collectée</span><code>activity.contributors.2.commits</code></li><li id="note-23"><span class="kind">donnée collectée</span><code>repo.owner_type</code></li><li id="note-24"><span class="kind">donnée collectée</span><code>business.codeowners</code></li><li id="note-25"><span class="kind">donnée collectée</span><code>business.funding</code></li><li id="note-26"><span class="kind">source du repo</span><code>funding.md</code></li><li id="note-27"><span class="kind">donnée collectée</span><code>deps.count</code></li><li id="note-28"><span class="kind">donnée collectée</span><code>deps.runtime</code></li><li id="note-29"><span class="kind">source du repo</span><code>manifest.md</code></li><li id="note-30"><span class="kind">donnée collectée</span><code>risks.4.note</code></li><li id="note-31"><span class="kind">donnée collectée</span><code>roadmap.open_prs</code></li><li id="note-32"><span class="kind">source du repo</span><code>todo.md</code></li><li id="note-33"><span class="kind">donnée collectée</span><code>risks.2.level</code></li><li id="note-34"><span class="kind">donnée collectée</span><code>risks.0.level</code></li><li id="note-35"><span class="kind">source du repo</span><code>license.md</code></li><li id="note-36"><span class="kind">donnée collectée</span><code>risks.1.level</code></li><li id="note-37"><span class="kind">donnée collectée</span><code>risks.3.level</code></li><li id="note-38"><span class="kind">donnée collectée</span><code>risks.4.level</code></li><li id="note-39"><span class="kind">donnée collectée</span><code>business.security_policy</code></li><li id="note-40"><span class="kind">donnée collectée</span><code>issues.hot.1.url</code></li><li id="note-41"><span class="kind">donnée collectée</span><code>issues.hot.5.url</code></li><li id="note-42"><span class="kind">donnée collectée</span><code>roadmap.themes</code></li><li id="note-43"><span class="kind">donnée collectée</span><code>roadmap.requests.0.comments</code></li><li id="note-44"><span class="kind">donnée collectée</span><code>issues.hot.4.url</code></li></ol></div></section>
+<div class="cover-top"><span class="eyebrow">Note de décision technique</span><span class="date">9 sept. 2026</span></div>
+<p class="repo">mksglu/context-mode</p>
+<h1>Context Mode : outil populaire et utile, bus factor 1, licence ELv2, à adopter en interne sans en dépendre</h1>
+<p class="desc">Context window optimization for AI coding agents. Sandboxes tool output (98% reduction), persists session memory, and   enforces routing across 17 platforms via MCP + hooks.</p>
+<ul class="kpis"><li><b>1</b><span>bus factor</span><small>sur 12 semaines</small></li><li><b>175</b><span>commits</span><small>sur 12 semaines</small></li><li><b>15</b><span>dépendances</span><small>8 en production</small></li><li><b>ELv2</b><span>licence</span></li></ul>
+<p class="cover-foot"><span><a href="https://github.com/mksglu/context-mode">https://github.com/mksglu/context-mode</a></span><span>Licence Elastic License 2.0 (ELv2)</span><span>Onboard · profil cto</span></p>
+</section><section class="page">
+<header><span class="kicker">02</span><h2>Que fait ce projet et quelle est son architecture ?</h2></header>
+<p class="takeaway">Serveur MCP TypeScript plus hooks JS sans build, 17 plateformes, 21 624 étoiles depuis février 2026 : la valeur est réelle, la surface à maintenir aussi <sup class="note"><a href="#note-1">1</a></sup> <sup class="note"><a href="#note-2">2</a></sup> <sup class="note"><a href="#note-3">3</a></sup> <sup class="note"><a href="#note-4">4</a></sup>.</p>
+<div class="body split"><div class="chart-wrap"><ul class="tree"><li><code>.agents/</code><span class="role">config agents IA</span></li><li><code>.claude-plugin/</code><span class="role">manifeste plugin Claude Code</span></li><li><code>.claude/</code><span class="role">config locale Claude Code</span></li><li><code>.codex-plugin/</code><span class="role">manifeste plugin Codex</span></li><li><code>.cursor-plugin/</code><span class="role">manifeste plugin Cursor</span></li><li><code>.github/</code><span class="role">5 workflows GitHub Actions</span></li><li><code>.openclaw-plugin/</code><span class="role">manifeste plugin OpenClaw</span></li><li><code>.pi/</code><span class="role">extension pour Pi</span></li><li><code>bin/</code><span class="role">script statusline.mjs</span></li><li><code>configs/</code><span class="role">configs par plateforme</span></li><li><code>docs/</code><span class="role">documentation</span></li><li><code>hooks/</code><span class="role">hooks par plateforme, bundles session</span></li><li><code>scripts/</code><span class="role">scripts build, install, version</span></li><li><code>skills/</code><span class="role">skills pour agents</span></li><li><code>src/</code><span class="role">TypeScript : serveur MCP, CLI, adaptateurs</span></li><li><code>tests/</code><span class="role">tests vitest</span></li><li class="more">… et 20 autres entrées, voir sources/tree.md</li></ul></div><div class="text"><p>Serveur MCP plus hooks : les sorties d'outils sont indexées dans SQLite FTS5 et remplacées par un résumé recherchable, la session est persistée pour survivre à la compaction, et un routage est imposé sur 17 plateformes <sup class="note"><a href="#note-1">1</a></sup> <sup class="note"><a href="#note-5">5</a></sup>. 21 624 étoiles, 1 555 forks, créé le 2026-02-23 <sup class="note"><a href="#note-2">2</a></sup> <sup class="note"><a href="#note-6">6</a></sup> <sup class="note"><a href="#note-3">3</a></sup>.</p>
+<p>Architecture en trois couches : <code>src/</code> en TypeScript (serveur MCP, CLI, exécuteur polyglotte, sécurité, un adaptateur par plateforme), <code>hooks/</code> en JS pur sans build, <code>configs/</code> par plateforme <sup class="note"><a href="#note-4">4</a></sup> <sup class="note"><a href="#note-7">7</a></sup>. Deux bases : SessionDB persistante par projet et ContentStore FTS5 éphémère par processus <sup class="note"><a href="#note-7">7</a></sup>. Les artefacts publiés sont des bundles esbuild (<code>server.bundle.mjs</code>, <code>cli.bundle.mjs</code>) <sup class="note"><a href="#note-4">4</a></sup>.</p>
+<p>Point d'attention : 5 manifestes de plugin cachés (.claude-plugin, .codex-plugin, .cursor-plugin, .openclaw-plugin, .pi) et un dossier <code>web/</code> <sup class="note"><a href="#note-4">4</a></sup>. La surface multi-plateforme est le coût principal de maintenance.</p></div></div>
+<footer><span class="repo-name">mksglu/context-mode</span><span class="n">cto · 2 / 8</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">03</span><h2>Quelle est sa santé technique ?</h2></header>
+<p class="takeaway">CI sur ubuntu, macos, windows et 255 fichiers de tests, mais 107 PR ouvertes, 0 fusionnée sur 30 jours et aucune release dans le cache depuis le 2026-06-29 : le code est sain, le flux ne l'est plus <sup class="note"><a href="#note-8">8</a></sup> <sup class="note"><a href="#note-9">9</a></sup> <sup class="note"><a href="#note-10">10</a></sup> <sup class="note"><a href="#note-11">11</a></sup> <sup class="note"><a href="#note-12">12</a></sup>.</p>
+<div class="body split"><div class="chart-wrap"><svg class="chart" viewBox="0 0 640 172" width="640" height="172" role="img" preserveAspectRatio="xMinYMin meet"><line class="axis" x1="34" y1="138" x2="628" y2="138"/><text class="tick" x="28" y="22" text-anchor="end">57</text><text class="tick" x="28" y="138" text-anchor="end">0</text><rect class="bar" x="43.9" y="12" width="29.7" height="126" rx="2"><title>2026-W26 : 57</title></rect><text class="tick" x="58.75" y="154" text-anchor="middle">W26</text><rect class="bar" x="93.4" y="107" width="29.7" height="31" rx="2"><title>2026-W27 : 14</title></rect><rect class="bar" x="142.9" y="114" width="29.7" height="24" rx="2"><title>2026-W28 : 11</title></rect><text class="tick" x="157.75" y="154" text-anchor="middle">W28</text><rect class="bar" x="192.4" y="111" width="29.7" height="27" rx="2"><title>2026-W29 : 12</title></rect><rect class="bar" x="241.9" y="111" width="29.7" height="27" rx="2"><title>2026-W30 : 12</title></rect><text class="tick" x="256.75" y="154" text-anchor="middle">W30</text><rect class="bar" x="291.4" y="111" width="29.7" height="27" rx="2"><title>2026-W31 : 12</title></rect><rect class="bar" x="340.9" y="114" width="29.7" height="24" rx="2"><title>2026-W32 : 11</title></rect><text class="tick" x="355.75" y="154" text-anchor="middle">W32</text><rect class="bar" x="390.4" y="109" width="29.7" height="29" rx="2"><title>2026-W33 : 13</title></rect><rect class="bar" x="439.9" y="114" width="29.7" height="24" rx="2"><title>2026-W34 : 11</title></rect><text class="tick" x="454.75" y="154" text-anchor="middle">W34</text><rect class="bar" x="489.4" y="114" width="29.7" height="24" rx="2"><title>2026-W35 : 11</title></rect><rect class="bar" x="538.9" y="118" width="29.7" height="20" rx="2"><title>2026-W36 : 9</title></rect><text class="tick" x="553.75" y="154" text-anchor="middle">W36</text><rect class="bar" x="588.4" y="134" width="29.7" height="4" rx="2"><title>2026-W37 : 2</title></rect></svg></div><div class="text"><p>Activité en décrue : 57 commits en semaine 26, plateau à 11-13 par semaine, 9 en semaine 36 <sup class="note"><a href="#note-13">13</a></sup>. Dernier commit le 2026-09-08 <sup class="note"><a href="#note-14">14</a></sup>. 10 releases entre le 2026-06-01 et le 2026-06-29, aucune dans le cache depuis <sup class="note"><a href="#note-15">15</a></sup> <sup class="note"><a href="#note-12">12</a></sup> ; à vérifier dans <a href="https://github.com/mksglu/context-mode/releases">https://github.com/mksglu/context-mode/releases</a>.</p>
+<p>CI sérieuse : matrice ubuntu, macos, windows, typecheck, build, bundle, assertions d'invariants sur les bundles, vitest, sur push et PR vers main et next <sup class="note"><a href="#note-16">16</a></sup> <sup class="note"><a href="#note-8">8</a></sup>. 255 fichiers de tests vitest <sup class="note"><a href="#note-9">9</a></sup>.</p>
+<p>Signal négatif : 107 PR ouvertes, 0 fusionnée sur 30 jours dans le cache, 119 issues ouvertes, 6 fermées sur 30 jours <sup class="note"><a href="#note-10">10</a></sup> <sup class="note"><a href="#note-11">11</a></sup> <sup class="note"><a href="#note-17">17</a></sup> <sup class="note"><a href="#note-18">18</a></sup>. Le débit d'absorption des contributions est quasi nul.</p></div></div>
+<footer><span class="repo-name">mksglu/context-mode</span><span class="n">cto · 3 / 8</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">04</span><h2>Qui porte le projet et quel est le bus factor ?</h2></header>
+<p class="takeaway">Bus factor 1 : mksglu signe 60 commits sur 12 semaines, le deuxième contributeur 6, sans organisation ni CODEOWNERS <sup class="note"><a href="#note-19">19</a></sup> <sup class="note"><a href="#note-20">20</a></sup> <sup class="note"><a href="#note-21">21</a></sup> <sup class="note"><a href="#note-22">22</a></sup> <sup class="note"><a href="#note-23">23</a></sup>.</p>
+<div class="body split"><div class="chart-wrap"><svg class="chart" viewBox="0 0 640 252" width="640" height="252" role="img" preserveAspectRatio="xMinYMin meet"><text class="lbl" x="168" y="21" text-anchor="end">mksglu</text><rect class="bar strong" x="178" y="10" width="398" height="14" rx="3"/><text class="val" x="582" y="21">60</text><text class="lbl" x="168" y="45" text-anchor="end">ken-jo</text><rect class="bar" x="178" y="34" width="40" height="14" rx="3"/><text class="val" x="224" y="45">6</text><text class="lbl" x="168" y="69" text-anchor="end">pg-adm1n</text><rect class="bar" x="178" y="58" width="13" height="14" rx="3"/><text class="val" x="197" y="69">2</text><text class="lbl" x="168" y="93" text-anchor="end">NgoQuocViet2001</text><rect class="bar" x="178" y="82" width="7" height="14" rx="3"/><text class="val" x="191" y="93">1</text><text class="lbl" x="168" y="117" text-anchor="end">ousamabenyounes</text><rect class="bar" x="178" y="106" width="7" height="14" rx="3"/><text class="val" x="191" y="117">1</text><text class="lbl" x="168" y="141" text-anchor="end">pradigmaz</text><rect class="bar" x="178" y="130" width="7" height="14" rx="3"/><text class="val" x="191" y="141">1</text><text class="lbl" x="168" y="165" text-anchor="end">eejd</text><rect class="bar" x="178" y="154" width="7" height="14" rx="3"/><text class="val" x="191" y="165">1</text><text class="lbl" x="168" y="189" text-anchor="end">xuli500177</text><rect class="bar" x="178" y="178" width="7" height="14" rx="3"/><text class="val" x="191" y="189">1</text><text class="lbl" x="168" y="213" text-anchor="end">Niche-alchemy</text><rect class="bar" x="178" y="202" width="7" height="14" rx="3"/><text class="val" x="191" y="213">1</text><text class="lbl" x="168" y="237" text-anchor="end">daniel-enqz</text><rect class="bar" x="178" y="226" width="7" height="14" rx="3"/><text class="val" x="191" y="237">1</text></svg></div><div class="text"><p>Bus factor 1 <sup class="note"><a href="#note-19">19</a></sup>. <code>mksglu</code> : 60 commits sur 12 semaines ; <code>ken-jo</code> : 6 ; les huit suivants 1 ou 2 <sup class="note"><a href="#note-20">20</a></sup> <sup class="note"><a href="#note-21">21</a></sup> <sup class="note"><a href="#note-24">24</a></sup>. L'auteur l'écrit : « I'm a solo maintainer with limited time » <sup class="note"><a href="#note-7">7</a></sup>.</p>
+<p>Compte personnel, pas d'organisation, pas de CODEOWNERS <sup class="note"><a href="#note-22">22</a></sup> <sup class="note"><a href="#note-23">23</a></sup>. Financement par GitHub Sponsors uniquement <sup class="note"><a href="#note-25">25</a></sup> <sup class="note"><a href="#note-26">26</a></sup>.</p></div></div>
+<footer><span class="repo-name">mksglu/context-mode</span><span class="n">cto · 4 / 8</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">05</span><h2>Quelles dépendances et quelle dette ?</h2></header>
+<p class="takeaway">15 dépendances, 8 en runtime, un seul TODO dans le code : la dette est légère, le seul point dur est better-sqlite3, module natif hors bundle, à épingler <sup class="note"><a href="#note-27">27</a></sup> <sup class="note"><a href="#note-28">28</a></sup> <sup class="note"><a href="#note-29">29</a></sup> <sup class="note"><a href="#note-30">30</a></sup>.</p>
+<div class="body"><div class="text"><p>15 dépendances dans package.json, 8 en runtime : SDK MCP, better-sqlite3, zod 3, turndown et son plugin GFM, domino, clack, picocolors <sup class="note"><a href="#note-27">27</a></sup> <sup class="note"><a href="#note-28">28</a></sup> <sup class="note"><a href="#note-31">31</a></sup>. better-sqlite3 est un module natif externalisé du bundle : c'est le point de fragilité à l'installation (ABI Node), confirmé par la PR ouverte « pin ABI healing to the running Node » <sup class="note"><a href="#note-29">29</a></sup> <sup class="note"><a href="#note-32">32</a></sup>.</p>
+<p>Node ≥ 22.5.0 ; <code>packageManager</code> déclare pnpm alors que la CI et la doc font <code>npm install</code> <sup class="note"><a href="#note-31">31</a></sup> <sup class="note"><a href="#note-8">8</a></sup>. Un seul TODO/FIXME dans tout le code, et dans un fichier de doc <sup class="note"><a href="#note-30">30</a></sup> : la dette n'est pas dans les commentaires, elle est dans le backlog.</p></div></div>
+<footer><span class="repo-name">mksglu/context-mode</span><span class="n">cto · 5 / 8</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">06</span><h2>Quels risques ?</h2></header>
+<p class="takeaway">Un risque haut, le bus factor ; deux moyens, licence ELv2 et absence de SECURITY.md ; deux bas, CI et dépendances : chacun a sa parade, aucun ne bloque un usage interne <sup class="note"><a href="#note-33">33</a></sup> <sup class="note"><a href="#note-34">34</a></sup> <sup class="note"><a href="#note-35">35</a></sup> <sup class="note"><a href="#note-36">36</a></sup> <sup class="note"><a href="#note-37">37</a></sup>.</p>
+<div class="body split"><div class="chart-wrap"><ul class="risks"><li><span class="light mid" aria-hidden="true"></span><b>license</b><span class="role">Licence non standard « Elastic License 2.0 (ELv2) » : lire sources/license.md avant tout usage.</span></li><li><span class="light mid" aria-hidden="true"></span><b>security</b><span class="role">Pas de SECURITY.md : aucun canal déclaré pour signaler une faille.</span></li><li><span class="light high" aria-hidden="true"></span><b>bus_factor</b><span class="role">Un seul contributeur porte la moitié des commits sur 12 semaines.</span></li><li><span class="light low" aria-hidden="true"></span><b>ci</b><span class="role">5 workflows dans .github/workflows ; ci.yml (seul lu) : typecheck, build, bundle, vitest sur ubuntu, macos et windows, déclenché par workflow_dispatch, push et pull_request sur main et next.</span></li><li><span class="light low" aria-hidden="true"></span><b>deps</b><span class="role">15 dépendances déclarées dans package.json (8 runtime, 7 dev) ; better-sqlite3 est un module natif externalisé du bundle ; node &gt;= 22.5.0 requis.</span></li></ul></div><div class="text"><table><thead><tr><th>Risque</th><th>Niveau</th><th>Parade</th></tr></thead><tbody><tr><td>Bus factor 1 <sup class="note"><a href="#note-33">33</a></sup></td><td><span class="level high">high</span></td><td>Fork interne prêt, pas de dépendance produit</td></tr><tr><td>Licence ELv2 <sup class="note"><a href="#note-34">34</a></sup></td><td><span class="level mid">mid</span></td><td>Usage interne et contribution OK ; pas d'offre hébergée <sup class="note"><a href="#note-38">38</a></sup></td></tr><tr><td>Sécurité : pas de SECURITY.md <sup class="note"><a href="#note-35">35</a></sup></td><td><span class="level mid">mid</span></td><td>Revue interne de <code>src/security.ts</code> et des hooks avant déploiement</td></tr><tr><td>CI <sup class="note"><a href="#note-36">36</a></sup></td><td><span class="level low">low</span></td><td>Rien à faire</td></tr><tr><td>Dépendances <sup class="note"><a href="#note-37">37</a></sup></td><td><span class="level low">low</span></td><td>Épingler la version, surveiller better-sqlite3</td></tr></tbody></table>
+<p>Le cache ne contient pas <code>security.md</code> puisque le repo n'a pas de SECURITY.md <sup class="note"><a href="#note-39">39</a></sup>. Risque supplémentaire non noté : l'outil injecte des prompts et exécute du code ; deux issues signalent des collisions avec le classificateur de Claude Code (#911, #946) <sup class="note"><a href="#note-40">40</a></sup> <sup class="note"><a href="#note-41">41</a></sup>.</p></div></div>
+<footer><span class="repo-name">mksglu/context-mode</span><span class="n">cto · 6 / 8</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">07</span><h2>Adopter, contribuer ou forker ?</h2></header>
+<p class="takeaway">Adopter en interne, version épinglée, sur une équipe pilote ; fork dormant, bascule si aucune release ne sort d'ici trois mois <sup class="note"><a href="#note-12">12</a></sup> <sup class="note"><a href="#note-10">10</a></sup> <sup class="note"><a href="#note-19">19</a></sup>.</p>
+<div class="body"><div class="text"><p>Roadmap sans jalon, un seul thème étiqueté (6 enhancement) ; les 10 PR récentes sont des correctifs de timeouts, routage réseau et budgets <sup class="note"><a href="#note-42">42</a></sup> <sup class="note"><a href="#note-32">32</a></sup>. Les demandes ouvertes les plus commentées sont un appel à beta-testeurs (#45, 154 commentaires) et des bugs de timeout et de budget <sup class="note"><a href="#note-43">43</a></sup> <sup class="note"><a href="#note-44">44</a></sup>.</p>
+<p>Décision : adopter en interne, version épinglée, sur une équipe pilote. Contribuer seulement des correctifs petits et testés, car la file de 107 PR n'avance pas. Ne pas forker aujourd'hui : préparer plutôt un fork dormant, et déclencher la bascule si aucune release ne sort d'ici trois mois.</p></div></div>
+<footer><span class="repo-name">mksglu/context-mode</span><span class="n">cto · 7 / 8</span></footer>
+</section><section class="finale">
+<header><span class="kicker">cto</span><h2>Décision</h2></header>
+
+<div class="body"><div class="text"><p><strong>Adopter en interne, sans en dépendre.</strong> Version épinglée sur v1.0.169, dernière release du cache datée du 2026-06-29, installée via <code>claude mcp add context-mode -- npx -y context-mode</code> sur une équipe pilote <sup class="note"><a href="#note-45">45</a></sup> <sup class="note"><a href="#note-12">12</a></sup> <sup class="note"><a href="#note-46">46</a></sup>.</p>
+<ul><li>Conditions avant déploiement : revue interne de <code>src/security.ts</code> et des hooks, car le repo n'a pas de SECURITY.md ; vérifier l'installation de better-sqlite3 sur les Node de l'équipe (≥ 22.5.0 requis) <sup class="note"><a href="#note-39">39</a></sup> <sup class="note"><a href="#note-29">29</a></sup> <sup class="note"><a href="#note-7">7</a></sup> <sup class="note"><a href="#note-31">31</a></sup>.</li><li>Licence : ELv2 autorise l'usage, la copie et les dérivés ; elle interdit de fournir le logiciel à des tiers en service hébergé ou managé : pas de mise en produit <sup class="note"><a href="#note-47">47</a></sup> <sup class="note"><a href="#note-38">38</a></sup>.</li><li>Contribuer : seulement des correctifs petits, testés, dans les fichiers de tests existants ; 107 PR ouvertes et 0 fusionnée sur 30 jours, ne pas attendre de retour rapide <sup class="note"><a href="#note-10">10</a></sup> <sup class="note"><a href="#note-11">11</a></sup> <sup class="note"><a href="#note-7">7</a></sup>.</li><li>Fork : dormant, prêt à basculer ; déclencheur : aucune release ou bus factor toujours à 1 dans trois mois <sup class="note"><a href="#note-19">19</a></sup> <sup class="note"><a href="#note-12">12</a></sup>.</li></ul></div></div>
+<footer><span class="repo-name">mksglu/context-mode</span><span class="n">cto · 8 / 8</span></footer>
+</section><section class="refs"><header><span class="kicker">notes</span><h2>Sources</h2></header><div class="body"><ol class="sources"><li id="note-1"><span class="kind">donnée collectée</span><code>repo.description</code></li><li id="note-2"><span class="kind">donnée collectée</span><code>repo.stars</code></li><li id="note-3"><span class="kind">donnée collectée</span><code>repo.created_at</code></li><li id="note-4"><span class="kind">donnée collectée</span><code>tree</code></li><li id="note-5"><span class="kind">source du repo</span><code>readme.md</code></li><li id="note-6"><span class="kind">donnée collectée</span><code>repo.forks</code></li><li id="note-7"><span class="kind">source du repo</span><code>contributing.md</code></li><li id="note-8"><span class="kind">source du repo</span><code>ci.md</code></li><li id="note-9"><span class="kind">donnée collectée</span><code>tests.files</code></li><li id="note-10"><span class="kind">donnée collectée</span><code>pulls.open</code></li><li id="note-11"><span class="kind">donnée collectée</span><code>pulls.merged_30d</code></li><li id="note-12"><span class="kind">donnée collectée</span><code>releases.0.date</code></li><li id="note-13"><span class="kind">donnée collectée</span><code>activity.commits_per_week</code></li><li id="note-14"><span class="kind">donnée collectée</span><code>activity.last_commit</code></li><li id="note-15"><span class="kind">donnée collectée</span><code>releases.9.date</code></li><li id="note-16"><span class="kind">donnée collectée</span><code>build.ci.0.triggers</code></li><li id="note-17"><span class="kind">donnée collectée</span><code>issues.open</code></li><li id="note-18"><span class="kind">donnée collectée</span><code>issues.closed_30d</code></li><li id="note-19"><span class="kind">donnée collectée</span><code>activity.bus_factor</code></li><li id="note-20"><span class="kind">donnée collectée</span><code>activity.contributors.0.commits</code></li><li id="note-21"><span class="kind">donnée collectée</span><code>activity.contributors.1.commits</code></li><li id="note-22"><span class="kind">donnée collectée</span><code>repo.owner_type</code></li><li id="note-23"><span class="kind">donnée collectée</span><code>business.codeowners</code></li><li id="note-24"><span class="kind">donnée collectée</span><code>activity.contributors.2.commits</code></li><li id="note-25"><span class="kind">donnée collectée</span><code>business.funding</code></li><li id="note-26"><span class="kind">source du repo</span><code>funding.md</code></li><li id="note-27"><span class="kind">donnée collectée</span><code>deps.count</code></li><li id="note-28"><span class="kind">donnée collectée</span><code>deps.runtime</code></li><li id="note-29"><span class="kind">donnée collectée</span><code>risks.4.note</code></li><li id="note-30"><span class="kind">source du repo</span><code>todo.md</code></li><li id="note-31"><span class="kind">source du repo</span><code>manifest.md</code></li><li id="note-32"><span class="kind">donnée collectée</span><code>roadmap.open_prs</code></li><li id="note-33"><span class="kind">donnée collectée</span><code>risks.2.level</code></li><li id="note-34"><span class="kind">donnée collectée</span><code>risks.0.level</code></li><li id="note-35"><span class="kind">donnée collectée</span><code>risks.1.level</code></li><li id="note-36"><span class="kind">donnée collectée</span><code>risks.3.level</code></li><li id="note-37"><span class="kind">donnée collectée</span><code>risks.4.level</code></li><li id="note-38"><span class="kind">source du repo</span><code>license.md</code></li><li id="note-39"><span class="kind">donnée collectée</span><code>business.security_policy</code></li><li id="note-40"><span class="kind">donnée collectée</span><code>issues.hot.1.url</code></li><li id="note-41"><span class="kind">donnée collectée</span><code>issues.hot.5.url</code></li><li id="note-42"><span class="kind">donnée collectée</span><code>roadmap.themes</code></li><li id="note-43"><span class="kind">donnée collectée</span><code>roadmap.requests.0.comments</code></li><li id="note-44"><span class="kind">donnée collectée</span><code>issues.hot.4.url</code></li><li id="note-45"><span class="kind">donnée collectée</span><code>releases.0.tag</code></li><li id="note-46"><span class="kind">donnée collectée</span><code>build.run</code></li><li id="note-47"><span class="kind">donnée collectée</span><code>repo.license</code></li></ol></div></section>
 </body>
 </html>

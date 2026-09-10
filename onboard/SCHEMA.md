@@ -7,7 +7,7 @@ facts.json               chiffres et faits structurés, validés par `bun run va
 parts/<sous-agent>.json  ce que chaque sous-agent de collecte a produit ; `bun run merge <cache> <profil>` les assemble dans facts.json
 sources/                 extraits bruts du repo, un fichier par source, tels que lus
   readme.md  tree.md  contributing.md  ci.md  manifest.md  license.md  tests.md  todo.md  funding.md  security.md
-narrative/<profil>.md    texte rédigé pour un profil, une section H2 par question du profil
+narrative/<profil>.md    texte rédigé pour un profil, une section H2 par question du profil, un « à retenir » par section, une finale
 faq.md                   questions et réponses accumulées, tous profils confondus
 glossary.md              termes du projet, une ligne par terme
 deck-<profil>.html       présentation autonome, imprimable en PDF
@@ -66,7 +66,17 @@ Paragraphes courts. Chaque affirmation chiffrée cite sa source : [facts:activit
 
 Règles : une H2 par question du profil, dans l'ordre et avec le libellé exact du profil (sans la mention du graphique).
 Au plus une directive `<!-- chart: … -->` par section, prise dans la liste ci-dessous. Le rendu convertit les citations
-en notes de bas de page.
+en notes de bas de page (profil enfant : les citations disparaissent, pas de page Sources).
+
+Deux éléments font le deck « agence de com » ; le rendu les met en scène, le rédacteur les écrit :
+- **À retenir** : chaque section se termine par une ligne `> …`, la phrase que le lecteur doit garder, citée comme le reste.
+  Le rendu l'affiche en exergue, en tête de page. Une seule par section.
+- **Finale** : après la dernière question, une section `## <deck.finale du profil>` (libellé exact), 3 à 5 lignes ou puces,
+  citées, dans le ton du profil : les 3 premières actions du dev, le plan de test du QA, la décision du CTO, la thèse de
+  l'investisseur… Absente, le rendu se rabat sur les faits (`build`, `entrypoints`, `issues.good_first`).
+
+Markdown compris par le rendu : une ligne = un paragraphe, listes `- ` et `1. `, tableaux `| a | b |`, blocs ```` ``` ````,
+`**gras**`, `` `code` ``, `> à retenir`, URL nues (rendues cliquables). Rien d'autre : pas de H3, pas d'image, pas de HTML.
 
 ## Graphiques disponibles
 
@@ -103,6 +113,11 @@ Chaque élément dit quels blocs de `facts.json` et quels fichiers de `sources/`
   "description": "Développeur ou développeuse qui rejoint le projet la semaine prochaine.",
   "tone": "Direct, technique, chemins de fichiers exacts, commandes copiables.",
   "deck": { "pages": 9, "finale": "Vos 3 premières actions" },
+  "design": {
+    "brief": "Un guide de prise en main, pas une plaquette : dense, précis, copiable.",
+    "eyebrow": "Guide d'onboarding développeur",
+    "kpis": ["repo.stars", "activity.contributors", "pulls.open", "activity.last_commit"]
+  },
   "priorities": [
     { "question": "Que fait ce projet et pour qui ?", "facts": ["repo", "languages"], "sources": ["readme.md"] },
     { "question": "Comment le code est-il organisé ?", "chart": "tree", "facts": ["tree"], "sources": ["tree.md"] }
@@ -112,3 +127,12 @@ Chaque élément dit quels blocs de `facts.json` et quels fichiers de `sources/`
 
 `question` devient le titre H2 du narratif, à l'identique. `chart` est optionnel, pris dans la liste des graphiques.
 `facts` : noms de blocs du tableau ci-dessus. `sources` : noms de fichiers de `sources/`.
+
+`design` dit au rendu comment parler à ce public ; l'identité visuelle elle-même (palette, typographie, mise en page) est
+dans le code, `src/render/theme.ts`, une par profil :
+- `brief` : la direction artistique en une phrase, lue par le rédacteur (ton des « à retenir », de la finale) et par qui retouche le thème.
+- `eyebrow` : le sur-titre de la couverture, le nom du document tel que le public l'attend (« Mémo d'investissement »).
+- `kpis` : 3 à 4 chemins de `facts.json` affichés en tuiles sur la couverture, dans l'ordre. Chemins connus du rendu
+  (`src/render/kpi.ts`) : `repo.stars`, `repo.forks`, `repo.open_issues`, `repo.license`, `repo.created_at`, `activity.bus_factor`,
+  `activity.contributors`, `activity.commits_per_week`, `activity.last_commit`, `releases`, `issues.open`, `issues.closed_30d`,
+  `issues.by_label.bug`, `pulls.open`, `tests.files`, `build.ci`, `deps.count`, `ai_docs.score`. Une valeur absente du cache = tuile omise, jamais inventée.

@@ -13,6 +13,7 @@ export type Profile = {
   sources: string[];
   pages?: number;
   finale?: string;
+  design: { brief?: string; eyebrow?: string; kpis: string[] };
 };
 
 export function readProfile(name: string, root = "onboard/profiles"): Profile {
@@ -24,11 +25,13 @@ export function readProfile(name: string, root = "onboard/profiles"): Profile {
   const p = JSON.parse(readFileSync(file, "utf8")) as {
     priorities: { question: string; chart?: string; facts?: string[]; sources?: string[] }[];
     deck?: { pages?: number; finale?: string };
+    design?: { brief?: string; eyebrow?: string; kpis?: string[] };
   };
   const questions = p.priorities.map((e) => ({ text: e.question, ...(e.chart ? { chart: e.chart } : {}) }));
   const facts = [...new Set(p.priorities.flatMap((e) => e.facts ?? []))];
   const sources = [...new Set(p.priorities.flatMap((e) => e.sources ?? []))];
-  return { name, questions, facts, sources, ...(p.deck?.pages ? { pages: p.deck.pages } : {}), ...(p.deck?.finale ? { finale: p.deck.finale } : {}) };
+  const design = { ...p.design, kpis: p.design?.kpis ?? [] };
+  return { name, questions, facts, sources, design, ...(p.deck?.pages ? { pages: p.deck.pages } : {}), ...(p.deck?.finale ? { finale: p.deck.finale } : {}) };
 }
 
 export function validateFacts(dir: string, profile: Profile): string[] {
@@ -73,14 +76,21 @@ export function validateNarrative(dir: string, profile: Profile): string[] {
   });
   const factsFile = path.join(dir, "facts.json");
   const facts = existsSync(factsFile) ? JSON.parse(readFileSync(factsFile, "utf8")) : null;
-  profile.questions.forEach((q, i) => {
+  // La finale (SCHEMA.md) est une section de plus, au libellé exact de deck.finale, soumise aux mêmes règles de citation.
+  const expected = [...profile.questions, ...(profile.finale ? [{ text: profile.finale, finale: true }] : [])];
+  const soft: string[] = [];
+  expected.forEach((q, i) => {
     const n = i + 1;
     const s = sections[i];
-    if (!s) return errors.push(`section ${n} manquante : « ${q.text} »`);
+    if (!s) {
+      if (!("finale" in q)) errors.push(`section ${n} manquante : « ${q.text} »`);
+      else soft.push(`pas de section finale « ${q.text} » : le deck se rabattra sur les faits`);
+      return;
+    }
     if (s.title !== q.text) errors.push(`section ${n} : titre « ${s.title} » au lieu de « ${q.text} »`);
     const charts = [...s.body.matchAll(/<!--\s*chart\s*:\s*([a-z_]+)\s*-->/g)].map((m) => m[1]!);
     if (charts.length > 1) errors.push(`section ${n} : plusieurs directives chart`);
-    if (q.chart && charts[0] !== q.chart) errors.push(`section ${n} : directive chart « ${q.chart} » attendue, trouvé « ${charts[0] ?? "aucune"} »`);
+    if ("chart" in q && q.chart && charts[0] !== q.chart) errors.push(`section ${n} : directive chart « ${q.chart} » attendue, trouvé « ${charts[0] ?? "aucune"} »`);
     for (const c of charts) if (!CHARTS.includes(c)) errors.push(`section ${n} : graphique inconnu « ${c} »`);
     const cites = [...s.body.matchAll(CITATION)];
     if (!cites.length) errors.push(`section ${n} : aucune citation [facts:…] [src:…] [gh:…]`);
@@ -88,8 +98,12 @@ export function validateNarrative(dir: string, profile: Profile): string[] {
       if (kind === "src" && !existsSync(path.join(dir, "sources", ref!))) errors.push(`section ${n} : [src:${ref}] absent de sources/`);
       if (kind === "facts" && facts && !resolves(facts, ref!)) errors.push(`section ${n} : [facts:${ref}] ne correspond à rien dans facts.json`);
     }
+    const takeaways = s.body.match(/^>\s*\S/gm)?.length ?? 0;
+    if (takeaways > 1) errors.push(`section ${n} : ${takeaways} lignes « > à retenir », une seule attendue`);
+    if (!takeaways && !("finale" in q)) soft.push(`section ${n} : pas de ligne « > à retenir »`);
   });
-  if (sections.length > profile.questions.length) errors.push(`${sections.length - profile.questions.length} section(s) en trop après les questions du profil`);
+  if (sections.length > expected.length) errors.push(`${sections.length - expected.length} section(s) en trop après les questions du profil`);
+  if (soft.length) console.error(`avertissement : ${soft.join(" ; ")}`);
   const glossary = path.join(dir, "glossary.md");
   const terms = existsSync(glossary) ? (readFileSync(glossary, "utf8").match(/^- \*\*/gm)?.length ?? 0) : 0;
   if (terms < 5) errors.push(`glossary.md : ${terms} terme(s), au moins 5 lignes « - **terme** : … » attendues`);
@@ -104,7 +118,7 @@ export function validateDeck(dir: string, profile: Profile): string[] {
   if (/<script[^>]+src=|<link[^>]+href=|url\(\s*["']?https?:/i.test(html)) errors.push("ressource externe détectée : le deck doit être autonome");
   const pages = html.match(/<section\b/g)?.length ?? 0;
   const min = profile.questions.length + 2;
-  if (pages < min) errors.push(`${pages} <section> trouvée(s), au moins ${min} attendues (titre, questions, sources)`);
+  if (pages < min) errors.push(`${pages} <section> trouvée(s), au moins ${min} attendues (couverture, questions, finale)`);
   if (/\[(facts|src|gh):[^\]]+\]/.test(html.replace(/<[^>]+>/g, ""))) errors.push("citation brute [facts:…] visible dans le texte : à convertir en note");
   if (!/@media\s+print/.test(html)) errors.push("pas de règle @media print");
   return errors;

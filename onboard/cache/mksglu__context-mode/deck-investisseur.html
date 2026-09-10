@@ -6,168 +6,225 @@
 <title>Context Mode : forte traction organique en six mois, un seul fondateur, licence qui verrouille le service hébergé</title>
 <style>
 :root {
-  --bg: #f7f7f5; --card: #ffffff; --fg: #17181c; --muted: #5f6470;
-  --line: #dcdde2; --bar: #4f5bd5; --bar-strong: #d1495b; --accent: #4f5bd5;
+  --bg: #f5f5f3; --card: #ffffff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2;
+  --accent: #4f5bd5; --accent-2: #d1495b; --accent-ink: #ffffff;
+  --cover-bg: #17181c; --cover-fg: #ffffff; --cover-muted: #b7bccb;
   --low: #2e9e6b; --mid: #d99a2b; --high: #d1495b;
-  --radius: 10px; --pad: 32px 36px; --width: 900px;
-  --h1: 2.1rem; --h2: 1.45rem; --text: 1rem;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #14151a; --card: #1c1e25; --fg: #eceef3; --muted: #a0a6b4;
-    --line: #2f323c; --bar: #8f97ee; --bar-strong: #ef7f8e; --accent: #8f97ee;
-    --low: #4cc38a; --mid: #e5b25d; --high: #ef7f8e;
-  }
+  --font: ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --display: var(--font); --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --radius: 12px; --pad: 40px 48px; --width: 1040px; --min-h: 600px;
+  --h1: 2.8rem; --h2: 1.7rem; --text: 1.02rem; --kpi: 2.6rem;
 }
 * { box-sizing: border-box; }
-body {
-  margin: 0; background: var(--bg); color: var(--fg);
-  font: 16px/1.55 ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-}
+html { font-size: 16px; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 1rem/1.55 var(--font); }
 section {
-  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
-  max-width: var(--width); margin: 24px auto; padding: var(--pad); min-height: 460px;
-  font-size: var(--text);
+  position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  max-width: var(--width); margin: 28px auto; padding: var(--pad); min-height: var(--min-h); font-size: var(--text);
+  display: flex; flex-direction: column;
 }
-h1 { font-size: var(--h1); line-height: 1.15; margin: 0 0 12px; }
-h2 { font-size: var(--h2); margin: 0 0 20px; padding-bottom: 12px; border-bottom: 2px solid var(--accent); }
+section > .body { flex: 1; }
+h1 { font: 700 var(--h1)/1.1 var(--display); letter-spacing: -0.01em; margin: 0 0 16px; }
+h2 { font: 700 var(--h2)/1.2 var(--display); margin: 0 0 10px; }
+p { margin: 0 0 10px; }
+ul, ol { margin: 0 0 12px; padding-left: 22px; }
+li { margin: 0 0 6px; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code { font: 0.88em var(--mono); background: var(--bg); padding: 1px 6px; border-radius: 5px; }
+pre { background: #14151a; color: #e8eaf1; padding: 14px 18px; border-radius: 10px; overflow-x: auto; margin: 0 0 14px; font-size: 0.9em; line-height: 1.5; }
+pre code { background: none; padding: 0; color: inherit; font-size: 1em; }
+strong { font-weight: 700; }
+table { border-collapse: collapse; width: 100%; margin: 0 0 14px; font-size: 0.94em; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); border-bottom: 2px solid var(--accent); }
+.level { display: inline-block; padding: 1px 10px; border-radius: 999px; font-size: 0.8em; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.04em; }
+.level.low { background: var(--low); } .level.mid { background: var(--mid); } .level.high { background: var(--high); }
 
-/* Un profil = un public. L'accent, la densité et l'échelle typographique changent, la palette de base ne bouge pas. */
-.p-dev { --accent: #4f5bd5; --bar: #4f5bd5; --bar-strong: #d1495b; }
-.p-qa { --accent: #0f8f7a; --bar: #0f8f7a; --bar-strong: #d1495b; }
-.p-cto { --accent: #3d6fa8; --bar: #3d6fa8; --bar-strong: #c9772e; }
-.p-ceo {
-  --accent: #1f3a5f; --bar: #1f3a5f; --bar-strong: #b8862b;
-  --h1: 2.7rem; --h2: 1.7rem; --text: 1.08rem; --pad: 44px 52px; --width: 860px;
-}
-.p-investisseur {
-  --accent: #1d6b4a; --bar: #1d6b4a; --bar-strong: #b8862b;
-  --h1: 2.6rem; --h2: 1.65rem; --text: 1.05rem; --pad: 40px 48px;
-}
-.p-enfant {
-  --accent: #d4572a; --bar: #f08a3c; --bar-strong: #7b4fc0;
-  --h1: 3rem; --h2: 2rem; --text: 1.25rem; --radius: 24px; --pad: 44px 52px; --width: 820px;
-}
-.p-ceo h2, .p-investisseur h2 { border-bottom-width: 3px; }
+/* Couverture */
+.cover { justify-content: center; background: var(--cover-bg); color: var(--cover-fg); border: 0; }
+.cover a { color: inherit; }
+.cover-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 40px; }
+.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.8rem; font-weight: 700; }
+.date, .repo, .cover-foot { color: var(--cover-muted); font-size: 0.9rem; }
+.repo { font-family: var(--mono); font-size: 1rem; margin: 0 0 12px; }
+.cover .desc { color: var(--cover-muted); font-size: 1.1rem; max-width: 46em; margin-bottom: 32px; }
+.kpis { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; padding: 0; margin: 0 0 32px; }
+.kpis li { border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; padding: 14px 18px; background: rgba(255,255,255,0.05); }
+.kpis b { display: block; font: 700 var(--kpi)/1 var(--display); letter-spacing: -0.02em; margin-bottom: 6px; }
+.kpis span { display: block; font-size: 0.82rem; color: var(--cover-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.kpis b.long { font-size: calc(var(--kpi) * 0.62); padding: 0.25em 0; }
+.kpis small { display: block; font-size: 0.78rem; color: var(--cover-muted); margin-top: 3px; text-transform: none; letter-spacing: 0; }
+.cover-foot { margin: 0; display: flex; gap: 14px; flex-wrap: wrap; }
 
-/* Enfant : police ronde, gros texte, chaque page a sa couleur, pas une seule note de bas de page. */
-.p-enfant {
-  --bg: #fff6e5; --card: #fffdf7; --fg: #2b2118; --muted: #7a6a5a;
-  font-family: "Chalkboard SE", "Comic Sans MS", "Comic Neue", "Segoe Print", "Bradley Hand", cursive, sans-serif;
-  line-height: 1.6;
-}
-.p-enfant section { border: 4px dashed var(--accent); box-shadow: 8px 8px 0 var(--accent); margin: 32px auto; }
-.p-enfant section:nth-child(6n+2) { --accent: #d4572a; --bar: #f08a3c; }
-.p-enfant section:nth-child(6n+3) { --accent: #2a9d8f; --bar: #4cc3b5; }
-.p-enfant section:nth-child(6n+4) { --accent: #7b4fc0; --bar: #a98be0; }
-.p-enfant section:nth-child(6n+5) { --accent: #e0a800; --bar: #f5c842; }
-.p-enfant section:nth-child(6n) { --accent: #e63946; --bar: #ff7b86; }
-.p-enfant section:nth-child(6n+1) { --accent: #1d7fd6; --bar: #63aef0; }
-.p-enfant h1 { font-size: 3.4rem; color: var(--accent); }
-.p-enfant h2 { border: 0; padding: 0; margin-bottom: 24px; color: var(--accent); }
-.p-enfant h2::before { content: "🌟 "; }
-.p-enfant .cover { text-align: center; align-items: center; }
-.p-enfant .cover .eyebrow { font-size: 1.1rem; letter-spacing: 0; text-transform: none; color: var(--accent); }
-.p-enfant .cover .lede { font-size: 1.5rem; max-width: 620px; }
-.p-enfant .meta { justify-content: center; }
-.p-enfant .meta span { font-size: 1.1rem; color: var(--fg); border: 3px solid var(--accent); padding: 6px 18px; background: var(--card); }
-.p-enfant code { font-family: inherit; font-size: 1em; background: #ffe9c7; border-radius: 10px; padding: 1px 8px; }
-.p-enfant .big { font-size: 1.5rem; }
-.p-enfant .chart .lbl { font-size: 15px; }
-.p-enfant .chart .val, .p-enfant .chart .tick { font-size: 13px; }
+/* Pages */
+.page header, .finale header { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+.kicker { font: 700 0.78rem/1 var(--mono); color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; }
+.takeaway { margin: 0 0 22px; padding: 14px 20px; border-left: 5px solid var(--accent); background: var(--bg); font-size: 1.12em; font-weight: 600; line-height: 1.45; border-radius: 0 10px 10px 0; }
+.body.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; align-items: start; }
+.body.split .chart-wrap { min-width: 0; }
+.body.stack .chart-wrap { margin-bottom: 20px; }
+footer { display: flex; justify-content: space-between; gap: 12px; margin-top: 26px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.78rem; }
+footer .n { font-family: var(--mono); }
 
-/* Les accents sombres (ceo, investisseur) disparaissent sur fond noir : chaque profil a sa version claire.
-   Ce bloc suit les définitions ci-dessus, donc il gagne à spécificité égale. */
-@media (prefers-color-scheme: dark) {
-  .p-dev { --accent: #8f97ee; --bar: #8f97ee; --bar-strong: #ef7f8e; }
-  .p-qa { --accent: #35c2a8; --bar: #35c2a8; --bar-strong: #ef7f8e; }
-  .p-cto { --accent: #79a6d8; --bar: #79a6d8; --bar-strong: #e5a05d; }
-  .p-ceo { --accent: #86aede; --bar: #86aede; --bar-strong: #e0b661; }
-  .p-investisseur { --accent: #4cbb8a; --bar: #4cbb8a; --bar-strong: #e0b661; }
-  .p-enfant { --bg: #241c14; --card: #2e2419; --fg: #fbf3e6; --muted: #cbb9a3; }
-  .p-enfant code { background: #4a3a26; }
-}
-p { margin: 0 0 12px; }
-code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.88em; background: var(--bg); padding: 1px 5px; border-radius: 4px; }
-a { color: var(--accent); }
-.cover { display: flex; flex-direction: column; justify-content: center; }
-.eyebrow { color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.78rem; margin-bottom: 18px; }
-.lede { font-size: 1.15rem; }
-.desc { color: var(--muted); }
-.meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-.meta span { border: 1px solid var(--line); border-radius: 999px; padding: 3px 12px; font-size: 0.85rem; color: var(--muted); }
-.url { margin-top: 16px; }
-.note { font-size: 0.7em; }
-.note a { text-decoration: none; padding: 0 1px; }
-.chart { display: block; width: 100%; height: auto; max-width: 640px; margin: 0 0 20px; }
-.chart text { font-family: inherit; fill: var(--fg); }
+/* Graphiques SVG et listes annotées (charts.ts) */
+.chart { display: block; width: 100%; height: auto; max-width: 640px; margin: 0 0 12px; }
+.chart text { font-family: var(--font); fill: var(--fg); }
 .chart .lbl { font-size: 12px; }
 .chart .val, .chart .tick { font-size: 11px; fill: var(--muted); }
-.chart .bar { fill: var(--bar); }
-.chart .bar.strong { fill: var(--bar-strong); }
+.chart .bar { fill: var(--accent); }
+.chart .bar.strong { fill: var(--accent-2); }
 .chart .bar.off { fill: var(--line); }
 .chart .dot { fill: var(--accent); }
 .chart .axis { stroke: var(--line); stroke-width: 1; }
-.tree, .risks, .steps, .sources { margin: 0 0 18px; padding-left: 0; }
-.tree, .risks { list-style: none; }
+.tree, .risks { list-style: none; margin: 0 0 14px; padding: 0; font-size: 0.92em; }
 .tree li, .risks li { display: flex; gap: 10px; align-items: baseline; padding: 4px 0; border-bottom: 1px solid var(--line); }
-.role { color: var(--muted); font-size: 0.9rem; }
-.light { width: 10px; height: 10px; border-radius: 50%; flex: 0 0 auto; background: var(--muted); }
-.light.low { background: var(--low); }
-.light.mid { background: var(--mid); }
-.light.high { background: var(--high); }
-.steps, .sources { padding-left: 22px; }
-.steps li, .sources li { margin-bottom: 10px; }
-.sources { font-size: 0.9rem; }
+.tree code { flex: 0 0 auto; }
+.tree .more { color: var(--muted); border: 0; font-style: italic; }
+.role { color: var(--muted); font-size: 0.9em; }
+.light { width: 11px; height: 11px; border-radius: 50%; flex: 0 0 auto; background: var(--muted); }
+.light.low { background: var(--low); } .light.mid { background: var(--mid); } .light.high { background: var(--high); }
+
+/* Finale et sources */
+.finale { border: 2px solid var(--accent); }
+.finale .body { font-size: 1.08em; }
+.finale ol, .finale ul { padding-left: 26px; }
+.finale li { margin-bottom: 10px; }
+.refs { min-height: 0; }
+.refs ol { padding-left: 22px; font-size: 0.86rem; column-count: 2; column-gap: 32px; }
+.refs li { margin-bottom: 6px; break-inside: avoid; }
 .kind { color: var(--muted); margin-right: 8px; }
+.note { font-size: 0.68em; }
+.note a { text-decoration: none; padding: 0 1px; }
+
+.p-investisseur { --accent: #1d6b4a; --accent-2: #b8862b; --cover-bg: #ffffff; --cover-fg: #16201b; --cover-muted: #5f6b64; --bg: #f6f6f2; --card: #ffffff; --line: #d9dbd2;
+  --font: Georgia, "Iowan Old Style", "Times New Roman", serif; --display: ui-sans-serif, system-ui, "Segoe UI", Helvetica, Arial, sans-serif; --h1: 2.6rem; --h2: 1.5rem; --text: 1.04rem; --kpi: 2.4rem; --pad: 48px 56px; }
+.p-investisseur .cover { border: 1px solid var(--line); border-top: 18px solid var(--accent); }
+.p-investisseur .cover .eyebrow { color: var(--accent); }
+.p-investisseur .cover h1 { font-weight: 800; letter-spacing: -0.02em; max-width: 18em; }
+.p-investisseur .cover .desc { color: var(--cover-muted); }
+.p-investisseur .kpis { grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--line); border-radius: 0; }
+.p-investisseur .kpis li { border: 0; border-right: 1px solid var(--line); border-radius: 0; background: #f6f6f2; padding: 18px 20px; }
+.p-investisseur .kpis li:last-child { border-right: 0; }
+.p-investisseur .kpis b { color: var(--accent); font-family: var(--display); }
+.p-investisseur .kpis span, .p-investisseur .kpis small { color: var(--cover-muted); }
+.p-investisseur .kicker { font-family: var(--display); color: var(--accent-2); }
+.p-investisseur h2 { border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+.p-investisseur .takeaway { background: none; border: 1px solid var(--line); border-left: 5px solid var(--accent); font-family: var(--display); font-size: 1.02em; }
+.p-investisseur .takeaway::before { content: "Point clé"; display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent); margin-bottom: 4px; font-weight: 700; }
+.p-investisseur table, .p-investisseur .tree, .p-investisseur .risks, .p-investisseur .chart text { font-family: var(--display); }
+.p-investisseur th { border-bottom-color: var(--accent); }
+.p-investisseur .chart .bar.strong { fill: var(--accent-2); }
+.p-investisseur .finale { background: var(--accent); color: #fff; border: 0; }
+.p-investisseur .finale .kicker { color: #e8d59a; }
+.p-investisseur .finale h2 { color: #fff; border-bottom-color: rgba(255,255,255,0.3); }
+.p-investisseur .finale .body { font-size: 1.22em; }
+.p-investisseur .finale .body p { padding-left: 18px; border-left: 3px solid #e8d59a; }
+.p-investisseur .finale a, .p-investisseur .finale .note a { color: #e8d59a; }
+.p-investisseur .finale footer { border-top-color: rgba(255,255,255,0.3); color: #d6e5dc; }
+
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #14151a; --card: #1c1e25; --fg: #eceef3; --muted: #a0a6b4; --line: #2f323c; --low: #4cc38a; --mid: #e5b25d; --high: #ef7f8e; }
+  code { background: #262932; }
+  .p-dev { --accent: #8f97ee; --accent-2: #ef7f8e; }
+  .p-qa { --accent: #35c2a8; --accent-2: #ef7f8e; --bg: #14181a; --cover-bg: #1c2422; --cover-fg: #eef5f2; --cover-muted: #9fb8b0; }
+  .p-qa .kpis li { background: #213230; border-color: #2e4a45; }
+  .p-qa .takeaway, .p-qa .finale { background: #1f2b28; }
+  .p-qa tbody tr:nth-child(odd) { background: #1f2624; }
+  .p-cto { --accent: #7fa6d9; --accent-2: #f0b97a; --bg: #141821; }
+  .p-cto .takeaway { background: #2a2620; }
+  .p-cto .finale { background: #1f3a5f; }
+  .p-ceo { --accent: #dcc27a; --bg: #15171c; --card: #1c1e25; --line: #2f323c; }
+  .p-ceo .finale { background: #14213d; }
+  .p-investisseur { --accent: #5cc493; --accent-2: #dcb25f; --bg: #141816; --card: #1b201d; --line: #2c342f; --cover-bg: #1b201d; --cover-fg: #eef3ef; --cover-muted: #9fb0a6; }
+  .p-investisseur .kpis li { background: #16201b; }
+  .p-investisseur .finale { background: #1d6b4a; }
+}
+
 @media print {
-  @page { size: A4 landscape; margin: 12mm; }
-  /* Palette claire forcée : sinon une impression depuis un navigateur en thème sombre sort en texte clair sur blanc. */
-  :root {
-    --bg: #fff; --card: #fff; --fg: #17181c; --muted: #5f6470;
-    --line: #dcdde2; --bar: #4f5bd5; --bar-strong: #d1495b; --accent: #4f5bd5;
-    --low: #2e9e6b; --mid: #d99a2b; --high: #d1495b;
-  }
-  body { background: #fff; color: var(--fg); }
-  section {
-    border: 0; margin: 0; padding: 0; max-width: none; min-height: 0;
-    break-after: page; page-break-after: always;
-  }
+  @page { size: A4 landscape; margin: 10mm; }
+  html { font-size: 12px; }
+  .p-dev, .p-qa, .p-cto { --text: 0.9rem; }
+  .p-dev .tree, .p-qa .tree, .p-cto .tree { font-size: 0.82em; }
+  .body.split { gap: 22px; }
+  .takeaway { font-size: 1.05em; padding: 10px 16px; margin-bottom: 14px; }
+  body { background: #fff; }
+  :root, .p-dev, .p-qa, .p-cto, .p-ceo, .p-investisseur, .p-enfant { --bg: #f5f5f3; --card: #fff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2; }
+  .p-qa { --bg: #f2f7f5; } .p-cto { --bg: #f4f6f9; } .p-ceo { --bg: #f7f5ef; --card: #fffdf8; } .p-investisseur { --bg: #f6f6f2; } .p-enfant { --bg: #fff6e5; --card: #fffdf7; --fg: #2b2118; --muted: #7a6a5a; }
+  .p-ceo { --accent: #14213d; } .p-cto { --accent: #1f3a5f; } .p-dev { --accent: #4f5bd5; } .p-qa { --accent: #0f8f7a; } .p-investisseur { --accent: #1d6b4a; }
+  section { max-width: none; margin: 0; min-height: 178mm; break-after: page; page-break-after: always; box-shadow: none; --pad: 26px 36px; }
   section:last-child { break-after: auto; page-break-after: auto; }
-  .chart .bar, .chart .bar.strong, .light { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-  /* Le deck enfant garde ses couleurs et son cadre à l'impression. */
-  .p-enfant { --bg: #fff6e5; --card: #fffdf7; --fg: #2b2118; --muted: #7a6a5a; background: var(--bg); }
-  .p-enfant section {
-    border: 4px dashed var(--accent); border-radius: 24px; padding: 32px 40px; margin: 0;
-    print-color-adjust: exact; -webkit-print-color-adjust: exact;
-  }
-  .p-enfant h1, .p-enfant h2 { color: var(--accent); }
-  .p-enfant a { color: var(--accent); }
-  a { color: #000; text-decoration: none; }
+  .p-enfant section { box-shadow: none; margin: 0; }
+  .cover { min-height: 178mm; }
+  .refs { min-height: 0; }
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  a { text-decoration: none; }
 }
 </style>
 </head>
 <body class="p-investisseur">
 <section class="cover">
-  <p class="eyebrow">Onboarding · profil investisseur · 2026-09-09</p>
-  <h1>mksglu/context-mode</h1>
-  <p class="lede">Context Mode : forte traction organique en six mois, un seul fondateur, licence qui verrouille le service hébergé</p>
-  <p class="desc">Context window optimization for AI coding agents. Sandboxes tool output (98% reduction), persists session memory, and   enforces routing across 17 platforms via MCP + hooks.</p>
-  <p class="meta"><span>21624 ★</span><span>1555 forks</span><span>226 issues ouvertes</span><span>Elastic License 2.0 (ELv2)</span></p>
-  <p class="url"><code>https://github.com/mksglu/context-mode</code></p>
-</section><section><h2>Quel problème et quel marché ?</h2><div class="body"><p>Les agents de programmation par IA saturent leur mémoire de travail avec les sorties brutes de leurs outils, puis oublient ce qu'ils faisaient lorsqu'ils compactent la conversation <sup class="note"><a href="#note-1">1</a></sup>. Context Mode filtre ces sorties à la source, revendique 98 % de réduction, et persiste la session <sup class="note"><a href="#note-2">2</a></sup>.</p>
-<p>Marché: les utilisateurs d'agents de code, sur 17 plateformes annoncées (Claude Code, Codex CLI, Gemini CLI, Copilot, Cursor, OpenCode…) <sup class="note"><a href="#note-2">2</a></sup> <sup class="note"><a href="#note-3">3</a></sup>. Le README affiche des logos de grandes entreprises utilisatrices, invérifiables depuis le cache; à vérifier dans https://github.com/mksglu/context-mode#readme <sup class="note"><a href="#note-1">1</a></sup>.</p></div></section>
-<section><h2>Quelle traction ?</h2><div class="body"><svg class="chart" viewBox="0 0 640 118" width="640" height="118" role="img" preserveAspectRatio="xMinYMin meet"><line class="axis" x1="40" y1="58" x2="600" y2="58"/><circle class="dot" cx="40" cy="58" r="5"/><text class="lbl" x="40" y="42" text-anchor="middle">v1.0.160</text><text class="tick" x="40" y="28" text-anchor="middle">2026-06-01</text><circle class="dot" cx="102.22222222222223" cy="58" r="5"/><text class="lbl" x="102.22222222222223" y="84" text-anchor="middle">v1.0.161</text><text class="tick" x="102.22222222222223" y="98" text-anchor="middle">2026-06-01</text><circle class="dot" cx="164.44444444444446" cy="58" r="5"/><text class="lbl" x="164.44444444444446" y="42" text-anchor="middle">v1.0.162</text><text class="tick" x="164.44444444444446" y="28" text-anchor="middle">2026-06-02</text><circle class="dot" cx="226.66666666666666" cy="58" r="5"/><text class="lbl" x="226.66666666666666" y="84" text-anchor="middle">v1.0.163</text><text class="tick" x="226.66666666666666" y="98" text-anchor="middle">2026-06-21</text><circle class="dot" cx="288.8888888888889" cy="58" r="5"/><text class="lbl" x="288.8888888888889" y="42" text-anchor="middle">v1.0.164</text><text class="tick" x="288.8888888888889" y="28" text-anchor="middle">2026-06-22</text><circle class="dot" cx="351.1111111111111" cy="58" r="5"/><text class="lbl" x="351.1111111111111" y="84" text-anchor="middle">v1.0.165</text><text class="tick" x="351.1111111111111" y="98" text-anchor="middle">2026-06-22</text><circle class="dot" cx="413.3333333333333" cy="58" r="5"/><text class="lbl" x="413.3333333333333" y="42" text-anchor="middle">v1.0.166</text><text class="tick" x="413.3333333333333" y="28" text-anchor="middle">2026-06-23</text><circle class="dot" cx="475.55555555555554" cy="58" r="5"/><text class="lbl" x="475.55555555555554" y="84" text-anchor="middle">v1.0.167</text><text class="tick" x="475.55555555555554" y="98" text-anchor="middle">2026-06-26</text><circle class="dot" cx="537.7777777777778" cy="58" r="5"/><text class="lbl" x="537.7777777777778" y="42" text-anchor="middle">v1.0.168</text><text class="tick" x="537.7777777777778" y="28" text-anchor="middle">2026-06-26</text><circle class="dot" cx="600" cy="58" r="5"/><text class="lbl" x="600" y="84" text-anchor="middle">v1.0.169</text><text class="tick" x="600" y="98" text-anchor="middle">2026-06-29</text></svg><p>21 624 étoiles et 1 555 forks pour un repo créé le 2026-02-23 <sup class="note"><a href="#note-4">4</a></sup> <sup class="note"><a href="#note-5">5</a></sup> <sup class="note"><a href="#note-6">6</a></sup>. Le README revendique une première place sur Hacker News <sup class="note"><a href="#note-1">1</a></sup>. Distribué en paquet npm <code>context-mode</code>, version 1.0.169 <sup class="note"><a href="#note-3">3</a></sup>.</p>
-<p>Cadence produit: 10 versions entre le 2026-06-01 et le 2026-06-29 <sup class="note"><a href="#note-7">7</a></sup> <sup class="note"><a href="#note-8">8</a></sup>, puis aucune dans le cache; à vérifier dans https://github.com/mksglu/context-mode/releases. Le cache ne contient pas de chiffre de téléchargements npm ni d'utilisateurs actifs.</p></div></section>
-<section><h2>Quelle dynamique ?</h2><div class="body"><svg class="chart" viewBox="0 0 640 172" width="640" height="172" role="img" preserveAspectRatio="xMinYMin meet"><line class="axis" x1="34" y1="138" x2="628" y2="138"/><text class="tick" x="28" y="22" text-anchor="end">57</text><text class="tick" x="28" y="138" text-anchor="end">0</text><rect class="bar" x="43.9" y="12" width="29.7" height="126" rx="2"><title>2026-W26 : 57</title></rect><text class="tick" x="58.75" y="154" text-anchor="middle">W26</text><rect class="bar" x="93.4" y="107" width="29.7" height="31" rx="2"><title>2026-W27 : 14</title></rect><rect class="bar" x="142.9" y="114" width="29.7" height="24" rx="2"><title>2026-W28 : 11</title></rect><text class="tick" x="157.75" y="154" text-anchor="middle">W28</text><rect class="bar" x="192.4" y="111" width="29.7" height="27" rx="2"><title>2026-W29 : 12</title></rect><rect class="bar" x="241.9" y="111" width="29.7" height="27" rx="2"><title>2026-W30 : 12</title></rect><text class="tick" x="256.75" y="154" text-anchor="middle">W30</text><rect class="bar" x="291.4" y="111" width="29.7" height="27" rx="2"><title>2026-W31 : 12</title></rect><rect class="bar" x="340.9" y="114" width="29.7" height="24" rx="2"><title>2026-W32 : 11</title></rect><text class="tick" x="355.75" y="154" text-anchor="middle">W32</text><rect class="bar" x="390.4" y="109" width="29.7" height="29" rx="2"><title>2026-W33 : 13</title></rect><rect class="bar" x="439.9" y="114" width="29.7" height="24" rx="2"><title>2026-W34 : 11</title></rect><text class="tick" x="454.75" y="154" text-anchor="middle">W34</text><rect class="bar" x="489.4" y="114" width="29.7" height="24" rx="2"><title>2026-W35 : 11</title></rect><rect class="bar" x="538.9" y="118" width="29.7" height="20" rx="2"><title>2026-W36 : 9</title></rect><text class="tick" x="553.75" y="154" text-anchor="middle">W36</text><rect class="bar" x="588.4" y="134" width="29.7" height="4" rx="2"><title>2026-W37 : 2</title></rect></svg><p>Décélération nette: 57 commits en semaine 26, puis 11 à 13 par semaine, 9 en semaine 36 <sup class="note"><a href="#note-9">9</a></sup>. Dernier commit le 2026-09-08 <sup class="note"><a href="#note-10">10</a></sup>.</p>
-<p>La demande entrante dépasse la capacité: 107 PR ouvertes et 0 fusionnée sur 30 jours dans le cache, 119 issues ouvertes et 6 fermées sur 30 jours <sup class="note"><a href="#note-11">11</a></sup> <sup class="note"><a href="#note-12">12</a></sup> <sup class="note"><a href="#note-13">13</a></sup> <sup class="note"><a href="#note-14">14</a></sup>. Aucun jalon planifié, un seul thème étiqueté <sup class="note"><a href="#note-15">15</a></sup>. La communauté pousse, le projet n'absorbe pas.</p></div></section>
-<section><h2>Quelle équipe et quelle gouvernance ?</h2><div class="body"><svg class="chart" viewBox="0 0 640 252" width="640" height="252" role="img" preserveAspectRatio="xMinYMin meet"><text class="lbl" x="168" y="21" text-anchor="end">mksglu</text><rect class="bar strong" x="178" y="10" width="398" height="14" rx="3"/><text class="val" x="582" y="21">60</text><text class="lbl" x="168" y="45" text-anchor="end">ken-jo</text><rect class="bar" x="178" y="34" width="40" height="14" rx="3"/><text class="val" x="224" y="45">6</text><text class="lbl" x="168" y="69" text-anchor="end">pg-adm1n</text><rect class="bar" x="178" y="58" width="13" height="14" rx="3"/><text class="val" x="197" y="69">2</text><text class="lbl" x="168" y="93" text-anchor="end">NgoQuocViet2001</text><rect class="bar" x="178" y="82" width="7" height="14" rx="3"/><text class="val" x="191" y="93">1</text><text class="lbl" x="168" y="117" text-anchor="end">ousamabenyounes</text><rect class="bar" x="178" y="106" width="7" height="14" rx="3"/><text class="val" x="191" y="117">1</text><text class="lbl" x="168" y="141" text-anchor="end">pradigmaz</text><rect class="bar" x="178" y="130" width="7" height="14" rx="3"/><text class="val" x="191" y="141">1</text><text class="lbl" x="168" y="165" text-anchor="end">eejd</text><rect class="bar" x="178" y="154" width="7" height="14" rx="3"/><text class="val" x="191" y="165">1</text><text class="lbl" x="168" y="189" text-anchor="end">xuli500177</text><rect class="bar" x="178" y="178" width="7" height="14" rx="3"/><text class="val" x="191" y="189">1</text><text class="lbl" x="168" y="213" text-anchor="end">Niche-alchemy</text><rect class="bar" x="178" y="202" width="7" height="14" rx="3"/><text class="val" x="191" y="213">1</text><text class="lbl" x="168" y="237" text-anchor="end">daniel-enqz</text><rect class="bar" x="178" y="226" width="7" height="14" rx="3"/><text class="val" x="191" y="237">1</text></svg><p>Un fondateur, Mert Koseoğlu (<code>mksglu</code>), 60 commits sur 12 semaines contre 6 pour le second contributeur; bus factor 1 <sup class="note"><a href="#note-16">16</a></sup> <sup class="note"><a href="#note-17">17</a></sup> <sup class="note"><a href="#note-18">18</a></sup>. Il se décrit comme mainteneur solo avec peu de temps <sup class="note"><a href="#note-19">19</a></sup>.</p>
-<p>Gouvernance: compte personnel, pas d'organisation, pas de CODEOWNERS, pas de politique de sécurité <sup class="note"><a href="#note-20">20</a></sup> <sup class="note"><a href="#note-21">21</a></sup> <sup class="note"><a href="#note-22">22</a></sup>. Aucune structure juridique n'apparaît dans le cache.</p></div></section>
-<section><h2>Quelle concurrence ?</h2><div class="body"><p>Le cache ne contient pas de liste de concurrents (<code>business.competitors</code> absent); à vérifier par une recherche GitHub sur les sujets <code>mcp-server</code> et <code>context-window</code>. Ce qui est connu: le projet se positionne comme « l'autre moitié du problème de contexte », avec 20 topics GitHub couvrant la plupart des agents de code du marché <sup class="note"><a href="#note-1">1</a></sup> <sup class="note"><a href="#note-23">23</a></sup>.</p></div></section>
-<section><h2>Licence, financement, risques ?</h2><div class="body"><ul class="risks"><li><span class="light mid" aria-hidden="true"></span><b>license</b><span class="role">Licence non standard « Elastic License 2.0 (ELv2) » : lire sources/license.md avant tout usage.</span></li><li><span class="light mid" aria-hidden="true"></span><b>security</b><span class="role">Pas de SECURITY.md : aucun canal déclaré pour signaler une faille.</span></li><li><span class="light high" aria-hidden="true"></span><b>bus_factor</b><span class="role">Un seul contributeur porte la moitié des commits sur 12 semaines.</span></li><li><span class="light low" aria-hidden="true"></span><b>ci</b><span class="role">5 workflows dans .github/workflows ; ci.yml (seul lu) : typecheck, build, bundle, vitest sur ubuntu, macos et windows, déclenché par workflow_dispatch, push et pull_request sur main et next.</span></li><li><span class="light low" aria-hidden="true"></span><b>deps</b><span class="role">15 dépendances déclarées dans package.json (8 runtime, 7 dev) ; better-sqlite3 est un module natif externalisé du bundle ; node &gt;= 22.5.0 requis.</span></li></ul><p>Licence Elastic 2.0: usage, copie et modification libres, mais interdiction de fournir le logiciel comme service hébergé ou managé à des tiers, et clause de licence key <sup class="note"><a href="#note-24">24</a></sup> <sup class="note"><a href="#note-25">25</a></sup>. C'est le verrou qui protégerait une offre commerciale du fondateur, et qui bloque toute concurrence par hébergement.</p>
-<p>Financement: GitHub Sponsors vers <code>mksglu</code>, rien d'autre dans le cache <sup class="note"><a href="#note-26">26</a></sup> <sup class="note"><a href="#note-27">27</a></sup>.</p>
-<p>Risques notés: bus factor élevé, licence et sécurité moyens (aucun canal de signalement de faille), CI et dépendances faibles <sup class="note"><a href="#note-28">28</a></sup> <sup class="note"><a href="#note-29">29</a></sup> <sup class="note"><a href="#note-30">30</a></sup> <sup class="note"><a href="#note-31">31</a></sup> <sup class="note"><a href="#note-32">32</a></sup>. Le cache ne contient pas <code>security.md</code> puisque le repo n'a pas de SECURITY.md.</p></div></section>
-<section><h2>Pourquoi oui, pourquoi non ?</h2><div class="body"><p>Oui: traction organique exceptionnelle en six mois, problème réel et transversal à tous les agents de code, licence qui réserve la valeur commerciale au fondateur <sup class="note"><a href="#note-4">4</a></sup> <sup class="note"><a href="#note-33">33</a></sup>.</p>
-<p>Non: un seul homme, activité en baisse, backlog qui ne se résorbe pas, aucune structure ni équipe, aucun revenu visible <sup class="note"><a href="#note-34">34</a></sup> <sup class="note"><a href="#note-11">11</a></sup> <sup class="note"><a href="#note-26">26</a></sup>. L'actif, c'est la personne et l'audience, pas encore une entreprise.</p></div></section><section class="finale"><h2>Thèse en 3 lignes</h2><div class="body"><ol class="steps"><li>Installer : <code>npm install</code></li><li>Lancer les tests : <code>npm test</code></li><li>Ouvrir <code>src/server.ts</code> — Serveur MCP : script dev = npx tsx src/server.ts, bundlé en server.bundle.mjs par esbuild (package.json).</li></ol></div></section><section class="refs"><h2>Sources</h2><div class="body"><ol class="sources"><li id="note-1"><span class="kind">source du repo</span><code>readme.md</code></li><li id="note-2"><span class="kind">donnée collectée</span><code>repo.description</code></li><li id="note-3"><span class="kind">source du repo</span><code>manifest.md</code></li><li id="note-4"><span class="kind">donnée collectée</span><code>repo.stars</code></li><li id="note-5"><span class="kind">donnée collectée</span><code>repo.forks</code></li><li id="note-6"><span class="kind">donnée collectée</span><code>repo.created_at</code></li><li id="note-7"><span class="kind">donnée collectée</span><code>releases.9.date</code></li><li id="note-8"><span class="kind">donnée collectée</span><code>releases.0.date</code></li><li id="note-9"><span class="kind">donnée collectée</span><code>activity.commits_per_week</code></li><li id="note-10"><span class="kind">donnée collectée</span><code>activity.last_commit</code></li><li id="note-11"><span class="kind">donnée collectée</span><code>pulls.open</code></li><li id="note-12"><span class="kind">donnée collectée</span><code>pulls.merged_30d</code></li><li id="note-13"><span class="kind">donnée collectée</span><code>issues.open</code></li><li id="note-14"><span class="kind">donnée collectée</span><code>issues.closed_30d</code></li><li id="note-15"><span class="kind">donnée collectée</span><code>roadmap.themes</code></li><li id="note-16"><span class="kind">donnée collectée</span><code>activity.contributors.0.commits</code></li><li id="note-17"><span class="kind">donnée collectée</span><code>activity.contributors.1.commits</code></li><li id="note-18"><span class="kind">donnée collectée</span><code>activity.bus_factor</code></li><li id="note-19"><span class="kind">source du repo</span><code>contributing.md</code></li><li id="note-20"><span class="kind">donnée collectée</span><code>repo.owner_type</code></li><li id="note-21"><span class="kind">donnée collectée</span><code>business.codeowners</code></li><li id="note-22"><span class="kind">donnée collectée</span><code>business.security_policy</code></li><li id="note-23"><span class="kind">donnée collectée</span><code>repo.topics</code></li><li id="note-24"><span class="kind">donnée collectée</span><code>repo.license</code></li><li id="note-25"><span class="kind">source du repo</span><code>license.md</code></li><li id="note-26"><span class="kind">donnée collectée</span><code>business.funding</code></li><li id="note-27"><span class="kind">source du repo</span><code>funding.md</code></li><li id="note-28"><span class="kind">donnée collectée</span><code>risks.2.level</code></li><li id="note-29"><span class="kind">donnée collectée</span><code>risks.0.level</code></li><li id="note-30"><span class="kind">donnée collectée</span><code>risks.1.level</code></li><li id="note-31"><span class="kind">donnée collectée</span><code>risks.3.level</code></li><li id="note-32"><span class="kind">donnée collectée</span><code>risks.4.level</code></li><li id="note-33"><span class="kind">donnée collectée</span><code>risks.0.note</code></li><li id="note-34"><span class="kind">donnée collectée</span><code>risks.2.note</code></li></ol></div></section>
+<div class="cover-top"><span class="eyebrow">Mémo d'investissement</span><span class="date">9 sept. 2026</span></div>
+<p class="repo">mksglu/context-mode</p>
+<h1>Context Mode : forte traction organique en six mois, un seul fondateur, licence qui verrouille le service hébergé</h1>
+<p class="desc">Context window optimization for AI coding agents. Sandboxes tool output (98% reduction), persists session memory, and   enforces routing across 17 platforms via MCP + hooks.</p>
+<ul class="kpis"><li><b>21 624</b><span>étoiles GitHub</span></li><li><b>1 555</b><span>forks</span></li><li><b>1</b><span>bus factor</span><small>sur 12 semaines</small></li><li><b>ELv2</b><span>licence</span></li></ul>
+<p class="cover-foot"><span><a href="https://github.com/mksglu/context-mode">https://github.com/mksglu/context-mode</a></span><span>Licence Elastic License 2.0 (ELv2)</span><span>Onboard · profil investisseur</span></p>
+</section><section class="page">
+<header><span class="kicker">02</span><h2>Quel problème et quel marché ?</h2></header>
+<p class="takeaway">Un problème commun à tous les agents de code, 17 plateformes annoncées, 98 % de réduction revendiqués et non vérifiés dans le cache <sup class="note"><a href="#note-1">1</a></sup> <sup class="note"><a href="#note-2">2</a></sup>.</p>
+<div class="body"><div class="text"><p>Les agents de programmation par IA saturent leur mémoire de travail avec les sorties brutes de leurs outils, puis oublient ce qu'ils faisaient lorsqu'ils compactent la conversation <sup class="note"><a href="#note-2">2</a></sup>. Context Mode filtre ces sorties à la source, revendique 98 % de réduction, et persiste la session <sup class="note"><a href="#note-1">1</a></sup>.</p>
+<p>Marché : les utilisateurs d'agents de code, sur 17 plateformes annoncées (Claude Code, Codex CLI, Gemini CLI, Copilot, Cursor, OpenCode…) <sup class="note"><a href="#note-1">1</a></sup> <sup class="note"><a href="#note-3">3</a></sup>. Le README affiche des logos de grandes entreprises utilisatrices, invérifiables depuis le cache ; à vérifier dans <a href="https://github.com/mksglu/context-mode#readme">https://github.com/mksglu/context-mode#readme</a> <sup class="note"><a href="#note-2">2</a></sup>.</p></div></div>
+<footer><span class="repo-name">mksglu/context-mode</span><span class="n">investisseur · 2 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">03</span><h2>Quelle traction ?</h2></header>
+<p class="takeaway">21 624 étoiles et 1 555 forks en un peu plus de six mois, aucun chiffre d'usage réel dans le cache et aucune version après le 2026-06-29 <sup class="note"><a href="#note-4">4</a></sup> <sup class="note"><a href="#note-5">5</a></sup> <sup class="note"><a href="#note-6">6</a></sup> <sup class="note"><a href="#note-7">7</a></sup>.</p>
+<div class="body split"><div class="chart-wrap"><svg class="chart" viewBox="0 0 640 118" width="640" height="118" role="img" preserveAspectRatio="xMinYMin meet"><line class="axis" x1="40" y1="58" x2="600" y2="58"/><circle class="dot" cx="40" cy="58" r="5"/><text class="lbl" x="40" y="42" text-anchor="middle">v1.0.160</text><text class="tick" x="40" y="28" text-anchor="middle">2026-06-01</text><circle class="dot" cx="102.22222222222223" cy="58" r="5"/><text class="lbl" x="102.22222222222223" y="84" text-anchor="middle">v1.0.161</text><text class="tick" x="102.22222222222223" y="98" text-anchor="middle">2026-06-01</text><circle class="dot" cx="164.44444444444446" cy="58" r="5"/><text class="lbl" x="164.44444444444446" y="42" text-anchor="middle">v1.0.162</text><text class="tick" x="164.44444444444446" y="28" text-anchor="middle">2026-06-02</text><circle class="dot" cx="226.66666666666666" cy="58" r="5"/><text class="lbl" x="226.66666666666666" y="84" text-anchor="middle">v1.0.163</text><text class="tick" x="226.66666666666666" y="98" text-anchor="middle">2026-06-21</text><circle class="dot" cx="288.8888888888889" cy="58" r="5"/><text class="lbl" x="288.8888888888889" y="42" text-anchor="middle">v1.0.164</text><text class="tick" x="288.8888888888889" y="28" text-anchor="middle">2026-06-22</text><circle class="dot" cx="351.1111111111111" cy="58" r="5"/><text class="lbl" x="351.1111111111111" y="84" text-anchor="middle">v1.0.165</text><text class="tick" x="351.1111111111111" y="98" text-anchor="middle">2026-06-22</text><circle class="dot" cx="413.3333333333333" cy="58" r="5"/><text class="lbl" x="413.3333333333333" y="42" text-anchor="middle">v1.0.166</text><text class="tick" x="413.3333333333333" y="28" text-anchor="middle">2026-06-23</text><circle class="dot" cx="475.55555555555554" cy="58" r="5"/><text class="lbl" x="475.55555555555554" y="84" text-anchor="middle">v1.0.167</text><text class="tick" x="475.55555555555554" y="98" text-anchor="middle">2026-06-26</text><circle class="dot" cx="537.7777777777778" cy="58" r="5"/><text class="lbl" x="537.7777777777778" y="42" text-anchor="middle">v1.0.168</text><text class="tick" x="537.7777777777778" y="28" text-anchor="middle">2026-06-26</text><circle class="dot" cx="600" cy="58" r="5"/><text class="lbl" x="600" y="84" text-anchor="middle">v1.0.169</text><text class="tick" x="600" y="98" text-anchor="middle">2026-06-29</text></svg></div><div class="text"><p>21 624 étoiles et 1 555 forks pour un repo créé le 2026-02-23 <sup class="note"><a href="#note-4">4</a></sup> <sup class="note"><a href="#note-5">5</a></sup> <sup class="note"><a href="#note-6">6</a></sup>. Le README revendique une première place sur Hacker News <sup class="note"><a href="#note-2">2</a></sup>. Distribué en paquet npm <code>context-mode</code>, version 1.0.169 <sup class="note"><a href="#note-3">3</a></sup>.</p>
+<p>Cadence produit : 10 versions entre le 2026-06-01 et le 2026-06-29 <sup class="note"><a href="#note-8">8</a></sup> <sup class="note"><a href="#note-7">7</a></sup>, puis aucune dans le cache ; à vérifier dans <a href="https://github.com/mksglu/context-mode/releases">https://github.com/mksglu/context-mode/releases</a>. Le cache ne contient pas de chiffre de téléchargements npm ni d'utilisateurs actifs.</p></div></div>
+<footer><span class="repo-name">mksglu/context-mode</span><span class="n">investisseur · 3 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">04</span><h2>Quelle dynamique ?</h2></header>
+<p class="takeaway">107 PR ouvertes, 0 fusionnée sur 30 jours, cadence tombée de 57 à 9 commits par semaine entre les semaines 26 et 36 : la demande grossit, la capacité non <sup class="note"><a href="#note-9">9</a></sup> <sup class="note"><a href="#note-10">10</a></sup> <sup class="note"><a href="#note-11">11</a></sup>.</p>
+<div class="body split"><div class="chart-wrap"><svg class="chart" viewBox="0 0 640 172" width="640" height="172" role="img" preserveAspectRatio="xMinYMin meet"><line class="axis" x1="34" y1="138" x2="628" y2="138"/><text class="tick" x="28" y="22" text-anchor="end">57</text><text class="tick" x="28" y="138" text-anchor="end">0</text><rect class="bar" x="43.9" y="12" width="29.7" height="126" rx="2"><title>2026-W26 : 57</title></rect><text class="tick" x="58.75" y="154" text-anchor="middle">W26</text><rect class="bar" x="93.4" y="107" width="29.7" height="31" rx="2"><title>2026-W27 : 14</title></rect><rect class="bar" x="142.9" y="114" width="29.7" height="24" rx="2"><title>2026-W28 : 11</title></rect><text class="tick" x="157.75" y="154" text-anchor="middle">W28</text><rect class="bar" x="192.4" y="111" width="29.7" height="27" rx="2"><title>2026-W29 : 12</title></rect><rect class="bar" x="241.9" y="111" width="29.7" height="27" rx="2"><title>2026-W30 : 12</title></rect><text class="tick" x="256.75" y="154" text-anchor="middle">W30</text><rect class="bar" x="291.4" y="111" width="29.7" height="27" rx="2"><title>2026-W31 : 12</title></rect><rect class="bar" x="340.9" y="114" width="29.7" height="24" rx="2"><title>2026-W32 : 11</title></rect><text class="tick" x="355.75" y="154" text-anchor="middle">W32</text><rect class="bar" x="390.4" y="109" width="29.7" height="29" rx="2"><title>2026-W33 : 13</title></rect><rect class="bar" x="439.9" y="114" width="29.7" height="24" rx="2"><title>2026-W34 : 11</title></rect><text class="tick" x="454.75" y="154" text-anchor="middle">W34</text><rect class="bar" x="489.4" y="114" width="29.7" height="24" rx="2"><title>2026-W35 : 11</title></rect><rect class="bar" x="538.9" y="118" width="29.7" height="20" rx="2"><title>2026-W36 : 9</title></rect><text class="tick" x="553.75" y="154" text-anchor="middle">W36</text><rect class="bar" x="588.4" y="134" width="29.7" height="4" rx="2"><title>2026-W37 : 2</title></rect></svg></div><div class="text"><p>Décélération nette : 57 commits en semaine 26, puis 11 à 13 par semaine, 9 en semaine 36 <sup class="note"><a href="#note-11">11</a></sup>. Dernier commit le 2026-09-08 <sup class="note"><a href="#note-12">12</a></sup>.</p>
+<p>La demande entrante dépasse la capacité : 107 PR ouvertes et 0 fusionnée sur 30 jours dans le cache, 119 issues ouvertes et 6 fermées sur 30 jours <sup class="note"><a href="#note-9">9</a></sup> <sup class="note"><a href="#note-10">10</a></sup> <sup class="note"><a href="#note-13">13</a></sup> <sup class="note"><a href="#note-14">14</a></sup>. Aucun jalon planifié, un seul thème étiqueté <sup class="note"><a href="#note-15">15</a></sup>. La communauté pousse, le projet n'absorbe pas.</p></div></div>
+<footer><span class="repo-name">mksglu/context-mode</span><span class="n">investisseur · 4 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">05</span><h2>Quelle équipe et quelle gouvernance ?</h2></header>
+<p class="takeaway">Bus factor 1 : 60 commits sur 12 semaines pour le fondateur contre 6 pour le second, un compte personnel sans organisation ni CODEOWNERS <sup class="note"><a href="#note-16">16</a></sup> <sup class="note"><a href="#note-17">17</a></sup> <sup class="note"><a href="#note-18">18</a></sup> <sup class="note"><a href="#note-19">19</a></sup> <sup class="note"><a href="#note-20">20</a></sup>.</p>
+<div class="body split"><div class="chart-wrap"><svg class="chart" viewBox="0 0 640 252" width="640" height="252" role="img" preserveAspectRatio="xMinYMin meet"><text class="lbl" x="168" y="21" text-anchor="end">mksglu</text><rect class="bar strong" x="178" y="10" width="398" height="14" rx="3"/><text class="val" x="582" y="21">60</text><text class="lbl" x="168" y="45" text-anchor="end">ken-jo</text><rect class="bar" x="178" y="34" width="40" height="14" rx="3"/><text class="val" x="224" y="45">6</text><text class="lbl" x="168" y="69" text-anchor="end">pg-adm1n</text><rect class="bar" x="178" y="58" width="13" height="14" rx="3"/><text class="val" x="197" y="69">2</text><text class="lbl" x="168" y="93" text-anchor="end">NgoQuocViet2001</text><rect class="bar" x="178" y="82" width="7" height="14" rx="3"/><text class="val" x="191" y="93">1</text><text class="lbl" x="168" y="117" text-anchor="end">ousamabenyounes</text><rect class="bar" x="178" y="106" width="7" height="14" rx="3"/><text class="val" x="191" y="117">1</text><text class="lbl" x="168" y="141" text-anchor="end">pradigmaz</text><rect class="bar" x="178" y="130" width="7" height="14" rx="3"/><text class="val" x="191" y="141">1</text><text class="lbl" x="168" y="165" text-anchor="end">eejd</text><rect class="bar" x="178" y="154" width="7" height="14" rx="3"/><text class="val" x="191" y="165">1</text><text class="lbl" x="168" y="189" text-anchor="end">xuli500177</text><rect class="bar" x="178" y="178" width="7" height="14" rx="3"/><text class="val" x="191" y="189">1</text><text class="lbl" x="168" y="213" text-anchor="end">Niche-alchemy</text><rect class="bar" x="178" y="202" width="7" height="14" rx="3"/><text class="val" x="191" y="213">1</text><text class="lbl" x="168" y="237" text-anchor="end">daniel-enqz</text><rect class="bar" x="178" y="226" width="7" height="14" rx="3"/><text class="val" x="191" y="237">1</text></svg></div><div class="text"><p>Un fondateur, Mert Koseoğlu (<code>mksglu</code>), 60 commits sur 12 semaines contre 6 pour le second contributeur ; bus factor 1 <sup class="note"><a href="#note-17">17</a></sup> <sup class="note"><a href="#note-18">18</a></sup> <sup class="note"><a href="#note-16">16</a></sup>. Il se décrit comme mainteneur solo avec peu de temps <sup class="note"><a href="#note-21">21</a></sup>.</p>
+<p>Gouvernance : compte personnel, pas d'organisation, pas de CODEOWNERS, pas de politique de sécurité <sup class="note"><a href="#note-19">19</a></sup> <sup class="note"><a href="#note-20">20</a></sup> <sup class="note"><a href="#note-22">22</a></sup>. Aucune structure juridique n'apparaît dans le cache.</p></div></div>
+<footer><span class="repo-name">mksglu/context-mode</span><span class="n">investisseur · 5 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">06</span><h2>Quelle concurrence ?</h2></header>
+<p class="takeaway">Aucun concurrent identifié dans le cache ; le positionnement couvre 20 topics GitHub, la défendabilité reste à démontrer <sup class="note"><a href="#note-23">23</a></sup> <sup class="note"><a href="#note-2">2</a></sup>.</p>
+<div class="body"><div class="text"><p>Le cache ne contient pas de liste de concurrents (<code>business.competitors</code> absent) ; à vérifier par une recherche GitHub sur les sujets <code>mcp-server</code> et <code>context-window</code>. Ce qui est connu : le projet se positionne comme « l'autre moitié du problème de contexte », avec 20 topics GitHub couvrant la plupart des agents de code du marché <sup class="note"><a href="#note-2">2</a></sup> <sup class="note"><a href="#note-23">23</a></sup>.</p></div></div>
+<footer><span class="repo-name">mksglu/context-mode</span><span class="n">investisseur · 6 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">07</span><h2>Licence, financement, risques ?</h2></header>
+<p class="takeaway">Elastic 2.0 réserve le service hébergé au titulaire, GitHub Sponsors est le seul financement visible, et le seul risque noté élevé est le bus factor <sup class="note"><a href="#note-24">24</a></sup> <sup class="note"><a href="#note-25">25</a></sup> <sup class="note"><a href="#note-26">26</a></sup> <sup class="note"><a href="#note-27">27</a></sup>.</p>
+<div class="body split"><div class="chart-wrap"><ul class="risks"><li><span class="light mid" aria-hidden="true"></span><b>license</b><span class="role">Licence non standard « Elastic License 2.0 (ELv2) » : lire sources/license.md avant tout usage.</span></li><li><span class="light mid" aria-hidden="true"></span><b>security</b><span class="role">Pas de SECURITY.md : aucun canal déclaré pour signaler une faille.</span></li><li><span class="light high" aria-hidden="true"></span><b>bus_factor</b><span class="role">Un seul contributeur porte la moitié des commits sur 12 semaines.</span></li><li><span class="light low" aria-hidden="true"></span><b>ci</b><span class="role">5 workflows dans .github/workflows ; ci.yml (seul lu) : typecheck, build, bundle, vitest sur ubuntu, macos et windows, déclenché par workflow_dispatch, push et pull_request sur main et next.</span></li><li><span class="light low" aria-hidden="true"></span><b>deps</b><span class="role">15 dépendances déclarées dans package.json (8 runtime, 7 dev) ; better-sqlite3 est un module natif externalisé du bundle ; node &gt;= 22.5.0 requis.</span></li></ul></div><div class="text"><p>Licence Elastic 2.0 : usage, copie et modification libres, mais interdiction de fournir le logiciel comme service hébergé ou managé à des tiers, et clause de licence key <sup class="note"><a href="#note-24">24</a></sup> <sup class="note"><a href="#note-25">25</a></sup>. C'est le verrou qui protégerait une offre commerciale du fondateur, et qui bloque toute concurrence par hébergement.</p>
+<p>Financement : GitHub Sponsors vers <code>mksglu</code>, rien d'autre dans le cache <sup class="note"><a href="#note-26">26</a></sup> <sup class="note"><a href="#note-28">28</a></sup>.</p>
+<p>Risques notés : bus factor élevé, licence et sécurité moyens (aucun canal de signalement de faille), CI et dépendances faibles <sup class="note"><a href="#note-27">27</a></sup> <sup class="note"><a href="#note-29">29</a></sup> <sup class="note"><a href="#note-30">30</a></sup> <sup class="note"><a href="#note-31">31</a></sup> <sup class="note"><a href="#note-32">32</a></sup>. Le cache ne contient pas <code>security.md</code> puisque le repo n'a pas de SECURITY.md.</p></div></div>
+<footer><span class="repo-name">mksglu/context-mode</span><span class="n">investisseur · 7 / 9</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">08</span><h2>Pourquoi oui, pourquoi non ?</h2></header>
+<p class="takeaway">L'audience existe (21 624 étoiles), l'entreprise pas encore : un fondateur, aucune structure, aucun revenu visible dans le cache <sup class="note"><a href="#note-4">4</a></sup> <sup class="note"><a href="#note-16">16</a></sup> <sup class="note"><a href="#note-19">19</a></sup> <sup class="note"><a href="#note-26">26</a></sup>.</p>
+<div class="body"><div class="text"><p>Oui : traction organique exceptionnelle en six mois, problème réel et transversal à tous les agents de code, licence qui réserve la valeur commerciale au fondateur <sup class="note"><a href="#note-4">4</a></sup> <sup class="note"><a href="#note-33">33</a></sup>.</p>
+<p>Non : un seul homme, activité en baisse, backlog qui ne se résorbe pas, aucune structure ni équipe, aucun revenu visible <sup class="note"><a href="#note-34">34</a></sup> <sup class="note"><a href="#note-9">9</a></sup> <sup class="note"><a href="#note-26">26</a></sup>. L'actif, c'est la personne et l'audience, pas encore une entreprise.</p></div></div>
+<footer><span class="repo-name">mksglu/context-mode</span><span class="n">investisseur · 8 / 9</span></footer>
+</section><section class="finale">
+<header><span class="kicker">investisseur</span><h2>Thèse en 3 lignes</h2></header>
+
+<div class="body"><div class="text"><p>Actif : une audience de 21 624 étoiles et 1 555 forks constituée en six mois sur un problème commun à 17 plateformes d'agents de code, sous une licence Elastic 2.0 qui réserve le service hébergé au fondateur, et un README qui renvoie déjà vers un tableau de bord hébergé, context-mode.com/insight <sup class="note"><a href="#note-4">4</a></sup> <sup class="note"><a href="#note-5">5</a></sup> <sup class="note"><a href="#note-6">6</a></sup> <sup class="note"><a href="#note-1">1</a></sup> <sup class="note"><a href="#note-25">25</a></sup> <sup class="note"><a href="#note-2">2</a></sup>.</p>
+<p>Passif : bus factor 1, un mainteneur solo qui dit manquer de temps, 107 PR ouvertes et 0 fusionnée sur 30 jours, aucune version après le 2026-06-29, ni entité ni revenu dans le cache <sup class="note"><a href="#note-16">16</a></sup> <sup class="note"><a href="#note-21">21</a></sup> <sup class="note"><a href="#note-9">9</a></sup> <sup class="note"><a href="#note-10">10</a></sup> <sup class="note"><a href="#note-7">7</a></sup> <sup class="note"><a href="#note-26">26</a></sup>.</p>
+<p>Verdict : pas un investissement en l'état, un pari sur une personne ; à revoir si une équipe et une entité se constituent et si fusions et versions repartent sur un trimestre <sup class="note"><a href="#note-34">34</a></sup> <sup class="note"><a href="#note-11">11</a></sup> <sup class="note"><a href="#note-19">19</a></sup>.</p></div></div>
+<footer><span class="repo-name">mksglu/context-mode</span><span class="n">investisseur · 9 / 9</span></footer>
+</section><section class="refs"><header><span class="kicker">notes</span><h2>Sources</h2></header><div class="body"><ol class="sources"><li id="note-1"><span class="kind">donnée collectée</span><code>repo.description</code></li><li id="note-2"><span class="kind">source du repo</span><code>readme.md</code></li><li id="note-3"><span class="kind">source du repo</span><code>manifest.md</code></li><li id="note-4"><span class="kind">donnée collectée</span><code>repo.stars</code></li><li id="note-5"><span class="kind">donnée collectée</span><code>repo.forks</code></li><li id="note-6"><span class="kind">donnée collectée</span><code>repo.created_at</code></li><li id="note-7"><span class="kind">donnée collectée</span><code>releases.0.date</code></li><li id="note-8"><span class="kind">donnée collectée</span><code>releases.9.date</code></li><li id="note-9"><span class="kind">donnée collectée</span><code>pulls.open</code></li><li id="note-10"><span class="kind">donnée collectée</span><code>pulls.merged_30d</code></li><li id="note-11"><span class="kind">donnée collectée</span><code>activity.commits_per_week</code></li><li id="note-12"><span class="kind">donnée collectée</span><code>activity.last_commit</code></li><li id="note-13"><span class="kind">donnée collectée</span><code>issues.open</code></li><li id="note-14"><span class="kind">donnée collectée</span><code>issues.closed_30d</code></li><li id="note-15"><span class="kind">donnée collectée</span><code>roadmap.themes</code></li><li id="note-16"><span class="kind">donnée collectée</span><code>activity.bus_factor</code></li><li id="note-17"><span class="kind">donnée collectée</span><code>activity.contributors.0.commits</code></li><li id="note-18"><span class="kind">donnée collectée</span><code>activity.contributors.1.commits</code></li><li id="note-19"><span class="kind">donnée collectée</span><code>repo.owner_type</code></li><li id="note-20"><span class="kind">donnée collectée</span><code>business.codeowners</code></li><li id="note-21"><span class="kind">source du repo</span><code>contributing.md</code></li><li id="note-22"><span class="kind">donnée collectée</span><code>business.security_policy</code></li><li id="note-23"><span class="kind">donnée collectée</span><code>repo.topics</code></li><li id="note-24"><span class="kind">donnée collectée</span><code>repo.license</code></li><li id="note-25"><span class="kind">source du repo</span><code>license.md</code></li><li id="note-26"><span class="kind">donnée collectée</span><code>business.funding</code></li><li id="note-27"><span class="kind">donnée collectée</span><code>risks.2.level</code></li><li id="note-28"><span class="kind">source du repo</span><code>funding.md</code></li><li id="note-29"><span class="kind">donnée collectée</span><code>risks.0.level</code></li><li id="note-30"><span class="kind">donnée collectée</span><code>risks.1.level</code></li><li id="note-31"><span class="kind">donnée collectée</span><code>risks.3.level</code></li><li id="note-32"><span class="kind">donnée collectée</span><code>risks.4.level</code></li><li id="note-33"><span class="kind">donnée collectée</span><code>risks.0.note</code></li><li id="note-34"><span class="kind">donnée collectée</span><code>risks.2.note</code></li></ol></div></section>
 </body>
 </html>

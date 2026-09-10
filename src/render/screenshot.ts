@@ -1,6 +1,6 @@
 // `bun run screenshot <cache> <profil> [sortie.png]` : capture d'écran de deck-<profil>.html via Chrome ou Edge en headless.
 // Sortie par défaut : pitch/demo.png, l'image que pitch_fr.html affiche sur la slide « D'une commande à un deck ».
-import { existsSync, mkdirSync } from "node:fs";
+import { existsSync, mkdirSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
@@ -39,6 +39,7 @@ if (!browser) {
 
 const png = path.resolve(out);
 mkdirSync(path.dirname(png), { recursive: true });
+if (existsSync(png)) rmSync(png);
 const proc = Bun.spawn(
   [
     browser,
@@ -62,7 +63,8 @@ const started = Date.now();
 while (!existsSync(png) && Date.now() - started < 30_000) await Bun.sleep(300);
 await Bun.sleep(300);
 proc.kill();
-const code = await proc.exited;
+// Un Chrome coupé pendant son démarrage ignore parfois SIGTERM : on insiste après 3 s.
+const code = await Promise.race([proc.exited, Bun.sleep(3_000).then(() => (proc.kill(9), proc.exited))]);
 if (!existsSync(png)) {
   console.error(`Échec de la capture (${path.basename(browser)} a rendu ${code}).`);
   process.exit(1);

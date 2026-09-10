@@ -6,158 +6,233 @@
 <title>Astrid, une maison avec des portes qui ferment à clé pour les programmes</title>
 <style>
 :root {
-  --bg: #f7f7f5; --card: #ffffff; --fg: #17181c; --muted: #5f6470;
-  --line: #dcdde2; --bar: #4f5bd5; --bar-strong: #d1495b; --accent: #4f5bd5;
+  --bg: #f5f5f3; --card: #ffffff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2;
+  --accent: #4f5bd5; --accent-2: #d1495b; --accent-ink: #ffffff;
+  --cover-bg: #17181c; --cover-fg: #ffffff; --cover-muted: #b7bccb;
   --low: #2e9e6b; --mid: #d99a2b; --high: #d1495b;
-  --radius: 10px; --pad: 32px 36px; --width: 900px;
-  --h1: 2.1rem; --h2: 1.45rem; --text: 1rem;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #14151a; --card: #1c1e25; --fg: #eceef3; --muted: #a0a6b4;
-    --line: #2f323c; --bar: #8f97ee; --bar-strong: #ef7f8e; --accent: #8f97ee;
-    --low: #4cc38a; --mid: #e5b25d; --high: #ef7f8e;
-  }
+  --font: ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --display: var(--font); --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --radius: 12px; --pad: 40px 48px; --width: 1040px; --min-h: 600px;
+  --h1: 2.8rem; --h2: 1.7rem; --text: 1.02rem; --kpi: 2.6rem;
 }
 * { box-sizing: border-box; }
-body {
-  margin: 0; background: var(--bg); color: var(--fg);
-  font: 16px/1.55 ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-}
+html { font-size: 16px; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 1rem/1.55 var(--font); }
 section {
-  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
-  max-width: var(--width); margin: 24px auto; padding: var(--pad); min-height: 460px;
-  font-size: var(--text);
+  position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  max-width: var(--width); margin: 28px auto; padding: var(--pad); min-height: var(--min-h); font-size: var(--text);
+  display: flex; flex-direction: column;
 }
-h1 { font-size: var(--h1); line-height: 1.15; margin: 0 0 12px; }
-h2 { font-size: var(--h2); margin: 0 0 20px; padding-bottom: 12px; border-bottom: 2px solid var(--accent); }
+section > .body { flex: 1; }
+h1 { font: 700 var(--h1)/1.1 var(--display); letter-spacing: -0.01em; margin: 0 0 16px; }
+h2 { font: 700 var(--h2)/1.2 var(--display); margin: 0 0 10px; }
+p { margin: 0 0 10px; }
+ul, ol { margin: 0 0 12px; padding-left: 22px; }
+li { margin: 0 0 6px; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code { font: 0.88em var(--mono); background: var(--bg); padding: 1px 6px; border-radius: 5px; }
+pre { background: #14151a; color: #e8eaf1; padding: 14px 18px; border-radius: 10px; overflow-x: auto; margin: 0 0 14px; font-size: 0.9em; line-height: 1.5; }
+pre code { background: none; padding: 0; color: inherit; font-size: 1em; }
+strong { font-weight: 700; }
+table { border-collapse: collapse; width: 100%; margin: 0 0 14px; font-size: 0.94em; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); border-bottom: 2px solid var(--accent); }
+.level { display: inline-block; padding: 1px 10px; border-radius: 999px; font-size: 0.8em; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.04em; }
+.level.low { background: var(--low); } .level.mid { background: var(--mid); } .level.high { background: var(--high); }
 
-/* Un profil = un public. L'accent, la densité et l'échelle typographique changent, la palette de base ne bouge pas. */
-.p-dev { --accent: #4f5bd5; --bar: #4f5bd5; --bar-strong: #d1495b; }
-.p-qa { --accent: #0f8f7a; --bar: #0f8f7a; --bar-strong: #d1495b; }
-.p-cto { --accent: #3d6fa8; --bar: #3d6fa8; --bar-strong: #c9772e; }
-.p-ceo {
-  --accent: #1f3a5f; --bar: #1f3a5f; --bar-strong: #b8862b;
-  --h1: 2.7rem; --h2: 1.7rem; --text: 1.08rem; --pad: 44px 52px; --width: 860px;
-}
-.p-investisseur {
-  --accent: #1d6b4a; --bar: #1d6b4a; --bar-strong: #b8862b;
-  --h1: 2.6rem; --h2: 1.65rem; --text: 1.05rem; --pad: 40px 48px;
-}
-.p-enfant {
-  --accent: #d4572a; --bar: #f08a3c; --bar-strong: #7b4fc0;
-  --h1: 3rem; --h2: 2rem; --text: 1.25rem; --radius: 24px; --pad: 44px 52px; --width: 820px;
-}
-.p-ceo h2, .p-investisseur h2 { border-bottom-width: 3px; }
+/* Couverture */
+.cover { justify-content: center; background: var(--cover-bg); color: var(--cover-fg); border: 0; }
+.cover a { color: inherit; }
+.cover-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 40px; }
+.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.8rem; font-weight: 700; }
+.date, .repo, .cover-foot { color: var(--cover-muted); font-size: 0.9rem; }
+.repo { font-family: var(--mono); font-size: 1rem; margin: 0 0 12px; }
+.cover .desc { color: var(--cover-muted); font-size: 1.1rem; max-width: 46em; margin-bottom: 32px; }
+.kpis { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; padding: 0; margin: 0 0 32px; }
+.kpis li { border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; padding: 14px 18px; background: rgba(255,255,255,0.05); }
+.kpis b { display: block; font: 700 var(--kpi)/1 var(--display); letter-spacing: -0.02em; margin-bottom: 6px; }
+.kpis span { display: block; font-size: 0.82rem; color: var(--cover-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.kpis b.long { font-size: calc(var(--kpi) * 0.62); padding: 0.25em 0; }
+.kpis small { display: block; font-size: 0.78rem; color: var(--cover-muted); margin-top: 3px; text-transform: none; letter-spacing: 0; }
+.cover-foot { margin: 0; display: flex; gap: 14px; flex-wrap: wrap; }
 
-/* Enfant : police ronde, gros texte, chaque page a sa couleur, pas une seule note de bas de page. */
-.p-enfant {
-  --bg: #fff6e5; --card: #fffdf7; --fg: #2b2118; --muted: #7a6a5a;
-  font-family: "Chalkboard SE", "Comic Sans MS", "Comic Neue", "Segoe Print", "Bradley Hand", cursive, sans-serif;
-  line-height: 1.6;
-}
-.p-enfant section { border: 4px dashed var(--accent); box-shadow: 8px 8px 0 var(--accent); margin: 32px auto; }
-.p-enfant section:nth-child(6n+2) { --accent: #d4572a; --bar: #f08a3c; }
-.p-enfant section:nth-child(6n+3) { --accent: #2a9d8f; --bar: #4cc3b5; }
-.p-enfant section:nth-child(6n+4) { --accent: #7b4fc0; --bar: #a98be0; }
-.p-enfant section:nth-child(6n+5) { --accent: #e0a800; --bar: #f5c842; }
-.p-enfant section:nth-child(6n) { --accent: #e63946; --bar: #ff7b86; }
-.p-enfant section:nth-child(6n+1) { --accent: #1d7fd6; --bar: #63aef0; }
-.p-enfant h1 { font-size: 3.4rem; color: var(--accent); }
-.p-enfant h2 { border: 0; padding: 0; margin-bottom: 24px; color: var(--accent); }
-.p-enfant h2::before { content: "🌟 "; }
-.p-enfant .cover { text-align: center; align-items: center; }
-.p-enfant .cover .eyebrow { font-size: 1.1rem; letter-spacing: 0; text-transform: none; color: var(--accent); }
-.p-enfant .cover .lede { font-size: 1.5rem; max-width: 620px; }
-.p-enfant .meta { justify-content: center; }
-.p-enfant .meta span { font-size: 1.1rem; color: var(--fg); border: 3px solid var(--accent); padding: 6px 18px; background: var(--card); }
-.p-enfant code { font-family: inherit; font-size: 1em; background: #ffe9c7; border-radius: 10px; padding: 1px 8px; }
-.p-enfant .big { font-size: 1.5rem; }
-.p-enfant .chart .lbl { font-size: 15px; }
-.p-enfant .chart .val, .p-enfant .chart .tick { font-size: 13px; }
+/* Pages */
+.page header, .finale header { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+.kicker { font: 700 0.78rem/1 var(--mono); color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; }
+.takeaway { margin: 0 0 22px; padding: 14px 20px; border-left: 5px solid var(--accent); background: var(--bg); font-size: 1.12em; font-weight: 600; line-height: 1.45; border-radius: 0 10px 10px 0; }
+.body.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; align-items: start; }
+.body.split .chart-wrap { min-width: 0; }
+.body.stack .chart-wrap { margin-bottom: 20px; }
+footer { display: flex; justify-content: space-between; gap: 12px; margin-top: 26px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.78rem; }
+footer .n { font-family: var(--mono); }
 
-/* Les accents sombres (ceo, investisseur) disparaissent sur fond noir : chaque profil a sa version claire.
-   Ce bloc suit les définitions ci-dessus, donc il gagne à spécificité égale. */
-@media (prefers-color-scheme: dark) {
-  .p-dev { --accent: #8f97ee; --bar: #8f97ee; --bar-strong: #ef7f8e; }
-  .p-qa { --accent: #35c2a8; --bar: #35c2a8; --bar-strong: #ef7f8e; }
-  .p-cto { --accent: #79a6d8; --bar: #79a6d8; --bar-strong: #e5a05d; }
-  .p-ceo { --accent: #86aede; --bar: #86aede; --bar-strong: #e0b661; }
-  .p-investisseur { --accent: #4cbb8a; --bar: #4cbb8a; --bar-strong: #e0b661; }
-  .p-enfant { --bg: #241c14; --card: #2e2419; --fg: #fbf3e6; --muted: #cbb9a3; }
-  .p-enfant code { background: #4a3a26; }
-}
-p { margin: 0 0 12px; }
-code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.88em; background: var(--bg); padding: 1px 5px; border-radius: 4px; }
-a { color: var(--accent); }
-.cover { display: flex; flex-direction: column; justify-content: center; }
-.eyebrow { color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.78rem; margin-bottom: 18px; }
-.lede { font-size: 1.15rem; }
-.desc { color: var(--muted); }
-.meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-.meta span { border: 1px solid var(--line); border-radius: 999px; padding: 3px 12px; font-size: 0.85rem; color: var(--muted); }
-.url { margin-top: 16px; }
-.note { font-size: 0.7em; }
-.note a { text-decoration: none; padding: 0 1px; }
-.chart { display: block; width: 100%; height: auto; max-width: 640px; margin: 0 0 20px; }
-.chart text { font-family: inherit; fill: var(--fg); }
+/* Graphiques SVG et listes annotées (charts.ts) */
+.chart { display: block; width: 100%; height: auto; max-width: 640px; margin: 0 0 12px; }
+.chart text { font-family: var(--font); fill: var(--fg); }
 .chart .lbl { font-size: 12px; }
 .chart .val, .chart .tick { font-size: 11px; fill: var(--muted); }
-.chart .bar { fill: var(--bar); }
-.chart .bar.strong { fill: var(--bar-strong); }
+.chart .bar { fill: var(--accent); }
+.chart .bar.strong { fill: var(--accent-2); }
 .chart .bar.off { fill: var(--line); }
 .chart .dot { fill: var(--accent); }
 .chart .axis { stroke: var(--line); stroke-width: 1; }
-.tree, .risks, .steps, .sources { margin: 0 0 18px; padding-left: 0; }
-.tree, .risks { list-style: none; }
+.tree, .risks { list-style: none; margin: 0 0 14px; padding: 0; font-size: 0.92em; }
 .tree li, .risks li { display: flex; gap: 10px; align-items: baseline; padding: 4px 0; border-bottom: 1px solid var(--line); }
-.role { color: var(--muted); font-size: 0.9rem; }
-.light { width: 10px; height: 10px; border-radius: 50%; flex: 0 0 auto; background: var(--muted); }
-.light.low { background: var(--low); }
-.light.mid { background: var(--mid); }
-.light.high { background: var(--high); }
-.steps, .sources { padding-left: 22px; }
-.steps li, .sources li { margin-bottom: 10px; }
-.sources { font-size: 0.9rem; }
+.tree code { flex: 0 0 auto; }
+.tree .more { color: var(--muted); border: 0; font-style: italic; }
+.role { color: var(--muted); font-size: 0.9em; }
+.light { width: 11px; height: 11px; border-radius: 50%; flex: 0 0 auto; background: var(--muted); }
+.light.low { background: var(--low); } .light.mid { background: var(--mid); } .light.high { background: var(--high); }
+
+/* Finale et sources */
+.finale { border: 2px solid var(--accent); }
+.finale .body { font-size: 1.08em; }
+.finale ol, .finale ul { padding-left: 26px; }
+.finale li { margin-bottom: 10px; }
+.refs { min-height: 0; }
+.refs ol { padding-left: 22px; font-size: 0.86rem; column-count: 2; column-gap: 32px; }
+.refs li { margin-bottom: 6px; break-inside: avoid; }
 .kind { color: var(--muted); margin-right: 8px; }
+.note { font-size: 0.68em; }
+.note a { text-decoration: none; padding: 0 1px; }
+
+.p-enfant { --accent: #d4572a; --accent-2: #7b4fc0; --bg: #fff6e5; --card: #fffdf7; --fg: #2b2118; --muted: #7a6a5a; --line: #f0dcc0; --cover-bg: #fffdf7; --cover-fg: #2b2118; --cover-muted: #7a6a5a;
+  --font: "Chalkboard SE", "Comic Sans MS", "Comic Neue", "Segoe Print", "Bradley Hand", cursive, sans-serif; --display: var(--font);
+  --h1: 3.4rem; --h2: 2.1rem; --text: 1.3rem; --kpi: 2.6rem; --radius: 26px; --pad: 44px 56px; --width: 900px; --min-h: 520px; }
+.p-enfant body, .p-enfant { line-height: 1.6; }
+.p-enfant section { border: 4px dashed var(--accent); box-shadow: 8px 8px 0 var(--accent); margin: 36px auto; }
+.p-enfant section:nth-child(6n+2) { --accent: #d4572a; }
+.p-enfant section:nth-child(6n+3) { --accent: #2a9d8f; }
+.p-enfant section:nth-child(6n+4) { --accent: #7b4fc0; }
+.p-enfant section:nth-child(6n+5) { --accent: #e0a800; }
+.p-enfant section:nth-child(6n) { --accent: #e63946; }
+.p-enfant section:nth-child(6n+1) { --accent: #1d7fd6; }
+.p-enfant h1, .p-enfant h2 { color: var(--accent); font-weight: 700; }
+.p-enfant h2::before { content: "🌟 "; }
+.p-enfant .cover { text-align: center; align-items: center; }
+.p-enfant .cover-top { justify-content: center; margin-bottom: 20px; }
+.p-enfant .cover .eyebrow { font-size: 1.15rem; letter-spacing: 0; text-transform: none; }
+.p-enfant .cover .eyebrow::before { content: "🎒 "; }
+.p-enfant .cover .date, .p-enfant .cover .desc, .p-enfant .cover-foot { display: none; }
+.p-enfant .cover .repo { font-family: var(--font); font-size: 1.1rem; }
+.p-enfant .cover .repo::before { content: "📦 "; }
+.p-enfant .kpis { display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; }
+.p-enfant .kpis li { border: 3px solid var(--accent); border-radius: 999px; background: var(--card); padding: 8px 22px; text-align: center; }
+.p-enfant .kpis b { font-size: 1.6rem; color: var(--accent); display: inline; margin: 0 8px 0 0; }
+.p-enfant .kpis span { display: inline; color: var(--fg); text-transform: none; letter-spacing: 0; font-size: 1.1rem; }
+.p-enfant .kpis small { display: none; }
+.p-enfant .kicker { display: none; }
+.p-enfant .takeaway { border: 3px solid var(--accent); border-radius: 22px; background: var(--card); font-weight: 400; font-size: 1.15em; padding: 14px 22px 14px 58px; position: relative; }
+.p-enfant .takeaway::before { content: "💡"; position: absolute; left: 18px; top: 12px; font-size: 1.5rem; }
+.p-enfant .body.split { grid-template-columns: 1fr; }
+.p-enfant code { font-family: inherit; font-size: 1em; background: #ffe9c7; border-radius: 10px; padding: 1px 8px; }
+.p-enfant .chart .lbl { font-size: 15px; }
+.p-enfant .chart .val, .p-enfant .chart .tick { font-size: 13px; }
+.p-enfant .chart .bar { fill: #f08a3c; } .p-enfant .chart .bar.strong { fill: #a98be0; }
+.p-enfant footer { border-top: 0; justify-content: center; }
+.p-enfant footer .repo-name { display: none; }
+.p-enfant .finale { border-style: solid; }
+.p-enfant .finale h2::before { content: "🚀 "; }
+.p-enfant .finale .body { font-size: 1.15em; }
+
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #14151a; --card: #1c1e25; --fg: #eceef3; --muted: #a0a6b4; --line: #2f323c; --low: #4cc38a; --mid: #e5b25d; --high: #ef7f8e; }
+  code { background: #262932; }
+  .p-dev { --accent: #8f97ee; --accent-2: #ef7f8e; }
+  .p-qa { --accent: #35c2a8; --accent-2: #ef7f8e; --bg: #14181a; --cover-bg: #1c2422; --cover-fg: #eef5f2; --cover-muted: #9fb8b0; }
+  .p-qa .kpis li { background: #213230; border-color: #2e4a45; }
+  .p-qa .takeaway, .p-qa .finale { background: #1f2b28; }
+  .p-qa tbody tr:nth-child(odd) { background: #1f2624; }
+  .p-cto { --accent: #7fa6d9; --accent-2: #f0b97a; --bg: #141821; }
+  .p-cto .takeaway { background: #2a2620; }
+  .p-cto .finale { background: #1f3a5f; }
+  .p-ceo { --accent: #dcc27a; --bg: #15171c; --card: #1c1e25; --line: #2f323c; }
+  .p-ceo .finale { background: #14213d; }
+  .p-investisseur { --accent: #5cc493; --accent-2: #dcb25f; --bg: #141816; --card: #1b201d; --line: #2c342f; --cover-bg: #1b201d; --cover-fg: #eef3ef; --cover-muted: #9fb0a6; }
+  .p-investisseur .kpis li { background: #16201b; }
+  .p-investisseur .finale { background: #1d6b4a; }
+}
+
 @media print {
-  @page { size: A4 landscape; margin: 12mm; }
-  /* Palette claire forcée : sinon une impression depuis un navigateur en thème sombre sort en texte clair sur blanc. */
-  :root {
-    --bg: #fff; --card: #fff; --fg: #17181c; --muted: #5f6470;
-    --line: #dcdde2; --bar: #4f5bd5; --bar-strong: #d1495b; --accent: #4f5bd5;
-    --low: #2e9e6b; --mid: #d99a2b; --high: #d1495b;
-  }
-  body { background: #fff; color: var(--fg); }
-  section {
-    border: 0; margin: 0; padding: 0; max-width: none; min-height: 0;
-    break-after: page; page-break-after: always;
-  }
+  @page { size: A4 landscape; margin: 10mm; }
+  html { font-size: 12px; }
+  .p-dev, .p-qa, .p-cto { --text: 0.9rem; }
+  .p-dev .tree, .p-qa .tree, .p-cto .tree { font-size: 0.82em; }
+  .body.split { gap: 22px; }
+  .takeaway { font-size: 1.05em; padding: 10px 16px; margin-bottom: 14px; }
+  body { background: #fff; }
+  :root, .p-dev, .p-qa, .p-cto, .p-ceo, .p-investisseur, .p-enfant { --bg: #f5f5f3; --card: #fff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2; }
+  .p-qa { --bg: #f2f7f5; } .p-cto { --bg: #f4f6f9; } .p-ceo { --bg: #f7f5ef; --card: #fffdf8; } .p-investisseur { --bg: #f6f6f2; } .p-enfant { --bg: #fff6e5; --card: #fffdf7; --fg: #2b2118; --muted: #7a6a5a; }
+  .p-ceo { --accent: #14213d; } .p-cto { --accent: #1f3a5f; } .p-dev { --accent: #4f5bd5; } .p-qa { --accent: #0f8f7a; } .p-investisseur { --accent: #1d6b4a; }
+  section { max-width: none; margin: 0; min-height: 178mm; break-after: page; page-break-after: always; box-shadow: none; --pad: 26px 36px; }
   section:last-child { break-after: auto; page-break-after: auto; }
-  .chart .bar, .chart .bar.strong, .light { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-  /* Le deck enfant garde ses couleurs et son cadre à l'impression. */
-  .p-enfant { --bg: #fff6e5; --card: #fffdf7; --fg: #2b2118; --muted: #7a6a5a; background: var(--bg); }
-  .p-enfant section {
-    border: 4px dashed var(--accent); border-radius: 24px; padding: 32px 40px; margin: 0;
-    print-color-adjust: exact; -webkit-print-color-adjust: exact;
-  }
-  .p-enfant h1, .p-enfant h2 { color: var(--accent); }
-  .p-enfant a { color: var(--accent); }
-  a { color: #000; text-decoration: none; }
+  .p-enfant section { box-shadow: none; margin: 0; }
+  .cover { min-height: 178mm; }
+  .refs { min-height: 0; }
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  a { text-decoration: none; }
 }
 </style>
 </head>
 <body class="p-enfant">
 <section class="cover">
-  <p class="eyebrow">🎒 Un projet expliqué aux curieux</p>
-  <h1>astrid</h1>
-  <p class="lede">Astrid, une maison avec des portes qui ferment à clé pour les programmes</p>
-  <p class="meta"><span>⭐ 10277 étoiles</span><span>🍴 137 copies</span></p>
-</section><section><h2>C'est quoi, ce projet ?</h2><div class="body"><p>Astrid, c'est un programme qui fait tourner d'autres programmes. Ses créateurs disent qu'il est « portable » et « sécurisé » : il marche sur plusieurs ordinateurs et il surveille ce que les autres programmes ont le droit de faire. Imagine une grande maison. Chaque petit programme a sa chambre, et chaque chambre a une porte qui ferme à clé. Un programme ne peut entrer dans une autre chambre que s'il a la clé. Les créateurs appellent ces petits programmes des « capsules » et les clés des « capacités ». Pourquoi ? Parce qu'aujourd'hui on fait travailler des intelligences artificielles (des IA) sur nos ordinateurs. Une IA peut décider de faire des choses. Mais lui dire « sois sage » ne suffit pas. Astrid, lui, ne la laisse pas ouvrir les portes qu'elle n'a pas le droit d'ouvrir. Pour l'instant, Astrid tourne sur les Mac et sur Linux. Le rêve des créateurs, c'est d'en faire plus tard un vrai système complet pour ordinateur, comme Windows ou macOS.</p></div></section>
-<section><h2>Qui s'en sert et pour quoi faire ?</h2><div class="body"><p>Ce sont surtout des gens qui fabriquent des programmes : ils s'en servent pour construire des robots-assistants (des IA qui font des tâches), des outils ou des services. Astrid leur donne la maison avec les portes, et ils choisissent eux-mêmes qui habite dedans. C'est comme une boîte de Lego : Astrid donne la plaque de base et les règles d'emboîtement, mais il ne décide pas ce que tu construis. Le mode d'emploi dit même qu'Astrid « ne choisit pas de produit » pour toi. On peut l'installer sur un Mac ou un Linux en quelques lignes, et on peut lui demander des choses en écrivant, par exemple « résume ce qui a changé ». Combien de personnes s'en servent vraiment ? Le cache ne contient pas ce chiffre ; à vérifier sur https://github.com/astrid-runtime/astrid. Ce qu'on sait : 10277 personnes ont mis une étoile au projet (un « j'aime » sur GitHub) et 137 en ont fait leur propre copie pour bricoler dessus.</p></div></section>
-<section><h2>Combien de personnes le fabriquent ?</h2><div class="body"><svg class="chart" viewBox="0 0 640 84" width="640" height="84" role="img" preserveAspectRatio="xMinYMin meet"><text class="lbl" x="168" y="21" text-anchor="end">joshuajbouw</text><rect class="bar strong" x="178" y="10" width="398" height="14" rx="3"/><text class="val" x="582" y="21">309</text><text class="lbl" x="168" y="45" text-anchor="end">jvsteiner</text><rect class="bar" x="178" y="34" width="9" height="14" rx="3"/><text class="val" x="193" y="45">7</text><text class="lbl" x="168" y="69" text-anchor="end">Copilot</text><rect class="bar" x="178" y="58" width="4" height="14" rx="3"/><text class="val" x="188" y="69">3</text></svg><p>Sur les 12 dernières semaines, presque tout le travail vient d'une seule personne : joshuajbouw a fait 309 envois de code. Un « envoi de code » s'appelle un commit : c'est comme sauvegarder ta partie dans un jeu vidéo, avec un petit mot qui dit ce que tu as changé. Deux autres ont aidé un peu : jvsteiner avec 7 commits et Copilot avec 3 commits. C'est comme un gâteau fait presque entièrement par un seul pâtissier, avec deux amis qui ont ajouté trois cerises. Les développeurs appellent ça un « bus factor » de 1 : si cette personne s'arrête, le projet s'arrête presque. Le pâtissier travaille beaucoup : entre 16 et 41 commits chaque semaine. Le dernier commit date du 9 septembre 2026, le jour même de cette fiche.</p></div></section>
-<section><h2>Comment on fabrique un logiciel à plusieurs ?</h2><div class="body"><p>Un logiciel, c'est plein de fichiers rangés dans des dossiers, comme un grand classeur. Pour Astrid, le gros du code est dans le dossier <code>crates</code>, découpé en 33 boîtes, une par morceau du programme. Pour travailler à plusieurs sans se marcher dessus, il y a des règles écrites dans un fichier, <code>CONTRIBUTING.md</code>. Par exemple : avant de changer quelque chose, on ouvre d'abord un « ticket » (une issue) pour en parler, et on signe ses commits. Quand quelqu'un propose un changement, des robots vérifient tout automatiquement : le dossier <code>.github</code> contient 20 chaînes de vérification. C'est comme un contrôle de qualité à la sortie d'une usine de jouets. Il y a aussi un dossier <code>e2e</code> pour tester le programme de bout en bout et un dossier <code>fuzz</code> qui lui envoie n'importe quoi pour voir s'il résiste. Ça bouge beaucoup : 192 tickets sont ouverts, 149 ont été réglés en 30 jours et 24 propositions de changement attendent. Chaque changement accepté est noté dans un journal, <code>CHANGELOG.md</code>, qui fait déjà 410 Ko de texte.</p></div></section>
-<section><h2>Une chose étonnante sur ce projet ?</h2><div class="body"><p>Le projet est tout jeune : il est né le 15 février 2026. En moins de sept mois, 10277 personnes lui ont donné une étoile. C'est comme si un nouveau à l'école avait dix mille amis avant la fin de l'année. Encore plus drôle : Astrid sert à empêcher les IA de faire n'importe quoi sur ton ordinateur. Et pourtant, une IA, Copilot, a elle-même ajouté 3 commits au projet. Le gardien a été un peu construit par ceux qu'il surveille. Une dernière : tout ça est presque l'œuvre d'une seule personne, mais le projet a déjà un numéro de version qui ressemble à une date, <code>v2026.9.0</code>, sorti le jour de cette fiche.</p></div></section><section class="finale"><h2>Et toi, tu ferais quoi avec ?</h2><div class="body"><p class="big">🚀 Tout ça est gratuit et ouvert : n'importe qui peut aller voir, copier, et proposer ses idées.</p>
-<p>Le projet habite ici : <a href="https://github.com/astrid-runtime/astrid">https://github.com/astrid-runtime/astrid</a></p></div></section>
+<div class="cover-top"><span class="eyebrow">Un projet expliqué aux curieux</span><span class="date">9 sept. 2026</span></div>
+<p class="repo">astrid-runtime/astrid</p>
+<h1>Astrid, une maison avec des portes qui ferment à clé pour les programmes</h1>
+<p class="desc">Astrid is a portable, capability-secure operating system for composable software.</p>
+<ul class="kpis"><li><b>10 277</b><span>étoiles GitHub</span></li><li><b>137</b><span>forks</span></li></ul>
+<p class="cover-foot"><span><a href="https://github.com/astrid-runtime/astrid">https://github.com/astrid-runtime/astrid</a></span><span>Licence Apache-2.0</span><span>Onboard · profil enfant</span></p>
+</section><section class="page">
+<header><span class="kicker">02</span><h2>C'est quoi, ce projet ?</h2></header>
+<p class="takeaway">Astrid, c'est une maison où chaque petit programme a sa chambre fermée à clé : sans la clé, il ne peut pas entrer chez les autres.</p>
+<div class="body"><div class="text"><p>Astrid, c'est un programme qui fait tourner d'autres programmes. Ses créateurs disent qu'il est « portable » et « sécurisé » : il marche sur plusieurs ordinateurs et il surveille ce que les autres programmes ont le droit de faire.</p>
+<p>Imagine une grande maison. Chaque petit programme a sa chambre, et chaque chambre a une porte qui ferme à clé. Un programme ne peut entrer dans une autre chambre que s'il a la clé. Les créateurs appellent ces petits programmes des « capsules » et les clés des « capacités ».</p>
+<p>Pourquoi ? Parce qu'aujourd'hui on fait travailler des intelligences artificielles (des IA) sur nos ordinateurs. Une IA peut décider de faire des choses. Mais lui dire « sois sage » ne suffit pas. Astrid, lui, ne la laisse pas ouvrir les portes qu'elle n'a pas le droit d'ouvrir.</p>
+<p>Pour l'instant, Astrid tourne sur les Mac et sur Linux. Le rêve des créateurs, c'est d'en faire plus tard un vrai système complet pour ordinateur, comme Windows ou macOS.</p></div></div>
+<footer><span class="repo-name">astrid-runtime/astrid</span><span class="n">enfant · 2 / 7</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">03</span><h2>Qui s'en sert et pour quoi faire ?</h2></header>
+<p class="takeaway">Astrid, c'est la plaque de Lego : il donne la base, et ce sont les gens qui construisent dessus ce qu'ils veulent.</p>
+<div class="body"><div class="text"><p>Ce sont surtout des gens qui fabriquent des programmes : ils s'en servent pour construire des robots-assistants (des IA qui font des tâches), des outils ou des services. Astrid leur donne la maison avec les portes, et ils choisissent eux-mêmes qui habite dedans.</p>
+<p>C'est comme une boîte de Lego : Astrid donne la plaque de base et les règles d'emboîtement, mais il ne décide pas ce que tu construis. Le mode d'emploi dit même qu'Astrid « ne choisit pas de produit » pour toi.</p>
+<p>On peut l'installer sur un Mac ou un Linux en quelques lignes, et on peut lui demander des choses en écrivant, par exemple « résume ce qui a changé ».</p>
+<p>Combien de personnes s'en servent vraiment ? Le cache ne contient pas ce chiffre ; à vérifier sur <a href="https://github.com/astrid-runtime/astrid">https://github.com/astrid-runtime/astrid</a>. Ce qu'on sait : 10277 personnes ont mis une étoile au projet (un « j'aime » sur GitHub) et 137 en ont fait leur propre copie pour bricoler dessus.</p></div></div>
+<footer><span class="repo-name">astrid-runtime/astrid</span><span class="n">enfant · 3 / 7</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">04</span><h2>Combien de personnes le fabriquent ?</h2></header>
+<p class="takeaway">C'est un gâteau fait presque tout seul par un pâtissier : si joshuajbouw s'arrête, le projet s'arrête presque.</p>
+<div class="body split"><div class="chart-wrap"><svg class="chart" viewBox="0 0 640 84" width="640" height="84" role="img" preserveAspectRatio="xMinYMin meet"><text class="lbl" x="168" y="21" text-anchor="end">joshuajbouw</text><rect class="bar strong" x="178" y="10" width="398" height="14" rx="3"/><text class="val" x="582" y="21">309</text><text class="lbl" x="168" y="45" text-anchor="end">jvsteiner</text><rect class="bar" x="178" y="34" width="9" height="14" rx="3"/><text class="val" x="193" y="45">7</text><text class="lbl" x="168" y="69" text-anchor="end">Copilot</text><rect class="bar" x="178" y="58" width="4" height="14" rx="3"/><text class="val" x="188" y="69">3</text></svg></div><div class="text"><p>Sur les 12 dernières semaines, presque tout le travail vient d'une seule personne : joshuajbouw a fait 309 envois de code. Un « envoi de code » s'appelle un commit : c'est comme sauvegarder ta partie dans un jeu vidéo, avec un petit mot qui dit ce que tu as changé.</p>
+<p>Deux autres ont aidé un peu : jvsteiner avec 7 commits et Copilot avec 3 commits.</p>
+<p>C'est comme un gâteau fait presque entièrement par un seul pâtissier, avec deux amis qui ont ajouté trois cerises. Les développeurs appellent ça un « bus factor » de 1 : si cette personne s'arrête, le projet s'arrête presque.</p>
+<p>Le pâtissier travaille beaucoup : entre 16 et 41 commits chaque semaine. Le dernier commit date du 9 septembre 2026, le jour même de cette fiche.</p></div></div>
+<footer><span class="repo-name">astrid-runtime/astrid</span><span class="n">enfant · 4 / 7</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">05</span><h2>Comment on fabrique un logiciel à plusieurs ?</h2></header>
+<p class="takeaway">On range le code dans un grand classeur, on discute avant de changer, et des robots vérifient chaque changement comme à la sortie d'une usine de jouets.</p>
+<div class="body"><div class="text"><p>Un logiciel, c'est plein de fichiers rangés dans des dossiers, comme un grand classeur. Pour Astrid, le gros du code est dans le dossier <code>crates</code>, découpé en 33 boîtes, une par morceau du programme.</p>
+<p>Pour travailler à plusieurs sans se marcher dessus, il y a des règles écrites dans un fichier, <code>CONTRIBUTING.md</code>. Par exemple : avant de changer quelque chose, on ouvre d'abord un « ticket » (une issue) pour en parler, et on signe ses commits.</p>
+<p>Quand quelqu'un propose un changement, des robots vérifient tout automatiquement : le dossier <code>.github</code> contient 20 chaînes de vérification. C'est comme un contrôle de qualité à la sortie d'une usine de jouets.</p>
+<p>Il y a aussi un dossier <code>e2e</code> pour tester le programme de bout en bout et un dossier <code>fuzz</code> qui lui envoie n'importe quoi pour voir s'il résiste.</p>
+<p>Ça bouge beaucoup : 192 tickets sont ouverts, 149 ont été réglés en 30 jours et 24 propositions de changement attendent. Chaque changement accepté est noté dans un journal, <code>CHANGELOG.md</code>, qui fait déjà 410 Ko de texte.</p></div></div>
+<footer><span class="repo-name">astrid-runtime/astrid</span><span class="n">enfant · 5 / 7</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">06</span><h2>Une chose étonnante sur ce projet ?</h2></header>
+<p class="takeaway">Né le 15 février 2026, Astrid a déjà 10277 étoiles : un petit nouveau qui s'est fait plein d'amis en quelques mois.</p>
+<div class="body"><div class="text"><p>Le projet est tout jeune : il est né le 15 février 2026. En moins de sept mois, 10277 personnes lui ont donné une étoile. C'est comme si un nouveau à l'école avait dix mille amis avant la fin de l'année.</p>
+<p>Encore plus drôle : Astrid sert à empêcher les IA de faire n'importe quoi sur ton ordinateur. Et pourtant, une IA, Copilot, a elle-même ajouté 3 commits au projet. Le gardien a été un peu construit par ceux qu'il surveille.</p>
+<p>Une dernière : tout ça est presque l'œuvre d'une seule personne, mais le projet a déjà un numéro de version qui ressemble à une date, <code>v2026.9.0</code>, sorti le jour de cette fiche.</p></div></div>
+<footer><span class="repo-name">astrid-runtime/astrid</span><span class="n">enfant · 6 / 7</span></footer>
+</section><section class="finale">
+<header><span class="kicker">enfant</span><h2>Et toi, tu ferais quoi avec ?</h2></header>
+
+<div class="body"><div class="text"><ul><li>Lui écrire une phrase, comme « résume ce qui a changé », et le laisser faire le travail à ta place.</li><li>Fabriquer ta propre petite chambre de la maison, une « capsule » : le mode d'emploi montre l'exemple d'une capsule qui donne la météo d'une ville.</li><li>Créer un robot-assistant qui n'a le droit d'ouvrir qu'un seul tiroir de ton ordinateur, avec une mémoire limitée, comme un argent de poche.</li></ul>
+<p>Et toi, quelle porte tu laisserais ouverte à ton robot, et laquelle tu fermerais à clé ?</p></div></div>
+<footer><span class="repo-name">astrid-runtime/astrid</span><span class="n">enfant · 7 / 7</span></footer>
+</section>
 </body>
 </html>

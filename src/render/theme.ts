@@ -1,10 +1,9 @@
-<!doctype html>
-<html lang="fr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Context Mode : un sac à dos qui aide les robots-programmeurs à ne pas oublier</title>
-<style>
+// Une identité visuelle par profil (SCHEMA.md, « Profils », champ design). Même squelette HTML pour tous (deck.ts),
+// seul ce fichier décide de l'allure : palette, typographie, densité, couverture, exergue, finale.
+// Tout est inline, aucune police distante : les piles de polices ne citent que des fontes système.
+// Le thème sombre ne sert qu'à l'écran ; l'impression force la palette claire de chaque profil.
+
+const BASE = `
 :root {
   --bg: #f5f5f3; --card: #ffffff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2;
   --accent: #4f5bd5; --accent-2: #d1495b; --accent-ink: #ffffff;
@@ -96,7 +95,138 @@ footer .n { font-family: var(--mono); }
 .kind { color: var(--muted); margin-right: 8px; }
 .note { font-size: 0.68em; }
 .note a { text-decoration: none; padding: 0 1px; }
+`;
 
+// Chaque profil : palette, typographie, rythme, et deux ou trois traits qui font qu'on reconnaît le document au premier coup d'œil.
+const PROFILES: Record<string, string> = {
+  /* Dev : un guide de prise en main, air d'IDE. Titres en monospace, couverture en terminal, arborescence en explorateur. */
+  dev: `
+.p-dev { --accent: #4f5bd5; --accent-2: #e5484d; --cover-bg: #0f1220; --cover-fg: #eceffa; --cover-muted: #9aa3c4; --h1: 2.4rem; --h2: 1.35rem; --kpi: 2.2rem; }
+.p-dev h2, .p-dev .kpis b { font-family: var(--mono); letter-spacing: -0.02em; }
+.p-dev .cover { background: linear-gradient(160deg, #0f1220 0%, #171b33 100%); }
+.p-dev .cover .repo::before { content: "$ onboard "; color: #7cd992; }
+.p-dev .cover .repo::after { content: " --profile dev"; color: var(--cover-muted); }
+.p-dev .cover .eyebrow { color: #7cd992; }
+.p-dev .kpis li { border-color: rgba(255,255,255,0.12); background: rgba(255,255,255,0.04); }
+.p-dev .kpis b { color: #a5adff; }
+.p-dev section:not(.cover) { border-left: 6px solid var(--accent); }
+.p-dev h2::before { content: "## "; color: var(--accent); opacity: 0.7; }
+.p-dev .takeaway { font-family: var(--mono); font-size: 0.98em; background: #0f1220; color: #eceffa; border-left-color: #7cd992; }
+.p-dev .takeaway::before { content: "> "; color: #7cd992; }
+.p-dev .takeaway .note a { color: #a5adff; }
+.p-dev .takeaway code { background: rgba(255,255,255,0.14); color: #fff; }
+.p-dev .tree { font-family: var(--mono); font-size: 0.86em; }
+.p-dev .tree li { border-bottom: 0; padding: 2px 0; }
+.p-dev .tree code { background: none; padding: 0; color: var(--accent); }
+.p-dev .tree code::before { content: "├─ "; color: var(--muted); }
+.p-dev .finale { border-color: #7cd992; }
+.p-dev .finale h2::before { content: "$ "; color: #7cd992; }
+`,
+
+  /* QA : un rapport de qualification. Cases à cocher, badges rouge et vert, tableaux zébrés, verdict par page. */
+  qa: `
+.p-qa { --accent: #0f8f7a; --accent-2: #d1495b; --bg: #f2f7f5; --cover-bg: #ffffff; --cover-fg: #14332c; --cover-muted: #5b7a72; --h1: 2.5rem; --h2: 1.5rem; }
+.p-qa .cover { border: 1px solid var(--line); border-top: 14px solid var(--accent); }
+.p-qa .cover .eyebrow::before { content: "✓ "; }
+.p-qa .kpis li { background: #eef7f4; border-color: #cfe6df; }
+.p-qa .kpis b { color: var(--accent); }
+.p-qa .kpis li:nth-child(3) b { color: var(--accent-2); }
+.p-qa .kpis span, .p-qa .kpis small { color: var(--cover-muted); }
+.p-qa h2::before { content: "☑ "; color: var(--accent); }
+.p-qa .takeaway { background: #eef7f4; border-left-color: var(--accent); }
+.p-qa .takeaway::before { content: "Verdict"; display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 4px; }
+.p-qa .body ul { list-style: none; padding-left: 0; }
+.p-qa .body ul li { padding-left: 26px; position: relative; }
+.p-qa .body ul li::before { content: "☐"; position: absolute; left: 0; color: var(--accent); font-size: 1.05em; }
+.p-qa .body ol { counter-reset: step; list-style: none; padding-left: 0; }
+.p-qa .body ol li { padding-left: 34px; position: relative; }
+.p-qa .body ol li::before { counter-increment: step; content: counter(step); position: absolute; left: 0; top: 1px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 0.8em; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.p-qa tbody tr:nth-child(odd) { background: #f6faf8; }
+.p-qa .finale { background: #eef7f4; }
+.p-qa .finale h2::before { content: "🧪 "; }
+`,
+
+  /* CTO : une note de décision. Bleu nuit, ambre, chiffres serrés, tableaux de risques, recommandation encadrée. */
+  cto: `
+.p-cto { --accent: #1f3a5f; --accent-2: #c9772e; --cover-bg: #1f3a5f; --cover-fg: #ffffff; --cover-muted: #b9c7dc; --bg: #f4f6f9; --h1: 2.5rem; --h2: 1.5rem; --text: 0.98rem; }
+.p-cto .cover { background: linear-gradient(135deg, #1f3a5f 0%, #17304f 60%, #24466f 100%); }
+.p-cto .cover .eyebrow { color: #f0b97a; }
+.p-cto .cover h1 { border-left: 6px solid var(--accent-2); padding-left: 20px; }
+.p-cto .kpis { grid-template-columns: repeat(4, 1fr); }
+.p-cto .kpis li { border: 0; border-top: 3px solid var(--accent-2); border-radius: 0; background: rgba(255,255,255,0.06); }
+.p-cto section:not(.cover) { border-top: 4px solid var(--accent); border-radius: 0 0 var(--radius) var(--radius); }
+.p-cto .kicker { color: var(--accent-2); }
+.p-cto .takeaway { border-left-color: var(--accent-2); background: #fbf3ea; }
+.p-cto th { border-bottom-color: var(--accent); }
+.p-cto .finale { border: 0; background: var(--accent); color: #fff; }
+.p-cto .finale .kicker, .p-cto .finale h2 { color: #fff; }
+.p-cto .finale h2 { border-left: 6px solid var(--accent-2); padding-left: 16px; }
+.p-cto .finale code { background: rgba(255,255,255,0.14); color: #fff; }
+.p-cto .finale a, .p-cto .finale .note a { color: #f0b97a; }
+.p-cto .finale footer { border-top-color: rgba(255,255,255,0.25); color: #b9c7dc; }
+`,
+
+  /* CEO : un keynote. Serif de titrage, or sur bleu nuit, une idée par page, une phrase à retenir en grand. */
+  ceo: `
+.p-ceo { --accent: #14213d; --accent-2: #c9a227; --cover-bg: #14213d; --cover-fg: #fdfbf5; --cover-muted: #c8cfe0; --bg: #f7f5ef; --card: #fffdf8; --line: #e6e1d3;
+  --display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif; --h1: 3.2rem; --h2: 2.3rem; --text: 1.12rem; --kpi: 3.2rem; --pad: 56px 64px; --min-h: 640px; }
+.p-ceo h1, .p-ceo h2 { font-weight: 600; letter-spacing: 0; }
+.p-ceo .cover { background: radial-gradient(ellipse at 20% 10%, #22345e 0%, #14213d 55%, #0e1730 100%); }
+.p-ceo .cover .eyebrow { color: var(--accent-2); }
+.p-ceo .cover h1 { max-width: 16em; }
+.p-ceo .kpis { grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid rgba(255,255,255,0.2); }
+.p-ceo .kpis li { border: 0; border-right: 1px solid rgba(255,255,255,0.2); border-radius: 0; background: none; padding: 22px 20px 8px 0; }
+.p-ceo .kpis li:last-child { border-right: 0; }
+.p-ceo .kpis li + li { padding-left: 20px; }
+.p-ceo .kpis b { color: var(--accent-2); }
+.p-ceo .kicker { color: var(--accent-2); font-family: var(--font); }
+.p-ceo h2 { color: var(--accent); }
+.p-ceo .takeaway { border: 0; background: none; padding: 6px 0 6px 36px; font: italic 500 1.55rem/1.35 var(--display); color: var(--accent); position: relative; margin-bottom: 28px; }
+.p-ceo .takeaway .note { opacity: 0.55; }
+.p-ceo .takeaway::before { content: "“"; position: absolute; left: 0; top: -6px; font-size: 3.2rem; color: var(--accent-2); line-height: 1; }
+.p-ceo .body p { max-width: 42em; }
+.p-ceo .body.split { grid-template-columns: 1fr; }
+.p-ceo .chart .bar { fill: var(--accent-2); }
+.p-ceo .chart .bar.strong { fill: var(--accent); }
+.p-ceo .finale { background: var(--accent); color: #fdfbf5; border: 0; }
+.p-ceo .finale .kicker, .p-ceo .finale h2 { color: var(--accent-2); }
+.p-ceo .finale .body { font-size: 1.25em; }
+.p-ceo .finale a, .p-ceo .finale .note a { color: var(--accent-2); }
+.p-ceo .finale footer { border-top-color: rgba(255,255,255,0.25); color: #c8cfe0; }
+.p-ceo footer { font-family: var(--font); }
+`,
+
+  /* Investisseur : un mémo. Serif de lecture, vert profond, filets fins, grille de chiffres, thèse en bandeau. */
+  investisseur: `
+.p-investisseur { --accent: #1d6b4a; --accent-2: #b8862b; --cover-bg: #ffffff; --cover-fg: #16201b; --cover-muted: #5f6b64; --bg: #f6f6f2; --card: #ffffff; --line: #d9dbd2;
+  --font: Georgia, "Iowan Old Style", "Times New Roman", serif; --display: ui-sans-serif, system-ui, "Segoe UI", Helvetica, Arial, sans-serif; --h1: 2.6rem; --h2: 1.5rem; --text: 1.04rem; --kpi: 2.4rem; --pad: 48px 56px; }
+.p-investisseur .cover { border: 1px solid var(--line); border-top: 18px solid var(--accent); }
+.p-investisseur .cover .eyebrow { color: var(--accent); }
+.p-investisseur .cover h1 { font-weight: 800; letter-spacing: -0.02em; max-width: 18em; }
+.p-investisseur .cover .desc { color: var(--cover-muted); }
+.p-investisseur .kpis { grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--line); border-radius: 0; }
+.p-investisseur .kpis li { border: 0; border-right: 1px solid var(--line); border-radius: 0; background: #f6f6f2; padding: 18px 20px; }
+.p-investisseur .kpis li:last-child { border-right: 0; }
+.p-investisseur .kpis b { color: var(--accent); font-family: var(--display); }
+.p-investisseur .kpis span, .p-investisseur .kpis small { color: var(--cover-muted); }
+.p-investisseur .kicker { font-family: var(--display); color: var(--accent-2); }
+.p-investisseur h2 { border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+.p-investisseur .takeaway { background: none; border: 1px solid var(--line); border-left: 5px solid var(--accent); font-family: var(--display); font-size: 1.02em; }
+.p-investisseur .takeaway::before { content: "Point clé"; display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent); margin-bottom: 4px; font-weight: 700; }
+.p-investisseur table, .p-investisseur .tree, .p-investisseur .risks, .p-investisseur .chart text { font-family: var(--display); }
+.p-investisseur th { border-bottom-color: var(--accent); }
+.p-investisseur .chart .bar.strong { fill: var(--accent-2); }
+.p-investisseur .finale { background: var(--accent); color: #fff; border: 0; }
+.p-investisseur .finale .kicker { color: #e8d59a; }
+.p-investisseur .finale h2 { color: #fff; border-bottom-color: rgba(255,255,255,0.3); }
+.p-investisseur .finale .body { font-size: 1.22em; }
+.p-investisseur .finale .body p { padding-left: 18px; border-left: 3px solid #e8d59a; }
+.p-investisseur .finale a, .p-investisseur .finale .note a { color: #e8d59a; }
+.p-investisseur .finale footer { border-top-color: rgba(255,255,255,0.3); color: #d6e5dc; }
+`,
+
+  /* Enfant : un album. Police ronde, fond crème, une couleur par page, cadre en pointillés, pas une note de bas de page. */
+  enfant: `
 .p-enfant { --accent: #d4572a; --accent-2: #7b4fc0; --bg: #fff6e5; --card: #fffdf7; --fg: #2b2118; --muted: #7a6a5a; --line: #f0dcc0; --cover-bg: #fffdf7; --cover-fg: #2b2118; --cover-muted: #7a6a5a;
   --font: "Chalkboard SE", "Comic Sans MS", "Comic Neue", "Segoe Print", "Bradley Hand", cursive, sans-serif; --display: var(--font);
   --h1: 3.4rem; --h2: 2.1rem; --text: 1.3rem; --kpi: 2.6rem; --radius: 26px; --pad: 44px 56px; --width: 900px; --min-h: 520px; }
@@ -135,7 +265,11 @@ footer .n { font-family: var(--mono); }
 .p-enfant .finale { border-style: solid; }
 .p-enfant .finale h2::before { content: "🚀 "; }
 .p-enfant .finale .body { font-size: 1.15em; }
+`,
+};
 
+// Sombre : seuls les accents trop foncés changent, les couvertures gardent leur fond. L'enfant garde sa crème.
+const DARK = `
 @media (prefers-color-scheme: dark) {
   :root { --bg: #14151a; --card: #1c1e25; --fg: #eceef3; --muted: #a0a6b4; --line: #2f323c; --low: #4cc38a; --mid: #e5b25d; --high: #ef7f8e; }
   code { background: #262932; }
@@ -153,7 +287,10 @@ footer .n { font-family: var(--mono); }
   .p-investisseur .kpis li { background: #16201b; }
   .p-investisseur .finale { background: #1d6b4a; }
 }
+`;
 
+// Impression : A4 paysage, une section par page, palette claire forcée quel que soit le thème du navigateur.
+const PRINT = `
 @media print {
   @page { size: A4 landscape; margin: 10mm; }
   html { font-size: 12px; }
@@ -173,56 +310,8 @@ footer .n { font-family: var(--mono); }
   * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   a { text-decoration: none; }
 }
-</style>
-</head>
-<body class="p-enfant">
-<section class="cover">
-<div class="cover-top"><span class="eyebrow">Un projet expliqué aux curieux</span><span class="date">9 sept. 2026</span></div>
-<p class="repo">mksglu/context-mode</p>
-<h1>Context Mode : un sac à dos qui aide les robots-programmeurs à ne pas oublier</h1>
-<p class="desc">Context window optimization for AI coding agents. Sandboxes tool output (98% reduction), persists session memory, and   enforces routing across 17 platforms via MCP + hooks.</p>
-<ul class="kpis"><li><b>21 624</b><span>étoiles GitHub</span></li><li><b>1 555</b><span>forks</span></li></ul>
-<p class="cover-foot"><span><a href="https://github.com/mksglu/context-mode">https://github.com/mksglu/context-mode</a></span><span>Licence Elastic License 2.0 (ELv2)</span><span>Onboard · profil enfant</span></p>
-</section><section class="page">
-<header><span class="kicker">02</span><h2>C'est quoi, ce projet ?</h2></header>
-<p class="takeaway">Context Mode, c'est un trieur qui garde le sac à dos du robot presque vide, pour qu'il n'oublie jamais ce qu'il était en train de faire.</p>
-<div class="body"><div class="text"><p>Tu connais les assistants qui écrivent du code tout seuls ? Ils ont une petite mémoire, comme un sac à dos. Chaque fois qu'ils regardent un fichier, ils mettent tout le fichier dans le sac. Vite, le sac est plein, et ils oublient ce qu'ils faisaient.</p>
-<p>Context Mode, c'est un trieur. Il garde les gros papiers dans une armoire à côté, et ne met dans le sac qu'un petit résumé. Le robot peut aller chercher le détail dans l'armoire quand il en a besoin. Les auteurs disent que le sac reste presque vide : 98 % de place gagnée.</p></div></div>
-<footer><span class="repo-name">mksglu/context-mode</span><span class="n">enfant · 2 / 7</span></footer>
-</section>
-<section class="page">
-<header><span class="kicker">03</span><h2>Qui s'en sert et pour quoi faire ?</h2></header>
-<p class="takeaway">21 624 étoiles sur GitHub : des programmeurs qui veulent que leur assistant travaille longtemps sans se perdre en route.</p>
-<div class="body"><div class="text"><p>Des gens qui programment avec un assistant, sur 17 outils différents. Sur GitHub, le site où on range les projets, 21 624 personnes ont mis une étoile à ce projet, comme un « j'aime ». Et 1 555 personnes en ont fait une copie pour bricoler dessus.</p>
-<p>Ils s'en servent pour que leur assistant travaille plus longtemps sans se perdre, un peu comme un cahier de brouillon qu'on ne remplit pas de gribouillis inutiles.</p></div></div>
-<footer><span class="repo-name">mksglu/context-mode</span><span class="n">enfant · 3 / 7</span></footer>
-</section>
-<section class="page">
-<header><span class="kicker">04</span><h2>Combien de personnes le fabriquent ?</h2></header>
-<p class="takeaway">C'est surtout Mert qui construit la cabane, avec des voisins qui viennent poser une planche de temps en temps.</p>
-<div class="body split"><div class="chart-wrap"><svg class="chart" viewBox="0 0 640 252" width="640" height="252" role="img" preserveAspectRatio="xMinYMin meet"><text class="lbl" x="168" y="21" text-anchor="end">mksglu</text><rect class="bar strong" x="178" y="10" width="398" height="14" rx="3"/><text class="val" x="582" y="21">60</text><text class="lbl" x="168" y="45" text-anchor="end">ken-jo</text><rect class="bar" x="178" y="34" width="40" height="14" rx="3"/><text class="val" x="224" y="45">6</text><text class="lbl" x="168" y="69" text-anchor="end">pg-adm1n</text><rect class="bar" x="178" y="58" width="13" height="14" rx="3"/><text class="val" x="197" y="69">2</text><text class="lbl" x="168" y="93" text-anchor="end">NgoQuocViet2001</text><rect class="bar" x="178" y="82" width="7" height="14" rx="3"/><text class="val" x="191" y="93">1</text><text class="lbl" x="168" y="117" text-anchor="end">ousamabenyounes</text><rect class="bar" x="178" y="106" width="7" height="14" rx="3"/><text class="val" x="191" y="117">1</text><text class="lbl" x="168" y="141" text-anchor="end">pradigmaz</text><rect class="bar" x="178" y="130" width="7" height="14" rx="3"/><text class="val" x="191" y="141">1</text><text class="lbl" x="168" y="165" text-anchor="end">eejd</text><rect class="bar" x="178" y="154" width="7" height="14" rx="3"/><text class="val" x="191" y="165">1</text><text class="lbl" x="168" y="189" text-anchor="end">xuli500177</text><rect class="bar" x="178" y="178" width="7" height="14" rx="3"/><text class="val" x="191" y="189">1</text><text class="lbl" x="168" y="213" text-anchor="end">Niche-alchemy</text><rect class="bar" x="178" y="202" width="7" height="14" rx="3"/><text class="val" x="191" y="213">1</text><text class="lbl" x="168" y="237" text-anchor="end">daniel-enqz</text><rect class="bar" x="178" y="226" width="7" height="14" rx="3"/><text class="val" x="191" y="237">1</text></svg></div><div class="text"><p>Surtout une seule ! Elle s'appelle Mert, son pseudo est <code>mksglu</code>. En 12 semaines, elle a fait 60 modifications. La deuxième personne en a fait 6, et huit autres en ont fait 1 ou 2 chacune.</p>
-<p>C'est comme une cabane construite par une personne, avec des voisins qui passent poser une planche de temps en temps. Mert dit lui-même qu'il est tout seul et qu'il n'a pas beaucoup de temps.</p></div></div>
-<footer><span class="repo-name">mksglu/context-mode</span><span class="n">enfant · 4 / 7</span></footer>
-</section>
-<section class="page">
-<header><span class="kicker">05</span><h2>Comment on fabrique un logiciel à plusieurs ?</h2></header>
-<p class="takeaway">Un logiciel, c'est un cahier rangé en tiroirs, où chaque page ajoutée est vérifiée par des robots avant d'être collée.</p>
-<div class="body"><div class="text"><p>On range tout dans des tiroirs. Ici, le tiroir <code>src</code> contient le cœur du programme, le tiroir <code>tests</code> contient les vérifications, et le tiroir <code>docs</code> les explications. Il y a même un tiroir <code>.github</code> avec 5 robots-vérificateurs qui testent le projet à chaque changement.</p>
-<p>Chaque changement s'appelle un commit, comme une page ajoutée au cahier. Ces 12 dernières semaines, il y a eu jusqu'à 57 pages en une semaine, puis environ 11 par semaine. Quand quelqu'un d'autre propose une page, ça s'appelle une pull request : il y en a 107 qui attendent d'être lues.</p></div></div>
-<footer><span class="repo-name">mksglu/context-mode</span><span class="n">enfant · 5 / 7</span></footer>
-</section>
-<section class="page">
-<header><span class="kicker">06</span><h2>Une chose étonnante sur ce projet ?</h2></header>
-<p class="takeaway">Un projet né en février qui a déjà 21 624 étoiles, comme un dessin du printemps déjà accroché dans plein de maisons.</p>
-<div class="body"><div class="text"><p>Il est tout jeune : il est né le 2026-02-23, il y a à peine six mois, et il a déjà 21 624 étoiles. C'est comme un dessin fait au printemps et déjà accroché dans 20 000 maisons.</p>
-<p>Et le programme sait faire tourner du code dans 12 langages de programmation différents, comme un traducteur qui parle 12 langues.</p></div></div>
-<footer><span class="repo-name">mksglu/context-mode</span><span class="n">enfant · 6 / 7</span></footer>
-</section><section class="finale">
-<header><span class="kicker">enfant</span><h2>Et toi, tu ferais quoi avec ?</h2></header>
+`;
 
-<div class="body"><div class="text"><ul><li>Tu pourrais demander à ton robot de compter les lignes de tous tes fichiers sans les lire un par un, comme on pèse un sac de billes au lieu de les compter une à une.</li><li>Tu pourrais éteindre l'ordinateur ce soir et reprendre demain exactement là où tu t'étais arrêté, comme un marque-page dans ton livre.</li><li>Tu pourrais lui confier tes documents pour qu'il retrouve la bonne page quand tu la demandes, comme un bibliothécaire qui connaît toutes les étagères.</li></ul>
-<p>Et toi, si ton robot pouvait se souvenir de tout, que lui ferais-tu faire ?</p></div></div>
-<footer><span class="repo-name">mksglu/context-mode</span><span class="n">enfant · 7 / 7</span></footer>
-</section>
-</body>
-</html>
+export function css(profile: string): string {
+  return BASE + (PROFILES[profile] ?? "") + DARK + PRINT;
+}

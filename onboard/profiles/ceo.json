@@ -6,6 +6,16 @@
     "pages": 8,
     "finale": "Ce que je retiens"
   },
+  "design": {
+    "brief": "Un keynote : une idée par page, un gros chiffre, une phrase à retenir. Zéro jargon, zéro chemin de fichier, des analogies métier.",
+    "eyebrow": "Synthèse pour la direction",
+    "kpis": [
+      "repo.stars",
+      "repo.forks",
+      "activity.contributors",
+      "repo.created_at"
+    ]
+  },
   "priorities": [
     {
       "question": "Que fait ce projet, en une phrase, et pour qui ?",

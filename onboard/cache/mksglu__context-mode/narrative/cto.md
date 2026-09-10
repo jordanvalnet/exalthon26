@@ -13,6 +13,8 @@ Architecture en trois couches : `src/` en TypeScript (serveur MCP, CLI, exécute
 
 Point d'attention : 5 manifestes de plugin cachés (.claude-plugin, .codex-plugin, .cursor-plugin, .openclaw-plugin, .pi) et un dossier `web/` [facts:tree]. La surface multi-plateforme est le coût principal de maintenance.
 
+> Serveur MCP TypeScript plus hooks JS sans build, 17 plateformes, 21 624 étoiles depuis février 2026 : la valeur est réelle, la surface à maintenir aussi [facts:repo.description] [facts:repo.stars] [facts:repo.created_at] [facts:tree].
+
 ## Quelle est sa santé technique ?
 <!-- chart: commits_per_week -->
 Activité en décrue : 57 commits en semaine 26, plateau à 11-13 par semaine, 9 en semaine 36 [facts:activity.commits_per_week]. Dernier commit le 2026-09-08 [facts:activity.last_commit]. 10 releases entre le 2026-06-01 et le 2026-06-29, aucune dans le cache depuis [facts:releases.9.date] [facts:releases.0.date] ; à vérifier dans https://github.com/mksglu/context-mode/releases.
@@ -21,16 +23,22 @@ CI sérieuse : matrice ubuntu, macos, windows, typecheck, build, bundle, asserti
 
 Signal négatif : 107 PR ouvertes, 0 fusionnée sur 30 jours dans le cache, 119 issues ouvertes, 6 fermées sur 30 jours [facts:pulls.open] [facts:pulls.merged_30d] [facts:issues.open] [facts:issues.closed_30d]. Le débit d'absorption des contributions est quasi nul.
 
+> CI sur ubuntu, macos, windows et 255 fichiers de tests, mais 107 PR ouvertes, 0 fusionnée sur 30 jours et aucune release dans le cache depuis le 2026-06-29 : le code est sain, le flux ne l'est plus [src:ci.md] [facts:tests.files] [facts:pulls.open] [facts:pulls.merged_30d] [facts:releases.0.date].
+
 ## Qui porte le projet et quel est le bus factor ?
 <!-- chart: contributors -->
 Bus factor 1 [facts:activity.bus_factor]. `mksglu` : 60 commits sur 12 semaines ; `ken-jo` : 6 ; les huit suivants 1 ou 2 [facts:activity.contributors.0.commits] [facts:activity.contributors.1.commits] [facts:activity.contributors.2.commits]. L'auteur l'écrit : « I'm a solo maintainer with limited time » [src:contributing.md].
 
 Compte personnel, pas d'organisation, pas de CODEOWNERS [facts:repo.owner_type] [facts:business.codeowners]. Financement par GitHub Sponsors uniquement [facts:business.funding] [src:funding.md].
 
+> Bus factor 1 : mksglu signe 60 commits sur 12 semaines, le deuxième contributeur 6, sans organisation ni CODEOWNERS [facts:activity.bus_factor] [facts:activity.contributors.0.commits] [facts:activity.contributors.1.commits] [facts:repo.owner_type] [facts:business.codeowners].
+
 ## Quelles dépendances et quelle dette ?
 15 dépendances dans package.json, 8 en runtime : SDK MCP, better-sqlite3, zod 3, turndown et son plugin GFM, domino, clack, picocolors [facts:deps.count] [facts:deps.runtime] [src:manifest.md]. better-sqlite3 est un module natif externalisé du bundle : c'est le point de fragilité à l'installation (ABI Node), confirmé par la PR ouverte « pin ABI healing to the running Node » [facts:risks.4.note] [facts:roadmap.open_prs].
 
 Node ≥ 22.5.0 ; `packageManager` déclare pnpm alors que la CI et la doc font `npm install` [src:manifest.md] [src:ci.md]. Un seul TODO/FIXME dans tout le code, et dans un fichier de doc [src:todo.md] : la dette n'est pas dans les commentaires, elle est dans le backlog.
+
+> 15 dépendances, 8 en runtime, un seul TODO dans le code : la dette est légère, le seul point dur est better-sqlite3, module natif hors bundle, à épingler [facts:deps.count] [facts:deps.runtime] [facts:risks.4.note] [src:todo.md].
 
 ## Quels risques ?
 <!-- chart: risks -->
@@ -44,7 +52,18 @@ Node ≥ 22.5.0 ; `packageManager` déclare pnpm alors que la CI et la doc font 
 
 Le cache ne contient pas `security.md` puisque le repo n'a pas de SECURITY.md [facts:business.security_policy]. Risque supplémentaire non noté : l'outil injecte des prompts et exécute du code ; deux issues signalent des collisions avec le classificateur de Claude Code (#911, #946) [facts:issues.hot.1.url] [facts:issues.hot.5.url].
 
+> Un risque haut, le bus factor ; deux moyens, licence ELv2 et absence de SECURITY.md ; deux bas, CI et dépendances : chacun a sa parade, aucun ne bloque un usage interne [facts:risks.2.level] [facts:risks.0.level] [facts:risks.1.level] [facts:risks.3.level] [facts:risks.4.level].
+
 ## Adopter, contribuer ou forker ?
 Roadmap sans jalon, un seul thème étiqueté (6 enhancement) ; les 10 PR récentes sont des correctifs de timeouts, routage réseau et budgets [facts:roadmap.themes] [facts:roadmap.open_prs]. Les demandes ouvertes les plus commentées sont un appel à beta-testeurs (#45, 154 commentaires) et des bugs de timeout et de budget [facts:roadmap.requests.0.comments] [facts:issues.hot.4.url].
 
 Décision : adopter en interne, version épinglée, sur une équipe pilote. Contribuer seulement des correctifs petits et testés, car la file de 107 PR n'avance pas. Ne pas forker aujourd'hui : préparer plutôt un fork dormant, et déclencher la bascule si aucune release ne sort d'ici trois mois.
+
+> Adopter en interne, version épinglée, sur une équipe pilote ; fork dormant, bascule si aucune release ne sort d'ici trois mois [facts:releases.0.date] [facts:pulls.open] [facts:activity.bus_factor].
+
+## Décision
+**Adopter en interne, sans en dépendre.** Version épinglée sur v1.0.169, dernière release du cache datée du 2026-06-29, installée via `claude mcp add context-mode -- npx -y context-mode` sur une équipe pilote [facts:releases.0.tag] [facts:releases.0.date] [facts:build.run].
+- Conditions avant déploiement : revue interne de `src/security.ts` et des hooks, car le repo n'a pas de SECURITY.md ; vérifier l'installation de better-sqlite3 sur les Node de l'équipe (≥ 22.5.0 requis) [facts:business.security_policy] [facts:risks.4.note] [src:contributing.md] [src:manifest.md].
+- Licence : ELv2 autorise l'usage, la copie et les dérivés ; elle interdit de fournir le logiciel à des tiers en service hébergé ou managé : pas de mise en produit [facts:repo.license] [src:license.md].
+- Contribuer : seulement des correctifs petits, testés, dans les fichiers de tests existants ; 107 PR ouvertes et 0 fusionnée sur 30 jours, ne pas attendre de retour rapide [facts:pulls.open] [facts:pulls.merged_30d] [src:contributing.md].
+- Fork : dormant, prêt à basculer ; déclencheur : aucune release ou bus factor toujours à 1 dans trois mois [facts:activity.bus_factor] [facts:releases.0.date].

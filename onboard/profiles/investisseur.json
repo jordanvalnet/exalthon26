@@ -6,6 +6,16 @@
     "pages": 10,
     "finale": "Thèse en 3 lignes"
   },
+  "design": {
+    "brief": "Un mémo d'investissement : traction, équipe, défendabilité, risques, verdict. Sobre, chiffré, comparatif, sans enthousiasme.",
+    "eyebrow": "Mémo d'investissement",
+    "kpis": [
+      "repo.stars",
+      "repo.forks",
+      "activity.bus_factor",
+      "repo.license"
+    ]
+  },
   "priorities": [
     {
       "question": "Quel problème et quel marché ?",

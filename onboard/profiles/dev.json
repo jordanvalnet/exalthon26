@@ -6,6 +6,16 @@
     "pages": 9,
     "finale": "Vos 3 premières actions"
   },
+  "design": {
+    "brief": "Un guide de prise en main, pas une plaquette : dense, précis, chaque chemin et chaque commande copiables. Le lecteur doit pouvoir ouvrir un terminal et commencer.",
+    "eyebrow": "Guide d'onboarding développeur",
+    "kpis": [
+      "repo.stars",
+      "activity.contributors",
+      "pulls.open",
+      "activity.last_commit"
+    ]
+  },
   "priorities": [
     {
       "question": "Que fait ce projet et pour qui ?",

@@ -40,8 +40,11 @@ const cache = path.join("onboard", "cache", `${owner}__${repo}`);
 console.error(`onboard ${target} · profil ${profile.name} · cache ${cache}`);
 console.error("collecte, rédaction puis rendu : plusieurs minutes, les comptes rendus s'affichent au fil de l'eau.");
 
+// Lancé depuis un terminal Claude Code, la variable CLAUDECODE ferait refuser l'imbrication : on la retire.
+const { CLAUDECODE: _nested, ...env } = process.env;
 const proc = Bun.spawn([claude, "-p", `/onboard ${target} ${profile.name} ${rest.join(" ")}`.trim(), "--permission-mode", "acceptEdits"], {
   stdio: ["inherit", "inherit", "inherit"],
+  env,
 });
 const code = await proc.exited;
 if (code === 0) console.error(`\nDeck attendu : ${path.join(cache, `deck-${profile.name}.html`)}   (PDF : bun run pdf ${cache} ${profile.name})`);
