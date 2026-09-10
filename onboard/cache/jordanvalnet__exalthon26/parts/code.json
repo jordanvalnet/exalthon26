@@ -1,0 +1,55 @@
+{
+  "tree": [
+    { "path": ".claude", "type": "dir", "role": "skills Claude Code du pipeline" },
+    { "path": ".env.example", "type": "file", "role": "modèle du token GitHub" },
+    { "path": ".gitignore", "type": "file", "role": "fichiers ignorés par git" },
+    { "path": ".mcp.json", "type": "file", "role": "déclaration du serveur MCP GitHub" },
+    { "path": "AGENTS.md", "type": "file", "role": "consignes projet pour les IA" },
+    { "path": "CIBLES.md", "type": "file", "role": "repos cibles du hackathon" },
+    { "path": "CLAUDE.md", "type": "file", "role": "renvoi vers AGENTS.md" },
+    { "path": "HACKATHON.md", "type": "file", "role": "consignes du jury" },
+    { "path": "LIVRABLE.md", "type": "file", "role": "rapport de mission de l'équipe" },
+    { "path": "README.md", "type": "file", "role": "présentation du projet" },
+    { "path": "bun.lock", "type": "file", "role": "verrou des dépendances bun" },
+    { "path": "chat", "type": "dir", "role": "client du chat d'équipe" },
+    { "path": "docs", "type": "dir", "role": "documentation du projet" },
+    { "path": "onboard", "type": "dir", "role": "pipeline : docs, agents, profils, caches" },
+    { "path": "onboarding", "type": "dir", "role": "sous-projet bun, collecteurs et rapport" },
+    { "path": "package.json", "type": "file", "role": "manifeste bun, scripts du pipeline" },
+    { "path": "pitch", "type": "dir", "role": "supports de pitch" },
+    { "path": "pitch_fr.html", "type": "file", "role": "pitch HTML en français" },
+    { "path": "src", "type": "dir", "role": "CLI, collecte, validation, rendu" },
+    { "path": "test", "type": "dir", "role": "tests bun" },
+    { "path": "tsconfig.json", "type": "file", "role": "configuration TypeScript" }
+  ],
+  "entrypoints": [
+    { "path": "src/cli.ts", "why": "`bun onboard owner/repo profil [--force]` : vérifie les arguments, le profil, GITHUB_PAT et la présence de Claude Code, puis lance `claude -p \"/onboard …\"` (lu, 40 premières lignes)" },
+    { "path": "src/index.ts", "why": "`bun start` / `bun run dev` : vérifie l'environnement (bun + token GitHub) en appelant whoami() de src/github.ts (lu)" },
+    { "path": "src/render/index.ts", "why": "script `render` du manifeste : produit le deck HTML à partir du cache (déduit de package.json)" },
+    { "path": "src/validate.ts", "why": "script `validate` du manifeste : validation dure de facts, narrative ou deck ; importé par cli.ts pour lire le profil" },
+    { "path": "src/merge.ts", "why": "script `merge` du manifeste : assemble parts/*.json dans facts.json (déduit de package.json)" }
+  ],
+  "build": {
+    "ci": []
+  },
+  "tests": {
+    "dir": "test",
+    "framework": "bun:test",
+    "files": 2
+  },
+  "deps": {
+    "manifest": "package.json",
+    "count": 3,
+    "runtime": [
+      { "name": "zod", "version": "^4.5.4" }
+    ]
+  },
+  "risks": [
+    { "kind": "ci", "level": "mid", "note": "Aucun dossier .github/workflows (404) : pas d'intégration continue, `bun run check` (typecheck + tests) reste manuel avant chaque push." },
+    { "kind": "deps", "level": "low", "note": "3 dépendances déclarées dans package.json, 1 seule en runtime (zod ^4.5.4), 2 en dev (typescript ^5, @types/bun en `latest`, non épinglé) ; bun.lock versionné." }
+  ],
+  "collected": {
+    "by": "1d-code",
+    "at": "2026-09-10T09:43:57Z"
+  }
+}

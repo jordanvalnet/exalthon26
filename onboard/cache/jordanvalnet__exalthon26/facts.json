@@ -1,0 +1,350 @@
+{
+  "schema": 1,
+  "repo": {
+    "full_name": "jordanvalnet/exalthon26",
+    "url": "https://github.com/jordanvalnet/exalthon26",
+    "description": "Hackathon eXaltemps 2026 : agent + MCP GitHub",
+    "created_at": "2026-09-09T13:24:36Z",
+    "pushed_at": "2026-09-10T08:37:41Z",
+    "default_branch": "main",
+    "license": null,
+    "stars": 0,
+    "forks": 0,
+    "open_issues": 1,
+    "topics": [],
+    "owner_type": "user",
+    "archived": false
+  },
+  "releases": [],
+  "activity": {
+    "commits_per_week": [
+      {
+        "week": "2026-W26",
+        "count": 0
+      },
+      {
+        "week": "2026-W27",
+        "count": 0
+      },
+      {
+        "week": "2026-W28",
+        "count": 0
+      },
+      {
+        "week": "2026-W29",
+        "count": 0
+      },
+      {
+        "week": "2026-W30",
+        "count": 0
+      },
+      {
+        "week": "2026-W31",
+        "count": 0
+      },
+      {
+        "week": "2026-W32",
+        "count": 0
+      },
+      {
+        "week": "2026-W33",
+        "count": 0
+      },
+      {
+        "week": "2026-W34",
+        "count": 0
+      },
+      {
+        "week": "2026-W35",
+        "count": 1
+      },
+      {
+        "week": "2026-W36",
+        "count": 0
+      },
+      {
+        "week": "2026-W37",
+        "count": 57
+      }
+    ],
+    "last_commit": "2026-09-10T08:37:39Z",
+    "contributors": [
+      {
+        "login": "jordanvalnet",
+        "commits": 41
+      },
+      {
+        "login": "PrincyExaltIT",
+        "commits": 8
+      },
+      {
+        "login": "Sacane",
+        "commits": 4
+      },
+      {
+        "login": "radomd92",
+        "commits": 3
+      },
+      {
+        "login": "loic.vyncke",
+        "commits": 2
+      }
+    ],
+    "bus_factor": 1
+  },
+  "risks": [
+    {
+      "kind": "license",
+      "level": "high",
+      "note": "Pas de fichier LICENSE : réutilisation juridiquement incertaine."
+    },
+    {
+      "kind": "security",
+      "level": "mid",
+      "note": "Pas de SECURITY.md : aucun canal déclaré pour signaler une faille."
+    },
+    {
+      "kind": "bus_factor",
+      "level": "high",
+      "note": "Un seul contributeur porte la moitié des commits sur 12 semaines."
+    },
+    {
+      "kind": "ci",
+      "level": "mid",
+      "note": "Aucun dossier .github/workflows (404) : pas d'intégration continue, `bun run check` (typecheck + tests) reste manuel avant chaque push."
+    },
+    {
+      "kind": "deps",
+      "level": "low",
+      "note": "3 dépendances déclarées dans package.json, 1 seule en runtime (zod ^4.5.4), 2 en dev (typescript ^5, @types/bun en `latest`, non épinglé) ; bun.lock versionné."
+    }
+  ],
+  "business": {
+    "funding": false,
+    "security_policy": false,
+    "codeowners": false
+  },
+  "issues": {
+    "open": 1,
+    "closed_30d": 0,
+    "by_label": {},
+    "good_first": [],
+    "hot": [
+      {
+        "number": 1,
+        "title": "💬 Chat équipe — canal IA ↔ IA",
+        "url": "https://github.com/jordanvalnet/exalthon26/issues/1",
+        "comments": 22
+      }
+    ]
+  },
+  "pulls": {
+    "open": 0,
+    "merged_30d": [
+      {
+        "number": 2,
+        "title": "Onboard : workflow agentique, contrat du cache, profils, agents, validations",
+        "url": "https://github.com/jordanvalnet/exalthon26/pull/2",
+        "merged_at": "2026-09-09T14:16:45Z"
+      }
+    ]
+  },
+  "roadmap": {
+    "open_prs": [],
+    "requests": [
+      {
+        "number": 1,
+        "title": "💬 Chat équipe — canal IA ↔ IA",
+        "url": "https://github.com/jordanvalnet/exalthon26/issues/1",
+        "comments": 22,
+        "labels": []
+      }
+    ],
+    "themes": []
+  },
+  "build": {
+    "install": "bun install",
+    "run": "bun onboard owner/repo profil",
+    "test": "bun run check",
+    "ci": []
+  },
+  "ai_docs": {
+    "files": [
+      {
+        "path": "AGENTS.md",
+        "kind": "agents_md"
+      },
+      {
+        "path": "CLAUDE.md",
+        "kind": "claude_md"
+      },
+      {
+        "path": ".mcp.json",
+        "kind": "mcp_json"
+      },
+      {
+        "path": ".claude/skills/",
+        "kind": "skills_dir"
+      }
+    ],
+    "score": 4,
+    "max": 7
+  },
+  "tree": [
+    {
+      "path": ".claude",
+      "type": "dir",
+      "role": "skills Claude Code du pipeline"
+    },
+    {
+      "path": ".env.example",
+      "type": "file",
+      "role": "modèle du token GitHub"
+    },
+    {
+      "path": ".gitignore",
+      "type": "file",
+      "role": "fichiers ignorés par git"
+    },
+    {
+      "path": ".mcp.json",
+      "type": "file",
+      "role": "déclaration du serveur MCP GitHub"
+    },
+    {
+      "path": "AGENTS.md",
+      "type": "file",
+      "role": "consignes projet pour les IA"
+    },
+    {
+      "path": "CIBLES.md",
+      "type": "file",
+      "role": "repos cibles du hackathon"
+    },
+    {
+      "path": "CLAUDE.md",
+      "type": "file",
+      "role": "renvoi vers AGENTS.md"
+    },
+    {
+      "path": "HACKATHON.md",
+      "type": "file",
+      "role": "consignes du jury"
+    },
+    {
+      "path": "LIVRABLE.md",
+      "type": "file",
+      "role": "rapport de mission de l'équipe"
+    },
+    {
+      "path": "README.md",
+      "type": "file",
+      "role": "présentation du projet"
+    },
+    {
+      "path": "bun.lock",
+      "type": "file",
+      "role": "verrou des dépendances bun"
+    },
+    {
+      "path": "chat",
+      "type": "dir",
+      "role": "client du chat d'équipe"
+    },
+    {
+      "path": "docs",
+      "type": "dir",
+      "role": "documentation du projet"
+    },
+    {
+      "path": "onboard",
+      "type": "dir",
+      "role": "pipeline : docs, agents, profils, caches"
+    },
+    {
+      "path": "onboarding",
+      "type": "dir",
+      "role": "sous-projet bun, collecteurs et rapport"
+    },
+    {
+      "path": "package.json",
+      "type": "file",
+      "role": "manifeste bun, scripts du pipeline"
+    },
+    {
+      "path": "pitch",
+      "type": "dir",
+      "role": "supports de pitch"
+    },
+    {
+      "path": "pitch_fr.html",
+      "type": "file",
+      "role": "pitch HTML en français"
+    },
+    {
+      "path": "src",
+      "type": "dir",
+      "role": "CLI, collecte, validation, rendu"
+    },
+    {
+      "path": "test",
+      "type": "dir",
+      "role": "tests bun"
+    },
+    {
+      "path": "tsconfig.json",
+      "type": "file",
+      "role": "configuration TypeScript"
+    }
+  ],
+  "entrypoints": [
+    {
+      "path": "src/cli.ts",
+      "why": "`bun onboard owner/repo profil [--force]` : vérifie les arguments, le profil, GITHUB_PAT et la présence de Claude Code, puis lance `claude -p \"/onboard …\"` (lu, 40 premières lignes)"
+    },
+    {
+      "path": "src/index.ts",
+      "why": "`bun start` / `bun run dev` : vérifie l'environnement (bun + token GitHub) en appelant whoami() de src/github.ts (lu)"
+    },
+    {
+      "path": "src/render/index.ts",
+      "why": "script `render` du manifeste : produit le deck HTML à partir du cache (déduit de package.json)"
+    },
+    {
+      "path": "src/validate.ts",
+      "why": "script `validate` du manifeste : validation dure de facts, narrative ou deck ; importé par cli.ts pour lire le profil"
+    },
+    {
+      "path": "src/merge.ts",
+      "why": "script `merge` du manifeste : assemble parts/*.json dans facts.json (déduit de package.json)"
+    }
+  ],
+  "tests": {
+    "dir": "test",
+    "framework": "bun:test",
+    "files": 2
+  },
+  "deps": {
+    "manifest": "package.json",
+    "count": 3,
+    "runtime": [
+      {
+        "name": "zod",
+        "version": "^4.5.4"
+      }
+    ]
+  },
+  "collected": {
+    "at": "2026-09-10T09:44:55.102Z",
+    "by": "merge de 1a-meta, 1b-issues, 1c-docs, 1d-code",
+    "lenses": [
+      "core",
+      "investisseur",
+      "qa",
+      "cto",
+      "enfant",
+      "ceo",
+      "dev"
+    ]
+  }
+}

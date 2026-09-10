@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Onboard : un pipeline d'agents bien contraint, à adopter en pilote interne, pas à forker tant qu'il n'a ni licence ni second mainteneur</title>
+<style>
+:root {
+  --bg: #f5f5f3; --card: #ffffff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2;
+  --accent: #4f5bd5; --accent-2: #d1495b; --accent-ink: #ffffff;
+  --cover-bg: #17181c; --cover-fg: #ffffff; --cover-muted: #b7bccb;
+  --low: #2e9e6b; --mid: #d99a2b; --high: #d1495b;
+  --font: ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --display: var(--font); --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --radius: 12px; --pad: 40px 48px; --width: 1040px; --min-h: 600px;
+  --h1: 2.8rem; --h2: 1.7rem; --text: 1.02rem; --kpi: 2.6rem;
+}
+* { box-sizing: border-box; }
+html { font-size: 16px; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 1rem/1.55 var(--font); }
+section {
+  position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  max-width: var(--width); margin: 28px auto; padding: var(--pad); min-height: var(--min-h); font-size: var(--text);
+  display: flex; flex-direction: column;
+}
+section > .body { flex: 1; }
+h1 { font: 700 var(--h1)/1.1 var(--display); letter-spacing: -0.01em; margin: 0 0 16px; }
+h2 { font: 700 var(--h2)/1.2 var(--display); margin: 0 0 10px; }
+p { margin: 0 0 10px; }
+ul, ol { margin: 0 0 12px; padding-left: 22px; }
+li { margin: 0 0 6px; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code { font: 0.88em var(--mono); background: var(--bg); padding: 1px 6px; border-radius: 5px; }
+pre { background: #14151a; color: #e8eaf1; padding: 14px 18px; border-radius: 10px; overflow-x: auto; margin: 0 0 14px; font-size: 0.9em; line-height: 1.5; }
+pre code { background: none; padding: 0; color: inherit; font-size: 1em; }
+strong { font-weight: 700; }
+table { border-collapse: collapse; width: 100%; margin: 0 0 14px; font-size: 0.94em; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); border-bottom: 2px solid var(--accent); }
+.level { display: inline-block; padding: 1px 10px; border-radius: 999px; font-size: 0.8em; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.04em; }
+.level.low { background: var(--low); } .level.mid { background: var(--mid); } .level.high { background: var(--high); }
+
+/* Couverture */
+.cover { justify-content: center; background: var(--cover-bg); color: var(--cover-fg); border: 0; }
+.cover a { color: inherit; }
+.cover-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 40px; }
+.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.8rem; font-weight: 700; }
+.date, .repo, .cover-foot { color: var(--cover-muted); font-size: 0.9rem; }
+.repo { font-family: var(--mono); font-size: 1rem; margin: 0 0 12px; }
+.cover .desc { color: var(--cover-muted); font-size: 1.1rem; max-width: 46em; margin-bottom: 32px; }
+.kpis { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; padding: 0; margin: 0 0 32px; }
+.kpis li { border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; padding: 14px 18px; background: rgba(255,255,255,0.05); }
+.kpis b { display: block; font: 700 var(--kpi)/1 var(--display); letter-spacing: -0.02em; margin-bottom: 6px; }
+.kpis span { display: block; font-size: 0.82rem; color: var(--cover-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.kpis b.long { font-size: calc(var(--kpi) * 0.62); padding: 0.25em 0; }
+.kpis small { display: block; font-size: 0.78rem; color: var(--cover-muted); margin-top: 3px; text-transform: none; letter-spacing: 0; }
+.cover-foot { margin: 0; display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* Pages */
+.page header, .finale header { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+.kicker { font: 700 0.78rem/1 var(--mono); color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; }
+.takeaway { margin: 0 0 22px; padding: 14px 20px; border-left: 5px solid var(--accent); background: var(--bg); font-size: 1.12em; font-weight: 600; line-height: 1.45; border-radius: 0 10px 10px 0; }
+.body.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; align-items: start; }
+.body.split .chart-wrap { min-width: 0; }
+.body.stack .chart-wrap { margin-bottom: 20px; }
+footer { display: flex; justify-content: space-between; gap: 12px; margin-top: 26px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.78rem; }
+footer .n { font-family: var(--mono); }
+
+/* Graphiques SVG et listes annotées (charts.ts) */
+.chart { display: block; width: 100%; height: auto; max-width: 640px; margin: 0 0 12px; }
+.chart text { font-family: var(--font); fill: var(--fg); }
+.chart .lbl { font-size: 12px; }
+.chart .val, .chart .tick { font-size: 11px; fill: var(--muted); }
+.chart .bar { fill: var(--accent); }
+.chart .bar.strong { fill: var(--accent-2); }
+.chart .bar.off { fill: var(--line); }
+.chart .dot { fill: var(--accent); }
+.chart .axis { stroke: var(--line); stroke-width: 1; }
+.tree, .risks { list-style: none; margin: 0 0 14px; padding: 0; font-size: 0.92em; }
+.tree li, .risks li { display: flex; gap: 10px; align-items: baseline; padding: 4px 0; border-bottom: 1px solid var(--line); }
+.tree code { flex: 0 0 auto; }
+.tree .more { color: var(--muted); border: 0; font-style: italic; }
+.role { color: var(--muted); font-size: 0.9em; }
+.light { width: 11px; height: 11px; border-radius: 50%; flex: 0 0 auto; background: var(--muted); }
+.light.low { background: var(--low); } .light.mid { background: var(--mid); } .light.high { background: var(--high); }
+
+/* Finale et sources */
+.finale { border: 2px solid var(--accent); }
+.finale .body { font-size: 1.08em; }
+.finale ol, .finale ul { padding-left: 26px; }
+.finale li { margin-bottom: 10px; }
+.refs { min-height: 0; }
+.refs ol { padding-left: 22px; font-size: 0.86rem; column-count: 2; column-gap: 32px; }
+.refs li { margin-bottom: 6px; break-inside: avoid; }
+.kind { color: var(--muted); margin-right: 8px; }
+.note { font-size: 0.68em; }
+.note a { text-decoration: none; padding: 0 1px; }
+
+.p-cto { --accent: #1f3a5f; --accent-2: #c9772e; --cover-bg: #1f3a5f; --cover-fg: #ffffff; --cover-muted: #b9c7dc; --bg: #f4f6f9; --h1: 2.5rem; --h2: 1.5rem; --text: 0.98rem; }
+.p-cto .cover { background: linear-gradient(135deg, #1f3a5f 0%, #17304f 60%, #24466f 100%); }
+.p-cto .cover .eyebrow { color: #f0b97a; }
+.p-cto .cover h1 { border-left: 6px solid var(--accent-2); padding-left: 20px; }
+.p-cto .kpis { grid-template-columns: repeat(4, 1fr); }
+.p-cto .kpis li { border: 0; border-top: 3px solid var(--accent-2); border-radius: 0; background: rgba(255,255,255,0.06); }
+.p-cto section:not(.cover) { border-top: 4px solid var(--accent); border-radius: 0 0 var(--radius) var(--radius); }
+.p-cto .kicker { color: var(--accent-2); }
+.p-cto .takeaway { border-left-color: var(--accent-2); background: #fbf3ea; }
+.p-cto th { border-bottom-color: var(--accent); }
+.p-cto .finale { border: 0; background: var(--accent); color: #fff; }
+.p-cto .finale .kicker, .p-cto .finale h2 { color: #fff; }
+.p-cto .finale h2 { border-left: 6px solid var(--accent-2); padding-left: 16px; }
+.p-cto .finale code { background: rgba(255,255,255,0.14); color: #fff; }
+.p-cto .finale a, .p-cto .finale .note a { color: #f0b97a; }
+.p-cto .finale footer { border-top-color: rgba(255,255,255,0.25); color: #b9c7dc; }
+
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #14151a; --card: #1c1e25; --fg: #eceef3; --muted: #a0a6b4; --line: #2f323c; --low: #4cc38a; --mid: #e5b25d; --high: #ef7f8e; }
+  code { background: #262932; }
+  .p-dev { --accent: #8f97ee; --accent-2: #ef7f8e; }
+  .p-qa { --accent: #35c2a8; --accent-2: #ef7f8e; --bg: #14181a; --cover-bg: #1c2422; --cover-fg: #eef5f2; --cover-muted: #9fb8b0; }
+  .p-qa .kpis li { background: #213230; border-color: #2e4a45; }
+  .p-qa .takeaway, .p-qa .finale { background: #1f2b28; }
+  .p-qa tbody tr:nth-child(odd) { background: #1f2624; }
+  .p-cto { --accent: #7fa6d9; --accent-2: #f0b97a; --bg: #141821; }
+  .p-cto .takeaway { background: #2a2620; }
+  .p-cto .finale { background: #1f3a5f; }
+  .p-ceo { --accent: #dcc27a; --bg: #15171c; --card: #1c1e25; --line: #2f323c; }
+  .p-ceo .finale { background: #14213d; }
+  .p-investisseur { --accent: #5cc493; --accent-2: #dcb25f; --bg: #141816; --card: #1b201d; --line: #2c342f; --cover-bg: #1b201d; --cover-fg: #eef3ef; --cover-muted: #9fb0a6; }
+  .p-investisseur .kpis li { background: #16201b; }
+  .p-investisseur .finale { background: #1d6b4a; }
+}
+
+@media print {
+  @page { size: A4 landscape; margin: 10mm; }
+  html { font-size: 12px; }
+  .p-dev, .p-qa, .p-cto { --text: 0.9rem; }
+  .p-dev .tree, .p-qa .tree, .p-cto .tree { font-size: 0.82em; }
+  .p-ceo { --text: 1rem; }
+  .p-ceo .takeaway { font-size: 1.3rem; margin-bottom: 16px; }
+  .p-ceo .risks li { padding: 2px 0; }
+  .body.split { gap: 22px; }
+  .takeaway { font-size: 1.05em; padding: 10px 16px; margin-bottom: 14px; }
+  th, td { padding: 5px 10px; }
+  footer { margin-top: 14px; padding-top: 8px; }
+  .refs ol { column-count: 3; font-size: 0.82rem; }
+  .refs li { margin-bottom: 3px; }
+  body { background: #fff; }
+  :root, .p-dev, .p-qa, .p-cto, .p-ceo, .p-investisseur, .p-enfant { --bg: #f5f5f3; --card: #fff; --fg: #17181c; --muted: #5f6470; --line: #dcdde2; }
+  .p-qa { --bg: #f2f7f5; } .p-cto { --bg: #f4f6f9; } .p-ceo { --bg: #f7f5ef; --card: #fffdf8; } .p-investisseur { --bg: #f6f6f2; } .p-enfant { --bg: #fff6e5; --card: #fffdf7; --fg: #2b2118; --muted: #7a6a5a; }
+  .p-ceo { --accent: #14213d; } .p-cto { --accent: #1f3a5f; } .p-dev { --accent: #4f5bd5; } .p-qa { --accent: #0f8f7a; } .p-investisseur { --accent: #1d6b4a; }
+  section { max-width: none; margin: 0; min-height: 178mm; break-after: page; page-break-after: always; box-shadow: none; --pad: 26px 36px; }
+  section:last-child { break-after: auto; page-break-after: auto; }
+  .p-enfant section { box-shadow: none; margin: 0; }
+  .cover { min-height: 178mm; }
+  .refs { min-height: 0; }
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  a { text-decoration: none; }
+}
+</style>
+</head>
+<body class="p-cto">
+<section class="cover">
+<div class="cover-top"><span class="eyebrow">Note de décision technique</span><span class="date">10 sept. 2026</span></div>
+<p class="repo">jordanvalnet/exalthon26</p>
+<h1>Onboard : un pipeline d'agents bien contraint, à adopter en pilote interne, pas à forker tant qu'il n'a ni licence ni second mainteneur</h1>
+<p class="desc">Hackathon eXaltemps 2026 : agent + MCP GitHub</p>
+<ul class="kpis"><li><b>1</b><span>bus factor</span><small>sur 12 semaines</small></li><li><b>58</b><span>commits</span><small>sur 12 semaines</small></li><li><b>3</b><span>dépendances</span><small>1 en production</small></li><li><b>aucune</b><span>licence</span></li></ul>
+<p class="cover-foot"><span><a href="https://github.com/jordanvalnet/exalthon26">https://github.com/jordanvalnet/exalthon26</a></span><span>Sans licence</span><span>Onboard · profil cto</span></p>
+</section><section class="page">
+<header><span class="kicker">02</span><h2>Que fait ce projet et quelle est son architecture ?</h2></header>
+<p class="takeaway">Un pipeline d'agents à validation dure entre chaque étape, dont le cœur est du texte versionné (prompts, cache) et non un service : auditable en une heure, reprenable sans l'auteur <sup class="note"><a href="#note-1">1</a></sup> <sup class="note"><a href="#note-2">2</a></sup>.</p>
+<div class="body split"><div class="chart-wrap"><ul class="tree"><li><code>.claude/</code><span class="role">skills et réglages Claude Code</span></li><li><code>chat/</code><span class="role">client du chat d'équipe</span></li><li><code>docs/</code><span class="role">documentation du projet</span></li><li><code>onboard/</code><span class="role">pipeline Onboard : agents, profils, cache</span></li><li><code>onboarding/</code><span class="role">second package bun : collecteurs MCP</span></li><li><code>pitch/</code><span class="role">supports du pitch</span></li><li><code>src/</code><span class="role">code principal : CLI, collecte, rendu, validation</span></li><li><code>test/</code><span class="role">2 tests bun</span></li><li><code>.env.example</code><span class="role">modèle de variables d'environnement</span></li><li><code>.gitignore</code><span class="role">exclusions git</span></li><li><code>.mcp.json</code><span class="role">config du serveur MCP GitHub</span></li><li><code>AGENTS.md</code><span class="role">consignes pour les agents IA</span></li><li><code>CIBLES.md</code><span class="role">repos cibles du hackathon</span></li><li><code>CLAUDE.md</code><span class="role">instructions Claude Code, 69 octets</span></li><li><code>HACKATHON.md</code><span class="role">consignes du jury</span></li><li><code>LIVRABLE.md</code><span class="role">rapport de mission livré</span></li><li class="more">… et 5 autres entrées, voir sources/tree.md</li></ul></div><div class="text"><p>Onboard parcourt n'importe quel dépôt GitHub par le serveur MCP GitHub, construit un cache documentaire vérifié et en tire une présentation par public : dev, qa, cto, ceo, investisseur, enfant. Chaque chiffre renvoie à sa source, et un guide répond ensuite aux questions à partir du cache <sup class="note"><a href="#note-1">1</a></sup> <sup class="note"><a href="#note-3">3</a></sup>.</p>
+<p>Livrable d'un hackathon d'une journée : dépôt créé le 2026-09-09, dernier push le 2026-09-10, propriétaire individuel, branche <code>main</code>, 0 étoile, 0 fork <sup class="note"><a href="#note-4">4</a></sup> <sup class="note"><a href="#note-5">5</a></sup> <sup class="note"><a href="#note-6">6</a></sup> <sup class="note"><a href="#note-7">7</a></sup> <sup class="note"><a href="#note-8">8</a></sup> <sup class="note"><a href="#note-9">9</a></sup>.</p>
+<p>Architecture en quatre étapes chaînées par fichiers : collecter (5 sous-agents en parallèle, outils <code>github:*</code>), rédiger (lit le cache, jamais GitHub), rendre (code, une identité visuelle par profil), guider (réponse citée, FAQ enrichie). Chaque étape ne lit que les sorties de la précédente et ne démarre que si une validation en code passe <sup class="note"><a href="#note-1">1</a></sup>.</p>
+<p>21 entrées à la racine, 8 dossiers : <code>src/</code> (CLI, collecte, rendu, validation), <code>onboard/</code> (prompts des agents, profils JSON, caches versionnés), <code>onboarding/</code> (second package bun, collecteurs MCP), <code>chat/</code> (client du chat d'équipe), <code>test/</code> (2 tests bun) <sup class="note"><a href="#note-10">10</a></sup> <sup class="note"><a href="#note-11">11</a></sup> <sup class="note"><a href="#note-12">12</a></sup> <sup class="note"><a href="#note-13">13</a></sup> <sup class="note"><a href="#note-14">14</a></sup> <sup class="note"><a href="#note-15">15</a></sup>.</p>
+<p>Choix structurant : les prompts vivent dans <code>onboard/agents/</code>, en texte, pour que Claude Code, Copilot et Codex exécutent le même texte ; les validations sont du code, <code>src/validate.ts</code>, <code>src/merge.ts</code>, schéma zod <code>src/facts.ts</code>. Un seul chemin vers GitHub, le serveur MCP, jamais REST <sup class="note"><a href="#note-1">1</a></sup> <sup class="note"><a href="#note-16">16</a></sup>.</p></div></div>
+<footer><span class="repo-name">jordanvalnet/exalthon26</span><span class="n">cto · 2 / 8</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">03</span><h2>Quelle est sa santé technique ?</h2></header>
+<p class="takeaway">Code discipliné mais sans filet automatique : zéro CI, zéro release, 2 tests ; la qualité repose sur <code>bun run check</code> lancé à la main <sup class="note"><a href="#note-17">17</a></sup> <sup class="note"><a href="#note-18">18</a></sup> <sup class="note"><a href="#note-19">19</a></sup>.</p>
+<div class="body split"><div class="chart-wrap"><svg class="chart" viewBox="0 0 640 172" width="640" height="172" role="img" preserveAspectRatio="xMinYMin meet"><line class="axis" x1="34" y1="138" x2="628" y2="138"/><text class="tick" x="28" y="22" text-anchor="end">57</text><text class="tick" x="28" y="138" text-anchor="end">0</text><rect class="bar" x="43.9" y="138" width="29.7" height="1" rx="2"><title>2026-W26 : 0</title></rect><text class="tick" x="58.75" y="154" text-anchor="middle">W26</text><rect class="bar" x="93.4" y="138" width="29.7" height="1" rx="2"><title>2026-W27 : 0</title></rect><rect class="bar" x="142.9" y="138" width="29.7" height="1" rx="2"><title>2026-W28 : 0</title></rect><text class="tick" x="157.75" y="154" text-anchor="middle">W28</text><rect class="bar" x="192.4" y="138" width="29.7" height="1" rx="2"><title>2026-W29 : 0</title></rect><rect class="bar" x="241.9" y="138" width="29.7" height="1" rx="2"><title>2026-W30 : 0</title></rect><text class="tick" x="256.75" y="154" text-anchor="middle">W30</text><rect class="bar" x="291.4" y="138" width="29.7" height="1" rx="2"><title>2026-W31 : 0</title></rect><rect class="bar" x="340.9" y="138" width="29.7" height="1" rx="2"><title>2026-W32 : 0</title></rect><text class="tick" x="355.75" y="154" text-anchor="middle">W32</text><rect class="bar" x="390.4" y="138" width="29.7" height="1" rx="2"><title>2026-W33 : 0</title></rect><rect class="bar" x="439.9" y="138" width="29.7" height="1" rx="2"><title>2026-W34 : 0</title></rect><text class="tick" x="454.75" y="154" text-anchor="middle">W34</text><rect class="bar" x="489.4" y="136" width="29.7" height="2" rx="2"><title>2026-W35 : 1</title></rect><rect class="bar" x="538.9" y="138" width="29.7" height="1" rx="2"><title>2026-W36 : 0</title></rect><text class="tick" x="553.75" y="154" text-anchor="middle">W36</text><rect class="bar" x="588.4" y="12" width="29.7" height="126" rx="2"><title>2026-W37 : 57</title></rect></svg></div><div class="text"><p>58 commits sur 12 semaines, dont 57 la semaine du hackathon (2026-W37) et 1 en 2026-W35 : toute l'activité tient en deux jours, dernier commit le 2026-09-10 <sup class="note"><a href="#note-20">20</a></sup> <sup class="note"><a href="#note-21">21</a></sup> <sup class="note"><a href="#note-22">22</a></sup>.</p>
+<p>Aucune release, aucun tag : le seul numéro de version est le <code>0.1.0</code> du manifeste, et le package est <code>private</code> <sup class="note"><a href="#note-19">19</a></sup> <sup class="note"><a href="#note-23">23</a></sup>.</p>
+<p>Aucune intégration continue : pas de dossier <code>.github</code>, donc aucun workflow GitHub Actions. La seule vérification est locale, <code>bun run check</code>, soit <code>tsc --noEmit</code> puis <code>bun test</code> <sup class="note"><a href="#note-17">17</a></sup> <sup class="note"><a href="#note-24">24</a></sup>.</p>
+<p>Tests : 2 fichiers dans <code>test/</code>, <code>github.test.ts</code> et <code>issues.test.ts</code>, framework <code>bun test</code> ; à en juger par leurs noms, ils couvrent l'accès GitHub et la collecte des issues, pas le rendu ni les validations <sup class="note"><a href="#note-18">18</a></sup> <sup class="note"><a href="#note-25">25</a></sup> <sup class="note"><a href="#note-26">26</a></sup>.</p>
+<p>Ce qui est solide : TypeScript strict, bun sans npm, un seul chemin vers GitHub, une validation en code à chaque étape, et 4 repères de documentation IA sur 7 (AGENTS.md, CLAUDE.md, .mcp.json, .claude/skills/) <sup class="note"><a href="#note-16">16</a></sup> <sup class="note"><a href="#note-2">2</a></sup> <sup class="note"><a href="#note-27">27</a></sup>.</p>
+<pre><code>bun install
+bun onboard owner/repo profil
+bun run check</code></pre>
+<p>Les trois commandes du README : installer, lancer, vérifier <sup class="note"><a href="#note-28">28</a></sup> <sup class="note"><a href="#note-29">29</a></sup> <sup class="note"><a href="#note-30">30</a></sup>.</p></div></div>
+<footer><span class="repo-name">jordanvalnet/exalthon26</span><span class="n">cto · 3 / 8</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">04</span><h2>Qui porte le projet et quel est le bus factor ?</h2></header>
+<p class="takeaway">Bus factor 1, 41 commits sur 58 pour une personne : sans second mainteneur nommé, le projet s'arrête avec son auteur <sup class="note"><a href="#note-31">31</a></sup> <sup class="note"><a href="#note-32">32</a></sup>.</p>
+<div class="body split"><div class="chart-wrap"><svg class="chart" viewBox="0 0 640 132" width="640" height="132" role="img" preserveAspectRatio="xMinYMin meet"><text class="lbl" x="168" y="21" text-anchor="end">jordanvalnet</text><rect class="bar strong" x="178" y="10" width="398" height="14" rx="3"/><text class="val" x="582" y="21">41</text><text class="lbl" x="168" y="45" text-anchor="end">PrincyExaltIT</text><rect class="bar" x="178" y="34" width="78" height="14" rx="3"/><text class="val" x="262" y="45">8</text><text class="lbl" x="168" y="69" text-anchor="end">Sacane</text><rect class="bar" x="178" y="58" width="39" height="14" rx="3"/><text class="val" x="223" y="69">4</text><text class="lbl" x="168" y="93" text-anchor="end">radomd92</text><rect class="bar" x="178" y="82" width="29" height="14" rx="3"/><text class="val" x="213" y="93">3</text><text class="lbl" x="168" y="117" text-anchor="end">loic.vyncke</text><rect class="bar" x="178" y="106" width="19" height="14" rx="3"/><text class="val" x="203" y="117">2</text></svg></div><div class="text"><p>5 contributeurs humains sur 12 semaines : jordanvalnet 41 commits, PrincyExaltIT 8, Sacane 4, radomd92 3, loic.vyncke 2 <sup class="note"><a href="#note-33">33</a></sup> <sup class="note"><a href="#note-32">32</a></sup> <sup class="note"><a href="#note-34">34</a></sup> <sup class="note"><a href="#note-35">35</a></sup> <sup class="note"><a href="#note-36">36</a></sup> <sup class="note"><a href="#note-37">37</a></sup>.</p>
+<p>Bus factor 1 : une seule personne signe plus de la moitié des 58 commits, plus que les quatre autres réunies <sup class="note"><a href="#note-31">31</a></sup> <sup class="note"><a href="#note-38">38</a></sup>.</p>
+<p>Aucun CODEOWNERS, aucune politique de sécurité, aucun financement déclaré : la gouvernance est implicite, portée par l'équipe du hackathon <sup class="note"><a href="#note-39">39</a></sup> <sup class="note"><a href="#note-40">40</a></sup> <sup class="note"><a href="#note-41">41</a></sup>.</p>
+<p>À lire avec le contexte : une équipe constituée pour une journée (« Équipe eXaltemps, hackathon du 9 septembre 2026 »), pas une communauté ; la concentration des commits est celle d'un intégrateur qui assemble le travail des autres, ce qui ne dit rien de la capacité de chacun à reprendre le code <sup class="note"><a href="#note-1">1</a></sup> <sup class="note"><a href="#note-4">4</a></sup>.</p>
+<p>Parade : un second mainteneur avec droits d'écriture et un fichier CODEOWNERS sur <code>src/</code> et <code>onboard/</code> avant tout usage au-delà du pilote <sup class="note"><a href="#note-31">31</a></sup> <sup class="note"><a href="#note-39">39</a></sup>.</p></div></div>
+<footer><span class="repo-name">jordanvalnet/exalthon26</span><span class="n">cto · 4 / 8</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">05</span><h2>Quelles dépendances et quelle dette ?</h2></header>
+<p class="takeaway">Dette de dépendances quasi nulle (1 runtime), mais dette d'exploitation réelle : le pipeline dépend d'un agent IA tiers et d'un serveur MCP hébergé, hors de votre contrôle <sup class="note"><a href="#note-42">42</a></sup> <sup class="note"><a href="#note-1">1</a></sup>.</p>
+<div class="body"><div class="text"><p>3 dépendances déclarées dans <code>package.json</code>, <code>bun.lock</code> versionné à la racine <sup class="note"><a href="#note-42">42</a></sup> <sup class="note"><a href="#note-43">43</a></sup> <sup class="note"><a href="#note-23">23</a></sup>.</p>
+<table><thead><tr><th>Dépendance</th><th>Type</th><th>Version</th><th>Remarque</th></tr></thead><tbody><tr><td>zod</td><td>runtime</td><td>^4.5.4</td><td>schéma de facts.json, seule dépendance d'exécution <sup class="note"><a href="#note-44">44</a></sup> <sup class="note"><a href="#note-45">45</a></sup></td></tr><tr><td>typescript</td><td>dev</td><td>^5</td><td>typecheck <code>tsc --noEmit</code> <sup class="note"><a href="#note-23">23</a></sup></td></tr><tr><td>@types/bun</td><td>dev</td><td>latest</td><td>non épinglée : le typecheck peut casser sans changement du code <sup class="note"><a href="#note-23">23</a></sup></td></tr></tbody></table>
+<p>Dépendances hors manifeste, invisibles au lock : le runtime bun, l'assistant Claude Code que <code>bun onboard</code> lance en non interactif, le serveur MCP GitHub hébergé <code>https://api.githubcopilot.com/mcp/</code>, et Chrome ou Edge en headless pour les PDF <sup class="note"><a href="#note-1">1</a></sup> <sup class="note"><a href="#note-16">16</a></sup> <sup class="note"><a href="#note-46">46</a></sup>.</p>
+<p>Un second <code>onboarding/package.json</code> (379 octets) coexiste avec le principal : deux packages bun dans un même dépôt, deux arbres de dépendances à suivre <sup class="note"><a href="#note-10">10</a></sup> <sup class="note"><a href="#note-47">47</a></sup>.</p>
+<p>Dette repérée : 12 résultats pour « TODO » dans le dépôt, 10 listés, un seul dans un fichier de code (<code>onboarding/src/report/skeleton.ts</code>), les 9 autres dans la doc et les caches, où c'est un mot du texte <sup class="note"><a href="#note-48">48</a></sup>.</p></div></div>
+<footer><span class="repo-name">jordanvalnet/exalthon26</span><span class="n">cto · 5 / 8</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">06</span><h2>Quels risques ?</h2></header>
+<p class="takeaway">Deux risques bloquants pour un fork ou un usage externe, licence absente et bus factor 1 ; les trois autres sont des fichiers à ajouter : un workflow, un SECURITY.md, une version épinglée <sup class="note"><a href="#note-49">49</a></sup> <sup class="note"><a href="#note-50">50</a></sup> <sup class="note"><a href="#note-51">51</a></sup>.</p>
+<div class="body split"><div class="chart-wrap"><ul class="risks"><li><span class="light high" aria-hidden="true"></span><b>license</b><span class="role">Pas de fichier LICENSE : réutilisation juridiquement incertaine.</span></li><li><span class="light mid" aria-hidden="true"></span><b>security</b><span class="role">Pas de SECURITY.md : aucun canal déclaré pour signaler une faille.</span></li><li><span class="light high" aria-hidden="true"></span><b>bus_factor</b><span class="role">Un seul contributeur porte la moitié des commits sur 12 semaines.</span></li><li><span class="light mid" aria-hidden="true"></span><b>ci</b><span class="role">Pas de dossier .github à la racine (21 entrées listées) : aucun workflow GitHub Actions. La seule vérification est locale, `bun run check` = `tsc --noEmit &amp;&amp; bun test` (package.json).</span></li><li><span class="light low" aria-hidden="true"></span><b>deps</b><span class="role">3 dépendances déclarées dans package.json : 1 runtime (zod ^4.5.4), 2 dev (@types/bun latest, typescript ^5) ; bun.lock versionné (1355 octets). Second package.json dans onboarding/ (379 octets), non lu.</span></li></ul></div><div class="text"><p>Cinq risques collectés, deux au niveau high, chacun avec sa parade <sup class="note"><a href="#note-52">52</a></sup>.</p>
+<table><thead><tr><th>Risque</th><th>Niveau</th><th>Constat</th><th>Parade</th></tr></thead><tbody><tr><td>Licence</td><td><span class="level high">high</span></td><td>Pas de fichier LICENSE : réutilisation juridiquement incertaine <sup class="note"><a href="#note-49">49</a></sup> <sup class="note"><a href="#note-53">53</a></sup></td><td>Obtenir de l'auteur un LICENSE (MIT ou Apache-2.0) avant tout fork ou usage hors de l'équipe</td></tr><tr><td>Bus factor</td><td><span class="level high">high</span></td><td>Une personne porte la moitié des commits sur 12 semaines <sup class="note"><a href="#note-50">50</a></sup> <sup class="note"><a href="#note-38">38</a></sup></td><td>Second mainteneur, CODEOWNERS</td></tr><tr><td>CI</td><td><span class="level mid">mid</span></td><td>Aucun workflow GitHub Actions, vérification locale seule <sup class="note"><a href="#note-51">51</a></sup> <sup class="note"><a href="#note-54">54</a></sup></td><td>Un workflow qui lance <code>bun run check</code> à chaque push</td></tr><tr><td>Sécurité</td><td><span class="level mid">mid</span></td><td>Pas de SECURITY.md, aucun canal de signalement <sup class="note"><a href="#note-55">55</a></sup> <sup class="note"><a href="#note-56">56</a></sup></td><td>Un SECURITY.md avec un contact</td></tr><tr><td>Dépendances</td><td><span class="level low">low</span></td><td>3 déclarées, lock versionné <sup class="note"><a href="#note-57">57</a></sup> <sup class="note"><a href="#note-47">47</a></sup></td><td>Épingler <code>@types/bun</code></td></tr></tbody></table>
+<p>Le cache ne contient pas <code>security.md</code> : le dépôt n'a pas de politique de sécurité ; à vérifier dans <a href="https://github.com/jordanvalnet/exalthon26/security/policy">https://github.com/jordanvalnet/exalthon26/security/policy</a> <sup class="note"><a href="#note-40">40</a></sup> <sup class="note"><a href="#note-58">58</a></sup>.</p>
+<p>Non mesurable par la collecte : les CVE des dépendances et la répartition des langages, que le serveur MCP n'expose pas ; à vérifier dans <a href="https://github.com/jordanvalnet/exalthon26/security/dependabot">https://github.com/jordanvalnet/exalthon26/security/dependabot</a> <sup class="note"><a href="#note-59">59</a></sup>.</p>
+<p>Risque propre à l'architecture : le secret <code>GITHUB_PAT</code> (scope repo) part vers un serveur MCP hébergé par GitHub, en en-tête <code>Authorization: Bearer</code> ; à cadrer par un jeton à granularité fine, limité aux dépôts à onboarder <sup class="note"><a href="#note-16">16</a></sup> <sup class="note"><a href="#note-1">1</a></sup>.</p></div></div>
+<footer><span class="repo-name">jordanvalnet/exalthon26</span><span class="n">cto · 6 / 8</span></footer>
+</section>
+<section class="page">
+<header><span class="kicker">07</span><h2>Adopter, contribuer ou forker ?</h2></header>
+<p class="takeaway">Adopter en pilote, contribuer si l'équipe reste active, ne pas forker : le blocage est juridique, pas technique <sup class="note"><a href="#note-49">49</a></sup> <sup class="note"><a href="#note-1">1</a></sup>.</p>
+<div class="body"><div class="text"><p>Feuille de route : aucune PR ouverte, aucun thème étiqueté ; la seule issue ouverte, #1 « 💬 Chat équipe — canal IA ↔ IA » (22 commentaires), est le canal où les assistants IA de l'équipe se parlent, pas une demande produit <sup class="note"><a href="#note-60">60</a></sup> <sup class="note"><a href="#note-61">61</a></sup> <sup class="note"><a href="#note-62">62</a></sup> <sup class="note"><a href="#note-63">63</a></sup> <sup class="note"><a href="#note-16">16</a></sup>.</p>
+<p>Pas de ROADMAP.md ni de docs/roadmap.md dans le dépôt, et les jalons ne sont pas exposés par le serveur MCP ; à vérifier dans <a href="https://github.com/jordanvalnet/exalthon26/milestones">https://github.com/jordanvalnet/exalthon26/milestones</a> <sup class="note"><a href="#note-64">64</a></sup> <sup class="note"><a href="#note-65">65</a></sup>.</p>
+<p>58 commits pour 1 PR fusionnée sur 30 jours, #2 « Onboard : workflow agentique, contrat du cache, profils, agents, validations », le 2026-09-09 : le travail passe par des commits directs sur <code>main</code>, pas par relecture <sup class="note"><a href="#note-66">66</a></sup> <sup class="note"><a href="#note-67">67</a></sup> <sup class="note"><a href="#note-68">68</a></sup> <sup class="note"><a href="#note-20">20</a></sup>.</p>
+<p>Adopter : oui, en pilote interne sur vos propres dépôts. Le produit est utilisable en trois commandes, le cache est du texte que l'on peut relire et corriger, et six profils sont livrés <sup class="note"><a href="#note-1">1</a></sup> <sup class="note"><a href="#note-29">29</a></sup>.</p>
+<p>Contribuer : le dépôt s'y prête, prompts en texte dans <code>onboard/agents/</code>, profils JSON, consignes pour les agents dans AGENTS.md ; mais pas de CONTRIBUTING.md à la racine ni de good first issue <sup class="note"><a href="#note-10">10</a></sup> <sup class="note"><a href="#note-69">69</a></sup> <sup class="note"><a href="#note-70">70</a></sup>.</p>
+<p>Forker : non, tant qu'il n'y a pas de LICENSE : sans licence, aucun droit de copie ni de redistribution n'est accordé <sup class="note"><a href="#note-53">53</a></sup> <sup class="note"><a href="#note-49">49</a></sup>.</p></div></div>
+<footer><span class="repo-name">jordanvalnet/exalthon26</span><span class="n">cto · 7 / 8</span></footer>
+</section><section class="finale">
+<header><span class="kicker">cto</span><h2>Décision</h2></header>
+
+<div class="body"><div class="text"><p>Recommandation : <strong>adopter en pilote interne</strong>, sur vos propres dépôts, sans fork ni redistribution, jusqu'à la levée de deux conditions, la licence et le bus factor <sup class="note"><a href="#note-49">49</a></sup> <sup class="note"><a href="#note-50">50</a></sup>.</p>
+<ol><li>Licence : obtenir de l'auteur un fichier LICENSE ; sans lui, aucun droit de réutilisation n'est acquis, même en interne <sup class="note"><a href="#note-53">53</a></sup> <sup class="note"><a href="#note-10">10</a></sup>.</li><li>Bus factor : nommer un second mainteneur et un CODEOWNERS ; aujourd'hui une personne signe 41 commits sur 58 <sup class="note"><a href="#note-31">31</a></sup> <sup class="note"><a href="#note-32">32</a></sup> <sup class="note"><a href="#note-39">39</a></sup>.</li><li>Filet minimal avant tout usage régulier : un workflow qui lance <code>bun run check</code>, un SECURITY.md, <code>@types/bun</code> épinglé, et un <code>GITHUB_PAT</code> à granularité fine limité aux dépôts onboardés <sup class="note"><a href="#note-17">17</a></sup> <sup class="note"><a href="#note-40">40</a></sup> <sup class="note"><a href="#note-23">23</a></sup> <sup class="note"><a href="#note-16">16</a></sup>.</li></ol>
+<p>Ce que vous achetez : une architecture lisible, des prompts et un cache en texte versionné, une seule dépendance runtime ; ce que vous n'achetez pas encore : une garantie de maintenance <sup class="note"><a href="#note-1">1</a></sup> <sup class="note"><a href="#note-42">42</a></sup> <sup class="note"><a href="#note-31">31</a></sup>.</p></div></div>
+<footer><span class="repo-name">jordanvalnet/exalthon26</span><span class="n">cto · 8 / 8</span></footer>
+</section><section class="refs"><header><span class="kicker">notes</span><h2>Sources</h2></header><div class="body"><ol class="sources"><li id="note-1"><span class="kind">source du repo</span><code>readme.md</code></li><li id="note-2"><span class="kind">donnée collectée</span><code>ai_docs.score</code></li><li id="note-3"><span class="kind">donnée collectée</span><code>repo.description</code></li><li id="note-4"><span class="kind">donnée collectée</span><code>repo.created_at</code></li><li id="note-5"><span class="kind">donnée collectée</span><code>repo.pushed_at</code></li><li id="note-6"><span class="kind">donnée collectée</span><code>repo.owner_type</code></li><li id="note-7"><span class="kind">donnée collectée</span><code>repo.default_branch</code></li><li id="note-8"><span class="kind">donnée collectée</span><code>repo.stars</code></li><li id="note-9"><span class="kind">donnée collectée</span><code>repo.forks</code></li><li id="note-10"><span class="kind">source du repo</span><code>tree.md</code></li><li id="note-11"><span class="kind">donnée collectée</span><code>tree.18.role</code></li><li id="note-12"><span class="kind">donnée collectée</span><code>tree.13.role</code></li><li id="note-13"><span class="kind">donnée collectée</span><code>tree.14.role</code></li><li id="note-14"><span class="kind">donnée collectée</span><code>tree.11.role</code></li><li id="note-15"><span class="kind">donnée collectée</span><code>tree.19.role</code></li><li id="note-16"><span class="kind">source du repo</span><code>ai-docs.md</code></li><li id="note-17"><span class="kind">donnée collectée</span><code>build.ci</code></li><li id="note-18"><span class="kind">donnée collectée</span><code>tests.files</code></li><li id="note-19"><span class="kind">donnée collectée</span><code>releases</code></li><li id="note-20"><span class="kind">donnée collectée</span><code>activity.commits_per_week.11.count</code></li><li id="note-21"><span class="kind">donnée collectée</span><code>activity.commits_per_week.9.count</code></li><li id="note-22"><span class="kind">donnée collectée</span><code>activity.last_commit</code></li><li id="note-23"><span class="kind">source du repo</span><code>manifest.md</code></li><li id="note-24"><span class="kind">source du repo</span><code>ci.md</code></li><li id="note-25"><span class="kind">donnée collectée</span><code>tests.framework</code></li><li id="note-26"><span class="kind">source du repo</span><code>tests.md</code></li><li id="note-27"><span class="kind">donnée collectée</span><code>ai_docs.max</code></li><li id="note-28"><span class="kind">donnée collectée</span><code>build.install</code></li><li id="note-29"><span class="kind">donnée collectée</span><code>build.run</code></li><li id="note-30"><span class="kind">donnée collectée</span><code>build.test</code></li><li id="note-31"><span class="kind">donnée collectée</span><code>activity.bus_factor</code></li><li id="note-32"><span class="kind">donnée collectée</span><code>activity.contributors.0.commits</code></li><li id="note-33"><span class="kind">donnée collectée</span><code>activity.contributors.0.login</code></li><li id="note-34"><span class="kind">donnée collectée</span><code>activity.contributors.1.commits</code></li><li id="note-35"><span class="kind">donnée collectée</span><code>activity.contributors.2.commits</code></li><li id="note-36"><span class="kind">donnée collectée</span><code>activity.contributors.3.commits</code></li><li id="note-37"><span class="kind">donnée collectée</span><code>activity.contributors.4.commits</code></li><li id="note-38"><span class="kind">donnée collectée</span><code>risks.2.note</code></li><li id="note-39"><span class="kind">donnée collectée</span><code>business.codeowners</code></li><li id="note-40"><span class="kind">donnée collectée</span><code>business.security_policy</code></li><li id="note-41"><span class="kind">donnée collectée</span><code>business.funding</code></li><li id="note-42"><span class="kind">donnée collectée</span><code>deps.count</code></li><li id="note-43"><span class="kind">donnée collectée</span><code>deps.manifest</code></li><li id="note-44"><span class="kind">donnée collectée</span><code>deps.runtime.0.name</code></li><li id="note-45"><span class="kind">donnée collectée</span><code>deps.runtime.0.version</code></li><li id="note-46"><span class="kind">donnée collectée</span><code>entrypoints.1.why</code></li><li id="note-47"><span class="kind">donnée collectée</span><code>risks.4.note</code></li><li id="note-48"><span class="kind">source du repo</span><code>todo.md</code></li><li id="note-49"><span class="kind">donnée collectée</span><code>risks.0.level</code></li><li id="note-50"><span class="kind">donnée collectée</span><code>risks.2.level</code></li><li id="note-51"><span class="kind">donnée collectée</span><code>risks.3.level</code></li><li id="note-52"><span class="kind">donnée collectée</span><code>risks</code></li><li id="note-53"><span class="kind">donnée collectée</span><code>risks.0.note</code></li><li id="note-54"><span class="kind">donnée collectée</span><code>risks.3.note</code></li><li id="note-55"><span class="kind">donnée collectée</span><code>risks.1.level</code></li><li id="note-56"><span class="kind">donnée collectée</span><code>risks.1.note</code></li><li id="note-57"><span class="kind">donnée collectée</span><code>risks.4.level</code></li><li id="note-58"><span class="kind">GitHub</span><a href="https://github.com/jordanvalnet/exalthon26/security/policy">https://github.com/jordanvalnet/exalthon26/security/policy</a></li><li id="note-59"><span class="kind">GitHub</span><a href="https://github.com/jordanvalnet/exalthon26/security/dependabot">https://github.com/jordanvalnet/exalthon26/security/dependabot</a></li><li id="note-60"><span class="kind">donnée collectée</span><code>roadmap.open_prs</code></li><li id="note-61"><span class="kind">donnée collectée</span><code>roadmap.themes</code></li><li id="note-62"><span class="kind">donnée collectée</span><code>roadmap.requests.0.title</code></li><li id="note-63"><span class="kind">donnée collectée</span><code>roadmap.requests.0.comments</code></li><li id="note-64"><span class="kind">source du repo</span><code>docs.md</code></li><li id="note-65"><span class="kind">GitHub</span><a href="https://github.com/jordanvalnet/exalthon26/milestones">https://github.com/jordanvalnet/exalthon26/milestones</a></li><li id="note-66"><span class="kind">donnée collectée</span><code>pulls.merged_30d.0.title</code></li><li id="note-67"><span class="kind">donnée collectée</span><code>pulls.merged_30d.0.merged_at</code></li><li id="note-68"><span class="kind">donnée collectée</span><code>pulls.open</code></li><li id="note-69"><span class="kind">donnée collectée</span><code>ai_docs.files.0.path</code></li><li id="note-70"><span class="kind">donnée collectée</span><code>issues.good_first</code></li></ol></div></section>
+</body>
+</html>

@@ -92,6 +92,30 @@ Tutoiement, une image du quotidien par page, pas une note de bas de page. Police
 
 <a href="../onboard/cache/mksglu__context-mode/deck-enfant.pdf"><img src="img/context-mode-enfant-page.png" width="820" alt="page enfant : combien de personnes le fabriquent"></a>
 
+## Onboard vu par Onboard
+
+Le meilleur test d'un outil d'onboarding, c'est lui-même. Le pipeline a tourné sur ce dépôt, en ligne, par le serveur MCP
+GitHub, sans intervention : `bun onboard jordanvalnet/exalthon26 <profil>`, six fois. Voici comment Onboard se présente
+à chacun de ses lecteurs. Cliquez pour ouvrir le PDF.
+
+<table>
+  <tr>
+    <td align="center"><a href="../onboard/cache/jordanvalnet__exalthon26/deck-dev.pdf"><img src="../docs/img/exalthon26-dev-cover.png" width="400" alt="Onboard vu par un dev"></a><br>👩‍💻 <strong>dev</strong> · guide d'onboarding</td>
+    <td align="center"><a href="../onboard/cache/jordanvalnet__exalthon26/deck-qa.pdf"><img src="../docs/img/exalthon26-qa-cover.png" width="400" alt="Onboard vu par un qa"></a><br>🧪 <strong>qa</strong> · rapport de qualification</td>
+  </tr>
+  <tr>
+    <td align="center"><a href="../onboard/cache/jordanvalnet__exalthon26/deck-cto.pdf"><img src="../docs/img/exalthon26-cto-cover.png" width="400" alt="Onboard vu par un cto"></a><br>🏗️ <strong>cto</strong> · note de décision</td>
+    <td align="center"><a href="../onboard/cache/jordanvalnet__exalthon26/deck-ceo.pdf"><img src="../docs/img/exalthon26-ceo-cover.png" width="400" alt="Onboard vu par un ceo"></a><br>💼 <strong>ceo</strong> · synthèse pour la direction</td>
+  </tr>
+  <tr>
+    <td align="center"><a href="../onboard/cache/jordanvalnet__exalthon26/deck-investisseur.pdf"><img src="../docs/img/exalthon26-investisseur-cover.png" width="400" alt="Onboard vu par un investisseur"></a><br>📈 <strong>investisseur</strong> · mémo d'investissement</td>
+    <td align="center"><a href="../onboard/cache/jordanvalnet__exalthon26/deck-enfant.pdf"><img src="../docs/img/exalthon26-enfant-cover.png" width="400" alt="Onboard vu par un enfant"></a><br>🧒 <strong>enfant</strong> · album illustré</td>
+  </tr>
+</table>
+
+Le cache complet est dans [onboard/cache/jordanvalnet__exalthon26/](../onboard/cache/jordanvalnet__exalthon26/) : les
+faits collectés, les sources relues, les six narratifs, la FAQ et le glossaire.
+
 ## Ne répondez pas seulement, montrez pourquoi
 
 Chaque affirmation d'un deck porte une note qui renvoie à une donnée collectée, à un fichier du dépôt ou à une URL

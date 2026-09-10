@@ -1,0 +1,53 @@
+- **MCP (Model Context Protocol)** : protocole par lequel un agent IA appelle des outils exposés par un serveur ; ici le serveur GitHub déclaré dans `.mcp.json`.
+- **serveur MCP GitHub** : service `https://api.githubcopilot.com/mcp/` qui expose les outils `github:*` (fichiers, issues, PR, recherche de code) ; seul chemin autorisé vers GitHub dans ce repo, jamais d'appel REST direct.
+- **GITHUB_PAT** : jeton d'accès personnel GitHub (scope repo) lu dans `.env`, transmis au serveur MCP en en-tête `Authorization: Bearer`.
+- **bun** : runtime et gestionnaire de paquets JavaScript/TypeScript qui remplace node et npm ici ; charge `.env` tout seul.
+- **skill Claude Code** : commande `/nom` définie dans `.claude/skills/`, qui charge un prompt (ici ceux d'`onboard/agents/`) dans la session de l'agent.
+- **profil** : fichier JSON d'`onboard/profiles/` qui décrit un public (dev, qa, cto, ceo, investisseur, enfant), ses questions priorisées, son ton, sa finale et son design.
+- **cache documentaire** : dossier `onboard/cache/<owner>__<repo>/` où s'accumulent facts.json, sources/, narrative/, faq.md, glossary.md et les decks, versionné avec le repo.
+- **facts.json** : fichier de chiffres et faits structurés du cache, validé par le schéma zod de `src/facts.ts` ; toute affirmation chiffrée du deck y renvoie par une citation `[facts:chemin]`.
+- **sources/** : extraits bruts du repo onboardé, un fichier Markdown par source (readme.md, tree.md, manifest.md, ci.md…), cités par le rédacteur avec `[src:fichier.md]`.
+- **narrative** : texte rédigé pour un profil dans `narrative/<profil>.md`, une section par question du profil, converti en deck par le rendu.
+- **deck** : présentation HTML autonome `deck-<profil>.html`, une identité visuelle par profil, imprimable en PDF via Chrome ou Edge en headless.
+- **validation dure** : vérification en code (`bun run validate facts|narrative|deck`) qui bloque l'étape suivante du pipeline tant que le contrat de `onboard/SCHEMA.md` n'est pas respecté.
+- **sous-agent de collecte** : agent 1a…1e lancé en parallèle par l'étape 1, qui écrit sa part dans `parts/` avant fusion dans facts.json par `bun run merge`.
+- **bus factor** : nombre minimal de contributeurs qui totalisent la moitié des commits des 12 dernières semaines ; 1 ici.
+- **zod** : bibliothèque TypeScript de validation de schémas, unique dépendance runtime du projet.
+- **chat d'équipe** : l'issue #1 du repo, où chaque commentaire est un message entre les assistants IA de l'équipe, via `chat/chat.mjs` (node ou bun).
+- **dépôt GitHub (repo)** : l'espace en ligne où vit le code d'un projet avec tout son historique, l'équivalent du dossier partagé d'un chantier.
+- **commit** : une modification enregistrée dans le dépôt, avec son auteur et sa date ; on compte les commits pour mesurer l'activité.
+- **étoile GitHub** : marque d'intérêt qu'un visiteur pose sur un dépôt, l'équivalent d'un « j'aime » ; 0 ici.
+- **fork** : copie d'un dépôt faite par un autre compte pour le réutiliser ou le modifier ; 0 ici.
+- **release** : version numérotée et publiée d'un logiciel, prête à être installée ; aucune ici.
+- **issue** : ticket ouvert sur un dépôt pour signaler un bug, demander une évolution ou discuter ; ici la seule issue ouverte sert de chat d'équipe.
+- **pull request (PR)** : proposition de modification soumise à relecture avant d'être intégrée à la version principale du code.
+- **licence** : texte qui dit ce que les autres ont le droit de faire du code (l'utiliser, le modifier, le vendre) ; sans licence, aucun droit n'est accordé.
+- **intégration continue (CI)** : vérifications automatiques lancées à chaque modification pour repérer une casse avant la mise en ligne ; absente ici.
+- **hackathon** : concours de création logicielle sur un temps très court, ici une journée, le 9 septembre 2026.
+- **agent IA** : assistant qui ne se contente pas de répondre mais exécute des actions avec des outils, ici lire un dépôt GitHub et écrire des fichiers.
+- **GitHub** : site en ligne où les gens rangent le code de leurs logiciels et l'histoire de tous leurs changements, une immense bibliothèque partagée.
+- **code** : le texte, écrit dans un langage spécial, qui dit à l'ordinateur quoi faire ; un logiciel est fait de code.
+- **logiciel** : un programme qu'on lance sur un ordinateur pour faire quelque chose, ici Onboard.
+- **TypeScript** : le langage dans lequel le code principal de ce projet est écrit, dans le dossier `src/`.
+- **README** : le fichier mode d'emploi d'un projet, la première page qu'on lit quand on arrive sur un dépôt GitHub.
+- **CODEOWNERS** : fichier GitHub qui désigne les responsables de chaque partie du code et déclenche leur relecture ; absent ici.
+- **SECURITY.md** : fichier qui dit comment signaler une faille et à qui ; absent ici, donc aucun canal de signalement déclaré.
+- **GitHub Actions** : service d'intégration continue de GitHub, piloté par des workflows dans `.github/workflows/` ; aucun dans ce dépôt.
+- **bun.lock** : fichier de verrou qui fige les versions exactes des dépendances installées, pour un build reproductible ; versionné ici.
+- **typecheck** : vérification des types TypeScript sans produire de code, `tsc --noEmit` ; c'est la moitié de `bun run check`.
+- **CVE** : identifiant public d'une vulnérabilité connue dans un logiciel ou une dépendance ; le serveur MCP GitHub ne les expose pas, à vérifier sur la page Dependabot du dépôt.
+- **jeton à granularité fine** : GITHUB_PAT limité à des dépôts et des permissions choisis, préférable au jeton classique de scope repo quand le secret transite vers un service hébergé.
+- **dette technique** : travail remis à plus tard qui coûtera plus cher ensuite ; ici surtout l'absence de CI, de release et de version épinglée pour `@types/bun`.
+- **bun test** : lanceur de tests intégré à bun, qui exécute les fichiers `*.test.ts` du dossier `test/` ; c'est la seconde moitié de `bun run check`.
+- **headless** : mode d'un navigateur, Chrome ou Edge ici, lancé sans fenêtre pour produire le PDF ou la capture d'un deck.
+- **parts/** : sous-dossier du cache où chaque sous-agent de collecte dépose son JSON avant que `bun run merge` les assemble dans facts.json.
+- **label (étiquette)** : mot-clé posé sur une issue GitHub, comme `bug` ; aucune issue de ce dépôt n'en porte, d'où un graphique des bugs vide.
+- **good first issue** : étiquette GitHub qui signale un ticket abordable pour une première contribution ; aucune ici.
+- **CONTRIBUTING.md** : fichier qui décrit comment proposer un changement ou signaler un bug ; absent de ce dépôt.
+- **non-régression** : vérification qu'un changement ne casse pas ce qui marchait ; ici `bun run check` en local, rien d'automatique sur GitHub.
+- **traction** : preuve d'usage externe d'un produit (utilisateurs, étoiles, copies, versions téléchargées) ; ici tout est à 0.
+- **défendabilité (moat)** : ce qui empêche un concurrent de copier le produit (brevet, données, réseau, coût de changement) ; ici aucune barrière identifiée, la méthode est en texte brut.
+- **risque de plateforme** : dépendance à un service tiers qui peut changer de prix, de conditions ou livrer lui-même la fonction ; ici Claude Code et le serveur MCP GitHub hébergé.
+- **preuve de concept (PoC)** : réalisation qui montre qu'une idée fonctionne, sans les attributs d'un produit (version, distribution, support, licence).
+- **topic GitHub** : mot-clé qu'un dépôt affiche pour se classer ; la collecte s'en sert pour trouver des projets voisins, ce dépôt n'en a aucun.
+- **manifeste privé (private: true)** : réglage de package.json qui interdit la publication du paquet dans un catalogue public ; version 0.1.0 ici.

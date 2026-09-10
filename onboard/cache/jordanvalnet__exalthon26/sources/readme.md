@@ -1,3 +1,8 @@
+---
+path: README.md
+url: https://github.com/jordanvalnet/exalthon26/blob/main/README.md
+fetched_at: 2026-09-10T09:43:25Z
+---
 <h1 align="center">Onboard</h1>
 
 <p align="center"><strong>Un repo GitHub. Six publics. Six decks qui citent leurs sources.</strong></p>
@@ -36,25 +41,7 @@ Générés sur [mksglu/context-mode](https://github.com/mksglu/context-mode). Cl
   </tr>
 </table>
 
-## Onboard vu par Onboard
-
-Le pipeline a tourné sur ce dépôt même, en ligne, par le serveur MCP GitHub, sans intervention :
-`bun onboard jordanvalnet/exalthon26 <profil>` pour chacun des six profils. Choisissez le vôtre.
-
-<table>
-  <tr>
-    <td align="center"><a href="onboard/cache/jordanvalnet__exalthon26/deck-dev.pdf"><img src="docs/img/exalthon26-dev-cover.png" width="280" alt="Onboard vu par un dev"></a><br>👩‍💻 <strong>dev</strong> · guide d'onboarding</td>
-    <td align="center"><a href="onboard/cache/jordanvalnet__exalthon26/deck-qa.pdf"><img src="docs/img/exalthon26-qa-cover.png" width="280" alt="Onboard vu par un qa"></a><br>🧪 <strong>qa</strong> · rapport de qualification</td>
-    <td align="center"><a href="onboard/cache/jordanvalnet__exalthon26/deck-cto.pdf"><img src="docs/img/exalthon26-cto-cover.png" width="280" alt="Onboard vu par un cto"></a><br>🏗️ <strong>cto</strong> · note de décision</td>
-  </tr>
-  <tr>
-    <td align="center"><a href="onboard/cache/jordanvalnet__exalthon26/deck-ceo.pdf"><img src="docs/img/exalthon26-ceo-cover.png" width="280" alt="Onboard vu par un ceo"></a><br>💼 <strong>ceo</strong> · synthèse pour la direction</td>
-    <td align="center"><a href="onboard/cache/jordanvalnet__exalthon26/deck-investisseur.pdf"><img src="docs/img/exalthon26-investisseur-cover.png" width="280" alt="Onboard vu par un investisseur"></a><br>📈 <strong>investisseur</strong> · mémo d'investissement</td>
-    <td align="center"><a href="onboard/cache/jordanvalnet__exalthon26/deck-enfant.pdf"><img src="docs/img/exalthon26-enfant-cover.png" width="280" alt="Onboard vu par un enfant"></a><br>🧒 <strong>enfant</strong> · album illustré</td>
-  </tr>
-</table>
-
-Le cache complet (faits, sources, narratifs, FAQ, glossaire) : [onboard/cache/jordanvalnet__exalthon26/](onboard/cache/jordanvalnet__exalthon26/).
+<!-- self-onboarding -->
 
 ## Démarrer
 

@@ -1,0 +1,41 @@
+---
+path: package.json
+url: https://github.com/jordanvalnet/exalthon26/blob/main/package.json
+fetched_at: 2026-09-10T09:43:57Z
+---
+```json
+{
+  "name": "exalthon26",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Onboard : agent d’onboarding multi-profils sur n’importe quel repo GitHub (hackathon eXaltemps 2026)",
+  "scripts": {
+    "dev": "bun --watch src/index.ts",
+    "start": "bun src/index.ts",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit",
+    "check": "bun run typecheck && bun test",
+    "chat": "bun chat/chat.mjs",
+    "onboard": "bun src/cli.ts",
+    "validate": "bun src/validate.ts",
+    "render": "bun src/render/index.ts",
+    "gh": "bun src/gh.ts",
+    "merge": "bun src/merge.ts",
+    "meta": "bun src/collect/meta.ts",
+    "issues": "bun src/collect/issues.ts",
+    "pdf": "bun src/render/pdf.ts",
+    "screenshot": "bun src/render/screenshot.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "zod": "^4.5.4"
+  }
+}
+```
+
+Décompte : 1 dépendance runtime (zod), 2 de développement (@types/bun, typescript), 3 au total. Verrou `bun.lock` présent à la racine.
+Un second manifeste existe dans `onboarding/package.json` (sous-projet), non lu.

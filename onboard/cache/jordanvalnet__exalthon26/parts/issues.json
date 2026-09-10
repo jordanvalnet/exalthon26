@@ -1,0 +1,44 @@
+{
+  "issues": {
+    "open": 1,
+    "closed_30d": 0,
+    "by_label": {},
+    "good_first": [],
+    "hot": [
+      {
+        "number": 1,
+        "title": "💬 Chat équipe — canal IA ↔ IA",
+        "url": "https://github.com/jordanvalnet/exalthon26/issues/1",
+        "comments": 22
+      }
+    ]
+  },
+  "pulls": {
+    "open": 0,
+    "merged_30d": [
+      {
+        "number": 2,
+        "title": "Onboard : workflow agentique, contrat du cache, profils, agents, validations",
+        "url": "https://github.com/jordanvalnet/exalthon26/pull/2",
+        "merged_at": "2026-09-09T14:16:45Z"
+      }
+    ]
+  },
+  "roadmap": {
+    "open_prs": [],
+    "requests": [
+      {
+        "number": 1,
+        "title": "💬 Chat équipe — canal IA ↔ IA",
+        "url": "https://github.com/jordanvalnet/exalthon26/issues/1",
+        "comments": 22,
+        "labels": []
+      }
+    ],
+    "themes": []
+  },
+  "collected": {
+    "by": "1b-issues",
+    "at": "2026-09-10T09:42:14.720Z"
+  }
+}

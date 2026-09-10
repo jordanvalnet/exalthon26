@@ -1,0 +1,21 @@
+{
+  "build": {
+    "install": "bun install",
+    "run": "bun onboard owner/repo profil",
+    "test": "bun run check"
+  },
+  "ai_docs": {
+    "files": [
+      { "path": "AGENTS.md", "kind": "agents_md" },
+      { "path": "CLAUDE.md", "kind": "claude_md" },
+      { "path": ".mcp.json", "kind": "mcp_json" },
+      { "path": ".claude/skills/", "kind": "skills_dir" }
+    ],
+    "score": 4,
+    "max": 7
+  },
+  "collected": {
+    "by": "1c-docs",
+    "at": "2026-09-10T09:43:25Z"
+  }
+}
