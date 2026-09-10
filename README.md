@@ -3,13 +3,6 @@
 <p align="center"><strong>Un repo GitHub. Six publics. Six decks qui citent leurs sources.</strong></p>
 
 <p align="center">
-  <a href="docs/PRESENTATION.md"><img src="https://img.shields.io/badge/pr%C3%A9sentation-illustr%C3%A9e-1f3a5f?style=for-the-badge" alt="Présentation illustrée"></a>
-  <img src="https://img.shields.io/badge/agent-Claude%20Code-d4572a?style=for-the-badge" alt="Claude Code">
-  <img src="https://img.shields.io/badge/GitHub-MCP%20server-0f8f7a?style=for-the-badge" alt="MCP GitHub">
-  <img src="https://img.shields.io/badge/runtime-bun-c9a227?style=for-the-badge" alt="bun">
-</p>
-
-<p align="center">
   <code>bun onboard owner/repo profil</code>
 </p>
 
@@ -17,7 +10,7 @@ Onboard parcourt n'importe quel dépôt GitHub par le serveur MCP GitHub, constr
 tire une présentation taillée pour la personne qui la lit : **dev, qa, cto, ceo, investisseur, enfant**. Chaque chiffre
 renvoie à sa source, rien n'est inventé, et un guide répond ensuite aux questions à partir du cache.
 
-**👉 [La présentation illustrée : démos, pages des decks, comment ça marche](docs/PRESENTATION.md)**
+<a href="docs/PRESENTATION.md"><img src="docs/img/presentation-banner.png" alt="Ouvrir la présentation illustrée : démos, pages des decks, comment ça marche" width="100%"></a>
 
 ## Six decks pour un même dépôt
 
