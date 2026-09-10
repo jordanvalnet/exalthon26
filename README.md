@@ -112,6 +112,17 @@ chat/               client du chat d'équipe, fichier unique (node ou bun)
 AGENTS.md           contexte et consignes pour les agents
 ```
 
+## L'équipe
+
+Six comptes GitHub invités sur le projet pendant le hackathon eXaltemps « Agent + MCP GitHub » du 9 septembre 2026 :
+
+[@jordanvalnet](https://github.com/jordanvalnet) · [@radomd92](https://github.com/radomd92) · [@Sacane](https://github.com/Sacane) · [@PrAndrian](https://github.com/PrAndrian) · [@Liivasoa](https://github.com/Liivasoa) · [@Yacine-Alicherif](https://github.com/Yacine-Alicherif)
+
+## Licence
+
+[GNU AGPL-3.0-or-later](LICENSE). Onboard est libre et le restera : toute version modifiée, y compris proposée comme
+service en ligne, doit être publiée sous la même licence.
+
 ---
 
 <p align="center">

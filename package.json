@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "description": "Onboard : agent d’onboarding multi-profils sur n’importe quel repo GitHub (hackathon eXaltemps 2026)",
+  "license": "AGPL-3.0-or-later",
   "scripts": {
     "dev": "bun --watch src/index.ts",
     "start": "bun src/index.ts",

@@ -197,6 +197,8 @@ Les prompts des agents sont dans [onboard/agents/](../onboard/agents/) : Copilot
 ---
 
 <p align="center">
-  Construit en une journée par l'équipe eXaltemps au hackathon « Agent + MCP GitHub », le 9 septembre 2026.<br>
+  Construit en une journée par l'équipe eXaltemps au hackathon « Agent + MCP GitHub », le 9 septembre 2026 :<br>
+  [@jordanvalnet](https://github.com/jordanvalnet) · [@radomd92](https://github.com/radomd92) · [@Sacane](https://github.com/Sacane) · [@PrAndrian](https://github.com/PrAndrian) · [@Liivasoa](https://github.com/Liivasoa) · [@Yacine-Alicherif](https://github.com/Yacine-Alicherif)<br>
+  Libre sous <a href="../LICENSE">AGPL-3.0-or-later</a>, et le restera.<br>
   De « je ne connais pas ce repo » à « je le comprends ».
 </p>
